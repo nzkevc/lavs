@@ -53,6 +53,10 @@
                             <version>1.23.0</version>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
+                        <excludes>
+                            <exclude>**/mainframe/**</exclude>
+                            <exclude>**/utility/**</exclude>
+                        </excludes>
                     </java>
                 </configuration>
             </plugin>
