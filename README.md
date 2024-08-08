@@ -13,10 +13,10 @@ The project specification is available [here](https://canvas.auckland.ac.nz/cour
 
 Update this readme file to contain the names of each team member and your GitHub login.
 
-* *Replace this text: Team Member Name 1 - GitHub Login*
+* Adam Bodicoat - adxmb
 * Kevin Cheung - nzkevc
-* *Replace this text: Team Member Name 3 - GitHub Login*
-* *Replace this text: Team Member Name 4 - GitHub Login*
+* Hayley Smith - [[insert!]]
+* Nate Williamson - oculux314
 
 ## Initial Repository Code
 
