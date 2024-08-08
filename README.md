@@ -15,7 +15,7 @@ Update this readme file to contain the names of each team member and your GitHub
 
 * Adam Bodicoat - adxmb
 * Kevin Cheung - nzkevc
-* Hayley Smith - [[insert!]]
+* Hayley Smith - hayley9080
 * Nate Williamson - oculux314
 
 ## Initial Repository Code
