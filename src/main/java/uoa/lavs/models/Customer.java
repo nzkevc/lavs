@@ -1,4 +1,4 @@
-package uoa.lavs.data_models;
+package uoa.lavs.models;
 
 import java.util.Date;
 
