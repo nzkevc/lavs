@@ -3,6 +3,7 @@ package uoa.lavs.models;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.dizitart.no2.exceptions.ValidationException;
 
 /** This is an example model */
@@ -41,8 +42,7 @@ public final class ExampleUser implements IModel<ExampleUser> {
     return exampleUserDatabase.get(id);
   }
 
-  @Override
-  public Set<ExampleUser> getAll() {
+  public static Set<ExampleUser> getAll() {
     return Set.copyOf(exampleUserDatabase.values());
   }
 

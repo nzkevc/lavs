@@ -1,12 +1,15 @@
 package uoa.lavs.controllers;
 
 import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.ExampleUser;
 import uoa.lavs.services.ExampleService;
 
 public class ExampleController {
+
+  private static final Logger logger = LoggerFactory.getLogger(ExampleController.class);
 
   @FXML
   private void createUser() throws IOException {
@@ -14,9 +17,9 @@ public class ExampleController {
     String name = "John Doe";
 
     // Offload the business logic to the service (controller -> service)
-    List<ExampleUser> database = ExampleService.createUserSync(name);
+    ExampleUser createdUser = ExampleService.createUserSync(name);
 
     // Imagine this is sent to the view (controller -> view)
-    System.out.println(database);
+    logger.debug(createdUser.toString());
   }
 }
