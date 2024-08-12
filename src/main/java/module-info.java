@@ -1,3 +1,10 @@
+/**
+ * This module-info.java file is used to define the module and its dependencies. You may need to add
+ * the dependency here if you ever get a warning like this:
+ *
+ * <p>package org.slf4j is not visible (package org.slf4j is declared in module org.slf4j, but
+ * module uoa.lavs does not read it)
+ */
 module uoa.lavs {
   requires javafx.controls;
   requires javafx.fxml;
