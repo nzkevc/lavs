@@ -15,7 +15,7 @@ import uoa.lavs.utils.ExampleUtils;
  */
 public class Main {
   public static void main(String[] args) {
-    ExampleUtils.logGreeting();
+    runCraigsExampleCode(args);
   }
 
   private static void runCraigsExampleCode(String[] args) {
