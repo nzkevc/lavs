@@ -1,6 +1,10 @@
 package uoa.lavs;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +20,8 @@ public class App extends Application {
 
   private static Scene scene;
 
+  private static final Logger logger = LoggerFactory.getLogger(App.class);
+
   @Override
   public void start(Stage stage) throws IOException {
     scene = new Scene(loadFXML("example"), 640, 480);
@@ -28,7 +34,7 @@ public class App extends Application {
   }
 
   private static Parent loadFXML(String fxml) throws IOException {
-    System.out.println("Loading FXML: " + fxml);
+    logger.debug("Loading FXML: " + fxml);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + fxml + ".fxml"));
     return fxmlLoader.load();
   }
