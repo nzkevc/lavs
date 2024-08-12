@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Initialisation (mostly of the JavaFX application but also the connection instance etc) and entry
- * point of the application. Run using the play button or via `mvn clean javafx:run`.
+ * Initialisation and entry point of the application. Run using the play button or via `mvn clean
+ * javafx:run`.
  */
 public class App extends Application {
 
