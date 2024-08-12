@@ -1,0 +1,10 @@
+.button {
+    -fx-background-color: #c2dcc3; /* Green */
+    -fx-text-fill: #142714;
+    -fx-background-radius: 50; /* Round corners */
+    -fx-border-color: transparent; /* No outline */
+}
+
+.button:hover {
+    -fx-background-color: #388E3C; /* Darker green on hover */
+}
