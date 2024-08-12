@@ -11,7 +11,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
 		<maven.compiler.target>21</maven.compiler.target>
 		<JavaFX.version>13</JavaFX.version>
 		<JUnit.version>5.10.1</JUnit.version>
-		<log4j.version>2.22.1</log4j.version>
 		<lombok.version>1.18.30</lombok.version>
 	</properties>
 	<dependencyManagement>
@@ -52,14 +51,19 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
 			<version>${JavaFX.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.16</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

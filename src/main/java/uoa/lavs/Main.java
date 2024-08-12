@@ -7,6 +7,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomer;
 import uoa.lavs.mainframe.simulator.RecorderConnection;
 import uoa.lavs.mainframe.simulator.SimpleReplayConnection;
+import uoa.lavs.utils.ExampleUtils;
 
 /**
  * This was originally Craig's example class. We can use it for testing without firing up JavaFX.
@@ -14,7 +15,7 @@ import uoa.lavs.mainframe.simulator.SimpleReplayConnection;
  */
 public class Main {
   public static void main(String[] args) {
-    runCraigsExampleCode(args);
+    ExampleUtils.logGreeting();
   }
 
   private static void runCraigsExampleCode(String[] args) {

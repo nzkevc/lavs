@@ -2,12 +2,14 @@ package uoa.lavs.utils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Utility classes should contain only static, stateless methods and not call the mainframe. */
 public class ExampleUtils {
 
-  private static final Logger logger = org.slf4j.LoggerFactory.getLogger(ExampleUtils.class);
+  private static final Logger logger = LoggerFactory.getLogger(ExampleUtils.class);
 
   public static String getGreeting() {
     String systemName;
@@ -21,6 +23,6 @@ public class ExampleUtils {
   }
 
   public static void logGreeting() {
-    System.out.println(getGreeting());
+    logger.info(getGreeting());
   }
 }
