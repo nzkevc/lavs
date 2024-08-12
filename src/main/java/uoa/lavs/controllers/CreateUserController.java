@@ -5,7 +5,7 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import uoa.lavs.models.User;
-import uoa.lavs.services.UserService;
+import uoa.lavs.services.ExampleService;
 
 public class CreateUserController {
 
@@ -15,7 +15,7 @@ public class CreateUserController {
     String name = "John Doe";
 
     // Offload the business logic to the service (controller -> service)
-    List<User> database = UserService.createUser(name);
+    List<User> database = ExampleService.createUser(name);
 
     // Imagine this is sent to the view (controller -> view)
     System.out.println(database);

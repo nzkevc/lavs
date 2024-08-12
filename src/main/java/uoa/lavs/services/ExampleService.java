@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import uoa.lavs.models.User;
 
-public class UserService {
+public class ExampleService implements IService {
 
   private static final List<User> database = new ArrayList<>();
 
