@@ -3,14 +3,15 @@ package uoa.lavs.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
-import uoa.lavs.models.ExampleUser;
 import uoa.lavs.services.ExampleService;
+import uoa.lavs.utils.AsyncUtils;
 
 public class ExampleController implements Initializable {
 
@@ -24,14 +25,11 @@ public class ExampleController implements Initializable {
   }
 
   @FXML
-  private void createUser() throws IOException {
-    // Imagine this is read from a text field (view -> controller)
-    String name = "John Doe";
+  private void createUser() throws IOException, InterruptedException, ExecutionException {
 
-    // Offload the business logic to the service (controller -> service)
-    ExampleUser createdUser = ExampleService.createUserSync(name);
+    String name = "John Doe"; // Imagine this is read from a text field
 
-    // Imagine this is sent to the view (controller -> view)
-    logger.debug(createdUser.toString());
+    AsyncUtils.promise(() -> ExampleService.createUser(name))
+        .addListener(() -> logger.info("User created successfully"), Runnable::run);
   }
 }

@@ -12,6 +12,7 @@ module uoa.lavs {
   requires org.dizitart.no2.mvstore;
   requires commons.math3;
   requires org.slf4j;
+  requires com.google.common;
 
   opens uoa.lavs to
       javafx.fxml;

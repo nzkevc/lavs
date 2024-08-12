@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uoa.lavs.utils.AsyncUtils;
 
 /**
  * Initialisation and entry point of the application. Run using the play button or via `mvn clean
@@ -30,6 +31,11 @@ public class App extends Application {
     System.out.println("Loading FXML: " + fxml);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + fxml + ".fxml"));
     return fxmlLoader.load();
+  }
+
+  @Override
+  public void stop() {
+    AsyncUtils.close();
   }
 
   public static void main(String[] args) {
