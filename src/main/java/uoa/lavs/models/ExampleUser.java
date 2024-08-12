@@ -3,7 +3,6 @@ package uoa.lavs.models;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.dizitart.no2.exceptions.ValidationException;
 
 /** This is an example model */
