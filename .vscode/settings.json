@@ -2,6 +2,9 @@
   "[java]": {
     "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code"
   },
+  "[xml]": {
+    "editor.defaultFormatter": "mikeburgh.xml-format"
+  },
   "editor.formatOnSave": true,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
