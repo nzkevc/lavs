@@ -7,7 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/** JavaFX App */
+/**
+ * Initialisation (mostly of the JavaFX application but also the connection instance etc) and entry
+ * point of the application. Run using the play button or via `mvn clean javafx:run`.
+ */
 public class App extends Application {
 
   private static Scene scene;

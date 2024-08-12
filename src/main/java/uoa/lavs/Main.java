@@ -8,8 +8,16 @@ import uoa.lavs.mainframe.messages.customer.LoadCustomer;
 import uoa.lavs.mainframe.simulator.RecorderConnection;
 import uoa.lavs.mainframe.simulator.SimpleReplayConnection;
 
+/**
+ * This was originally Craig's example class. We can use it for testing without firing up JavaFX.
+ * Run with the play button.
+ */
 public class Main {
   public static void main(String[] args) {
+    runCraigsExampleCode(args);
+  }
+
+  private static void runCraigsExampleCode(String[] args) {
     // the following shows two ways of using the mainframe interface
     // approach #1: use the singleton instance - this way is recommended as it provides a single
     // configuration
