@@ -1,8 +1,9 @@
 package uoa.lavs.services;
 
 /**
- * Services implement business logic. They contain stateless, static methods that call the mainframe
- * and update state. Services cannot block - i.e. mainframe calls must be asynchronous (use a
- * thread).
+ * Services implement business logic. They contain stateless, static, potentially asynchronous
+ * methods that call the mainframe and update state. The call to the mainframe must be asynchronous.
+ *
+ * <p>If the method is asynchronous, it should return a FutureTask.
  */
 public interface IService {}

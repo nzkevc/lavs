@@ -2,12 +2,11 @@ package uoa.lavs.controllers;
 
 import java.io.IOException;
 import java.util.List;
-
 import javafx.fxml.FXML;
-import uoa.lavs.models.User;
+import uoa.lavs.models.ExampleUser;
 import uoa.lavs.services.ExampleService;
 
-public class CreateUserController {
+public class ExampleController {
 
   @FXML
   private void createUser() throws IOException {
@@ -15,7 +14,7 @@ public class CreateUserController {
     String name = "John Doe";
 
     // Offload the business logic to the service (controller -> service)
-    List<User> database = ExampleService.createUser(name);
+    List<ExampleUser> database = ExampleService.createUserSync(name);
 
     // Imagine this is sent to the view (controller -> view)
     System.out.println(database);

@@ -1,23 +1,18 @@
 package uoa.lavs.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import uoa.lavs.models.User;
+import java.util.concurrent.FutureTask;
+import uoa.lavs.models.ExampleUser;
 
 public class ExampleService implements IService {
 
-  private static final List<User> database = new ArrayList<>();
+  public static FutureTask<ExampleUser> createUserAsync(String name) {
+    ExampleUser user = new ExampleUser(name);
+    return new FutureTask<>(() -> user.persist());
+  }
 
-  public static List<User> createUser(String name /* (controller -> service) */) {
-
-    // [ Insert complicated business logic here ]
-    // (That's why we offload it to the service layer)
-
-    User user = new User(name); // (service <-> model)
-    database.add(user);
-
-    // Okay it's a bit weird to return the database, but imagine another function
-    // where we need to return the database e.g. see all users
-    return database; // (service -> controller)
+  // You'd never have both a sync and async method for the same operation but for demo purposes
+  public static ExampleUser createUserSync(String name) {
+    ExampleUser user = new ExampleUser(name);
+    return user.persist();
   }
 }
