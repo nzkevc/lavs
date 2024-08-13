@@ -1,19 +1,23 @@
 package uoa.lavs.models;
 
-import java.util.Date;
+import java.time.LocalDate;
+import uoa.lavs.mainframe.Connection;
+import uoa.lavs.mainframe.Instance;
+import uoa.lavs.mainframe.messages.customer.FindCustomer;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
 
-public class Customer {
-  public enum Status {
+public class Customer implements IModel<Customer> {
+  public enum CustomerStatus {
     ACTIVE,
     INACTIVE,
     DELETED
   }
 
   private String id;
-  private Status status;
+  private CustomerStatus status;
   private String title;
   private String name;
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
   private String occupation;
   private String citizenship;
   private String visa;
@@ -43,10 +47,10 @@ public class Customer {
 
   public static class Builder {
     private String id;
-    private Status status;
+    private CustomerStatus status;
     private String title;
     private String name;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String occupation;
     private String citizenship;
     private String visa;
@@ -61,7 +65,7 @@ public class Customer {
         String id,
         String title,
         String name,
-        Date dateOfBirth,
+        LocalDate dateOfBirth,
         String occupation,
         String citizenship,
         String visa,
@@ -70,7 +74,7 @@ public class Customer {
         Email primaryEmail,
         Employer employer) {
       this.id = id;
-      this.status = Status.ACTIVE;
+      this.status = CustomerStatus.ACTIVE;
       this.title = title;
       this.name = name;
       this.dateOfBirth = dateOfBirth;
@@ -85,7 +89,7 @@ public class Customer {
       this.loans = new Loans();
     }
 
-    public Builder setStatus(Status status) {
+    public Builder setStatus(CustomerStatus status) {
       this.status = status;
       return this;
     }
@@ -129,7 +133,7 @@ public class Customer {
     return id;
   }
 
-  public Status getStatus() {
+  public CustomerStatus getStatus() {
     return status;
   }
 
@@ -141,7 +145,7 @@ public class Customer {
     return name;
   }
 
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
@@ -191,7 +195,67 @@ public class Customer {
     return notes;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(CustomerStatus status) {
     this.status = status;
+  }
+
+  /** Checks if the customer is in the mainframe database or not. */
+  @Override
+  public boolean validate() {
+    if (id == null || id.length() > 10) {
+      return false;
+    }
+    Connection connection = Instance.getConnection();
+    FindCustomer findCustomer = new FindCustomer();
+    findCustomer.setCustomerId(id);
+    return findCustomer.send(connection).getWasSuccessful();
+  }
+
+  @Override
+  public Customer persist() {
+    Connection connection = Instance.getConnection();
+
+    UpdateCustomer updateCustomer = new UpdateCustomer();
+    if (id != null && id.length() <= 10) {
+      updateCustomer.setCustomerId(id);
+    } else return null;
+
+    if (title != null) {
+      updateCustomer.setTitle(title);
+    } else return null;
+
+    if (name != null) {
+      updateCustomer.setName(name);
+    } else return null;
+
+    if (dateOfBirth != null) {
+      updateCustomer.setDateofBirth(dateOfBirth);
+    } else return null;
+
+    if (occupation != null) {
+      updateCustomer.setOccupation(occupation);
+    } else return null;
+
+    if (citizenship != null) {
+      updateCustomer.setCitizenship(citizenship);
+    } else return null;
+
+    if (visa != null) {
+      updateCustomer.setVisa(visa);
+    } else return null;
+
+    if (updateCustomer.send(connection).getWasSuccessful()) {
+      return this;
+    } else return null;
+  }
+
+  @Override
+  public void delete() {
+    // call mainframe to delete
+  }
+
+  @Override
+  public Customer get(String id) {
+    return null;
   }
 }

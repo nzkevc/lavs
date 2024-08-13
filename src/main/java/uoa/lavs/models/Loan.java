@@ -1,10 +1,13 @@
 package uoa.lavs.models;
 
 import java.util.Date;
+import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.Instance;
 import uoa.lavs.mainframe.LoanStatus;
+import uoa.lavs.mainframe.messages.loan.FindLoan;
 
-public class Loan {
+public class Loan implements IModel<Loan> {
 
   private String id;
   private LoanStatus status;
@@ -106,5 +109,34 @@ public class Loan {
       return id.equals(loan.getId());
     }
     return false;
+  }
+
+  /** Checks if the loan is currently in the mainframe database or not. */
+  @Override
+  public boolean validate() {
+    if (id == null || id.length() > 10) {
+      return false;
+    }
+    Connection connection = Instance.getConnection();
+    FindLoan findLoan = new FindLoan();
+    findLoan.setId(id);
+    return findLoan.send(connection).getWasSuccessful();
+  }
+
+  @Override
+  public Loan persist() {
+    // Call mainframe to persist
+    return this;
+  }
+
+  @Override
+  public void delete() {
+    // Call mainframe to delete
+  }
+
+  @Override
+  public Loan get(String id) {
+    // Call mainframe to get
+    return null;
   }
 }
