@@ -1,64 +1,84 @@
 package uoa.lavs.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.Instance;
 import uoa.lavs.mainframe.LoanStatus;
+import uoa.lavs.mainframe.RateType;
 import uoa.lavs.mainframe.messages.loan.FindLoan;
+import uoa.lavs.mainframe.messages.loan.LoadLoan;
+import uoa.lavs.mainframe.messages.loan.UpdateLoan;
 
 public class Loan implements IModel<Loan> {
 
-  private String id;
+  private String customerId;
+  private String loanId;
   private LoanStatus status;
-  private int principleCents;
-  private Date startDate;
+  private double principleCents;
+  private LocalDate startDate;
   private int periodMonths;
+  private int term;
   private double interestRate;
+  private RateType rateType;
   private Frequency compoundingFrequency;
-  private int paymentAmountCents;
+  private double paymentAmountCents;
   private Frequency paymentFrequency;
   private boolean interestOnly;
 
   public Loan(
-      String id,
-      int principleCents,
-      Date startDate,
+      String customerId,
+      String loanId,
+      double principleCents,
+      LocalDate startDate,
       int periodMonths,
+      int term,
       double interestRate,
+      RateType rateType,
       Frequency compoundingFrequency,
-      int paymentAmountCents,
+      double paymentAmountCents,
       Frequency paymentFrequency,
       boolean interestOnly) {
-    this.id = id;
+    this.customerId = customerId;
+    this.loanId = loanId;
     this.principleCents = principleCents;
     this.startDate = startDate;
     this.periodMonths = periodMonths;
+    this.term = term;
     this.interestRate = interestRate;
+    this.rateType = rateType;
     this.compoundingFrequency = compoundingFrequency;
     this.paymentAmountCents = paymentAmountCents;
     this.paymentFrequency = paymentFrequency;
     this.interestOnly = interestOnly;
   }
 
-  public String getId() {
-    return id;
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public String getLoanId() {
+    return loanId;
   }
 
   public LoanStatus getStatus() {
     return status;
   }
 
-  public int getPrincipleCents() {
+  public double getPrincipleCents() {
     return principleCents;
   }
 
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
   public int getPeriodMonths() {
     return periodMonths;
+  }
+
+  public int getTerm() {
+    return term;
   }
 
   public Frequency getCompoundingFrequency() {
@@ -69,11 +89,15 @@ public class Loan implements IModel<Loan> {
     return interestRate;
   }
 
+  public RateType getRateType() {
+    return rateType;
+  }
+
   public Frequency getPaymentFrequency() {
     return paymentFrequency;
   }
 
-  public int getPaymentAmountCents() {
+  public double getPaymentAmountCents() {
     return paymentAmountCents;
   }
 
@@ -106,7 +130,7 @@ public class Loan implements IModel<Loan> {
     if (o == null || getClass() != o.getClass()) return false;
     if (o instanceof Loan) {
       Loan loan = (Loan) o;
-      return id.equals(loan.getId());
+      return loanId.equals(loan.getLoanId());
     }
     return false;
   }
@@ -114,19 +138,75 @@ public class Loan implements IModel<Loan> {
   /** Checks if the loan is currently in the mainframe database or not. */
   @Override
   public boolean validate() {
-    if (id == null || id.length() > 10) {
+    // Using nitrate mainframe connection
+    Connection connection = Instance.getConnection();
+
+    if (loanId == null || loanId.length() > 10 || loanId.length() == 0) {
       return false;
     }
-    Connection connection = Instance.getConnection();
+
     FindLoan findLoan = new FindLoan();
-    findLoan.setId(id);
+    findLoan.setId(loanId);
+
     return findLoan.send(connection).getWasSuccessful();
   }
 
+  /** Adding new loan or updating existing loan in the mainframe */
   @Override
   public Loan persist() {
-    // Call mainframe to persist
-    return this;
+    // Using nitrate mainframe connection
+    Connection connection = Instance.getConnection();
+
+    // Setting up the loan message for mainframe
+    UpdateLoan updateLoan = new UpdateLoan();
+    if (loanId != null && loanId.length() <= 10) {
+      updateLoan.setLoanId(loanId);
+    } else return null;
+
+    if (customerId != null) {
+      updateLoan.setCustomerId(customerId);
+    } else return null;
+
+    if (principleCents > 0) {
+      updateLoan.setPrincipal(principleCents);
+    } else return null;
+
+    if (interestRate > 0) {
+      updateLoan.setRateValue(interestRate);
+    } else return null;
+
+    if (rateType != null) {
+      updateLoan.setRateType(rateType);
+    } else return null;
+
+    if (startDate != null) {
+      updateLoan.setStartDate(startDate);
+    } else return null;
+
+    if (periodMonths > 0) {
+      updateLoan.setPeriod(periodMonths);
+    } else return null;
+
+    if (term > 0) {
+      updateLoan.setTerm(term);
+    } else return null;
+
+    if (paymentAmountCents > 0) {
+      updateLoan.setPaymentAmount(paymentAmountCents);
+    } else return null;
+
+    if (paymentFrequency != null) {
+      updateLoan.setPaymentFrequency(paymentFrequency);
+    } else return null;
+
+    if (compoundingFrequency != null) {
+      updateLoan.setCompounding(compoundingFrequency);
+    } else return null;
+
+    // Sending loan update message to the mainframe
+    if (updateLoan.send(connection).getWasSuccessful()) {
+      return this;
+    } else return null;
   }
 
   @Override
@@ -134,9 +214,29 @@ public class Loan implements IModel<Loan> {
     // Call mainframe to delete
   }
 
+  /** Updates loan instance's fields to be consistent with mainframe */
   @Override
   public Loan get(String id) {
-    // Call mainframe to get
-    return null;
+    // Using nitrate mainframe connection
+    Connection connection = Instance.getConnection();
+
+    LoadLoan loadloan = new LoadLoan();
+    loadloan.setLoanId(id);
+
+    // If the connection was not successful, not updating the instance and returning null
+    if (loadloan.send(connection).getWasSuccessful()) {
+      customerId = loadloan.getCustomerIdFromServer();
+      status = LoanStatus.valueOf(loadloan.getStatusFromServer());
+      principleCents = loadloan.getPrincipalFromServer();
+      interestRate = loadloan.getRateValueFromServer();
+      rateType = loadloan.getRateTypeFromServer();
+      startDate = loadloan.getStartDateFromServer();
+      periodMonths = loadloan.getPeriodFromServer();
+      term = loadloan.getTermFromServer();
+      paymentAmountCents = loadloan.getPaymentAmountFromServer();
+      paymentFrequency = loadloan.getPaymentFrequencyFromServer();
+      compoundingFrequency = loadloan.getCompoundingFromServer();
+      return this;
+    } else return null;
   }
 }

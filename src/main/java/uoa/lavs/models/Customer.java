@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Instance;
 import uoa.lavs.mainframe.messages.customer.FindCustomer;
+import uoa.lavs.mainframe.messages.customer.LoadCustomer;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
 
 public class Customer implements IModel<Customer> {
@@ -202,19 +203,25 @@ public class Customer implements IModel<Customer> {
   /** Checks if the customer is in the mainframe database or not. */
   @Override
   public boolean validate() {
-    if (id == null || id.length() > 10) {
+    // Using nitrate mainframe connection
+    Connection connection = Instance.getConnection();
+
+    if (id == null || id.length() > 10 || id.length() == 0) {
       return false;
     }
-    Connection connection = Instance.getConnection();
+
     FindCustomer findCustomer = new FindCustomer();
     findCustomer.setCustomerId(id);
+
     return findCustomer.send(connection).getWasSuccessful();
   }
 
+  /** Adding new customer or updating existing customer in the mainframe */
   @Override
   public Customer persist() {
     Connection connection = Instance.getConnection();
 
+    // Setting up the customer message for mainframe
     UpdateCustomer updateCustomer = new UpdateCustomer();
     if (id != null && id.length() <= 10) {
       updateCustomer.setCustomerId(id);
@@ -244,6 +251,7 @@ public class Customer implements IModel<Customer> {
       updateCustomer.setVisa(visa);
     } else return null;
 
+    // Sending the customer update message to the mainframe
     if (updateCustomer.send(connection).getWasSuccessful()) {
       return this;
     } else return null;
@@ -254,8 +262,25 @@ public class Customer implements IModel<Customer> {
     // call mainframe to delete
   }
 
+  /** Updates customer instance's fields to be consistent with mainframe */
   @Override
   public Customer get(String id) {
-    return null;
+    // Using nitrate mainframe connection
+    Connection connection = Instance.getConnection();
+
+    LoadCustomer loadCustomer = new LoadCustomer();
+    loadCustomer.setCustomerId(id);
+
+    // If the connection was not successful, not updating the instance and returning null
+    if (loadCustomer.send(connection).getWasSuccessful()) {
+      this.id = id;
+      this.title = loadCustomer.getTitleFromServer();
+      this.name = loadCustomer.getNameFromServer();
+      this.dateOfBirth = loadCustomer.getDateofBirthFromServer();
+      this.occupation = loadCustomer.getOccupationFromServer();
+      this.citizenship = loadCustomer.getCitizenshipFromServer();
+      this.visa = loadCustomer.getVisaFromServer();
+      return this;
+    } else return null;
   }
 }
