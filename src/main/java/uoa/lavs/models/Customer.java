@@ -254,7 +254,9 @@ public class Customer implements IModel<Customer> {
     // Sending the customer update message to the mainframe
     if (updateCustomer.send(connection).getWasSuccessful()) {
       return this;
-    } else return null;
+    }
+
+    return null;
   }
 
   @Override
@@ -273,7 +275,6 @@ public class Customer implements IModel<Customer> {
 
     // If the connection was not successful, not updating the instance and returning null
     if (loadCustomer.send(connection).getWasSuccessful()) {
-      this.id = id;
       this.title = loadCustomer.getTitleFromServer();
       this.name = loadCustomer.getNameFromServer();
       this.dateOfBirth = loadCustomer.getDateofBirthFromServer();

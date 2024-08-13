@@ -100,9 +100,12 @@ public class Phone implements IModel<Phone> {
 
     FindCustomerPhoneNumber message = new FindCustomerPhoneNumber();
     message.setCustomerId(customerID);
-    message.send(connection);
 
-    return message.getCountFromServer();
+    if (message.send(connection).getWasSuccessful()) {
+      return message.getCountFromServer();
+    }
+
+    return 0;
   }
 
   /** Adding new phone number of updating existing phone number in the mainframe */
