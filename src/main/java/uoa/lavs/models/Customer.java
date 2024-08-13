@@ -281,6 +281,8 @@ public class Customer implements IModel<Customer> {
       this.citizenship = loadCustomer.getCitizenshipFromServer();
       this.visa = loadCustomer.getVisaFromServer();
       return this;
-    } else return null;
+    }
+
+    return null;
   }
 }
