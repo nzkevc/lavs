@@ -1,39 +1,20 @@
 package uoa.lavs.models;
 
 import java.util.Date;
+import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.LoanStatus;
 
 public class Loan {
-  public enum Status {
-    ACTIVE,
-    INACTIVE,
-    NEW,
-    PENDING,
-    CANCELLED,
-  }
-
-  public enum CompoundingFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
-
-  public enum PaymentFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
 
   private String id;
-  private Status status;
+  private LoanStatus status;
   private int principleCents;
   private Date startDate;
   private int periodMonths;
   private double interestRate;
-  private CompoundingFrequency compoundingFrequency;
+  private Frequency compoundingFrequency;
   private int paymentAmountCents;
-  private PaymentFrequency paymentFrequency;
+  private Frequency paymentFrequency;
   private boolean interestOnly;
 
   public Loan(
@@ -42,9 +23,9 @@ public class Loan {
       Date startDate,
       int periodMonths,
       double interestRate,
-      CompoundingFrequency compoundingFrequency,
+      Frequency compoundingFrequency,
       int paymentAmountCents,
-      PaymentFrequency paymentFrequency,
+      Frequency paymentFrequency,
       boolean interestOnly) {
     this.id = id;
     this.principleCents = principleCents;
@@ -61,7 +42,7 @@ public class Loan {
     return id;
   }
 
-  public Status getStatus() {
+  public LoanStatus getStatus() {
     return status;
   }
 
@@ -77,7 +58,7 @@ public class Loan {
     return periodMonths;
   }
 
-  public CompoundingFrequency getCompoundingFrequency() {
+  public Frequency getCompoundingFrequency() {
     return compoundingFrequency;
   }
 
@@ -85,7 +66,7 @@ public class Loan {
     return interestRate;
   }
 
-  public PaymentFrequency getPaymentFrequency() {
+  public Frequency getPaymentFrequency() {
     return paymentFrequency;
   }
 
@@ -97,17 +78,15 @@ public class Loan {
     return interestOnly;
   }
 
-  public void setStatus(Status status) {
-    if (!status.equals(Status.ACTIVE) && !status.equals(Status.INACTIVE)) {
-      this.status = status;
-    }
+  public void setStatus(LoanStatus status) {
+    this.status = status;
   }
 
-  public void setCompoundingFrequency(CompoundingFrequency compoundingFrequency) {
+  public void setCompoundingFrequency(Frequency compoundingFrequency) {
     this.compoundingFrequency = compoundingFrequency;
   }
 
-  public void setPaymentFrequency(PaymentFrequency paymentFrequency) {
+  public void setPaymentFrequency(Frequency paymentFrequency) {
     this.paymentFrequency = paymentFrequency;
   }
 

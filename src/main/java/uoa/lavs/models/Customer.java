@@ -157,32 +157,12 @@ public class Customer {
     return visa;
   }
 
-  public Address getPrimaryAddress() {
-    return addresses.getResidentialAddress();
-  }
-
-  public Address getPostalAddress() {
-    return addresses.getMailingAddress();
-  }
-
   public Addresses getAddresses() {
     return addresses;
   }
 
-  public Phone getPrimaryPhone() {
-    return phones.getPrimaryPhone();
-  }
-
-  public Phone getTextPhone() {
-    return phones.getTextPhone();
-  }
-
   public Phones getPhones() {
     return phones;
-  }
-
-  public Email getPrimaryEmail() {
-    return emails.getPrimaryEmail();
   }
 
   public Emails getEmails() {
@@ -211,13 +191,7 @@ public class Customer {
     return notes;
   }
 
-  public void addLoan(Loan loan) {
-    loans.addLoan(loan);
-  }
-
   public void setStatus(Status status) {
-    if (!status.equals(Status.ACTIVE) && !status.equals(Status.INACTIVE)) {
-      this.status = status;
-    }
+    this.status = status;
   }
 }
