@@ -1,15 +1,14 @@
 package uoa.lavs.mainframe.simulator.nitrite;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.collection.Document;
-
 import uoa.lavs.mainframe.Request;
 import uoa.lavs.mainframe.Response;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerAddresses;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class BaseCustomerItemsProcessor extends BaseCustomerProcessor {
     private final String collectionName;

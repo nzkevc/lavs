@@ -1,49 +1,16 @@
 package uoa.lavs.mainframe.simulator;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.index.IndexOptions;
 import org.dizitart.no2.index.IndexType;
 import org.dizitart.no2.mvstore.MVStoreModule;
-
-import uoa.lavs.mainframe.Connection;
-import uoa.lavs.mainframe.MessageErrorStatus;
-import uoa.lavs.mainframe.Request;
-import uoa.lavs.mainframe.Response;
-import uoa.lavs.mainframe.Status;
+import uoa.lavs.mainframe.*;
 import uoa.lavs.mainframe.messages.All;
-import uoa.lavs.mainframe.messages.customer.LoadCustomer;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerAddress;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerEmail;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerEmployer;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerPhoneNumber;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerUpdateStatus;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomerAddress;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmail;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmployer;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomerPhoneNumber;
-import uoa.lavs.mainframe.simulator.nitrite.FindCustomerAdvancedProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.FindCustomerProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.FindLoanProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerAddressesProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerEmailsProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerItemProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerNoteProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerPhoneNumbersProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadCustomerUpdateStatusProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadLoanCoborrowersProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadLoanPaymentsProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadLoanProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.LoadLoanSummaryProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateCustomerItemProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateCustomerNoteProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateCustomerProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateLoanCoborrowerProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateLoanProcessor;
-import uoa.lavs.mainframe.simulator.nitrite.UpdateLoanStatusProcessor;
+import uoa.lavs.mainframe.messages.customer.*;
+import uoa.lavs.mainframe.simulator.nitrite.*;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class NitriteConnection implements Connection {
     private final Nitrite database;
@@ -100,6 +67,7 @@ public class NitriteConnection implements Connection {
                         "employers",
                         MessageErrorStatus.CUSTOMER_EMPLOYER_NOT_FOUND,
                         LoadCustomerEmployer.Fields.OUTPUT));
+        messageProcessors.put(All.LoadCustomerEmployers, new LoadCustomerEmployersProcessor(database));
         messageProcessors.put(All.LoadCustomerPhoneNumber,
                 new LoadCustomerItemProcessor(database,
                         "phoneNumbers",
