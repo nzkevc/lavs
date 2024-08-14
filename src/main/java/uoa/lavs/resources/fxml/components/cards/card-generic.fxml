@@ -19,6 +19,6 @@
             <Font name="Calibri Bold" size="17.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="42.0" layoutY="107.0" prefHeight="637.0" prefWidth="1001.0" />
+      <AnchorPane layoutX="42.0" layoutY="107.0" prefHeight="640.0" prefWidth="1000.0" />
    </children>
 </AnchorPane>
