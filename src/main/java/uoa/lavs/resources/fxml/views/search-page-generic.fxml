@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="627.0" layoutY="206.0" prefHeight="65.0" prefWidth="795.0" promptText="Search . . .">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </TextField>
+      <AnchorPane layoutX="1422.0" layoutY="199.0" prefHeight="80.0" prefWidth="80.0">
+         <children>
+            <fx:include source="../components/buttons/x.fxml" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="540.0" layoutY="196.0" prefHeight="85.0" prefWidth="84.0">
+         <children>
+            <fx:include source="../components/buttons/search.fxml" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="685.0" layoutY="140.0" prefHeight="65.0" prefWidth="679.0">
+         <children>
+            <Text fill="#a3a3a3" layoutX="436.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEARCH">
+               <font>
+                  <Font name="Calibri Bold" size="51.0" />
+               </font>
+            </Text>
+            <Text fill="#a3a3a3" layoutX="22.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Customer/Loan&gt;">
+               <font>
+                  <Font name="Calibri Bold" size="51.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="461.0" layoutY="294.0" prefHeight="734.0" prefWidth="1128.0" />
+   </children>
+</AnchorPane>
