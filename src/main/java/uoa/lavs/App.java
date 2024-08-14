@@ -1,12 +1,14 @@
 package uoa.lavs;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ResourceUtils;
 
