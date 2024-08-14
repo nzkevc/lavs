@@ -13,6 +13,7 @@ module uoa.lavs {
   requires commons.math3;
   requires org.slf4j;
   requires com.google.common;
+  requires okhttp3;
 
   opens uoa.lavs to
       javafx.fxml;
