@@ -1,9 +1,9 @@
 package uoa.lavs.utility;
 
-import org.apache.commons.math3.util.Precision;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import org.apache.commons.math3.util.Precision;
 
 public class AmortizingLoanCalculator implements LoanCalculator {
     @Override

@@ -2,8 +2,11 @@ package uoa.lavs.mainframe.simulator.nitrite;
 
 import org.junit.jupiter.api.Test;
 import uoa.lavs.mainframe.Connection;
+import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.RateType;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.*;
+import uoa.lavs.mainframe.messages.loan.UpdateLoan;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
 
 import java.io.IOException;
@@ -46,6 +49,41 @@ public class IntegrationTests {
                     () -> assertTrue(thirdStatus.getWasSuccessful()),
                     () -> assertNotEquals(firstId, thirdId),
                     () -> assertNotEquals(thirdId, secondId)
+            );
+        } finally {
+            connection.close();
+        }
+    }
+
+    @Test
+    public void addACustomerAndALoan() throws IOException {
+        // Arrange
+        Connection connection = new NitriteConnection("testing/lavs-data.db");
+
+        try {
+            // Act 1: add a new customer
+            UpdateCustomer newCustomer = new UpdateCustomer();
+            newCustomer.setCustomerId(null);
+            newCustomer.setName("John Doe");
+            Status customerStatus = newCustomer.send(connection);
+            assertTrue(customerStatus.getWasSuccessful());
+            String customerId = newCustomer.getCustomerIdFromServer();
+
+            // Act 2: add a new loan for the customer
+            UpdateLoan newLoan = new UpdateLoan();
+            newLoan.setCustomerId(customerId);
+            newLoan.setLoanId(null);
+            newLoan.setRateType(RateType.Fixed);
+            newLoan.setPaymentFrequency(Frequency.Weekly);
+            newLoan.setCompounding(Frequency.Weekly);
+            Status loanStatus = newLoan.send(connection);
+
+            // Assert
+            assertAll(
+                    () -> assertTrue(loanStatus.getWasSuccessful()),
+                    () -> assertEquals(0, loanStatus.getErrorCode()),
+                    () -> assertNull(loanStatus.getErrorMessage()),
+                    () -> assertEquals(customerId + "-01", newLoan.getLoanIdFromServer())
             );
         } finally {
             connection.close();
