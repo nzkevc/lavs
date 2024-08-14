@@ -38,5 +38,10 @@
          </children>
       </AnchorPane>
       <AnchorPane layoutX="461.0" layoutY="294.0" prefHeight="734.0" prefWidth="1128.0" />
+      <AnchorPane layoutX="1609.0" layoutY="910.0" prefHeight="94.0" prefWidth="200.0">
+         <children>
+            <fx:include source="../components/buttons/add.fxml" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
