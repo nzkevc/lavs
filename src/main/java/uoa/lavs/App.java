@@ -1,13 +1,15 @@
 package uoa.lavs;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.utils.AsyncUtils;
 
 /**
@@ -22,7 +24,7 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    scene = new Scene(loadFXML("example"), 640, 480);
+    scene = new Scene(loadFXML("main"), 640, 480);
     stage.setScene(scene);
     stage.show();
   }
