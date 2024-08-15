@@ -2,11 +2,19 @@ package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
+import uoa.lavs.utils.ConnectionInstance;
 
 public class AddressRepositoryTests {
+
+  @BeforeEach
+  public void resetTestConnection() {
+    ConnectionInstance.resetTestConnection();
+  }
+  
   @Test
   public void createAddressTest() {
     // Arrange

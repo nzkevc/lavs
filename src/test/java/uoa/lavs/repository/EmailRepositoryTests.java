@@ -1,12 +1,22 @@
 package uoa.lavs.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.utils.ConnectionInstance;
 
 public class EmailRepositoryTests {
+
+  @BeforeEach
+  public void resetTestConnection() {
+    ConnectionInstance.resetTestConnection();
+  }
+
   @Test
   public void createEmailTest() {
     // Arrange
