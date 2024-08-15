@@ -15,7 +15,7 @@ class SimpleReplayConnectionTests {
     @Test
     public void handlesMissingDataFile() throws IOException {
         // Arrange
-        String dataFile = "simple-data.1.txt";
+        String dataFile = "testing/simple-data.1.txt";
         Path path = Path.of(dataFile);
         if (Files.exists(path)) Files.delete(path);
         SimpleReplayConnection connection = new SimpleReplayConnection(dataFile);
@@ -32,7 +32,7 @@ class SimpleReplayConnectionTests {
     @Test
     public void handlesEndOfFile() throws IOException {
         // Arrange
-        String dataFile = "simple-data.2.txt";
+        String dataFile = "testing/simple-data.2.txt";
         Files.writeString(Path.of(dataFile), "");
         SimpleReplayConnection connection = new SimpleReplayConnection(dataFile);
         FindCustomer findCustomer = new FindCustomer();
@@ -48,7 +48,7 @@ class SimpleReplayConnectionTests {
     @Test
     public void sendLoadsData() throws IOException {
         // Arrange
-        String dataFile = "simple-data.3.txt";
+        String dataFile = "testing/simple-data.3.txt";
         String data = "code=\"1101\",error=\"0\",msg=,in-id=,out-title=\"\",out-name=\"John Doe\",out-dob=\"\",out-occupation=\"\",out-citizenship=\"\",out-visa=\"\"";
         Files.writeString(Path.of(dataFile), data);
         SimpleReplayConnection connection = new SimpleReplayConnection(dataFile);

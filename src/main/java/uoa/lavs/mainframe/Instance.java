@@ -8,7 +8,7 @@ public class Instance {
     private Instance() {}
 
     // the path to the data file
-    private static final String dataPath = "nitrite.db";
+    private static final String dataPath = "testing/nitrite.db";
 
     // internal class to initialize the singleton, this enables lazy-loading
     // for the singleton
@@ -18,6 +18,6 @@ public class Instance {
 
     // return the underlying connection
     public static Connection getConnection() {
-        throw new UnsupportedOperationException("306 teammates: don't use this class - use the ConnectionInstance class instead");
+        return SingletonHelper.INSTANCE;
     }
 }
