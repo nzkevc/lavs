@@ -1,75 +1,70 @@
 package uoa.lavs.models;
 
-import java.util.Date;
+import java.time.LocalDate;
+import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.LoanStatus;
+import uoa.lavs.mainframe.RateType;
 
-public class Loan {
-  public enum Status {
-    ACTIVE,
-    INACTIVE,
-    NEW,
-    PENDING,
-    CANCELLED,
-  }
+public class Loan implements IModel<Loan> {
 
-  public enum CompoundingFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
-
-  public enum PaymentFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
-
-  private String id;
-  private Status status;
-  private int principleCents;
-  private Date startDate;
+  private String customerId;
+  private String loanId;
+  private LoanStatus status;
+  private double principleCents;
+  private LocalDate startDate;
   private int periodMonths;
+  private int term;
   private double interestRate;
-  private CompoundingFrequency compoundingFrequency;
-  private int paymentAmountCents;
-  private PaymentFrequency paymentFrequency;
+  private RateType rateType;
+  private Frequency compoundingFrequency;
+  private double paymentAmountCents;
+  private Frequency paymentFrequency;
   private boolean interestOnly;
 
   public Loan(
-      String id,
-      int principleCents,
-      Date startDate,
+      String customerId,
+      String loanId,
+      double principleCents,
+      LocalDate startDate,
       int periodMonths,
+      int term,
       double interestRate,
-      CompoundingFrequency compoundingFrequency,
-      int paymentAmountCents,
-      PaymentFrequency paymentFrequency,
+      RateType rateType,
+      Frequency compoundingFrequency,
+      double paymentAmountCents,
+      Frequency paymentFrequency,
       boolean interestOnly) {
-    this.id = id;
+    this.customerId = customerId;
+    this.loanId = loanId;
     this.principleCents = principleCents;
     this.startDate = startDate;
     this.periodMonths = periodMonths;
+    this.term = term;
     this.interestRate = interestRate;
+    this.rateType = rateType;
     this.compoundingFrequency = compoundingFrequency;
     this.paymentAmountCents = paymentAmountCents;
     this.paymentFrequency = paymentFrequency;
     this.interestOnly = interestOnly;
   }
 
-  public String getId() {
-    return id;
+  public String getCustomerId() {
+    return customerId;
   }
 
-  public Status getStatus() {
+  public String getLoanId() {
+    return loanId;
+  }
+
+  public LoanStatus getStatus() {
     return status;
   }
 
-  public int getPrincipleCents() {
+  public double getPrincipleCents() {
     return principleCents;
   }
 
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
@@ -77,7 +72,11 @@ public class Loan {
     return periodMonths;
   }
 
-  public CompoundingFrequency getCompoundingFrequency() {
+  public int getTerm() {
+    return term;
+  }
+
+  public Frequency getCompoundingFrequency() {
     return compoundingFrequency;
   }
 
@@ -85,11 +84,15 @@ public class Loan {
     return interestRate;
   }
 
-  public PaymentFrequency getPaymentFrequency() {
+  public RateType getRateType() {
+    return rateType;
+  }
+
+  public Frequency getPaymentFrequency() {
     return paymentFrequency;
   }
 
-  public int getPaymentAmountCents() {
+  public double getPaymentAmountCents() {
     return paymentAmountCents;
   }
 
@@ -97,17 +100,15 @@ public class Loan {
     return interestOnly;
   }
 
-  public void setStatus(Status status) {
-    if (!status.equals(Status.ACTIVE) && !status.equals(Status.INACTIVE)) {
-      this.status = status;
-    }
+  public void setStatus(LoanStatus status) {
+    this.status = status;
   }
 
-  public void setCompoundingFrequency(CompoundingFrequency compoundingFrequency) {
+  public void setCompoundingFrequency(Frequency compoundingFrequency) {
     this.compoundingFrequency = compoundingFrequency;
   }
 
-  public void setPaymentFrequency(PaymentFrequency paymentFrequency) {
+  public void setPaymentFrequency(Frequency paymentFrequency) {
     this.paymentFrequency = paymentFrequency;
   }
 
@@ -124,8 +125,14 @@ public class Loan {
     if (o == null || getClass() != o.getClass()) return false;
     if (o instanceof Loan) {
       Loan loan = (Loan) o;
-      return id.equals(loan.getId());
+      return loanId.equals(loan.getLoanId());
     }
     return false;
+  }
+
+  // TODO
+  @Override
+  public boolean validate() {
+    return true;
   }
 }
