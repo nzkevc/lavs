@@ -1,15 +1,13 @@
 package uoa.lavs;
 
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.MainController;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ResourceUtils;
@@ -37,6 +35,13 @@ public class App extends Application {
     scene = new Scene(new AnchorPane(), 640, 480); // Temporary values
     stage.setScene(scene);
     scene.setRoot(MainController.getRoot());
+
+    // Set up fullscreen
+    scene.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == javafx.scene.input.KeyCode.F11)
+            stage.setFullScreen(!stage.isFullScreen());
+        });
 
     // Load resources
     ResourceUtils.loadFont("Montserrat-Medium.ttf");
