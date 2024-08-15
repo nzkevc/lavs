@@ -1,7 +1,10 @@
 package uoa.lavs;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Parent;
+import uoa.lavs.controllers.pages.LandingPageController;
 
 /**
  * State is a class that contains public static properties to represent global state. It can also
@@ -9,5 +12,11 @@ import javafx.beans.property.SimpleStringProperty;
  * views (see ExampleController).
  */
 public class State {
-  public static Property<String> exampleTitle = new SimpleStringProperty();
+  public static final Property<String> exampleTitle = new SimpleStringProperty();
+  public static final Property<Parent> page = new SimpleObjectProperty<>();
+
+  public static void reset() {
+    exampleTitle.setValue("Example Title");
+    page.setValue(LandingPageController.getRoot());
+  }
 }

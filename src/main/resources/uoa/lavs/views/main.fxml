@@ -2,20 +2,26 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="panRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uoa.lavs.controllers.MainController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane fx:id="panLayout" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <fx:include source="pages/landing-page.fxml" />
+            <AnchorPane fx:id="panPage" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <fx:include source="example.fxml" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <fx:include source="components/top-bar.fxml" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <fx:include source="components/nav-bar.fxml" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="90.0" prefWidth="1920.0">
-         <children>
-            <fx:include source="components/top-bar.fxml" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="1080.0" prefWidth="341.0" />
-      <fx:include source="components/nav-bar.fxml" />
    </children>
 </AnchorPane>
