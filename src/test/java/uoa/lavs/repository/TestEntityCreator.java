@@ -3,6 +3,7 @@ package uoa.lavs.repository;
 import java.time.LocalDate;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
+import uoa.lavs.models.Email;
 
 public class TestEntityCreator {
   public static Customer createBasicCustomer() {
@@ -25,5 +26,9 @@ public class TestEntityCreator {
         "New Zealand",
         true,
         true);
+  }
+
+  public static Email createBasicEmail(Customer customer) {
+    return new Email(customer.getId(), null, "fakeEmail@fake.com", true);
   }
 }

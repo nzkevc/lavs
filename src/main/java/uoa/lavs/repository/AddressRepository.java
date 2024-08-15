@@ -5,7 +5,6 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerAddress;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerAddress;
 import uoa.lavs.models.Address;
-import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class AddressRepository {
@@ -40,11 +39,10 @@ public class AddressRepository {
     }
   }
 
-  public static Address update(Address address, Customer customer) {
+  public static Address update(Address address) {
     Connection connection = ConnectionInstance.getConnection();
 
     UpdateCustomerAddress message = new UpdateCustomerAddress();
-
     message = persist(message, address);
     message.setNumber(address.getNumber());
 

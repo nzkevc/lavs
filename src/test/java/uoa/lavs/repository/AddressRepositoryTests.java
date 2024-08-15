@@ -46,7 +46,7 @@ public class AddressRepositoryTests {
 
     // Act
     address.setLine1("456 Real St");
-    address = AddressRepository.update(address, customer);
+    address = AddressRepository.update(address);
 
     // Assert
     assertEquals("456 Real St", address.getLine1());
@@ -63,7 +63,7 @@ public class AddressRepositoryTests {
     // Act
 
     // Assert
-    assertThrows(RuntimeException.class, () -> AddressRepository.update(address, customer));
+    assertThrows(RuntimeException.class, () -> AddressRepository.update(address));
   }
 
   @Test
