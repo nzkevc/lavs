@@ -1,21 +1,14 @@
 package uoa.lavs.controllers.pages;
 
-import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import uoa.lavs.controllers.IController;
+import uoa.lavs.utils.ResourceUtils;
 
 public class LandingPageController implements IController {
 
-  private static Parent root;
-
-  @FXML private AnchorPane panRoot;
+  private static final Parent root = ResourceUtils.loadFxml("pages/landing-page.fxml");
 
   public static Parent getRoot() {
     return root;
-  }
-
-  public void initialize() {
-    root = panRoot;
   }
 }

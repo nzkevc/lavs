@@ -1,7 +1,7 @@
 package uoa.lavs.controllers;
 
 /**
- * Convention: if you want a controller to be able to be 'swapped-in' dynamically (e.g.
- * PageControllers in MainController), create a static getInstance() method in the controller.
+ * Every controller needs a static getRoot() method in the controller that returns a singleton
+ * instance of the root node of the fxml. See MainController for example.
  */
 public interface IController {}

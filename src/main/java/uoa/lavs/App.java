@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uoa.lavs.controllers.MainController;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ResourceUtils;
 
@@ -27,7 +28,7 @@ public class App extends Application {
     logger.info("Starting application");
 
     // Load scene
-    Scene scene = new Scene(ResourceUtils.loadFxml("main.fxml"), 640, 480);
+    Scene scene = new Scene(MainController.getRoot(), 640, 480);
     stage.setScene(scene);
 
     // Load resources

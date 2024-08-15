@@ -50,10 +50,15 @@ public class ResourceUtils {
    * @param url the url of the FXML file relative to the views directory
    * @return the root node of the FXML file
    */
-  public static Parent loadFxml(String url) throws IOException {
+  public static Parent loadFxml(String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
-    return fxmlLoader.load();
+    try {
+      return fxmlLoader.load();
+    } catch (IOException e) {
+      logger.error("Could not load fxml: " + url);
+      return null;
+    }
   }
 
   /**
