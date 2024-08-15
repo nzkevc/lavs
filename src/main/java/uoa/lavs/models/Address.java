@@ -1,6 +1,5 @@
 package uoa.lavs.models;
 
-
 public class Address implements IModel<Address> {
   private String customerID;
   private Integer number;
@@ -107,7 +106,6 @@ public class Address implements IModel<Address> {
     return false;
   }
 
-  /** Checks if the customer has an address registered */
   @Override
   public boolean validate() {
     return true;

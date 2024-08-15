@@ -1,11 +1,10 @@
 package uoa.lavs.models;
 
-
 public class Email implements IModel<Email> {
   private String customerID;
   private Integer number;
   private String emailAddress;
-  private Boolean isPrrmary;
+  private Boolean isPrimary;
 
   public Email(String customerId) {
     this.customerID = customerId;
@@ -15,7 +14,7 @@ public class Email implements IModel<Email> {
     this.customerID = customerID;
     this.number = number;
     this.emailAddress = emailAddress;
-    this.isPrrmary = isPrimary;
+    this.isPrimary = isPrimary;
   }
 
   public String getCustomerID() {
@@ -31,11 +30,11 @@ public class Email implements IModel<Email> {
   }
 
   public Boolean getIsPrimary() {
-    return isPrrmary;
+    return isPrimary;
   }
 
   public void setIsPrimary(Boolean isPrimary) {
-    isPrrmary = isPrimary;
+    this.isPrimary = isPrimary;
   }
 
   @Override
@@ -48,6 +47,7 @@ public class Email implements IModel<Email> {
     return false;
   }
 
+  // TODO
   @Override
   public boolean validate() {
     return true;

@@ -235,6 +235,7 @@ public class Customer implements IModel<Customer> {
     this.loans = loans;
   }
 
+  // TODO
   @Override
   public boolean validate() {
     return false;

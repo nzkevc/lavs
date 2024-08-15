@@ -1,4 +1,4 @@
-package uoa.lavs.gateway;
+package uoa.lavs.repository;
 
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Status;
@@ -7,7 +7,7 @@ import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
-public class CustomerRepo {
+public class CustomerRepository {
   public static Customer create(Customer customer) {
     customer.setId(null);
     return update(customer);

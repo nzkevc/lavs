@@ -1,4 +1,4 @@
-package uoa.lavs.gateway;
+package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 
-public class CustomerRepoTests {
+public class CustomerRepositoryTests {
 
   private Customer createCustomer() {
     LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
@@ -19,7 +19,7 @@ public class CustomerRepoTests {
   public void createCustomerTest() {
     // Arrange
     Customer customer = createCustomer();
-    customer = CustomerRepo.create(customer);
+    customer = CustomerRepository.create(customer);
 
     // Act
     String id = customer.getId();
@@ -32,11 +32,11 @@ public class CustomerRepoTests {
   public void updateCustomerTest() {
     // Arrange
     Customer customer = createCustomer();
-    customer = CustomerRepo.create(customer);
+    customer = CustomerRepository.create(customer);
 
     // Act
     customer.setName("Jane Doe");
-    customer = CustomerRepo.update(customer);
+    customer = CustomerRepository.update(customer);
 
     // Assert
     assertEquals("Jane Doe", customer.getName());
@@ -51,18 +51,18 @@ public class CustomerRepoTests {
     // Act
 
     // Assert
-    assertThrows(RuntimeException.class, () -> CustomerRepo.update(customer));
+    assertThrows(RuntimeException.class, () -> CustomerRepository.update(customer));
   }
 
   @Test
   public void getCustomerTest() {
     // Arrange
     Customer customer = createCustomer();
-    customer = CustomerRepo.create(customer);
+    customer = CustomerRepository.create(customer);
 
     // Act
     customer.setName("Jane Doe");
-    customer = CustomerRepo.get(customer.getId());
+    customer = CustomerRepository.get(customer.getId());
 
     // Assert
     assertEquals("John Doe", customer.getName());
@@ -77,6 +77,6 @@ public class CustomerRepoTests {
     // Act
 
     // Assert
-    assertThrows(RuntimeException.class, () -> CustomerRepo.get(customer.getId()));
+    assertThrows(RuntimeException.class, () -> CustomerRepository.get(customer.getId()));
   }
 }
