@@ -7,9 +7,9 @@
  */
 module uoa.lavs {
   // 'Import' modules that this module depends on
+  requires transitive javafx.graphics; // So that clients of this module can pass in a Stage object
   requires javafx.controls;
   requires javafx.fxml;
-  requires javafx.graphics;
   requires org.dizitart.no2;
   requires org.dizitart.no2.mvstore;
   requires commons.math3;
