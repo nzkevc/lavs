@@ -6,8 +6,10 @@
  * module uoa.lavs does not read it)
  */
 module uoa.lavs {
+  // 'Import' modules that this module depends on
   requires javafx.controls;
   requires javafx.fxml;
+  requires javafx.graphics;
   requires org.dizitart.no2;
   requires org.dizitart.no2.mvstore;
   requires commons.math3;
@@ -15,13 +17,10 @@ module uoa.lavs {
   requires com.google.common;
   requires okhttp3;
 
-  opens uoa.lavs to
-      javafx.fxml;
+  // Allow javafx to perform reflection on controllers (to inject FXML)
   opens uoa.lavs.controllers to
       javafx.fxml;
 
+  // Export App.java entrypoint
   exports uoa.lavs;
-  exports uoa.lavs.controllers;
-
-  requires transitive javafx.graphics;
 }
