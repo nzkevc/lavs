@@ -6,8 +6,9 @@ public class Email implements IModel<Email> {
   private String emailAddress;
   private Boolean isPrimary;
 
-  public Email(String customerId) {
+  public Email(String customerId, Integer number) {
     this.customerID = customerId;
+    this.number = number;
   }
 
   public Email(String customerID, Integer number, String emailAddress, Boolean isPrimary) {
@@ -17,16 +18,28 @@ public class Email implements IModel<Email> {
     this.isPrimary = isPrimary;
   }
 
-  public String getCustomerID() {
+  public String getCustomerId() {
     return customerID;
+  }
+
+  public void setCustomerId(String customerID) {
+    this.customerID = customerID;
   }
 
   public Integer getNumber() {
     return number;
   }
 
-  public String getEmailAddress() {
+  public void setNumber(Integer number) {
+    this.number = number;
+  }
+
+  public String getAddress() {
     return emailAddress;
+  }
+
+  public void setAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
   }
 
   public Boolean getIsPrimary() {

@@ -13,6 +13,11 @@ public class Address implements IModel<Address> {
   private Boolean isPrimary;
   private Boolean isMailing;
 
+  public Address(String customerID, Integer number) {
+    this.customerID = customerID;
+    this.number = number;
+  }
+
   public Address(
       String customerID,
       Integer number,
@@ -38,7 +43,7 @@ public class Address implements IModel<Address> {
     this.isMailing = isMailing;
   }
 
-  public String getCustomerID() {
+  public String getCustomerId() {
     return customerID;
   }
 
@@ -46,44 +51,76 @@ public class Address implements IModel<Address> {
     return number;
   }
 
+  public void setNumber(Integer number) {
+    this.number = number;
+  }
+
   public String getType() {
     return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getLine1() {
     return line1;
   }
 
+  public void setLine1(String line1) {
+    this.line1 = line1;
+  }
+
   public String getLine2() {
     return line2;
+  }
+
+  public void setLine2(String line2) {
+    this.line2 = line2;
   }
 
   public String getSuburb() {
     return suburb;
   }
 
+  public void setSuburb(String suburb) {
+    this.suburb = suburb;
+  }
+
   public String getCity() {
     return city;
   }
 
-  public String getPostcode() {
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public String getPostCode() {
     return postcode;
+  }
+
+  public void setPostCode(String postcode) {
+    this.postcode = postcode;
   }
 
   public String getCountry() {
     return country;
   }
 
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
   public Boolean getPrimary() {
     return isPrimary;
   }
 
-  public Boolean getMailing() {
-    return isMailing;
-  }
-
   public void setIsPrimary(Boolean isPrimary) {
     this.isPrimary = isPrimary;
+  }
+
+  public Boolean getMailing() {
+    return isMailing;
   }
 
   public void setIsMailing(Boolean isMailing) {

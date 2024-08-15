@@ -8,14 +8,7 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class CustomerRepository {
-  public static Customer create(Customer customer) {
-    customer.setId(null);
-    return update(customer);
-  }
-
-  public static Customer update(Customer customer) throws RuntimeException {
-    Connection connection = ConnectionInstance.getConnection();
-
+  private static UpdateCustomer persist(Customer customer) {
     UpdateCustomer message = new UpdateCustomer();
 
     message.setCustomerId(customer.getId());
@@ -24,6 +17,30 @@ public class CustomerRepository {
     message.setDateofBirth(customer.getDateOfBirth());
     message.setOccupation(customer.getOccupation());
     message.setCitizenship(customer.getCitizenship());
+
+    return message;
+  }
+
+  public static Customer create(Customer customer) {
+    Connection connection = ConnectionInstance.getConnection();
+
+    customer.setId(null);
+    UpdateCustomer message = persist(customer);
+
+    Status status = message.send(connection);
+
+    if (!status.getWasSuccessful()) {
+      throw new RuntimeException("Failed to create customer: " + status.getErrorMessage());
+    } else {
+      customer.setId(message.getCustomerIdFromServer());
+      return customer;
+    }
+  }
+
+  public static Customer update(Customer customer) throws RuntimeException {
+    Connection connection = ConnectionInstance.getConnection();
+
+    UpdateCustomer message = persist(customer);
 
     Status status = message.send(connection);
 

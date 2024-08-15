@@ -1,24 +1,25 @@
 package uoa.lavs.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import uoa.lavs.models.Customer;
+import uoa.lavs.utils.ConnectionInstance;
 
 public class CustomerRepositoryTests {
 
-  private Customer createCustomer() {
-    LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
-    return new Customer.Builder(
-            "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
-        .build();
+  @BeforeEach
+  public void resetTestConnection() {
+    ConnectionInstance.resetTestConnection();
   }
 
   @Test
   public void createCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -31,7 +32,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -45,7 +46,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
@@ -57,7 +58,7 @@ public class CustomerRepositoryTests {
   @Test
   public void getCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -71,7 +72,7 @@ public class CustomerRepositoryTests {
   @Test
   void getNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
