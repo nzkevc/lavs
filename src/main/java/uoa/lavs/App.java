@@ -46,7 +46,7 @@ public class App extends Application {
     scene.setFill(Color.web("#131d23"));
     stage.setTitle("Countrywide Bank: Loan System");
     stage.getIcons().add(ResourceUtils.loadImage("countrywide-bank-logo.png"));
-    stage.setMaximized(true);
+    stage.setFullScreen(true);
 
     State.reset();
     stage.show();
