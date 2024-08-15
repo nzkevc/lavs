@@ -2,22 +2,14 @@ package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 
 public class NoteRepositoryTests {
-  private Customer createBasicCustomer() {
-    LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
-    return new Customer.Builder(
-            "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
-        .build();
-  }
-
   @Test
   public void updateNoteTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     String noteContent = "This is a note";
@@ -43,7 +35,7 @@ public class NoteRepositoryTests {
   @Test
   public void getNoteTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     String noteContent = "This is a note";

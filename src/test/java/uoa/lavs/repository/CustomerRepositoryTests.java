@@ -2,22 +2,14 @@ package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 
 public class CustomerRepositoryTests {
-  private Customer createBasicCustomer() {
-    LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
-    return new Customer.Builder(
-            "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
-        .build();
-  }
-
   @Test
   public void createCustomerTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -30,7 +22,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateCustomerTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -44,7 +36,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
@@ -56,7 +48,7 @@ public class CustomerRepositoryTests {
   @Test
   public void getCustomerTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -70,7 +62,7 @@ public class CustomerRepositoryTests {
   @Test
   void getNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createBasicCustomer();
+    Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
