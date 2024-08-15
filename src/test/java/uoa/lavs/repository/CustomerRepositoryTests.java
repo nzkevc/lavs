@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 
 public class CustomerRepositoryTests {
-
-  private Customer createCustomer() {
+  private Customer createBasicCustomer() {
     LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
     return new Customer.Builder(
             "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
@@ -18,7 +17,7 @@ public class CustomerRepositoryTests {
   @Test
   public void createCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -31,7 +30,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -45,7 +44,7 @@ public class CustomerRepositoryTests {
   @Test
   public void updateNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
@@ -57,7 +56,7 @@ public class CustomerRepositoryTests {
   @Test
   public void getCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     // Act
@@ -71,7 +70,7 @@ public class CustomerRepositoryTests {
   @Test
   void getNonExistentCustomerTest() {
     // Arrange
-    Customer customer = createCustomer();
+    Customer customer = createBasicCustomer();
     customer.setId("nocustomer");
 
     // Act
