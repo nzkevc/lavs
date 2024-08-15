@@ -1,16 +1,18 @@
 package uoa.lavs.mainframe;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
-class InstanceTests {
-  @Test
-  public void getInstanceReturnsConnection() {
-    // Act
-    Connection conn = Instance.getConnection();
+import static org.junit.jupiter.api.Assertions.*;
 
-    // Assert
-    assertNotNull(conn);
-  }
+class InstanceTests {
+    @Test
+    public void getInstanceReturnsConnection()
+    {
+        // Act
+        Connection conn = Instance.getConnection();
+
+        // Assert
+        assertNotNull(conn);
+    }
+
 }
