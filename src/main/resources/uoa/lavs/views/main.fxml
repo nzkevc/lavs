@@ -4,7 +4,7 @@
 
 <AnchorPane fx:id="panRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uoa.lavs.controllers.MainController">
    <children>
-      <AnchorPane fx:id="panResponsive" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="panLayout" prefHeight="200.0" prefWidth="200.0">
          <children>
             <AnchorPane fx:id="panPage" prefHeight="200.0" prefWidth="200.0">
                <children>

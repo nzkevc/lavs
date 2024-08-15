@@ -12,8 +12,8 @@ import uoa.lavs.controllers.pages.LandingPageController;
  * views (see ExampleController).
  */
 public class State {
-  public static Property<String> exampleTitle = new SimpleStringProperty();
-  public static Property<Parent> page = new SimpleObjectProperty<>();
+  public static final Property<String> exampleTitle = new SimpleStringProperty();
+  public static final Property<Parent> page = new SimpleObjectProperty<>();
 
   public static void reset() {
     exampleTitle.setValue("Example Title");

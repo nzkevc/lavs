@@ -21,6 +21,7 @@ import uoa.lavs.utils.ResourceUtils;
 public class App extends Application {
 
   private static final Logger logger = LoggerFactory.getLogger(App.class);
+  private static Stage stage;
   private static Scene scene;
 
   public static void main(String[] args) {
@@ -30,6 +31,7 @@ public class App extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     logger.info("Starting application");
+    App.stage = stage;
 
     // Load scene
     scene = new Scene(new AnchorPane(), 640, 480); // Temporary values
@@ -54,6 +56,10 @@ public class App extends Application {
   public void stop() {
     logger.info("Stopping application");
     AsyncUtils.close();
+  }
+
+  public static Stage getStage() {
+    return stage;
   }
 
   public static Scene getScene() {

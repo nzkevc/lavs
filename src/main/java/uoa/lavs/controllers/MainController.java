@@ -2,13 +2,15 @@ package uoa.lavs.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.utils.ControllerUtils;
@@ -28,8 +30,8 @@ public class MainController implements IController, Initializable {
     return root;
   }
 
-  @FXML private Pane panResponsive; // Responsible for scaling the content
-  @FXML private Pane panPage; // Responsible for swapping pages
+  @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
+  @FXML private Pane panPage; // Responsible for swapping pages (contains pages only)
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -37,7 +39,7 @@ public class MainController implements IController, Initializable {
     // Page state listener
     State.page.addListener(
         (observable, oldPage, newPage) -> {
-          logger.debug("Page changed to: " + newPage);
+          logger.debug("Page changed to: " + newPage.idProperty().get());
           ControllerUtils.swapComponent(panPage, newPage);
         });
 
@@ -46,38 +48,42 @@ public class MainController implements IController, Initializable {
     scene
         .heightProperty()
         .addListener(
-            (obs, oldVal, newVal) -> {
-              updateOuterPaneSize(scene.getWidth(), newVal.doubleValue());
+            (obs, oldHeight, newHeight) -> {
+              updateLayoutSize(scene.getWidth(), newHeight.doubleValue());
             });
     scene
         .widthProperty()
         .addListener(
-            (obs, oldVal, newVal) -> {
-              updateOuterPaneSize(newVal.doubleValue(), scene.getHeight());
+            (obs, oldWidth, newWidth) -> {
+              updateLayoutSize(newWidth.doubleValue(), scene.getHeight());
             });
   }
 
   /**
-   * Updates the screen dimensions to fill the scene. Will scale inner contents. Will maintain
-   * original aspect ratio, adding borders if neccessary (screen centered).
+   * Updates the layout dimensions to fill the scene. Will scale inner contents. Will maintain
+   * original aspect ratio, adding borders if neccessary (layout centered).
    *
    * @param sceneWidth The current width of the scene.
    * @param sceneHeight The current height of the scene.
    */
-  private void updateOuterPaneSize(double sceneWidth, double sceneHeight) {
-    // Height to set outer pane to be (maintain aspect ratio)
+  private void updateLayoutSize(double sceneWidth, double sceneHeight) {
+    // Calculate layout width (which may be smaller than scene width to maintain aspect ratio)
     double aspectRatio = (double) DEFAULT_WIDTH / DEFAULT_HEIGHT;
-    Double screenWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
+    Double layoutWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
 
-    // Set outer pane size
-    zoom = screenWidth / DEFAULT_WIDTH;
-    panResponsive.setScaleX(zoom);
-    panResponsive.setScaleY(zoom);
-
-    // Center content
+    // Calculate zoom and shift (to recentre)
+    zoom = layoutWidth / DEFAULT_WIDTH;
     double horizontalShift = (sceneWidth - DEFAULT_WIDTH) / 2;
     double verticalShift = (sceneHeight - DEFAULT_HEIGHT) / 2;
-    panResponsive.setLayoutX(horizontalShift);
-    panResponsive.setLayoutY(verticalShift);
+
+    // Apply zoom and shift
+    panLayout.setScaleX(zoom);
+    panLayout.setScaleY(zoom);
+    panLayout.setLayoutX(horizontalShift);
+    panLayout.setLayoutY(verticalShift);
+  }
+
+  public double getZoom() {
+    return zoom;
   }
 }
