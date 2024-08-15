@@ -25,22 +25,6 @@ public final class ExampleUser implements IModel<ExampleUser> {
     return validateName(name);
   }
 
-  @Override
-  public ExampleUser persist() {
-    exampleUserDatabase.put(name, this);
-    return this;
-  }
-
-  @Override
-  public void delete() {
-    exampleUserDatabase.remove(name);
-  }
-
-  @Override
-  public ExampleUser get(String id) {
-    return exampleUserDatabase.get(id);
-  }
-
   public static Set<ExampleUser> getAll() {
     return Set.copyOf(exampleUserDatabase.values());
   }

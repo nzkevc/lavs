@@ -20,7 +20,7 @@ public class Loans {
 
   public Loan getLoan(String id) {
     for (Loan loan : loans) {
-      if (loan.getId().equals(id)) {
+      if (loan.getLoanId().equals(id)) {
         return loan;
       }
     }
@@ -29,7 +29,7 @@ public class Loans {
 
   public void removeLoan(String id) {
     for (Loan loan : loans) {
-      if (loan.getId().equals(id)) {
+      if (loan.getLoanId().equals(id)) {
         loans.remove(loan);
         return;
       }
