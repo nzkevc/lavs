@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Phone;
 
 public class TestEntityCreator {
   public static Customer createBasicCustomer() {
@@ -30,5 +31,9 @@ public class TestEntityCreator {
 
   public static Email createBasicEmail(Customer customer) {
     return new Email(customer.getId(), null, "fakeEmail@fake.com", true);
+  }
+
+  public static Phone createBasicPhone(Customer customer) {
+    return new Phone(customer.getId(), null, "Mobile", "021", "1234567", true, true);
   }
 }
