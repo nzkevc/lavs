@@ -8,7 +8,9 @@ import uoa.lavs.models.Email;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class EmailRepository {
-  private static UpdateCustomerEmail persist(UpdateCustomerEmail message, Email email) {
+  private static UpdateCustomerEmail persist(Email email) {
+    UpdateCustomerEmail message = new UpdateCustomerEmail();
+
     message.setCustomerId(email.getCustomerId());
     message.setNumber(email.getNumber());
     message.setAddress(email.getAddress());
@@ -20,8 +22,7 @@ public class EmailRepository {
   public static Email create(Email email) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerEmail message = new UpdateCustomerEmail();
-    message = persist(message, email);
+    UpdateCustomerEmail message = persist(email);
 
     Status status = message.send(connection);
 
@@ -36,8 +37,7 @@ public class EmailRepository {
   public static Email update(Email email) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerEmail message = new UpdateCustomerEmail();
-    message = persist(message, email);
+    UpdateCustomerEmail message = persist(email);
     message.setNumber(email.getNumber());
 
     Status status = message.send(connection);

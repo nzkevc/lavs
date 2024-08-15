@@ -8,7 +8,9 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class CustomerRepository {
-  private static UpdateCustomer persist(UpdateCustomer message, Customer customer) {
+  private static UpdateCustomer persist(Customer customer) {
+    UpdateCustomer message = new UpdateCustomer();
+
     message.setCustomerId(customer.getId());
     message.setName(customer.getName());
     message.setTitle(customer.getTitle());
@@ -22,9 +24,8 @@ public class CustomerRepository {
   public static Customer create(Customer customer) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomer message = new UpdateCustomer();
     customer.setId(null);
-    message = persist(message, customer);
+    UpdateCustomer message = persist(customer);
 
     Status status = message.send(connection);
 
@@ -39,8 +40,7 @@ public class CustomerRepository {
   public static Customer update(Customer customer) throws RuntimeException {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomer message = new UpdateCustomer();
-    message = persist(message, customer);
+    UpdateCustomer message = persist(customer);
 
     Status status = message.send(connection);
 

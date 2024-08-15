@@ -8,7 +8,9 @@ import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class PhoneRepository {
-  private static UpdateCustomerPhoneNumber persist(UpdateCustomerPhoneNumber message, Phone phone) {
+  private static UpdateCustomerPhoneNumber persist(Phone phone) {
+    UpdateCustomerPhoneNumber message = new UpdateCustomerPhoneNumber();
+
     message.setCustomerId(phone.getCustomerId());
     message.setPhoneNumber(phone.getPhoneNumber());
     message.setPhoneNumber(phone.getPhoneNumber());
@@ -20,8 +22,7 @@ public class PhoneRepository {
   public static Phone create(Phone phone) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerPhoneNumber message = new UpdateCustomerPhoneNumber();
-    message = persist(message, phone);
+    UpdateCustomerPhoneNumber message = persist(phone);
 
     Status status = message.send(connection);
 
@@ -36,8 +37,7 @@ public class PhoneRepository {
   public static Phone update(Phone phone) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerPhoneNumber message = new UpdateCustomerPhoneNumber();
-    message = persist(message, phone);
+    UpdateCustomerPhoneNumber message = persist(phone);
     message.setNumber(phone.getNumber());
 
     Status status = message.send(connection);

@@ -8,7 +8,9 @@ import uoa.lavs.models.Address;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class AddressRepository {
-  private static UpdateCustomerAddress persist(UpdateCustomerAddress message, Address address) {
+  private static UpdateCustomerAddress persist(Address address) {
+    UpdateCustomerAddress message = new UpdateCustomerAddress();
+
     message.setCustomerId(address.getCustomerId());
     message.setType(address.getType());
     message.setLine1(address.getLine1());
@@ -26,8 +28,7 @@ public class AddressRepository {
   public static Address create(Address address) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerAddress message = new UpdateCustomerAddress();
-    message = persist(message, address);
+    UpdateCustomerAddress message = persist(address);
 
     Status status = message.send(connection);
 
@@ -42,8 +43,7 @@ public class AddressRepository {
   public static Address update(Address address) {
     Connection connection = ConnectionInstance.getConnection();
 
-    UpdateCustomerAddress message = new UpdateCustomerAddress();
-    message = persist(message, address);
+    UpdateCustomerAddress message = persist(address);
     message.setNumber(address.getNumber());
 
     Status status = message.send(connection);
