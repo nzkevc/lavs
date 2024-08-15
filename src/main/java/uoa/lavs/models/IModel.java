@@ -12,10 +12,4 @@ package uoa.lavs.models;
  */
 public interface IModel<T extends IModel<T>> {
   boolean validate();
-
-  T persist();
-
-  void delete();
-
-  T get(String id);
 }

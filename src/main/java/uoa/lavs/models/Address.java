@@ -1,10 +1,5 @@
 package uoa.lavs.models;
 
-import uoa.lavs.mainframe.Connection;
-import uoa.lavs.mainframe.Instance;
-import uoa.lavs.mainframe.messages.customer.FindCustomerAddress;
-import uoa.lavs.mainframe.messages.customer.LoadCustomerAddress;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomerAddress;
 
 public class Address implements IModel<Address> {
   private String customerID;
@@ -115,117 +110,6 @@ public class Address implements IModel<Address> {
   /** Checks if the customer has an address registered */
   @Override
   public boolean validate() {
-    Connection connection = Instance.getConnection();
-
-    if (customerID == null || customerID.length() > 10 || customerID.length() == 0) {
-      return false;
-    }
-
-    FindCustomerAddress findCustomerAddress = new FindCustomerAddress();
-    findCustomerAddress.setCustomerId(customerID);
-
-    return findCustomerAddress.send(connection).getWasSuccessful();
-  }
-
-  /** Getting the number of addresses a customer has registered to them */
-  public int getCountFromServer() {
-    Connection connection = Instance.getConnection();
-
-    if (customerID == null || customerID.length() > 10 || customerID.length() == 0) {
-      return 0;
-    }
-
-    FindCustomerAddress findCustomerAddress = new FindCustomerAddress();
-    findCustomerAddress.setCustomerId(customerID);
-
-    if (findCustomerAddress.send(connection).getWasSuccessful()) {
-      return findCustomerAddress.getCountFromServer();
-    }
-
-    return 0;
-  }
-
-  /** Adding new address or updating existing address in the mainframe */
-  @Override
-  public Address persist() {
-    Connection connection = Instance.getConnection();
-
-    UpdateCustomerAddress updateCustomerAddress = new UpdateCustomerAddress();
-    if (customerID != null && customerID.length() <= 10) {
-      updateCustomerAddress.setCustomerId(customerID);
-    } else return null;
-
-    if (number != null) {
-      updateCustomerAddress.setNumber(number);
-    } else return null;
-
-    if (type != null) {
-      updateCustomerAddress.setType(type);
-    } else return null;
-
-    if (line1 != null) {
-      updateCustomerAddress.setLine1(line1);
-    } else return null;
-
-    if (line2 != null) {
-      updateCustomerAddress.setLine2(line2);
-    } else return null;
-
-    if (suburb != null) {
-      updateCustomerAddress.setSuburb(suburb);
-    } else return null;
-
-    if (city != null) {
-      updateCustomerAddress.setCity(city);
-    } else return null;
-
-    if (postcode != null) {
-      updateCustomerAddress.setPostCode(postcode);
-    } else return null;
-
-    if (country != null) {
-      updateCustomerAddress.setCountry(country);
-    } else return null;
-
-    if (isPrimary != null) {
-      updateCustomerAddress.setIsPrimary(isPrimary);
-    } else return null;
-
-    if (updateCustomerAddress.send(connection).getWasSuccessful()) {
-      return this;
-    }
-
-    return null;
-  }
-
-  @Override
-  public void delete() {}
-
-  @Override
-  public Address get(String id) {
-    Connection connection = Instance.getConnection();
-
-    LoadCustomerAddress loadCustomerAddress = new LoadCustomerAddress();
-    if (customerID != null && customerID.length() <= 10) {
-      loadCustomerAddress.setCustomerId(customerID);
-    } else return null;
-
-    if (number != null) {
-      loadCustomerAddress.setNumber(number);
-    } else return null;
-
-    if (loadCustomerAddress.send(connection).getWasSuccessful()) {
-      this.city = loadCustomerAddress.getCityFromServer();
-      this.country = loadCustomerAddress.getCountryFromServer();
-      this.line1 = loadCustomerAddress.getLine1FromServer();
-      this.line2 = loadCustomerAddress.getLine2FromServer();
-      this.suburb = loadCustomerAddress.getSuburbFromServer();
-      this.type = loadCustomerAddress.getTypeFromServer();
-      this.isPrimary = loadCustomerAddress.getIsPrimaryFromServer();
-      this.isMailing = loadCustomerAddress.getIsMailingFromServer();
-      return this;
-    }
-
-    return null;
+    return true;
   }
 }

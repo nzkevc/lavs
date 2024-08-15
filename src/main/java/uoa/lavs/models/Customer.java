@@ -1,21 +1,11 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-import uoa.lavs.mainframe.Connection;
-import uoa.lavs.mainframe.Instance;
-import uoa.lavs.mainframe.messages.customer.FindCustomer;
-import uoa.lavs.mainframe.messages.customer.LoadCustomer;
-import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
 
 public class Customer implements IModel<Customer> {
-  public enum CustomerStatus {
-    ACTIVE,
-    INACTIVE,
-    DELETED
-  }
 
   private String id;
-  private CustomerStatus status;
+  private String status;
   private String title;
   private String name;
   private LocalDate dateOfBirth;
@@ -29,9 +19,12 @@ public class Customer implements IModel<Customer> {
   private String notes;
   private Loans loans;
 
+  public Customer(String id) {
+    this.id = id;
+  }
+
   private Customer(Builder builder) {
     this.id = builder.id;
-    this.status = builder.status;
     this.title = builder.title;
     this.name = builder.name;
     this.dateOfBirth = builder.dateOfBirth;
@@ -48,7 +41,6 @@ public class Customer implements IModel<Customer> {
 
   public static class Builder {
     private String id;
-    private CustomerStatus status;
     private String title;
     private String name;
     private LocalDate dateOfBirth;
@@ -69,30 +61,25 @@ public class Customer implements IModel<Customer> {
         LocalDate dateOfBirth,
         String occupation,
         String citizenship,
-        String visa,
-        Address residentialAddress,
-        Phone primaryPhone,
-        Email primaryEmail,
-        Employer employer) {
+        String visa
+        // Address residentialAddress,
+        // Phone primaryPhone,
+        // Email primaryEmail,
+        // Employer employer) {
+        ) {
       this.id = id;
-      this.status = CustomerStatus.ACTIVE;
       this.title = title;
       this.name = name;
       this.dateOfBirth = dateOfBirth;
       this.occupation = occupation;
       this.citizenship = citizenship;
       this.visa = visa;
-      this.addresses = new Addresses(residentialAddress);
-      this.phones = new Phones(primaryPhone);
-      this.emails = new Emails(primaryEmail);
-      this.employer = employer;
+      // this.addresses = new Addresses(residentialAddress);
+      // this.phones = new Phones(primaryPhone);
+      // this.emails = new Emails(primaryEmail);
+      // this.employer = employer;
       this.notes = "";
       this.loans = new Loans();
-    }
-
-    public Builder setStatus(CustomerStatus status) {
-      this.status = status;
-      return this;
     }
 
     public Builder addMailingAddress(Address mailingAddress) {
@@ -134,56 +121,100 @@ public class Customer implements IModel<Customer> {
     return id;
   }
 
-  public CustomerStatus getStatus() {
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getStatus() {
     return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public String getTitle() {
     return title;
   }
 
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
+  public void setDateOfBirth(LocalDate dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+  }
+
   public String getOccupation() {
     return occupation;
+  }
+
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
   }
 
   public String getCitizenship() {
     return citizenship;
   }
 
+  public void setCitizenship(String citizenship) {
+    this.citizenship = citizenship;
+  }
+
   public String getVisa() {
     return visa;
+  }
+
+  public void setVisa(String visa) {
+    this.visa = visa;
   }
 
   public Addresses getAddresses() {
     return addresses;
   }
 
+  public void setAddresses(Addresses addresses) {
+    this.addresses = addresses;
+  }
+
   public Phones getPhones() {
     return phones;
+  }
+
+  public void setPhones(Phones phones) {
+    this.phones = phones;
   }
 
   public Emails getEmails() {
     return emails;
   }
 
+  public void setEmails(Emails emails) {
+    this.emails = emails;
+  }
+
   public Employer getEmployer() {
     return employer;
   }
 
-  public String getNotes() {
-    return notes;
+  public void setEmployer(Employer employer) {
+    this.employer = employer;
   }
 
-  public Loans getLoans() {
-    return loans;
+  public String getNotes() {
+    return notes;
   }
 
   public String setNotes(String notes) {
@@ -196,94 +227,16 @@ public class Customer implements IModel<Customer> {
     return notes;
   }
 
-  public void setStatus(CustomerStatus status) {
-    this.status = status;
+  public Loans getLoans() {
+    return loans;
   }
 
-  /** Checks if the customer is in the mainframe database or not. */
+  public void setLoans(Loans loans) {
+    this.loans = loans;
+  }
+
   @Override
   public boolean validate() {
-    // Using nitrate mainframe connection
-    Connection connection = Instance.getConnection();
-
-    if (id == null || id.length() > 10 || id.length() == 0) {
-      return false;
-    }
-
-    FindCustomer findCustomer = new FindCustomer();
-    findCustomer.setCustomerId(id);
-
-    return findCustomer.send(connection).getWasSuccessful();
-  }
-
-  /** Adding new customer or updating existing customer in the mainframe */
-  @Override
-  public Customer persist() {
-    Connection connection = Instance.getConnection();
-
-    // Setting up the customer message for mainframe
-    UpdateCustomer updateCustomer = new UpdateCustomer();
-    if (id != null && id.length() <= 10) {
-      updateCustomer.setCustomerId(id);
-    } else return null;
-
-    if (title != null) {
-      updateCustomer.setTitle(title);
-    } else return null;
-
-    if (name != null) {
-      updateCustomer.setName(name);
-    } else return null;
-
-    if (dateOfBirth != null) {
-      updateCustomer.setDateofBirth(dateOfBirth);
-    } else return null;
-
-    if (occupation != null) {
-      updateCustomer.setOccupation(occupation);
-    } else return null;
-
-    if (citizenship != null) {
-      updateCustomer.setCitizenship(citizenship);
-    } else return null;
-
-    if (visa != null) {
-      updateCustomer.setVisa(visa);
-    } else return null;
-
-    // Sending the customer update message to the mainframe
-    if (updateCustomer.send(connection).getWasSuccessful()) {
-      return this;
-    }
-
-    return null;
-  }
-
-  @Override
-  public void delete() {
-    // call mainframe to delete
-  }
-
-  /** Updates customer instance's fields to be consistent with mainframe */
-  @Override
-  public Customer get(String id) {
-    // Using nitrate mainframe connection
-    Connection connection = Instance.getConnection();
-
-    LoadCustomer loadCustomer = new LoadCustomer();
-    loadCustomer.setCustomerId(id);
-
-    // If the connection was not successful, not updating the instance and returning null
-    if (loadCustomer.send(connection).getWasSuccessful()) {
-      this.title = loadCustomer.getTitleFromServer();
-      this.name = loadCustomer.getNameFromServer();
-      this.dateOfBirth = loadCustomer.getDateofBirthFromServer();
-      this.occupation = loadCustomer.getOccupationFromServer();
-      this.citizenship = loadCustomer.getCitizenshipFromServer();
-      this.visa = loadCustomer.getVisaFromServer();
-      return this;
-    }
-
-    return null;
+    return false;
   }
 }
