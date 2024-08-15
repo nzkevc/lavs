@@ -4,21 +4,20 @@ import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
 
 public class ConnectionInstance {
-  private ConnectionInstance() {}
-  ;
 
-  private static String dataPath = "nitrite.db";
-  private static Connection INSTANCE = new NitriteConnection(dataPath);
+  // Force tests to reset the connection each test so that tests are isolated
+  private static Connection instance = null;
 
   public static Connection getConnection() {
-    return INSTANCE;
+    return instance;
   }
 
-  public static void setConnection(String path) {
-    INSTANCE = new NitriteConnection(path);
+  public static void setConnection(Connection connection) {
+    instance = connection;
   }
 
-  public static void setConnection() {
-    INSTANCE = new NitriteConnection();
+  /** Load in a fresh in-memory connection before each test. */
+  public static void resetTestConnection() {
+    instance = new NitriteConnection();
   }
 }

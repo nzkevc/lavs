@@ -18,6 +18,6 @@ public class Instance {
 
     // return the underlying connection
     public static Connection getConnection() {
-        return SingletonHelper.INSTANCE;
+        throw new UnsupportedOperationException("306 teammates: don't use this class - use the ConnectionInstance class instead");
     }
 }
