@@ -14,7 +14,7 @@ public class AddressRepositoryTests {
   public void resetTestConnection() {
     ConnectionInstance.resetTestConnection();
   }
-  
+
   @Test
   public void createAddressTest() {
     // Arrange
