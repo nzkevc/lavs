@@ -9,9 +9,7 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class AddressesRepository {
-  /**
-   * Retrieves all the addresses registered to a customer and returns them in an Addresses object
-   */
+  /** Retrieves all the addresses registered to a customer in an Addresses object */
   public static Addresses get(Customer customer) {
     Connection connection = ConnectionInstance.getConnection();
 

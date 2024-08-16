@@ -78,6 +78,10 @@ public class TestEntityCreator {
     return new Email(customer.getId(), null, "fakeEmail@fake.com", true);
   }
 
+  public static Email createBasicNonPrimaryEmail(Customer customer) {
+    return new Email(customer.getId(), null, "fakeEmail2@fake.com", false);
+  }
+
   public static Phone createBasicPhone(Customer customer) {
     return new Phone(customer.getId(), null, "Mobile", "021", "1234567", true, true);
   }
