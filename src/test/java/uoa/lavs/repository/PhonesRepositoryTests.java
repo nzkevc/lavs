@@ -33,13 +33,12 @@ public class PhonesRepositoryTests {
     // Act
     Phones phones = PhonesRepository.get(customer);
     Phone fetchedPrimaryPhone = phones.getPrimaryPhone();
-    // TODO: Currently mainframe not returning canSendTxt flag
     Phone fetchedTextPhone = phones.getTextPhone();
 
     // Assert
     assertEquals(primaryPhone.getNumber(), fetchedPrimaryPhone.getNumber());
-    // assertEquals(textPhone.getNumber(), fetchedTextPhone.getNumber());
-    // assertNotEquals(fetchedTextPhone.getNumber(), fetchedPrimaryPhone.getNumber());
+    assertEquals(textPhone.getNumber(), fetchedTextPhone.getNumber());
+    assertNotEquals(fetchedTextPhone.getNumber(), fetchedPrimaryPhone.getNumber());
     assertEquals(3, phones.getPhoneCount());
   }
 

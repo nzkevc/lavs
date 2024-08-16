@@ -16,6 +16,7 @@ public class PhoneRepository {
     message.setPrefix(phone.getPrefix());
     message.setPhoneNumber(phone.getPhoneNumber());
     message.setIsPrimary(phone.getPrimary());
+    message.setCanSendTxt(phone.getCanSendTxt());
 
     return message;
   }
