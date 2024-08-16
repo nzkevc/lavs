@@ -1,0 +1,65 @@
+package uoa.lavs.repository;
+
+import uoa.lavs.mainframe.Connection;
+import uoa.lavs.mainframe.Status;
+import uoa.lavs.mainframe.messages.loan.LoadLoan;
+import uoa.lavs.mainframe.messages.loan.UpdateLoan;
+import uoa.lavs.models.Loan;
+import uoa.lavs.utils.ConnectionInstance;
+
+public class LoanRepository {
+  public static Loan create(Loan loan) {
+    Connection connection = ConnectionInstance.getConnection();
+
+    UpdateLoan message = new UpdateLoan();
+
+    message.setCustomerId(loan.getCustomerId());
+    message.setPrincipal(loan.getPrincipleCents());
+    message.setRateValue(loan.getInterestRate());
+    message.setRateType(loan.getRateType());
+    message.setStartDate(loan.getStartDate());
+    message.setPeriod(loan.getPeriodMonths());
+    message.setTerm(loan.getTerm());
+    message.setPaymentAmount(loan.getPaymentAmountCents());
+    message.setPaymentFrequency(loan.getPaymentFrequency());
+    message.setCompounding(loan.getCompoundingFrequency());
+
+    Status status = message.send(connection);
+
+    if (!status.getWasSuccessful()) {
+      throw new RuntimeException("Failed to create loan: " + status.getErrorMessage());
+    } else {
+      loan.setLoanId(message.getLoanIdFromServer());
+      return loan;
+    }
+  }
+
+  public static Loan get(String loanId) {
+    Loan loan = new Loan(loanId);
+
+    Connection connection = ConnectionInstance.getConnection();
+    LoadLoan message = new LoadLoan();
+
+    message.setLoanId(loanId);
+    Status status = message.send(connection);
+
+    if (!status.getWasSuccessful()) {
+      throw new RuntimeException("Failed to get loan: " + status.getErrorMessage());
+    } else {
+      loan.setCustomerId(message.getCustomerIdFromServer());
+      loan.setCustomerName(message.getCustomerNameFromServer());
+      loan.setStatus(message.getStatusFromServer());
+      loan.setPrincipleCents(message.getPrincipalFromServer());
+      loan.setInterestRate(message.getRateValueFromServer());
+      loan.setRateType(message.getRateTypeFromServer());
+      loan.setStartDate(message.getStartDateFromServer());
+      loan.setPeriodMonths(message.getPeriodFromServer());
+      loan.setTerm(message.getTermFromServer());
+      loan.setPaymentAmountCents(message.getPaymentAmountFromServer());
+      loan.setPaymentFrequency(message.getPaymentFrequencyFromServer());
+      loan.setCompoundingFrequency(message.getCompoundingFromServer());
+
+      return loan;
+    }
+  }
+}
