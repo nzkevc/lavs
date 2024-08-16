@@ -12,7 +12,8 @@ public class PhoneRepository {
     UpdateCustomerPhoneNumber message = new UpdateCustomerPhoneNumber();
 
     message.setCustomerId(phone.getCustomerId());
-    message.setPhoneNumber(phone.getPhoneNumber());
+    message.setType(phone.getType());
+    message.setPrefix(phone.getPrefix());
     message.setPhoneNumber(phone.getPhoneNumber());
     message.setIsPrimary(phone.getPrimary());
 

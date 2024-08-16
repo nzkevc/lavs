@@ -85,4 +85,16 @@ public class TestEntityCreator {
   public static Phone createBasicPhone(Customer customer) {
     return new Phone(customer.getId(), null, "Mobile", "021", "1234567", true, true);
   }
+
+  public static Phone createBasicPrimaryPhone(Customer customer) {
+    return new Phone(customer.getId(), null, "Home", "09", "1234567", true, false);
+  }
+
+  public static Phone createBasicTextPhone(Customer customer) {
+    return new Phone(customer.getId(), null, "Mobile", "022", "7654321", false, true);
+  }
+
+  public static Phone createBasicSecondaryPhone(Customer customer) {
+    return new Phone(customer.getId(), null, "Work", "09", "123987", false, false);
+  }
 }
