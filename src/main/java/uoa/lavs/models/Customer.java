@@ -83,12 +83,12 @@ public class Customer implements IModel<Customer> {
     }
 
     public Builder addMailingAddress(Address mailingAddress) {
-      this.addresses = new Addresses(addresses.getResidentialAddress(), mailingAddress);
+      this.addresses = new Addresses(id, addresses.getResidentialAddress(), mailingAddress);
       return this;
     }
 
     public Builder addAddress(Address address) {
-      this.addresses = new Addresses(addresses.getResidentialAddress(), address);
+      this.addresses = new Addresses(id, addresses.getResidentialAddress(), address);
       return this;
     }
 
