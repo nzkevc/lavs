@@ -13,6 +13,8 @@ public class Employer {
   public Employer(String customerId, Integer number) {
     this.customerId = customerId;
     this.number = number;
+    // Address, phone, and email are not stored as their own entities in the database for employers,
+    // so customerId and number fields are null
     this.address = new Address(null, null);
     this.phone = new Phone(null, null);
     this.email = new Email(null, null);

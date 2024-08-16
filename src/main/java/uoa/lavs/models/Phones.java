@@ -23,7 +23,8 @@ public class Phones {
     this.phoneNumbers.add(textPhone);
   }
 
-  public Phones(Phone primaryPhone, Phone textPhone) {
+  public Phones(String customerId, Phone primaryPhone, Phone textPhone) {
+    this.customerId = customerId;
     this.phoneNumbers = new ArrayList<>();
     this.primaryPhone = primaryPhone;
     this.textPhone = textPhone;

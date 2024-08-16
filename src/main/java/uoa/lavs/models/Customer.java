@@ -39,6 +39,15 @@ public class Customer implements IModel<Customer> {
     this.loans = builder.loans;
   }
 
+  /**
+   * Addresses, Phones, Emails, and Loans objects are initialized in the Builder, use
+   * Builder(...).add... methods to add primary and additional addresses, phones, emails, and
+   * employer informaiton.
+   *
+   * <p>NOTE: When using each entity's respective repositories to add to the database, the customer
+   * must already exist in the mainframe database and you must update each with the customer's ID
+   * before persisting them to the database.
+   */
   public static class Builder {
     private String id;
     private String title;
@@ -61,12 +70,7 @@ public class Customer implements IModel<Customer> {
         LocalDate dateOfBirth,
         String occupation,
         String citizenship,
-        String visa
-        // Address residentialAddress,
-        // Phone primaryPhone,
-        // Email primaryEmail,
-        // Employer employer) {
-        ) {
+        String visa) {
       this.id = id;
       this.title = title;
       this.name = name;
@@ -74,31 +78,44 @@ public class Customer implements IModel<Customer> {
       this.occupation = occupation;
       this.citizenship = citizenship;
       this.visa = visa;
-      // this.addresses = new Addresses(residentialAddress);
-      // this.phones = new Phones(primaryPhone);
-      // this.emails = new Emails(primaryEmail);
-      // this.employer = employer;
+      this.addresses = new Addresses(id);
+      this.phones = new Phones(id);
+      this.emails = new Emails(id);
       this.notes = "";
-      this.loans = new Loans();
+    }
+
+    public Builder addPrimaryAddress(Address primaryAddress) {
+      this.addresses.setResidentialAddress(primaryAddress);
+      return this;
     }
 
     public Builder addMailingAddress(Address mailingAddress) {
-      this.addresses = new Addresses(id, addresses.getResidentialAddress(), mailingAddress);
+      this.addresses.setMailingAddress(mailingAddress);
       return this;
     }
 
     public Builder addAddress(Address address) {
-      this.addresses = new Addresses(id, addresses.getResidentialAddress(), address);
+      this.addresses.addAddress(address);
+      return this;
+    }
+
+    public Builder addPrimaryPhone(Phone primaryPhone) {
+      this.phones.setPrimaryPhone(primaryPhone);
       return this;
     }
 
     public Builder addTextPhone(Phone textPhone) {
-      this.phones = new Phones(phones.getPrimaryPhone(), textPhone);
+      this.phones.setTextPhone(textPhone);
       return this;
     }
 
     public Builder addPhone(Phone phone) {
       this.phones.addPhone(phone);
+      return this;
+    }
+
+    public Builder addPrimaryEmail(Email primaryEmail) {
+      this.emails.setPrimaryEmail(primaryEmail);
       return this;
     }
 
@@ -109,6 +126,11 @@ public class Customer implements IModel<Customer> {
 
     public Builder addNotes(String notes) {
       this.notes = notes;
+      return this;
+    }
+
+    public Builder addEmployer(Employer employer) {
+      this.employer = employer;
       return this;
     }
 

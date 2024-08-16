@@ -8,6 +8,7 @@ import uoa.lavs.models.Email;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class EmailRepository {
+  /** Sets up message for persisting methods */
   private static UpdateCustomerEmail persist(Email email) {
     UpdateCustomerEmail message = new UpdateCustomerEmail();
 
@@ -19,6 +20,7 @@ public class EmailRepository {
     return message;
   }
 
+  /** Creates new instance of an email in database and retrieves identifying number */
   public static Email create(Email email) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -34,6 +36,7 @@ public class EmailRepository {
     }
   }
 
+  /** Updates existing email in database */
   public static Email update(Email email) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -50,6 +53,7 @@ public class EmailRepository {
     }
   }
 
+  /** Retrieves email from database */
   public static Email get(String customerId, Integer number) {
     Email email = new Email(customerId, number);
 

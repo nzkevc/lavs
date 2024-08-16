@@ -8,6 +8,7 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class NoteRepository {
+  /** Updates the note for a customer */
   public static String update(String note, Customer customer) throws RuntimeException {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -27,6 +28,7 @@ public class NoteRepository {
     }
   }
 
+  /** Retrieves the note for a customer */
   public static String get(Customer customer, Integer number) throws RuntimeException {
     Connection connection = ConnectionInstance.getConnection();
 

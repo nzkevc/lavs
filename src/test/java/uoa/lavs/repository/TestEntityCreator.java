@@ -1,10 +1,13 @@
 package uoa.lavs.repository;
 
 import java.time.LocalDate;
+import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.RateType;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Employer;
+import uoa.lavs.models.Loan;
 import uoa.lavs.models.Phone;
 
 public class TestEntityCreator {
@@ -108,5 +111,41 @@ public class TestEntityCreator {
         createBasicEmail(customer),
         "www.fakeemployer.com",
         true);
+  }
+
+  public static Loan createBasicLoan(Customer customer) {
+    LocalDate startDate = LocalDate.of(1990, 1, 1);
+    return new Loan(
+        customer.getId(),
+        null,
+        customer.getName(),
+        1000.00,
+        startDate,
+        10,
+        5,
+        0.05,
+        RateType.Floating,
+        Frequency.Weekly,
+        100.00,
+        Frequency.Monthly,
+        true);
+  }
+
+  public static Loan createBasicSecondaryLoan(Customer customer) {
+    LocalDate startDate = LocalDate.of(1991, 2, 2);
+    return new Loan(
+        customer.getId(),
+        null,
+        customer.getName(),
+        2000.00,
+        startDate,
+        20,
+        10,
+        0.10,
+        RateType.Fixed,
+        Frequency.Monthly,
+        200.00,
+        Frequency.Fortnightly,
+        false);
   }
 }
