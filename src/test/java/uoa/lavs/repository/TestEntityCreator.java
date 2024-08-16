@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Employer;
 import uoa.lavs.models.Phone;
 
 public class TestEntityCreator {
@@ -96,5 +97,16 @@ public class TestEntityCreator {
 
   public static Phone createBasicSecondaryPhone(Customer customer) {
     return new Phone(customer.getId(), null, "Work", "09", "123987", false, false);
+  }
+
+  public static Employer createBasicEmployer(Customer customer) {
+    return new Employer(
+        customer.getId(),
+        "Fake Employer",
+        createBasicAddress(customer),
+        createBasicPhone(customer),
+        createBasicEmail(customer),
+        "www.fakeemployer.com",
+        true);
   }
 }
