@@ -79,7 +79,6 @@ public class Customer implements IModel<Customer> {
       // this.emails = new Emails(primaryEmail);
       // this.employer = employer;
       this.notes = "";
-      this.loans = new Loans();
     }
 
     public Builder addMailingAddress(Address mailingAddress) {

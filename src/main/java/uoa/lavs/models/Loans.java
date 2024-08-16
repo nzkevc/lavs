@@ -4,10 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Loans {
+  private String customerId;
   private List<Loan> loans;
 
-  public Loans() {
+  public Loans(String customerId) {
+    this.customerId = customerId;
     this.loans = new ArrayList<>();
+  }
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
   }
 
   public void addLoan(Loan newLoan) {
@@ -16,6 +26,10 @@ public class Loans {
 
   public List<Loan> getLoans() {
     return loans;
+  }
+
+  public int getLoanCount() {
+    return loans.size();
   }
 
   public Loan getLoan(String id) {

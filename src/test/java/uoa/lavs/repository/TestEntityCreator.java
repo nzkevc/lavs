@@ -130,4 +130,22 @@ public class TestEntityCreator {
         Frequency.Monthly,
         true);
   }
+
+  public static Loan createBasicSecondaryLoan(Customer customer) {
+    LocalDate startDate = LocalDate.of(1991, 2, 2);
+    return new Loan(
+        customer.getId(),
+        null,
+        customer.getName(),
+        2000.00,
+        startDate,
+        20,
+        10,
+        0.10,
+        RateType.Fixed,
+        Frequency.Monthly,
+        200.00,
+        Frequency.Fortnightly,
+        false);
+  }
 }
