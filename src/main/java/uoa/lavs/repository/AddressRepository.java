@@ -8,6 +8,7 @@ import uoa.lavs.models.Address;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class AddressRepository {
+  /** Sets up message for persisting methods */
   private static UpdateCustomerAddress persist(Address address) {
     UpdateCustomerAddress message = new UpdateCustomerAddress();
 
@@ -25,6 +26,7 @@ public class AddressRepository {
     return message;
   }
 
+  /** Creates new instance of an address in database and retieves identifying number */
   public static Address create(Address address) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -40,6 +42,7 @@ public class AddressRepository {
     }
   }
 
+  /** Updates existing address in database */
   public static Address update(Address address) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -56,6 +59,7 @@ public class AddressRepository {
     }
   }
 
+  /** Retrieves address from databas */
   public static Address get(String customerId, Integer number) {
     Address address = new Address(customerId, number);
 

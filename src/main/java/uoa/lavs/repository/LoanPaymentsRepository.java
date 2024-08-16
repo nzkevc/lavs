@@ -7,12 +7,14 @@ import uoa.lavs.models.Loan;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class LoanPaymentsRepository {
+  /** Retrieves loan payments from database */
   public static Loan get(Loan loan) {
     Connection connection = ConnectionInstance.getConnection();
 
     LoadLoanPayments message = new LoadLoanPayments();
     message.setLoanId(loan.getLoanId());
 
+    // Currently cannot add payments to the database, so can only test for exception
     Status status = message.send(connection);
     if (!status.getWasSuccessful()) {
       throw new RuntimeException("Failed to get loan payments: " + status.getErrorMessage());

@@ -8,6 +8,7 @@ import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class PhoneRepository {
+  /** Sets up message for persisting methods */
   private static UpdateCustomerPhoneNumber persist(Phone phone) {
     UpdateCustomerPhoneNumber message = new UpdateCustomerPhoneNumber();
 
@@ -21,6 +22,7 @@ public class PhoneRepository {
     return message;
   }
 
+  /** Creates new instance of a phone in database and retrieves identifying number */
   public static Phone create(Phone phone) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -36,6 +38,7 @@ public class PhoneRepository {
     }
   }
 
+  /** Updates existing phone in database */
   public static Phone update(Phone phone) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -52,6 +55,7 @@ public class PhoneRepository {
     }
   }
 
+  /** Retrieves phone from database */
   public static Phone get(String customerId, Integer number) {
     Phone phone = new Phone(customerId, number);
 

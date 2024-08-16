@@ -31,7 +31,6 @@ public class PhonesRepository {
         if (phone.getPrimary()) {
           phones.setPrimaryPhone(phone);
         }
-        // TODO: Currently mainframe not returning canSendTxt flag
         if (phone.getCanSendTxt()) {
           phones.setTextPhone(phone);
         }

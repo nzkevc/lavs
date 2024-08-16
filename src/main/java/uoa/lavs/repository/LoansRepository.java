@@ -9,6 +9,7 @@ import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class LoansRepository {
+  /** Retrieves loans from database */
   public static Loans get(Customer customer) {
     Connection connection = ConnectionInstance.getConnection();
 

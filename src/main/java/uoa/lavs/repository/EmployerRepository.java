@@ -8,6 +8,7 @@ import uoa.lavs.models.Employer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class EmployerRepository {
+  /** Sets up message for persisting methods */
   private static UpdateCustomerEmployer persist(Employer employer) {
     UpdateCustomerEmployer message = new UpdateCustomerEmployer();
 
@@ -27,6 +28,7 @@ public class EmployerRepository {
     return message;
   }
 
+  /** Creates new instance of an employer in database and retrieves identifying number */
   public static Employer create(Employer employer) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -42,6 +44,7 @@ public class EmployerRepository {
     }
   }
 
+  /** Updates existing employer in database */
   public static Employer update(Employer employer) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -58,6 +61,7 @@ public class EmployerRepository {
     }
   }
 
+  /** Retrieves employer from database */
   public static Employer get(String customerId, Integer number) {
     Employer employer = new Employer(customerId, number);
 

@@ -8,6 +8,7 @@ import uoa.lavs.models.Loan;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class LoanRepository {
+  /** Creates new instance of a loan in database and retrieves identifying number */
   public static Loan create(Loan loan) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -34,6 +35,7 @@ public class LoanRepository {
     }
   }
 
+  /** Updates existing loan in database */
   public static Loan get(String loanId) {
     Loan loan = new Loan(loanId);
 

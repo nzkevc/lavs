@@ -8,6 +8,7 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ConnectionInstance;
 
 public class CustomerRepository {
+  /** Sets up message for persisting methods */
   private static UpdateCustomer persist(Customer customer) {
     UpdateCustomer message = new UpdateCustomer();
 
@@ -21,6 +22,7 @@ public class CustomerRepository {
     return message;
   }
 
+  /** Creates new instance of a customer in database and retrieves identifying number */
   public static Customer create(Customer customer) {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -37,6 +39,7 @@ public class CustomerRepository {
     }
   }
 
+  /** Updates existing customer in database */
   public static Customer update(Customer customer) throws RuntimeException {
     Connection connection = ConnectionInstance.getConnection();
 
@@ -52,6 +55,7 @@ public class CustomerRepository {
     }
   }
 
+  /** Retrieves customer from database */
   public static Customer get(String id) throws RuntimeException {
     Customer customer = new Customer(id);
 
