@@ -48,6 +48,7 @@ public class Emails {
     if (primaryEmail != null) {
       primaryEmail.setIsPrimary(false);
     }
+    email.setIsPrimary(true);
     primaryEmail = email;
     emails.add(email);
   }
