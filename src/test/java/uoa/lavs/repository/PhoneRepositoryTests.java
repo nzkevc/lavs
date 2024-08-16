@@ -55,11 +55,11 @@ public class PhoneRepositoryTests {
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
     // Act
-    phone.setPhoneNumber("0211234567");
+    phone.setPhoneNumber("000000");
     phone = PhoneRepository.update(phone);
 
     // Assert
-    assertEquals("0211234567", phone.getPhoneNumber());
+    assertEquals("000000", phone.getPhoneNumber());
   }
 
   @Test
