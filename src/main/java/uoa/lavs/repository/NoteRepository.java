@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerNote;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerNote;
 import uoa.lavs.models.Customer;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class NoteRepository {
   /** Updates the note for a customer */

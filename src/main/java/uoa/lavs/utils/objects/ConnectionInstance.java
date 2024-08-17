@@ -1,4 +1,4 @@
-package uoa.lavs.utils;
+package uoa.lavs.utils.objects;
 
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.simulator.NitriteConnection;

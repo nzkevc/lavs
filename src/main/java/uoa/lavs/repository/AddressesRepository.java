@@ -6,7 +6,7 @@ import uoa.lavs.mainframe.messages.customer.LoadCustomerAddresses;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class AddressesRepository {
   /** Retrieves all the addresses registered to a customer in an Addresses object */
