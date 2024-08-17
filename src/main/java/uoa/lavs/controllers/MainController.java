@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
@@ -15,14 +16,14 @@ public class MainController implements IController {
 
   Logger logger = LoggerFactory.getLogger(MainController.class);
 
-  private static final Parent root = ResourceUtils.loadFxml("main.fxml");
+  private static final Pair<Parent, MainController> pair = ResourceUtils.loadFxml("main.fxml");
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
 
   private double zoom = 1;
 
-  public static Parent getRoot() {
-    return root;
+  public static Pair<Parent, MainController> getPair() {
+    return pair;
   }
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)

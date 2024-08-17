@@ -17,6 +17,6 @@ public class State {
 
   public static void reset() {
     exampleTitle.setValue("Example Title");
-    page.setValue(LandingPageController.getRoot());
+    page.setValue(LandingPageController.getPair().getKey());
   }
 }
