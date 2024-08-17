@@ -1,5 +1,6 @@
 package uoa.lavs.models;
 
+
 /**
  * Models should have a full-model validate method that is called in the constructor, as well as
  * per-field validation methods that are called in the setters.
@@ -11,10 +12,4 @@ package uoa.lavs.models;
  */
 public interface IModel<T extends IModel<T>> {
   boolean validate();
-
-  T persist();
-
-  void delete();
-
-  T get(String id);
 }

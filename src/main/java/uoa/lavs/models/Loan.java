@@ -1,122 +1,227 @@
 package uoa.lavs.models;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.mainframe.LoanStatus;
+import uoa.lavs.mainframe.RateType;
 
-public class Loan {
-  public enum Status {
-    ACTIVE,
-    INACTIVE,
-    NEW,
-    PENDING,
-    CANCELLED,
-  }
+public class Loan implements IModel<Loan> {
 
-  public enum CompoundingFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
-
-  public enum PaymentFrequency {
-    MONTHLY,
-    QUARTERLY,
-    SIX_MONTHLY,
-    ANNUALLY,
-  }
-
-  private String id;
-  private Status status;
-  private int principleCents;
-  private Date startDate;
+  private String customerId;
+  private String loanId;
+  private String customerName;
+  private LoanStatus status;
+  private double principleCents;
+  private LocalDate startDate;
   private int periodMonths;
+  private int term;
   private double interestRate;
-  private CompoundingFrequency compoundingFrequency;
-  private int paymentAmountCents;
-  private PaymentFrequency paymentFrequency;
+  private RateType rateType;
+  private Frequency compoundingFrequency;
+  private double paymentAmountCents;
+  private Frequency paymentFrequency;
   private boolean interestOnly;
+  private List<Integer> paymentNumbers;
+  private List<Double> paymentInterests;
+  private List<Double> paymentPrincipals;
+  private List<Double> paymentRemainings;
+
+  public Loan(String loanId) {
+    this.loanId = loanId;
+    paymentNumbers = new ArrayList<>();
+    paymentInterests = new ArrayList<>();
+    paymentPrincipals = new ArrayList<>();
+    paymentRemainings = new ArrayList<>();
+  }
 
   public Loan(
-      String id,
-      int principleCents,
-      Date startDate,
+      String customerId,
+      String loanId,
+      String customerName,
+      double principleCents,
+      LocalDate startDate,
       int periodMonths,
+      int term,
       double interestRate,
-      CompoundingFrequency compoundingFrequency,
-      int paymentAmountCents,
-      PaymentFrequency paymentFrequency,
+      RateType rateType,
+      Frequency compoundingFrequency,
+      double paymentAmountCents,
+      Frequency paymentFrequency,
       boolean interestOnly) {
-    this.id = id;
+    this.customerId = customerId;
+    this.loanId = loanId;
+    this.customerName = customerName;
     this.principleCents = principleCents;
     this.startDate = startDate;
     this.periodMonths = periodMonths;
+    this.term = term;
     this.interestRate = interestRate;
+    this.rateType = rateType;
     this.compoundingFrequency = compoundingFrequency;
     this.paymentAmountCents = paymentAmountCents;
     this.paymentFrequency = paymentFrequency;
     this.interestOnly = interestOnly;
+    paymentNumbers = new ArrayList<>();
+    paymentInterests = new ArrayList<>();
+    paymentPrincipals = new ArrayList<>();
+    paymentRemainings = new ArrayList<>();
   }
 
-  public String getId() {
-    return id;
+  public String getCustomerId() {
+    return customerId;
   }
 
-  public Status getStatus() {
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+
+  public String getLoanId() {
+    return loanId;
+  }
+
+  public void setLoanId(String loanId) {
+    this.loanId = loanId;
+  }
+
+  public String getCustomerName() {
+    return customerName;
+  }
+
+  public void setCustomerName(String customerName) {
+    this.customerName = customerName;
+  }
+
+  public LoanStatus getStatus() {
     return status;
   }
 
-  public int getPrincipleCents() {
+  public void setStatus(String status) {
+    this.status = LoanStatus.valueOf(status);
+  }
+
+  public double getPrincipleCents() {
     return principleCents;
   }
 
-  public Date getStartDate() {
+  public void setPrincipleCents(double principleCents) {
+    this.principleCents = principleCents;
+  }
+
+  public LocalDate getStartDate() {
     return startDate;
+  }
+
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
   }
 
   public int getPeriodMonths() {
     return periodMonths;
   }
 
-  public CompoundingFrequency getCompoundingFrequency() {
+  public void setPeriodMonths(int periodMonths) {
+    this.periodMonths = periodMonths;
+  }
+
+  public int getTerm() {
+    return term;
+  }
+
+  public void setTerm(int term) {
+    this.term = term;
+  }
+
+  public Frequency getCompoundingFrequency() {
     return compoundingFrequency;
+  }
+
+  public void setCompoundingFrequency(Frequency compoundingFrequency) {
+    this.compoundingFrequency = compoundingFrequency;
   }
 
   public double getInterestRate() {
     return interestRate;
   }
 
-  public PaymentFrequency getPaymentFrequency() {
+  public void setInterestRate(double interestRate) {
+    this.interestRate = interestRate;
+  }
+
+  public RateType getRateType() {
+    return rateType;
+  }
+
+  public void setRateType(RateType rateType) {
+    this.rateType = rateType;
+  }
+
+  public Frequency getPaymentFrequency() {
     return paymentFrequency;
   }
 
-  public int getPaymentAmountCents() {
+  public void setPaymentFrequency(Frequency paymentFrequency) {
+    this.paymentFrequency = paymentFrequency;
+  }
+
+  public double getPaymentAmountCents() {
     return paymentAmountCents;
+  }
+
+  public void setPaymentAmountCents(double paymentAmountCents) {
+    this.paymentAmountCents = paymentAmountCents;
   }
 
   public boolean isInterestOnly() {
     return interestOnly;
   }
 
-  public void setStatus(Status status) {
-    if (!status.equals(Status.ACTIVE) && !status.equals(Status.INACTIVE)) {
-      this.status = status;
-    }
-  }
-
-  public void setCompoundingFrequency(CompoundingFrequency compoundingFrequency) {
-    this.compoundingFrequency = compoundingFrequency;
-  }
-
-  public void setPaymentFrequency(PaymentFrequency paymentFrequency) {
-    this.paymentFrequency = paymentFrequency;
-  }
-
-  public void setIsInterestOnly(boolean interestOnly) {
+  public void setInterestOnly(boolean interestOnly) {
     this.interestOnly = interestOnly;
   }
 
-  public void setPaymentAmountCents(int paymentAmountCents) {
-    this.paymentAmountCents = paymentAmountCents;
+  public void setStatus(LoanStatus status) {
+    this.status = status;
+  }
+
+  public List<Integer> getPaymentNumbers() {
+    return paymentNumbers;
+  }
+
+  public void setPaymentNumbers(List<Integer> paymentNumbers) {
+    this.paymentNumbers = paymentNumbers;
+  }
+
+  public List<Double> getPaymentInterests() {
+    return paymentInterests;
+  }
+
+  public void setPaymentInterests(List<Double> paymentInterests) {
+    this.paymentInterests = paymentInterests;
+  }
+
+  public List<Double> getPaymentPrincipals() {
+    return paymentPrincipals;
+  }
+
+  public void setPaymentPrincipals(List<Double> paymentPrincipals) {
+    this.paymentPrincipals = paymentPrincipals;
+  }
+
+  public List<Double> getPaymentRemainings() {
+    return paymentRemainings;
+  }
+
+  public void setPaymentRemainings(List<Double> paymentRemainings) {
+    this.paymentRemainings = paymentRemainings;
+  }
+
+  public void addPayment(Integer number, double interest, double principal, double remaining) {
+    paymentNumbers.add(number);
+    paymentInterests.add(interest);
+    paymentPrincipals.add(principal);
+    paymentRemainings.add(remaining);
   }
 
   @Override
@@ -124,8 +229,14 @@ public class Loan {
     if (o == null || getClass() != o.getClass()) return false;
     if (o instanceof Loan) {
       Loan loan = (Loan) o;
-      return id.equals(loan.getId());
+      return loanId.equals(loan.getLoanId());
     }
     return false;
+  }
+
+  // TODO
+  @Override
+  public boolean validate() {
+    return true;
   }
 }

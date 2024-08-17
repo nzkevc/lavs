@@ -9,7 +9,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
-		<JavaFX.version>13</JavaFX.version>
+		<JavaFX.version>22</JavaFX.version>
 		<JUnit.version>5.10.1</JUnit.version>
 		<lombok.version>1.18.30</lombok.version>
 	</properties>

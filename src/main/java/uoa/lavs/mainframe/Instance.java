@@ -8,7 +8,7 @@ public class Instance {
     private Instance() {}
 
     // the path to the data file
-    private static final String dataPath = "nitrite.db";
+    private static final String dataPath = "testing/nitrite-test.db";
 
     // internal class to initialize the singleton, this enables lazy-loading
     // for the singleton

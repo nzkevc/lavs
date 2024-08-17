@@ -13,6 +13,6 @@ public class ExampleService implements IService {
     // Just to demo properties and state
     Platform.runLater(() -> State.exampleTitle.setValue("User created: " + name));
 
-    return user.persist();
+    return null;
   }
 }
