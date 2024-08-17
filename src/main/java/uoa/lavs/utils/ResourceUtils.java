@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
+import uoa.lavs.controllers.IController;
 import uoa.lavs.utils.objects.Component;
 
 public class ResourceUtils {
@@ -54,7 +55,7 @@ public class ResourceUtils {
    * @param url the url of the FXML file relative to the views directory
    * @return a Component object containing the root node and controller
    */
-  public static <T> Component<T> loadFxml(String url) {
+  public static <T extends IController> Component<T> loadFxml(String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
     Parent root; // Access with Pair.getKey()

@@ -1,6 +1,7 @@
 package uoa.lavs.utils.objects;
 
 import javafx.scene.Parent;
+import uoa.lavs.controllers.IController;
 
 /**
  * A class that represents a component in the application. Think of components as pairs of a View
@@ -11,7 +12,7 @@ import javafx.scene.Parent;
  * <p>Note: Sorry for the confusing naming, but pages (and also main) are also considered
  * components.
  */
-public class Component<T> {
+public class Component<T extends IController> {
 
   private final String name;
   private final Parent view;
