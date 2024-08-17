@@ -6,10 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
+import uoa.lavs.utils.objects.Component;
 
 public class ResourceUtils {
   private static final Logger logger = LoggerFactory.getLogger(App.class);
@@ -52,9 +52,9 @@ public class ResourceUtils {
    *
    * @param <T> the type of the controller
    * @param url the url of the FXML file relative to the views directory
-   * @return Pair<Parent, T> where Parent is the root node and T is the controller
+   * @return a Component object containing the root node and controller
    */
-  public static <T> Pair<Parent, T> loadFxml(String url) {
+  public static <T> Component<T> loadFxml(String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
     Parent root; // Access with Pair.getKey()
@@ -65,7 +65,7 @@ public class ResourceUtils {
       logger.error("Could not load fxml: " + url);
       root = new AnchorPane(); // Avoid crashing application with null
     }
-    return new Pair<>(root, controller);
+    return new Component<>(url, root, controller);
   }
 
   /**

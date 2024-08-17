@@ -1,29 +1,28 @@
 package uoa.lavs.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.ResourceUtils;
+import uoa.lavs.utils.objects.Component;
 
 public class MainController implements IController {
 
   Logger logger = LoggerFactory.getLogger(MainController.class);
 
-  private static final Pair<Parent, MainController> pair = ResourceUtils.loadFxml("main.fxml");
+  private static final Component<MainController> singleton = ResourceUtils.loadFxml("main.fxml");
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
 
   private double zoom = 1;
 
-  public static Pair<Parent, MainController> getPair() {
-    return pair;
+  public static Component<MainController> getSingleton() {
+    return singleton;
   }
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
@@ -34,8 +33,8 @@ public class MainController implements IController {
     // Page state listener
     State.page.addListener(
         (observable, oldPage, newPage) -> {
-          logger.debug("Page changed to: " + newPage.idProperty().get());
-          ControllerUtils.swapComponent(panPage, newPage);
+          logger.debug("Page changed to: " + newPage.getName());
+          ControllerUtils.swapComponent(panPage, newPage.getView());
         });
 
     // Screen resize listeners
