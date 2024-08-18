@@ -1,13 +1,14 @@
 package uoa.lavs.utils;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.utils.objects.Component;
@@ -47,8 +48,8 @@ public class ResourceUtils {
   }
 
   /**
-   * Load an FXML file and return a pair containing the root node and associated controller. The
-   * view must link to a controller. Urls are relative to the views directory (e.g.
+   * Load an FXML file and return a component containing the root node and associated controller.
+   * The view must link to a controller. Urls are relative to the views directory (e.g.
    * pages/landing-page.fxml)
    *
    * @param <T> the type of the controller
@@ -58,15 +59,17 @@ public class ResourceUtils {
   public static <T extends IController> Component<T> loadFxml(String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
-    Parent root; // Access with Pair.getKey()
-    T controller = fxmlLoader.getController(); // Access with Pair.getValue()
     try {
-      root = fxmlLoader.load();
+      Parent root = fxmlLoader.load();
+      T controller = fxmlLoader.getController();
+      return new Component<>(url, root, controller);
     } catch (IOException e) {
       logger.error("Could not load fxml: " + url);
-      root = new AnchorPane(); // Avoid crashing application with null
+      throw new RuntimeException(e);
+    } catch (RuntimeException e) {
+      logger.error("Error loading controller for: " + url);
+      throw e;
     }
-    return new Component<>(url, root, controller);
   }
 
   /**
