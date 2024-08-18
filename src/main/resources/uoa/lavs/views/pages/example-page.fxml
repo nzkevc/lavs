@@ -17,6 +17,6 @@
             <Font size="96.0" />
          </font>
       </Button>
-      <FieldController fx:id="fieldController" layoutX="751.0" layoutY="500.0" />
+      <FieldController fx:id="fieldController" layoutX="751.0" layoutY="500.0" key="Customer Name" />
    </children>
 </AnchorPane>
