@@ -85,6 +85,10 @@ public class Loan implements IModel<Loan> {
     return status;
   }
 
+  public void setStatus(LoanStatus status) {
+    this.status = status;
+  }
+
   public void setStatus(String status) {
     this.status = LoanStatus.valueOf(status);
   }
@@ -167,10 +171,6 @@ public class Loan implements IModel<Loan> {
 
   public void setInterestOnly(boolean interestOnly) {
     this.interestOnly = interestOnly;
-  }
-
-  public void setStatus(LoanStatus status) {
-    this.status = status;
   }
 
   public LoanPayments getLoanPayments() {
