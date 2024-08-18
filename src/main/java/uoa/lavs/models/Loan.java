@@ -27,6 +27,7 @@ public class Loan implements IModel<Loan> {
   private List<Double> paymentInterests;
   private List<Double> paymentPrincipals;
   private List<Double> paymentRemainings;
+  private LoanSummary loanSummary;
 
   public Loan(String loanId) {
     this.loanId = loanId;
@@ -222,6 +223,14 @@ public class Loan implements IModel<Loan> {
     paymentInterests.add(interest);
     paymentPrincipals.add(principal);
     paymentRemainings.add(remaining);
+  }
+
+  public LoanSummary getLoanSummary() {
+    return loanSummary;
+  }
+
+  public void setLoanSummary(LoanSummary loanSummary) {
+    this.loanSummary = loanSummary;
   }
 
   @Override
