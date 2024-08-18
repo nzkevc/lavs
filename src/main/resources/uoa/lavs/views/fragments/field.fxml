@@ -13,6 +13,6 @@
          </font>
       </Label>
       <TextField fx:id="txtValue" layoutX="237.0" layoutY="14.0" prefHeight="25.0" prefWidth="240.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="lblError" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="45.0" prefHeight="14.0" prefWidth="360.0" text="Error" textFill="RED" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0" />
+      <Label fx:id="lblError" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="45.0" prefHeight="14.0" prefWidth="360.0" textFill="RED" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0" />
    </children>
 </fx:root>

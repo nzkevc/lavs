@@ -43,10 +43,11 @@ public class ExampleController implements IController {
     AsyncUtils.promise(
         () -> ExampleService.createUser(name),
         user -> {
+          Platform.runLater(() -> fieldController.clearError());
           logger.info("User created: " + user);
         },
         throwable -> {
-          logger.warn("Error creating user", throwable);
+          // logger.warn("Error creating user", throwable);
           Platform.runLater(() -> fieldController.setError("Error creating user"));
         });
   }
