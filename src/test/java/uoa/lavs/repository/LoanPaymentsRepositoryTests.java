@@ -33,6 +33,8 @@ public class LoanPaymentsRepositoryTests {
     // Assert
     assertEquals(customer.getId(), loanPayments.getCustomerId());
     assertEquals(11, loanPayments.getPayments());
+    assertEquals(900.04, loanPayments.getPaymentRemainings().get(0));
+    assertEquals(0.23, loanPayments.getPaymentPrincipals().get(10));
   }
 
   @Test
