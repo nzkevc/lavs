@@ -1,26 +1,35 @@
-package uoa.lavs.controllers;
+package uoa.lavs.controllers.pages;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import uoa.lavs.State;
+import uoa.lavs.controllers.IController;
 import uoa.lavs.services.ExampleService;
 import uoa.lavs.utils.AsyncUtils;
+import uoa.lavs.utils.ResourceUtils;
+import uoa.lavs.utils.objects.Component;
 
-public class ExampleController implements Initializable {
+public class ExampleController implements IController {
 
   private static final Logger logger = LoggerFactory.getLogger(ExampleController.class);
 
+  private static final Component<ExampleController> singleton =
+      ResourceUtils.loadFxml("pages/example-page.fxml");
+
   @FXML private Label lblTitle;
 
-  @Override
-  public void initialize(URL arg0, ResourceBundle arg1) {
+  public static Component<ExampleController> getSingleton() {
+    return singleton;
+  }
+
+  @FXML
+  public void initialize() {
     State.exampleTitle.addListener((observable, oldValue, newValue) -> lblTitle.setText(newValue));
   }
 

@@ -3,7 +3,7 @@ package uoa.lavs;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import uoa.lavs.controllers.pages.LandingPageController;
+import uoa.lavs.controllers.pages.ExampleController;
 import uoa.lavs.utils.objects.Component;
 
 /**
@@ -17,6 +17,6 @@ public class State {
 
   public static void reset() {
     exampleTitle.setValue("Example Title");
-    page.setValue(LandingPageController.getSingleton());
+    page.setValue(ExampleController.getSingleton());
   }
 }
