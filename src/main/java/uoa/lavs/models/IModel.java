@@ -1,14 +1,10 @@
 package uoa.lavs.models;
 
-
 /**
- * Models should have a full-model validate method that is called in the constructor, as well as
- * per-field validation methods that are called in the setters.
+ * Models should have a full-model validate method that is called in the constructor.
  *
- * <p>Models are in charge of their own persistence, retrival, and deletion from the database. When
- * a model is persisted, the entire model is overwrittern in the database.
- *
- * <p>Where relevant, the model should also have a static getAll method.
+ * <p>If the model is invalid, the constructor should throw a custom exception that is caught at the
+ * controller level, with fields indicating what subfields are invalid.
  */
 public interface IModel<T extends IModel<T>> {
   boolean validate();

@@ -1,6 +1,7 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
+import uoa.lavs.exceptions.ValidationException;
 
 public class Customer implements IModel<Customer> {
 
@@ -81,6 +82,7 @@ public class Customer implements IModel<Customer> {
       this.addresses = new Addresses(id);
       this.phones = new Phones(id);
       this.emails = new Emails(id);
+      this.loans = new Loans(id);
       this.notes = "";
     }
 
@@ -259,7 +261,7 @@ public class Customer implements IModel<Customer> {
 
   // TODO
   @Override
-  public boolean validate() {
-    return false;
+  public boolean validate() throws ValidationException {
+    return true;
   }
 }
