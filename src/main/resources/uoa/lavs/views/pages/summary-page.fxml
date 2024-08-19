@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="92.0" layoutY="243.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="400.0">
          <children>
-            <VBox layoutX="7.0" layoutY="5.0" prefHeight="536.0" prefWidth="387.0">
+            <VBox layoutX="7.0" layoutY="10.0" prefHeight="536.0" prefWidth="387.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="GENERAL">
                      <font>
@@ -44,29 +44,43 @@
       </AnchorPane>
       <AnchorPane layoutX="535.0" layoutY="251.0" prefHeight="607.0" prefWidth="1291.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="617.0" layoutX="-1.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" width="1291.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c7c7c7" height="609.0" layoutX="-1.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" width="1291.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="495.0" layoutY="915.0" prefHeight="136.0" prefWidth="1316.0">
          <children>
-            <Text fill="RED" layoutX="113.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message">
+            <Text fill="RED" layoutX="94.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message">
                <font>
-                  <Font size="63.0" />
+                  <Font size="46.0" />
                </font>
             </Text>
-            <Button layoutX="1074.0" layoutY="23.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="225.0" text="SUBMIT">
+            <Button layoutX="1111.0" layoutY="3.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="225.0" text="SUBMIT">
                <font>
                   <Font name="Calibri Bold" size="23.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="60.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="109.0">
+      <AnchorPane layoutX="104.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="109.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="108.0" stylesheets="@../../../css/button.css" text="←">
+            <Button layoutY="3.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="108.0" stylesheets="@../../../css/button.css" text="←">
                <font>
                   <Font name="Calibri Bold" size="48.0" />
                </font>
             </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="538.0" layoutY="150.0" prefHeight="89.0" prefWidth="1287.0">
+         <children>
+            <Text layoutX="-6.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
+               <font>
+                  <Font size="63.0" />
+               </font>
+            </Text>
+            <Text layoutX="963.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID:">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>
