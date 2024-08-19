@@ -136,6 +136,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
+    customer.getAddresses().setMailingAddress(getContactCard().assemble().getAddress());
     customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
