@@ -60,7 +60,6 @@
             </Button>
          </children>
       </AnchorPane>
-      <fx:include source="../../fragments/nav-bar.fxml" />
       <AnchorPane layoutX="60.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="109.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="108.0" stylesheets="@../../../css/button.css" text="←">
