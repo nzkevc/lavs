@@ -14,6 +14,7 @@ public class LoanRepository {
   public static Loan create(Loan loan) {
     Connection connection = ConnectionInstance.getConnection();
 
+    loan.setLoanId(null);
     UpdateLoan message = new UpdateLoan();
 
     message.setCustomerId(loan.getCustomerId());

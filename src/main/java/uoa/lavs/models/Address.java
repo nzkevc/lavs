@@ -47,6 +47,10 @@ public class Address implements IModel<Address> {
     return customerID;
   }
 
+  public void setCustomerId(String customerId) {
+    this.customerID = customerId;
+  }
+
   public Integer getNumber() {
     return number;
   }
@@ -143,6 +147,7 @@ public class Address implements IModel<Address> {
     return false;
   }
 
+  // TODO
   @Override
   public boolean validate() {
     return true;
