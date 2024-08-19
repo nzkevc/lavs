@@ -154,7 +154,11 @@ public class SummaryPageController extends AnchorPane implements IPage {
           CustomerService.createCustomer(customer); // Shouldn't this return the new customer?
           return null;
         },
-        (x) -> logger.info("Customer created successfully"),
+        (x) -> {
+          clearMsgLabel();
+          setMsgLabel("Customer created successfully", false);
+          clearAll();
+        },
         this::handleException);
   }
 
@@ -178,7 +182,26 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void handleException(Throwable e) {
-    logger.error("Error in promise: ", e);
-    Platform.runLater(() -> errorLbl.setText(e.getMessage()));
+    setMsgLabel(e.getMessage(), true);
+  }
+
+  private void setMsgLabel(String msg, boolean isError) {
+    // Log in console
+    if (isError) {
+      logger.warn(msg);
+    } else {
+      logger.debug(msg);
+    }
+
+    // Update UI
+    Platform.runLater(
+        () -> {
+          errorLbl.setText(msg);
+          errorLbl.setStyle(isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+        });
+  }
+
+  private void clearMsgLabel() {
+    Platform.runLater(() -> errorLbl.setText(""));
   }
 }
