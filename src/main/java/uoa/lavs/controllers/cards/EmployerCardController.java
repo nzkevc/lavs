@@ -62,7 +62,7 @@ public class EmployerCardController extends AnchorPane implements IController {
     website.clearValue();
   }
 
-  public Employer getEmployer() {
+  public Employer assembleEmployer() {
     Employer employer = new Employer();
     employer.setName(employerName.getValue());
 

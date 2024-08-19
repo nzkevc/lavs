@@ -54,7 +54,7 @@ public class ContactCardController extends AnchorPane implements IController {
     emailAddress.clearValue();
   }
 
-  public Address getAddress() {
+  public Address assembleAddress() {
     Address address = new Address();
     address.setLine1(addressLine1.getValue());
     address.setSuburb(suburb.getValue());
@@ -64,14 +64,14 @@ public class ContactCardController extends AnchorPane implements IController {
     return address;
   }
 
-  public Phone getPhone() {
+  public Phone assemblePhone() {
     Phone phone = new Phone();
     phone.setPrefix(prefix.getValue());
     phone.setPhoneNumber(phoneNumber.getValue());
     return phone;
   }
 
-  public Email getEmail() {
+  public Email assembleEmail() {
     Email email = new Email();
     email.setAddress(emailAddress.getValue());
     return email;

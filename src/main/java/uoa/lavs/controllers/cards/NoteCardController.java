@@ -26,7 +26,7 @@ public class NoteCardController extends AnchorPane implements IController {
     noteField.clear();
   }
 
-  public String getNote() {
+  public String assembleNote() {
     return noteField.getText();
   }
 }

@@ -1,12 +1,10 @@
 package uoa.lavs.controllers.cards;
 
 import java.time.LocalDate;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Customer;
@@ -27,7 +25,7 @@ public class GeneralInfoCardController extends AnchorPane implements IController
     ControllerUtils.loadFxml(this, "cards/customer/general-info.fxml");
   }
 
-  public void renderCustomer(Customer customer) {
+  public void renderCustomerCore(Customer customer) {
     name.setValue(customer.getName());
     dateOfBirth.setValue(customer.getDateOfBirth().toString());
     citizenship.setValue(customer.getCitizenship());
@@ -45,7 +43,7 @@ public class GeneralInfoCardController extends AnchorPane implements IController
     status.clearValue();
   }
 
-  public Customer getCustomer() {
+  public Customer assembleCustomerCore() {
     Customer customer = new Customer();
     customer.setName(name.getValue());
     customer.setDateOfBirth(LocalDate.parse(dateOfBirth.getValue())); // Check this
