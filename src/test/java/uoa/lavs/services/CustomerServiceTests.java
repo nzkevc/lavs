@@ -10,6 +10,7 @@ import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
+import uoa.lavs.models.Loan;
 import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.utils.ConnectionInstance;
@@ -94,10 +95,12 @@ public class CustomerServiceTests {
     customer.setEmails(new Emails(null));
     customer.setPhones(new Phones(null));
 
+    // Can add more here as appropriate
     Address address = TestEntityCreator.createBasicAddress(customer);
     Email email = TestEntityCreator.createBasicEmail(customer);
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
+    // Can be different addresses, emails, phones, but MUST set the key ones here
     customer.getAddresses().setResidentialAddress(address);
     customer.getAddresses().setMailingAddress(address);
 
@@ -106,7 +109,17 @@ public class CustomerServiceTests {
     customer.getPhones().setPrimaryPhone(phone);
     customer.getPhones().setTextPhone(phone);
 
+    // Creating the customer
     CustomerService.createCustomer(customer);
+
+    // Creating the loans and assigning them to the customer
+    Loan loan = TestEntityCreator.createBasicLoan(customer);
+    Loan loantwo = TestEntityCreator.createBasicLoan(customer);
+    customer.getLoans().addLoan(loan);
+    customer.getLoans().addLoan(loantwo);
+
+    // Creating the loans in the mainframe
+    CustomerService.updateCustomer(customer);
 
     // Act
     String customerName = customer.getName();
@@ -115,5 +128,6 @@ public class CustomerServiceTests {
 
     // Assert
     assertNotEquals(customerName, customer.getName());
+    assertEquals(2, customer.getLoans().getLoanCount());
   }
 }
