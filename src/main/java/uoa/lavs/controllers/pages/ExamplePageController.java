@@ -2,22 +2,19 @@ package uoa.lavs.controllers.pages;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
-import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.services.ExampleService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 
-public class ExamplePageController extends AnchorPane implements IController {
+public class ExamplePageController extends AnchorPane implements IPage {
 
   private static final Logger logger = LoggerFactory.getLogger(ExamplePageController.class);
 

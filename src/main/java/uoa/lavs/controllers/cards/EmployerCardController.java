@@ -1,10 +1,10 @@
 package uoa.lavs.controllers.cards;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uoa.lavs.controllers.IController;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
@@ -12,7 +12,7 @@ import uoa.lavs.models.Employer;
 import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
 
-public class EmployerCardController extends AnchorPane implements IController {
+public class EmployerCardController extends AnchorPane implements ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 
@@ -31,7 +31,8 @@ public class EmployerCardController extends AnchorPane implements IController {
     ControllerUtils.loadFxml(this, "cards/customer/employer-info.fxml");
   }
 
-  public void renderEmployer(Employer employer) {
+  @Override
+  public void render(Employer employer) {
     employerName.setValue(employer.getName());
 
     Address employerAddress = employer.getAddress();
@@ -50,7 +51,8 @@ public class EmployerCardController extends AnchorPane implements IController {
     website.setValue(employer.getWebsite());
   }
 
-  public void clearFields() {
+  @Override
+  public void clear() {
     employerName.clearValue();
     address.clearValue();
     suburb.clearValue();
@@ -62,7 +64,8 @@ public class EmployerCardController extends AnchorPane implements IController {
     website.clearValue();
   }
 
-  public Employer assembleEmployer() {
+  @Override
+  public Employer assemble() {
     Employer employer = new Employer();
     employer.setName(employerName.getValue());
 

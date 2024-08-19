@@ -2,17 +2,16 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.pages.ExamplePageController;
+import uoa.lavs.controllers.pages.IPage;
 import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
@@ -24,7 +23,7 @@ public class MainController extends AnchorPane implements IController {
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
 
-  private final Map<Class<? extends IController>, Parent> pages = new HashMap<>();
+  private final Map<Class<? extends IPage>, Parent> pages = new HashMap<>();
   private double zoom = 1;
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
@@ -47,7 +46,7 @@ public class MainController extends AnchorPane implements IController {
     switchPage(SummaryPageController.class);
   }
 
-  public void switchPage(Class<? extends IController> page) {
+  public void switchPage(Class<? extends IPage> page) {
     logger.debug("Switching to page: " + page.getSimpleName());
     ControllerUtils.swapComponent(panPage, pages.get(page));
   }

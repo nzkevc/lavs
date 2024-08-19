@@ -4,14 +4,27 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uoa.lavs.controllers.IController;
+import uoa.lavs.controllers.cards.ContactCardController.ContactTriple;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
 
-public class ContactCardController extends AnchorPane implements IController {
+public class ContactCardController extends AnchorPane implements ICard<ContactTriple> {
+
+  // Temporary, will probably be removed after demo
+  public class ContactTriple {
+    Address address;
+    Phone phone;
+    Email email;
+
+    public ContactTriple(Address address, Phone phone, Email email) {
+      this.address = address;
+      this.phone = phone;
+      this.email = email;
+    }
+  }
 
   private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
@@ -30,20 +43,25 @@ public class ContactCardController extends AnchorPane implements IController {
     ControllerUtils.loadFxml(this, "cards/customer/contact-info.fxml");
   }
 
-  public void renderContacts(Address address, Phone phone, Email email) {
+  @Override
+  public void render(ContactTriple contacts) {
+    Address address = contacts.address;
     addressLine1.setValue(address.getLine1());
     suburb.setValue(address.getSuburb());
     city.setValue(address.getCity());
     postcode.setValue(address.getPostCode());
     country.setValue(address.getCountry());
 
+    Phone phone = contacts.phone;
     prefix.setValue(phone.getPrefix());
     phoneNumber.setValue(phone.getPhoneNumber());
 
+    Email email = contacts.email;
     emailAddress.setValue(email.getAddress());
   }
 
-  public void clearFields() {
+  @Override
+  public void clear() {
     addressLine1.clearValue();
     suburb.clearValue();
     city.clearValue();
@@ -54,7 +72,12 @@ public class ContactCardController extends AnchorPane implements IController {
     emailAddress.clearValue();
   }
 
-  public Address assembleAddress() {
+  @Override
+  public ContactTriple assemble() {
+    return new ContactTriple(assembleAddress(), assemblePhone(), assembleEmail());
+  }
+
+  private Address assembleAddress() {
     Address address = new Address();
     address.setLine1(addressLine1.getValue());
     address.setSuburb(suburb.getValue());
@@ -64,14 +87,14 @@ public class ContactCardController extends AnchorPane implements IController {
     return address;
   }
 
-  public Phone assemblePhone() {
+  private Phone assemblePhone() {
     Phone phone = new Phone();
     phone.setPrefix(prefix.getValue());
     phone.setPhoneNumber(phoneNumber.getValue());
     return phone;
   }
 
-  public Email assembleEmail() {
+  private Email assembleEmail() {
     Email email = new Email();
     email.setAddress(emailAddress.getValue());
     return email;

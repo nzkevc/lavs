@@ -12,18 +12,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import uoa.lavs.App;
-import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
+import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.utils.ControllerUtils;
 
-public class SummaryPageController extends AnchorPane implements IController {
+public class SummaryPageController extends AnchorPane implements IPage {
 
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
-  private final Map<Class<? extends IController>, Parent> cards = new HashMap<>();
+  private final Map<Class<? extends ICard<?>>, Parent> cards = new HashMap<>();
 
   @FXML private Button backBtn;
 
@@ -59,7 +59,7 @@ public class SummaryPageController extends AnchorPane implements IController {
     switchCard(GeneralInfoCardController.class);
   }
 
-  private void switchCard(Class<? extends IController> card) {
+  private void switchCard(Class<? extends ICard<?>> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
     ControllerUtils.swapComponent(infoCard, cards.get(card));
   }
