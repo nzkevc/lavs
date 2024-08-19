@@ -14,7 +14,7 @@ import uoa.lavs.utils.ControllerUtils;
 public class ContactCardController extends AnchorPane implements ICard<ContactTriple> {
 
   // Temporary, will probably be removed after demo
-  public class ContactTriple {
+  public static class ContactTriple {
     Address address;
     Phone phone;
     Email email;
@@ -23,6 +23,18 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
       this.address = address;
       this.phone = phone;
       this.email = email;
+    }
+
+    public Address getAddress() {
+      return address;
+    }
+
+    public Phone getPhone() {
+      return phone;
+    }
+
+    public Email getEmail() {
+      return email;
     }
   }
 

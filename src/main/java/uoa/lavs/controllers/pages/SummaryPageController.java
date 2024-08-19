@@ -2,21 +2,23 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.models.Address;
+import uoa.lavs.models.Customer;
+import uoa.lavs.models.Email;
+import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
 
 public class SummaryPageController extends AnchorPane implements IPage {
@@ -92,5 +94,48 @@ public class SummaryPageController extends AnchorPane implements IPage {
   @FXML
   private void onLoansBtnClick() {
     logger.error("Loans not implemented");
+  }
+
+  private GeneralInfoCardController getGeneralInfoCard() {
+    return (GeneralInfoCardController) cards.get(GeneralInfoCardController.class);
+  }
+
+  private ContactCardController getContactCard() {
+    return (ContactCardController) cards.get(ContactCardController.class);
+  }
+
+  private EmployerCardController getEmployerCard() {
+    return (EmployerCardController) cards.get(EmployerCardController.class);
+  }
+
+  private NoteCardController getNoteCard() {
+    return (NoteCardController) cards.get(NoteCardController.class);
+  }
+
+  private void renderCustomer(Customer customer) {
+    getGeneralInfoCard().render(customer);
+    Address address = customer.getAddresses().getResidentialAddress();
+    Phone phone = customer.getPhones().getPrimaryPhone();
+    Email email = customer.getEmails().getPrimaryEmail();
+    getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
+    getEmployerCard().render(customer.getEmployer());
+    getNoteCard().render(customer.getNotes());
+  }
+
+  private void clearAll() {
+    getGeneralInfoCard().clear();
+    getContactCard().clear();
+    getEmployerCard().clear();
+    getNoteCard().clear();
+  }
+
+  private Customer assembleCustomer() {
+    Customer customer = getGeneralInfoCard().assemble();
+    customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
+    customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
+    customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
+    customer.setEmployer(getEmployerCard().assemble());
+    customer.setNotes(getNoteCard().assemble());
+    return customer;
   }
 }
