@@ -8,12 +8,7 @@
          <children>
             <AnchorPane fx:id="panPage" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <fx:include source="example.fxml" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <fx:include source="fragments/top-bar.fxml" />
+                  <fx:include source="pages/example-page.fxml" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
