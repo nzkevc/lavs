@@ -27,6 +27,11 @@ public class ContactInfoController implements IController {
   @FXML private FieldController city;
   @FXML private FieldController postcode;
   @FXML private FieldController country;
+
+  @FXML private FieldController prefix;
+  @FXML private FieldController phone;
+
+  @FXML private FieldController emailAddress;
   
 
   public static Component<ContactInfoController> getSingleton() {
