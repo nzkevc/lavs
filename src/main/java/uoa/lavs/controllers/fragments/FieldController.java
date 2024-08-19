@@ -25,8 +25,16 @@ public class FieldController extends AnchorPane implements IController {
     return lblKey.getText();
   }
 
+  public void setValue(String value) {
+    txtValue.setText(value);
+  }
+
   public String getValue() {
     return txtValue.getText();
+  }
+
+  public void clearValue() {
+    txtValue.clear();
   }
 
   public void setError(String error) {

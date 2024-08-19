@@ -20,6 +20,8 @@ public class Customer implements IModel<Customer> {
   private String notes;
   private Loans loans;
 
+  public Customer() {}
+
   public Customer(String id) {
     this.id = id;
   }
