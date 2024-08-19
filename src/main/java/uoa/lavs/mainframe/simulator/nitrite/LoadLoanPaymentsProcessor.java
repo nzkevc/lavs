@@ -9,10 +9,9 @@ import uoa.lavs.mainframe.Response;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.loan.LoadLoan;
 import uoa.lavs.mainframe.messages.loan.LoadLoanPayments;
-import uoa.lavs.utils.payment.LoanRepayment;
-import uoa.lavs.mainframe.MessageErrorStatus;
+import uoa.lavs.utility.LoanRepayment;
 
-
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,6 +50,7 @@ public class LoadLoanPaymentsProcessor extends LoanBaseProcessor {
         Integer endIndex = page * 18 - 1;
         Integer number = 1;
         Integer paymentsAdded = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         for (Integer loop = startIndex; loop < endIndex && loop < repayments.size(); loop++) {
             LoanRepayment repayment = repayments.get(loop);
             data.put(
@@ -64,6 +64,10 @@ public class LoadLoanPaymentsProcessor extends LoanBaseProcessor {
             data.put(
                     String.format(LoadLoanPayments.Fields.PAYMENT_REMAINING, number),
                     String.format("%.2f", repayment.getRemainingAmount())
+            );
+            data.put(
+                    String.format(LoadLoanPayments.Fields.PAYMENT_DATE, number),
+                    formatter.format(repayment.getRepaymentDate())
             );
             Integer paymentNumber = loop + 1;
             data.put(
