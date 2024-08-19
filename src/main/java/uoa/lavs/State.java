@@ -3,7 +3,6 @@ package uoa.lavs;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import uoa.lavs.controllers.pages.ExampleController;
 import uoa.lavs.utils.objects.Component;
 
 /**
@@ -17,6 +16,14 @@ public class State {
 
   public static void reset() {
     exampleTitle.setValue("Example Title");
-    page.setValue(ExampleController.getSingleton());
+    // page.setValue(ExampleController.getSingleton());
   }
+
+  // Used to be in MainController.java
+  // Page state listener
+  // State.page.addListener(
+  //     (observable, oldPage, newPage) -> {
+  //       logger.debug("Page changed to: " + newPage.getName());
+  //       ControllerUtils.swapComponent(panPage, newPage.getView());
+  //     });
 }

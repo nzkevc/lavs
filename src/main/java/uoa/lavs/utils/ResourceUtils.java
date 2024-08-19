@@ -1,12 +1,14 @@
 package uoa.lavs.utils;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.utils.objects.Component;
@@ -46,7 +48,7 @@ public class ResourceUtils {
   }
 
   /**
-   * DON'T USE THIS - use ControllerUtils.loadFxml() instead.
+   * DON'T USE THIS EXCEPT FOR MAIN - use ControllerUtils.loadFxml() instead.
    *
    * Load an FXML file and return a component containing the root node and associated controller.
    * The view must link to a controller. Urls are relative to the views directory (e.g.
@@ -56,7 +58,6 @@ public class ResourceUtils {
    * @param url the url of the FXML file relative to the views directory
    * @return a Component object containing the root node and controller
    */
-  @Deprecated
   public static <T extends IController> Component<T> loadFxml(String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
