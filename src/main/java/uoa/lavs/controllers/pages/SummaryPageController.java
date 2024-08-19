@@ -2,13 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
@@ -20,6 +22,7 @@ import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.TestEntityCreator;
 
 public class SummaryPageController extends AnchorPane implements IPage {
 
@@ -137,5 +140,27 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
     return customer;
+  }
+
+  @FXML
+  private void onSubmitBtnClick() {
+    Customer customer = assembleCustomer();
+    logger.info("Submitting customer: " + customer);
+  }
+
+  @FXML
+  private void onTestGetBtnClick() {
+    Customer customer = TestEntityCreator.createFullCustomer();
+    renderCustomer(customer);
+  }
+
+  @FXML
+  private void onTestClearBtnClick() {
+    clearAll();
+  }
+
+  @FXML
+  private void onTestErrorBtnClick() {
+    errorLbl.setText("This is an error message");
   }
 }
