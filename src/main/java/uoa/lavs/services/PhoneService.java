@@ -11,7 +11,9 @@ class PhoneService {
   public static void createPhonesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();
+    phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
+      phone.setCustomerID(newCustomer.getId());
       phone.validate();
       PhoneRepository.create(phone);
     }

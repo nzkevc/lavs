@@ -11,7 +11,9 @@ class EmailService {
   public static void createEmailsFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Emails emails = newCustomer.getEmails();
+    emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
+      email.setCustomerId(newCustomer.getId());
       email.validate();
       EmailRepository.create(email);
     }

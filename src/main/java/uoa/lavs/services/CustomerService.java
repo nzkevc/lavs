@@ -10,12 +10,12 @@ public class CustomerService implements IService {
   public static void createCustomer(Customer newCustomer)
       throws RuntimeException, ValidationException {
     newCustomer.validate();
-    CustomerRepository.create(newCustomer);
+    String customerId = CustomerRepository.create(newCustomer).getId();
+    newCustomer.setId(customerId);
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
     EmailService.createEmailsFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
-    LoanService.createLoansFromCustomer(newCustomer);
   }
 
   public static Customer getCustomer(String id) throws RuntimeException {
