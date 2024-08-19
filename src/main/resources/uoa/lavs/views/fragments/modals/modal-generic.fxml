@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="1080.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+      <AnchorPane layoutX="400.0" layoutY="179.0" prefHeight="782.0" prefWidth="1194.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="782.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1194.0" />
+            <AnchorPane layoutX="1109.0" layoutY="10.0" prefHeight="80.0" prefWidth="70.0">
+               <children>
+                  <fx:include source="../buttons/x.fxml" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="26.0" layoutY="22.0" prefHeight="731.0" prefWidth="1143.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

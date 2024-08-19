@@ -7,7 +7,7 @@ import uoa.lavs.mainframe.messages.loan.LoadLoan;
 import uoa.lavs.mainframe.messages.loan.UpdateLoan;
 import uoa.lavs.mainframe.messages.loan.UpdateLoanStatus;
 import uoa.lavs.models.Loan;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class LoanRepository {
   /** Creates new instance of a loan in database and retrieves identifying number */

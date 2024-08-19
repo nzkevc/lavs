@@ -1,4 +1,4 @@
-package uoa.lavs.utility;
+package uoa.lavs.utils.payment;
 
 public enum PaymentFrequency {
     Weekly,

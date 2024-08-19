@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Loan;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class LoanRepositoryTests {
 
