@@ -1,15 +1,12 @@
 package uoa.lavs.controllers.pages;
 
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.controllers.IController;
-import uoa.lavs.utils.ResourceUtils;
-import uoa.lavs.utils.objects.Component;
+import uoa.lavs.utils.ControllerUtils;
 
-public class LandingPageController implements IController {
+public class LandingPageController extends AnchorPane implements IController {
 
-  private static final Component<LandingPageController> singleton =
-      ResourceUtils.loadFxml("pages/landing-page.fxml");
-
-  public static Component<LandingPageController> getSingleton() {
-    return singleton;
+  public LandingPageController() {
+    ControllerUtils.loadFxml(this, "pages/landing-page.fxml");
   }
 }

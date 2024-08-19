@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
-import uoa.lavs.State;
+import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.ResourceUtils;
 import uoa.lavs.utils.objects.Component;
@@ -30,12 +30,16 @@ public class MainController implements IController {
 
   @FXML
   public void initialize() {
+    ControllerUtils.swapComponent(panPage, new LandingPageController());
+
     // Page state listener
-    State.page.addListener(
-        (observable, oldPage, newPage) -> {
-          logger.debug("Page changed to: " + newPage.getName());
-          ControllerUtils.swapComponent(panPage, newPage.getView());
-        });
+    // State.page.addListener(
+    //     (observable, oldPage, newPage) -> {
+    //       logger.debug("Page changed to: " + newPage.getName());
+    //       ControllerUtils.swapComponent(panPage, newPage.getView());
+    //     });
+
+    System.out.println(panPage.getId());
 
     // Screen resize listeners
     Scene scene = App.getScene();
