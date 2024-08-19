@@ -23,7 +23,7 @@ public class MainController extends AnchorPane implements IController {
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
 
-  private final Map<Class<?>, Parent> pages = new HashMap<>();
+  private final Map<Class<? extends IController>, Parent> pages = new HashMap<>();
   private double zoom = 1;
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
@@ -39,7 +39,7 @@ public class MainController extends AnchorPane implements IController {
   }
 
   @FXML
-  public void initialize() {
+  private void initialize() {
     setUpListeners();
     setUpPages();
   }
@@ -51,7 +51,7 @@ public class MainController extends AnchorPane implements IController {
     switchPage(SummaryPageController.class);
   }
 
-  public void switchPage(Class<?> page) {
+  public void switchPage(Class<? extends IController> page) {
     logger.debug("Switching to page: " + page.getSimpleName());
     ControllerUtils.swapComponent(panPage, pages.get(page));
   }

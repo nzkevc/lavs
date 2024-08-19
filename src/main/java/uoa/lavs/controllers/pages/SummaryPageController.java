@@ -2,15 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.MainController;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -23,7 +21,7 @@ public class SummaryPageController extends AnchorPane implements IController {
 
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
-  private final Map<Class<?>, Parent> cards = new HashMap<>();
+  private final Map<Class<? extends IController>, Parent> cards = new HashMap<>();
 
   @FXML private Button backBtn;
 
@@ -47,7 +45,7 @@ public class SummaryPageController extends AnchorPane implements IController {
   }
 
   @FXML
-  public void initialize() {
+  private void initialize() {
     setUpCards();
   }
 
@@ -59,7 +57,7 @@ public class SummaryPageController extends AnchorPane implements IController {
     switchCard(GeneralInfoCardController.class);
   }
 
-  private void switchCard(Class<?> card) {
+  private void switchCard(Class<? extends IController> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
     ControllerUtils.swapComponent(infoCard, cards.get(card));
   }
