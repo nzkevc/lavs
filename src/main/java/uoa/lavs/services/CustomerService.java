@@ -30,8 +30,12 @@ public class CustomerService implements IService {
     Loans loans = LoanService.getLoans(customer);
 
     // may change in the future to support multiple employers
-    Employer employer = EmployerRepository.get(id, 1);
-    customer.setEmployer(employer);
+    try {
+      Employer employer = EmployerRepository.get(id, 1);
+      customer.setEmployer(employer);
+    } catch (Exception e) {
+      // do nothing
+    }
 
     customer.setAddresses(addresses);
     customer.setPhones(phones);
@@ -43,8 +47,8 @@ public class CustomerService implements IService {
   }
 
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
+    newCustomer.validate();
     CustomerRepository.update(newCustomer);
-
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);

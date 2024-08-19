@@ -7,8 +7,12 @@ import uoa.lavs.repository.LoansRepository;
 public class LoanService implements IService {
 
   public static Loans getLoans(Customer customer) throws RuntimeException {
-    Loans loans = LoansRepository.get(customer);
-    return loans;
+    try {
+      Loans loans = LoansRepository.get(customer);
+      return loans;
+    } catch (Exception e) {
+      return new Loans(customer.getId());
+    }
   }
 
   public static Loan getLoanById(String loanId) throws RuntimeException {
