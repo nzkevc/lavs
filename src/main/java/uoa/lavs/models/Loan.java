@@ -199,7 +199,7 @@ public class Loan implements IModel<Loan> {
     return false;
   }
 
-  // TODO
+  // TODO: Also, maybe have a separate method for validating loans
   @Override
   public boolean validate() {
     return true;

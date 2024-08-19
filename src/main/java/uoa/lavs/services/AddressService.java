@@ -12,11 +12,12 @@ class AddressService {
     // create addresses
   }
 
-  public static void updateAddressesFromCustomer(Customer newCustomer) throws ValidationException {
+  public static void updateAddressesFromCustomer(Customer newCustomer)
+      throws ValidationException, RuntimeException {
     Addresses addresses = newCustomer.getAddresses();
     for (Address address : addresses.getAddresses()) {
       address.validate();
-      AddressRepository.create(address);
+      AddressRepository.update(address);
     }
   }
 

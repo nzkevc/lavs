@@ -1,5 +1,6 @@
 package uoa.lavs.services;
 
+import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.*;
 import uoa.lavs.repository.LoanPaymentsRepository;
 import uoa.lavs.repository.LoanRepository;
@@ -29,6 +30,15 @@ public class LoanService implements IService {
     Loans loans = customer.getLoans();
     for (Loan loan : loans.getLoans()) {
       LoanRepository.create(loan);
+    }
+  }
+
+  public static void updateLoansFromCustomer(Customer customer)
+      throws ValidationException, RuntimeException {
+    Loans loans = customer.getLoans();
+    for (Loan loan : loans.getLoans()) {
+      loan.validate();
+      LoanRepository.updateStatus(loan, loan.getStatus());
     }
   }
 }
