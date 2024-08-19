@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import uoa.lavs.controllers.MainController;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ResourceUtils;
@@ -38,7 +39,7 @@ public class App extends Application {
     // Load scene
     scene = new Scene(new AnchorPane(), 640, 480); // Temporary values
     stage.setScene(scene);
-    scene.setRoot(ResourceUtils.loadFxml("main.fxml").getView());
+    scene.setRoot(new MainController());
 
     // Load resources
     ResourceUtils.loadFont("Montserrat-Medium.ttf");
