@@ -13,6 +13,8 @@ public class Address implements IModel<Address> {
   private Boolean isPrimary;
   private Boolean isMailing;
 
+  public Address() {}
+
   public Address(String customerID, Integer number) {
     this.customerID = customerID;
     this.number = number;

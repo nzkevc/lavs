@@ -1,12 +1,15 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
+import uoa.lavs.models.Address;
+import uoa.lavs.models.Email;
+import uoa.lavs.models.Employer;
+import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
 
 public class EmployerCardController extends AnchorPane implements IController {
@@ -26,5 +29,60 @@ public class EmployerCardController extends AnchorPane implements IController {
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/customer/employer-info.fxml");
+  }
+
+  public void renderEmployer(Employer employer) {
+    employerName.setValue(employer.getName());
+
+    Address employerAddress = employer.getAddress();
+    address.setValue(employerAddress.getLine1()); // Need line 2?
+    suburb.setValue(employerAddress.getSuburb());
+    city.setValue(employerAddress.getCity());
+    postcode.setValue(employerAddress.getPostCode());
+    country.setValue(employerAddress.getCountry());
+
+    Phone employerPhone = employer.getPhone();
+    phone.setValue(employerPhone.getFullNumber()); // Check
+
+    Email employerEmail = employer.getEmail();
+    emailAddress.setValue(employerEmail.getAddress());
+
+    website.setValue(employer.getWebsite());
+  }
+
+  public void clearFields() {
+    employerName.clearValue();
+    address.clearValue();
+    suburb.clearValue();
+    city.clearValue();
+    postcode.clearValue();
+    country.clearValue();
+    phone.clearValue();
+    emailAddress.clearValue();
+    website.clearValue();
+  }
+
+  public Employer getEmployer() {
+    Employer employer = new Employer();
+    employer.setName(employerName.getValue());
+
+    Address employerAddress = new Address();
+    employerAddress.setLine1(address.getValue());
+    employerAddress.setSuburb(suburb.getValue());
+    employerAddress.setCity(city.getValue());
+    employerAddress.setPostCode(postcode.getValue());
+    employerAddress.setCountry(country.getValue());
+    employer.setAddress(employerAddress);
+
+    Phone employerPhone = new Phone();
+    employerPhone.setPhoneNumber(phone.getValue());
+    employer.setPhone(employerPhone);
+
+    Email employerEmail = new Email();
+    employerEmail.setAddress(emailAddress.getValue());
+    employer.setEmail(employerEmail);
+
+    employer.setWebsite(website.getValue());
+    return employer;
   }
 }

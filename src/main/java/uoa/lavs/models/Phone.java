@@ -9,6 +9,8 @@ public class Phone implements IModel<Phone> {
   private Boolean isPrimary;
   private Boolean canSendTxt;
 
+  public Phone() {}
+
   public Phone(String customerID, Integer number) {
     this.customerID = customerID;
     this.number = number;
