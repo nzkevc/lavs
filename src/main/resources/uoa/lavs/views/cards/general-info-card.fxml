@@ -8,19 +8,18 @@
 <?import javafx.scene.text.Text?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
-
-
 <fx:root type="javafx.scene.layout.AnchorPane" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutX="-1.0" prefHeight="321.0" prefWidth="989.0">
+      <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
             <VBox prefHeight="321.0" prefWidth="289.0">
-               <FieldController fx:id="name" layoutX="751.0" layoutY="500.0" key="Name" />
-               <FieldController fx:id="dateOfBirth" layoutX="751.0" layoutY="500.0" key="DateOfBirth" />
-               <FieldController fx:id="citizenship" layoutX="751.0" layoutY="500.0" key="Citizenship" />
-               <FieldController fx:id="visaType" layoutX="751.0" layoutY="500.0" key="VisaType" />
-               <FieldController fx:id="occupation" layoutX="751.0" layoutY="500.0" key="Occupation" />
-               <FieldController fx:id="status" layoutX="751.0" layoutY="500.0" key="Status" />
+               <FieldController fx:id="title" key="Title" />
+               <FieldController fx:id="name" key="Name" />
+               <FieldController fx:id="dateOfBirth" key="DateOfBirth" />
+               <FieldController fx:id="citizenship" key="Citizenship" />
+               <FieldController fx:id="visaType" key="VisaType" />
+               <FieldController fx:id="occupation" key="Occupation" />
+               <FieldController fx:id="status" key="Status" />
             </VBox>
          </children>
       </HBox>
