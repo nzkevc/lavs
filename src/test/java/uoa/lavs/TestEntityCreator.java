@@ -1,4 +1,4 @@
-package uoa.lavs.repository;
+package uoa.lavs;
 
 import java.time.LocalDate;
 import uoa.lavs.mainframe.Frequency;

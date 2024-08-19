@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uoa.lavs.TestEntityCreator;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.LoanSummary;
