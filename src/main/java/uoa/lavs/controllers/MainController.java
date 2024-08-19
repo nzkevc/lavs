@@ -2,14 +2,13 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
@@ -20,18 +19,28 @@ import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
 
-public class MainController implements IController {
+public class MainController extends AnchorPane implements IController {
 
   Logger logger = LoggerFactory.getLogger(MainController.class);
+  private static MainController instance; // Should only be instantiated once - by App.java
 
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
-  private final Map<Class<?>, Parent> pages = new HashMap<>();
 
+  private final Map<Class<?>, Parent> pages = new HashMap<>();
   private double zoom = 1;
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
   @FXML private Pane panPage; // Responsible for swapping pages (contains pages only)
+
+  public static MainController getInstance() {
+    return instance;
+  }
+
+  public MainController() {
+    instance = this;
+    ControllerUtils.loadFxml(this, "main.fxml");
+  }
 
   @FXML
   public void initialize() {
