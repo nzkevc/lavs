@@ -2,14 +2,17 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.pages.ExampleController;
+import uoa.lavs.controllers.pages.GeneralInfoController;
 import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.utils.ControllerUtils;
 
@@ -40,7 +43,11 @@ public class MainController implements IController {
   private void setUpPages() {
     pages.put(LandingPageController.class, new LandingPageController());
     pages.put(ExampleController.class, new ExampleController());
-    switchPage(ExampleController.class);
+
+    // These pages won't stay here but loading them for now to ensure they are working
+    pages.put(GeneralInfoController.class, new GeneralInfoController());
+
+    switchPage(GeneralInfoController.class);
   }
 
   private void setUpListeners() {

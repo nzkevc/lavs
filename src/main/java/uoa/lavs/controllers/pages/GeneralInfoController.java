@@ -1,30 +1,22 @@
 package uoa.lavs.controllers.pages;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
-import uoa.lavs.utils.ResourceUtils;
-import uoa.lavs.utils.objects.Component;
+import uoa.lavs.utils.ControllerUtils;
 
-public class GeneralInfoController implements IController {
+public class GeneralInfoController extends AnchorPane implements IController {
 
-    @FXML private FieldController firstName;
-    @FXML private FieldController lastName;
-    @FXML private FieldController dateOfBirth;
-    @FXML private FieldController citizenship;
-    @FXML private FieldController visaType;
-    @FXML private FieldController occupation;
-    @FXML private FieldController status;
+  @FXML private FieldController firstName;
+  @FXML private FieldController lastName;
+  @FXML private FieldController dateOfBirth;
+  @FXML private FieldController citizenship;
+  @FXML private FieldController visaType;
+  @FXML private FieldController occupation;
+  @FXML private FieldController status;
 
-
-    private static final Component<GeneralInfoController> singleton =
-    ResourceUtils.loadFxml("fragments/cards/customer/general-info.fxml");
-
-    public static Component<GeneralInfoController> getSingleton() {
-        return singleton;
-    }
-
-   
-    
-    
+  public GeneralInfoController() {
+    ControllerUtils.loadFxml(this, "fragments/cards/customer/general-info.fxml");
+  }
 }
