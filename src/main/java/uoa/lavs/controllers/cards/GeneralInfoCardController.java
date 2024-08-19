@@ -16,6 +16,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
 
   private static final Logger logger = LoggerFactory.getLogger(GeneralInfoCardController.class);
 
+  @FXML private FieldController title;
   @FXML private FieldController name;
   @FXML private FieldController dateOfBirth;
   @FXML private FieldController citizenship;
@@ -29,6 +30,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
 
   @Override
   public void render(Customer customer) {
+    title.setValue(customer.getTitle());
     name.setValue(customer.getName());
     dateOfBirth.setValue(customer.getDateOfBirth().toString());
     citizenship.setValue(customer.getCitizenship());
@@ -39,6 +41,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
 
   @Override
   public void clear() {
+    title.clearValue();
     name.clearValue();
     dateOfBirth.clearValue();
     citizenship.clearValue();
@@ -50,6 +53,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
   @Override
   public Customer assemble() {
     Customer customer = new Customer();
+    customer.setTitle(title.getValue());
     customer.setName(name.getValue());
     customer.setDateOfBirth(getDateFromField(dateOfBirth));
     customer.setCitizenship(citizenship.getValue());

@@ -15,7 +15,8 @@
          <children>
             <VBox prefHeight="321.0" prefWidth="289.0">
                <FieldController fx:id="employerName" key="EmployerName" />
-               <FieldController fx:id="address" key="Address" />
+               <FieldController fx:id="addressLine1" key="Address Line 1" />
+               <FieldController fx:id="addressLine2" key="Address Line 2" />
                <FieldController fx:id="suburb" key="Suburb" />
                <FieldController fx:id="city" key="City" />
                <FieldController fx:id="postcode" key="Postcode" />

@@ -1,10 +1,9 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
@@ -17,7 +16,8 @@ public class EmployerCardController extends AnchorPane implements ICard<Employer
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 
   @FXML private FieldController employerName;
-  @FXML private FieldController address;
+  @FXML private FieldController addressLine1;
+  @FXML private FieldController addressLine2;
   @FXML private FieldController suburb;
   @FXML private FieldController city;
   @FXML private FieldController postcode;
@@ -36,7 +36,8 @@ public class EmployerCardController extends AnchorPane implements ICard<Employer
     employerName.setValue(employer.getName());
 
     Address employerAddress = employer.getAddress();
-    address.setValue(employerAddress.getLine1()); // Need line 2?
+    addressLine1.setValue(employerAddress.getLine1());
+    addressLine2.setValue(employerAddress.getLine2());
     suburb.setValue(employerAddress.getSuburb());
     city.setValue(employerAddress.getCity());
     postcode.setValue(employerAddress.getPostCode());
@@ -54,7 +55,8 @@ public class EmployerCardController extends AnchorPane implements ICard<Employer
   @Override
   public void clear() {
     employerName.clearValue();
-    address.clearValue();
+    addressLine1.clearValue();
+    addressLine2.clearValue();
     suburb.clearValue();
     city.clearValue();
     postcode.clearValue();
@@ -70,7 +72,8 @@ public class EmployerCardController extends AnchorPane implements ICard<Employer
     employer.setName(employerName.getValue());
 
     Address employerAddress = new Address();
-    employerAddress.setLine1(address.getValue());
+    employerAddress.setLine1(addressLine1.getValue());
+    employerAddress.setLine2(addressLine2.getValue());
     employerAddress.setSuburb(suburb.getValue());
     employerAddress.setCity(city.getValue());
     employerAddress.setPostCode(postcode.getValue());

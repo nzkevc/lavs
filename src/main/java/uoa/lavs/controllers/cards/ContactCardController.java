@@ -42,6 +42,7 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
   private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
   @FXML private FieldController addressLine1;
+  @FXML private FieldController addressLine2;
   @FXML private FieldController suburb;
   @FXML private FieldController city;
   @FXML private FieldController postcode;
@@ -60,6 +61,7 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
   public void render(ContactTriple contacts) {
     Address address = contacts.address;
     addressLine1.setValue(address.getLine1());
+    addressLine2.setValue(address.getLine2());
     suburb.setValue(address.getSuburb());
     city.setValue(address.getCity());
     postcode.setValue(address.getPostCode());
@@ -76,6 +78,7 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
   @Override
   public void clear() {
     addressLine1.clearValue();
+    addressLine2.clearValue();
     suburb.clearValue();
     city.clearValue();
     postcode.clearValue();
@@ -93,6 +96,7 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
   private Address assembleAddress() {
     Address address = new Address();
     address.setLine1(addressLine1.getValue());
+    address.setLine2(addressLine2.getValue());
     address.setSuburb(suburb.getValue());
     address.setCity(city.getValue());
     address.setPostCode(postcode.getValue());
