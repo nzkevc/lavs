@@ -1,8 +1,6 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
@@ -23,17 +21,11 @@ public class Loan implements IModel<Loan> {
   private double paymentAmountCents;
   private Frequency paymentFrequency;
   private boolean interestOnly;
-  private List<Integer> paymentNumbers;
-  private List<Double> paymentInterests;
-  private List<Double> paymentPrincipals;
-  private List<Double> paymentRemainings;
+  private LoanPayments loanPayments;
+  private LoanSummary loanSummary;
 
   public Loan(String loanId) {
     this.loanId = loanId;
-    paymentNumbers = new ArrayList<>();
-    paymentInterests = new ArrayList<>();
-    paymentPrincipals = new ArrayList<>();
-    paymentRemainings = new ArrayList<>();
   }
 
   public Loan(
@@ -63,10 +55,6 @@ public class Loan implements IModel<Loan> {
     this.paymentAmountCents = paymentAmountCents;
     this.paymentFrequency = paymentFrequency;
     this.interestOnly = interestOnly;
-    paymentNumbers = new ArrayList<>();
-    paymentInterests = new ArrayList<>();
-    paymentPrincipals = new ArrayList<>();
-    paymentRemainings = new ArrayList<>();
   }
 
   public String getCustomerId() {
@@ -95,6 +83,10 @@ public class Loan implements IModel<Loan> {
 
   public LoanStatus getStatus() {
     return status;
+  }
+
+  public void setStatus(LoanStatus status) {
+    this.status = status;
   }
 
   public void setStatus(String status) {
@@ -181,47 +173,20 @@ public class Loan implements IModel<Loan> {
     this.interestOnly = interestOnly;
   }
 
-  public void setStatus(LoanStatus status) {
-    this.status = status;
+  public LoanPayments getLoanPayments() {
+    return loanPayments;
   }
 
-  public List<Integer> getPaymentNumbers() {
-    return paymentNumbers;
+  public void setLoanPayments(LoanPayments loanPayments) {
+    this.loanPayments = loanPayments;
   }
 
-  public void setPaymentNumbers(List<Integer> paymentNumbers) {
-    this.paymentNumbers = paymentNumbers;
+  public LoanSummary getLoanSummary() {
+    return loanSummary;
   }
 
-  public List<Double> getPaymentInterests() {
-    return paymentInterests;
-  }
-
-  public void setPaymentInterests(List<Double> paymentInterests) {
-    this.paymentInterests = paymentInterests;
-  }
-
-  public List<Double> getPaymentPrincipals() {
-    return paymentPrincipals;
-  }
-
-  public void setPaymentPrincipals(List<Double> paymentPrincipals) {
-    this.paymentPrincipals = paymentPrincipals;
-  }
-
-  public List<Double> getPaymentRemainings() {
-    return paymentRemainings;
-  }
-
-  public void setPaymentRemainings(List<Double> paymentRemainings) {
-    this.paymentRemainings = paymentRemainings;
-  }
-
-  public void addPayment(Integer number, double interest, double principal, double remaining) {
-    paymentNumbers.add(number);
-    paymentInterests.add(interest);
-    paymentPrincipals.add(principal);
-    paymentRemainings.add(remaining);
+  public void setLoanSummary(LoanSummary loanSummary) {
+    this.loanSummary = loanSummary;
   }
 
   @Override
