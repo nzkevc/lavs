@@ -4,7 +4,7 @@ import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.loan.LoadLoanSummary;
 import uoa.lavs.models.LoanSummary;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class LoanSummaryRepository {
   /** Retrieves loan summary from database */
