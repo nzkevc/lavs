@@ -46,16 +46,6 @@ public class LoanService implements IService {
     return getLoans(new Customer(customerId));
   }
 
-  // TODO: would be validateStatus rather than validating all loan fields
-  public static void updateLoansFromCustomer(Customer customer)
-      throws ValidationException, RuntimeException {
-    Loans loans = customer.getLoans();
-    for (Loan loan : loans.getLoans()) {
-      loan.validate();
-      LoanRepository.updateStatus(loan, loan.getStatus());
-    }
-  }
-
   /**
    * Standalone function for updating a loan (of which the only thing that can be updated is the
    * status).
@@ -64,9 +54,9 @@ public class LoanService implements IService {
    * @throws ValidationException
    * @throws RuntimeException
    */
-  public static void updateLoanStatus(Loan loan) throws ValidationException, RuntimeException {
+  public static Loan updateLoanStatus(Loan loan) throws ValidationException, RuntimeException {
     // TODO: also should be validateStatus
     loan.validate();
-    LoanRepository.updateStatus(loan, loan.getStatus());
+    return LoanRepository.updateStatus(loan, loan.getStatus());
   }
 }

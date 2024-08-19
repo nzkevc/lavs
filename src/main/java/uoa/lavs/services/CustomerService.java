@@ -50,6 +50,5 @@ public class CustomerService implements IService {
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
-    LoanService.updateLoansFromCustomer(newCustomer);
   }
 }
