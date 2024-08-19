@@ -2,15 +2,14 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
@@ -21,6 +20,8 @@ import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Phone;
+import uoa.lavs.services.CustomerService;
+import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.TestEntityCreator;
 
@@ -144,14 +145,24 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onSubmitBtnClick() {
-    Customer customer = assembleCustomer();
-    logger.info("Submitting customer: " + customer);
+    logger.debug("Creating customer...");
+    AsyncUtils.promise(
+        () -> {
+          Customer customer = assembleCustomer();
+          CustomerService.createCustomer(customer); // Shouldn't this return the new customer?
+          return null;
+        },
+        (x) -> logger.info("Customer created successfully"),
+        this::handleException);
   }
 
   @FXML
   private void onTestGetBtnClick() {
-    Customer customer = TestEntityCreator.createFullCustomer();
-    renderCustomer(customer);
+    logger.debug("Getting TestEntity customer...");
+    AsyncUtils.promise(
+        () -> TestEntityCreator.createFullCustomer(),
+        (customer) -> renderCustomer(customer),
+        this::handleException);
   }
 
   @FXML
@@ -161,6 +172,11 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onTestErrorBtnClick() {
-    errorLbl.setText("This is an error message");
+    handleException(new Exception("Submit is currently throwing, so this is redundant for now."));
+  }
+
+  private void handleException(Throwable e) {
+    logger.error("Error in promise: ", e);
+    Platform.runLater(() -> errorLbl.setText(e.getMessage()));
   }
 }
