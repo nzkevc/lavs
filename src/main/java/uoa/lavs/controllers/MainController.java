@@ -17,6 +17,7 @@ import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.pages.ExamplePageController;
 import uoa.lavs.controllers.pages.LandingPageController;
+import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
 
 public class MainController implements IController {
@@ -52,8 +53,9 @@ public class MainController implements IController {
     pages.put(EmployerCardController.class, new EmployerCardController());
     pages.put(ContactCardController.class, new ContactCardController());
     pages.put(NoteCardController.class, new NoteCardController());
+    pages.put(SummaryPageController.class, new SummaryPageController());
 
-    switchPage(GeneralInfoCardController.class);
+    switchPage(SummaryPageController.class);
   }
 
   private void setUpListeners() {
