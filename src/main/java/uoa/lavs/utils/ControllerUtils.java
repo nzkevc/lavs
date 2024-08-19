@@ -28,16 +28,13 @@ public class ControllerUtils {
   public static void loadFxml(IController controller, String url) {
     logger.debug("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
-    System.out.println("Before");
     fxmlLoader.setRoot(controller);
     fxmlLoader.setController(controller);
-    System.out.println("After");
 
     try {
       fxmlLoader.load();
     } catch (IOException e) {
       logger.error("Error loading FXML", e);
     }
-    System.out.println("Loaded");
   }
 }

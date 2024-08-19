@@ -4,7 +4,9 @@ import javafx.scene.Parent;
 import uoa.lavs.controllers.IController;
 
 /**
- * A class that represents a component in the application. Think of components as pairs of a View
+ * EDIT: only used for MainContrller now - ignore!
+ *
+ * <p>A class that represents a component in the application. Think of components as pairs of a View
  * and a Controller. More precisely, a 'View' is the root node of a FXML file, and a 'Controller' is
  * an instance of the controller class linked to in the fxml file. <T> is the type of the controller
  * class.

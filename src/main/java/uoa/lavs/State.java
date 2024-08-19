@@ -18,4 +18,12 @@ public class State {
     exampleTitle.setValue("Example Title");
     // page.setValue(ExampleController.getSingleton());
   }
+
+  // Used to be in MainController.java
+  // Page state listener
+  // State.page.addListener(
+  //     (observable, oldPage, newPage) -> {
+  //       logger.debug("Page changed to: " + newPage.getName());
+  //       ControllerUtils.swapComponent(panPage, newPage.getView());
+  //     });
 }
