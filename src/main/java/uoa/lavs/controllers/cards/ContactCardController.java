@@ -101,6 +101,8 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
     address.setCity(city.getValue());
     address.setPostCode(postcode.getValue());
     address.setCountry(country.getValue());
+    address.setIsPrimary(true);
+    address.setIsMailing(true);
     return address;
   }
 
@@ -108,12 +110,15 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
     Phone phone = new Phone();
     phone.setPrefix(prefix.getValue());
     phone.setPhoneNumber(phoneNumber.getValue());
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
     return phone;
   }
 
   private Email assembleEmail() {
     Email email = new Email();
     email.setAddress(emailAddress.getValue());
+    email.setIsPrimary(true);
     return email;
   }
 }
