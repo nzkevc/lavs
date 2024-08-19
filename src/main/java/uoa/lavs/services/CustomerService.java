@@ -1,9 +1,9 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.*;
 import uoa.lavs.repository.CustomerRepository;
 import uoa.lavs.repository.EmployerRepository;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class CustomerService implements IService {
 

@@ -1,11 +1,11 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.repository.AddressRepository;
 import uoa.lavs.repository.AddressesRepository;
+import uoa.lavs.utils.objects.ValidationException;
 
 class AddressService {
   public static void createAddressesFromCustomer(Customer newCustomer)

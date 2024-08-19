@@ -1,11 +1,11 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.*;
 import uoa.lavs.repository.LoanPaymentsRepository;
 import uoa.lavs.repository.LoanRepository;
 import uoa.lavs.repository.LoanSummaryRepository;
 import uoa.lavs.repository.LoansRepository;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class LoanService implements IService {
 

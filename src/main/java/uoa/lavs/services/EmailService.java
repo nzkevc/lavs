@@ -1,11 +1,11 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
 import uoa.lavs.repository.EmailRepository;
 import uoa.lavs.repository.EmailsRepository;
+import uoa.lavs.utils.objects.ValidationException;
 
 class EmailService {
   public static void createEmailsFromCustomer(Customer newCustomer)
