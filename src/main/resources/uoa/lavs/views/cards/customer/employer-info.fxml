@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import uoa.lavs.controllers.fragments.FieldController?>
+
+
+<fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="-1.0" prefHeight="321.0" prefWidth="989.0">
+         <children>
+            <VBox prefHeight="321.0" prefWidth="289.0">
+               <FieldController fx:id="employerName" layoutX="751.0" layoutY="500.0" key="EmployerName" />
+               <FieldController fx:id="address" layoutX="751.0" layoutY="500.0" key="Address" />
+               <FieldController fx:id="suburb" layoutX="751.0" layoutY="500.0" key="Suburb" />
+               <FieldController fx:id="city" layoutX="751.0" layoutY="500.0" key="City" />
+               <FieldController fx:id="postcode" layoutX="751.0" layoutY="500.0" key="Postcode" />
+               <FieldController fx:id="country" layoutX="751.0" layoutY="500.0" key="Country" />
+            </VBox>
+            <VBox prefHeight="321.0" prefWidth="253.0">
+               <FieldController fx:id="phone" layoutX="751.0" layoutY="500.0" key="Phone" />
+               <FieldController fx:id="emailAddress" layoutX="751.0" layoutY="500.0" key="Email" />
+               <FieldController fx:id="website" layoutX="751.0" layoutY="500.0" key="Website" />
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</fx:root>

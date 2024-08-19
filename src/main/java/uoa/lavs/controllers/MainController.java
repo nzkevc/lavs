@@ -2,14 +2,20 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
-import uoa.lavs.controllers.pages.ExampleController;
+import uoa.lavs.controllers.cards.ContactCardController;
+import uoa.lavs.controllers.cards.EmployerCardController;
+import uoa.lavs.controllers.cards.GeneralInfoCardController;
+import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.pages.ExamplePageController;
 import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.utils.ControllerUtils;
 
@@ -39,8 +45,15 @@ public class MainController implements IController {
 
   private void setUpPages() {
     pages.put(LandingPageController.class, new LandingPageController());
-    pages.put(ExampleController.class, new ExampleController());
-    switchPage(ExampleController.class);
+    pages.put(ExamplePageController.class, new ExamplePageController());
+
+    // These pages won't stay here but loading them for now to ensure they are working
+    pages.put(GeneralInfoCardController.class, new GeneralInfoCardController());
+    pages.put(EmployerCardController.class, new EmployerCardController());
+    pages.put(ContactCardController.class, new ContactCardController());
+    pages.put(NoteCardController.class, new NoteCardController());
+
+    switchPage(GeneralInfoCardController.class);
   }
 
   private void setUpListeners() {
