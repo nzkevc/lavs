@@ -9,7 +9,7 @@
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="-1.0" prefHeight="321.0" prefWidth="989.0">
          <children>
@@ -29,4 +29,4 @@
          </children>
       </HBox>
    </children>
-</AnchorPane>
+</fx:root>
