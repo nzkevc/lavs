@@ -1,11 +1,11 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.repository.PhoneRepository;
 import uoa.lavs.repository.PhonesRepository;
+import uoa.lavs.utils.objects.ValidationException;
 
 class PhoneService {
   public static void createPhonesFromCustomer(Customer newCustomer)

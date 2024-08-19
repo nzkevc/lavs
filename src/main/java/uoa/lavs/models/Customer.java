@@ -1,7 +1,7 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-import uoa.lavs.exceptions.ValidationException;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Customer implements IModel<Customer> {
 
