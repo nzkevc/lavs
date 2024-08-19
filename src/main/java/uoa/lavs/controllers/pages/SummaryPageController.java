@@ -2,15 +2,17 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import uoa.lavs.App;
 import uoa.lavs.controllers.IController;
-import uoa.lavs.controllers.MainController;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
@@ -64,7 +66,7 @@ public class SummaryPageController extends AnchorPane implements IController {
 
   @FXML
   private void onBackBtnClick() {
-    MainController.getInstance().switchPage(LandingPageController.class);
+    App.getMainController().switchPage(LandingPageController.class);
   }
 
   @FXML
