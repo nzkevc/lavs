@@ -11,12 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import uoa.lavs.App;
-import uoa.lavs.controllers.pages.ContactInfoController;
-import uoa.lavs.controllers.pages.EmployerInfoController;
-import uoa.lavs.controllers.pages.ExampleController;
-import uoa.lavs.controllers.pages.GeneralInfoController;
+import uoa.lavs.controllers.cards.ContactCardController;
+import uoa.lavs.controllers.cards.EmployerCardController;
+import uoa.lavs.controllers.cards.GeneralInfoCardController;
+import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.pages.ExamplePageController;
 import uoa.lavs.controllers.pages.LandingPageController;
-import uoa.lavs.controllers.pages.NoteController;
 import uoa.lavs.utils.ControllerUtils;
 
 public class MainController implements IController {
@@ -45,15 +45,15 @@ public class MainController implements IController {
 
   private void setUpPages() {
     pages.put(LandingPageController.class, new LandingPageController());
-    pages.put(ExampleController.class, new ExampleController());
+    pages.put(ExamplePageController.class, new ExamplePageController());
 
     // These pages won't stay here but loading them for now to ensure they are working
-    pages.put(GeneralInfoController.class, new GeneralInfoController());
-    pages.put(EmployerInfoController.class, new EmployerInfoController());
-    pages.put(ContactInfoController.class, new ContactInfoController());
-    pages.put(NoteController.class, new NoteController());
+    pages.put(GeneralInfoCardController.class, new GeneralInfoCardController());
+    pages.put(EmployerCardController.class, new EmployerCardController());
+    pages.put(ContactCardController.class, new ContactCardController());
+    pages.put(NoteCardController.class, new NoteCardController());
 
-    switchPage(NoteController.class);
+    switchPage(GeneralInfoCardController.class);
   }
 
   private void setUpListeners() {

@@ -1,4 +1,4 @@
-package uoa.lavs.controllers.pages;
+package uoa.lavs.controllers.cards;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +9,9 @@ import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.utils.ControllerUtils;
 
-public class GeneralInfoController extends AnchorPane implements IController {
+public class GeneralInfoCardController extends AnchorPane implements IController {
 
-  private static final Logger logger = LoggerFactory.getLogger(GeneralInfoController.class);
+  private static final Logger logger = LoggerFactory.getLogger(GeneralInfoCardController.class);
 
   @FXML private FieldController firstName;
   @FXML private FieldController lastName;
@@ -21,7 +21,7 @@ public class GeneralInfoController extends AnchorPane implements IController {
   @FXML private FieldController occupation;
   @FXML private FieldController status;
 
-  public GeneralInfoController() {
-    ControllerUtils.loadFxml(this, "fragments/cards/customer/general-info.fxml");
+  public GeneralInfoCardController() {
+    ControllerUtils.loadFxml(this, "cards/customer/general-info.fxml");
   }
 }

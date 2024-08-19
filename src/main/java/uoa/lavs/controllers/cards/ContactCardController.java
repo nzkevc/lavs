@@ -1,4 +1,4 @@
-package uoa.lavs.controllers.pages;
+package uoa.lavs.controllers.cards;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +9,9 @@ import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.utils.ControllerUtils;
 
-public class ContactInfoController extends AnchorPane implements IController {
+public class ContactCardController extends AnchorPane implements IController {
 
-  private static final Logger logger = LoggerFactory.getLogger(ContactInfoController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
   @FXML private FieldController address;
   @FXML private FieldController suburb;
@@ -24,7 +24,7 @@ public class ContactInfoController extends AnchorPane implements IController {
 
   @FXML private FieldController emailAddress;
 
-  public ContactInfoController() {
-    ControllerUtils.loadFxml(this, "fragments/cards/customer/contact-info.fxml");
+  public ContactCardController() {
+    ControllerUtils.loadFxml(this, "cards/customer/contact-info.fxml");
   }
 }
