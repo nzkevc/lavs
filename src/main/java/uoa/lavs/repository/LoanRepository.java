@@ -1,9 +1,11 @@
 package uoa.lavs.repository;
 
 import uoa.lavs.mainframe.Connection;
+import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.loan.LoadLoan;
 import uoa.lavs.mainframe.messages.loan.UpdateLoan;
+import uoa.lavs.mainframe.messages.loan.UpdateLoanStatus;
 import uoa.lavs.models.Loan;
 import uoa.lavs.utils.objects.ConnectionInstance;
 
@@ -63,5 +65,22 @@ public class LoanRepository {
 
       return loan;
     }
+  }
+
+  public static Loan updateStatus(Loan loan, LoanStatus loanStatus) {
+    Connection connection = ConnectionInstance.getConnection();
+    UpdateLoanStatus message = new UpdateLoanStatus();
+
+    message.setLoanId(loan.getLoanId());
+    message.setStatus(loanStatus);
+
+    Status status = message.send(connection);
+
+    if (!status.getWasSuccessful()) {
+      throw new RuntimeException("Failed to update loan status: " + status.getErrorMessage());
+    }
+
+    loan.setStatus(message.getStatusFromServer());
+    return loan;
   }
 }

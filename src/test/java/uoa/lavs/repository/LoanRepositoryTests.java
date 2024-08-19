@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Loan;
 import uoa.lavs.utils.objects.ConnectionInstance;
@@ -69,5 +70,34 @@ public class LoanRepositoryTests {
 
     // Assert
     assertThrows(RuntimeException.class, () -> LoanRepository.get("noloan"));
+  }
+
+  @Test
+  public void updateLoanStatusTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer = CustomerRepository.create(customer);
+
+    Loan loan = TestEntityCreator.createBasicLoan(customer);
+    loan = LoanRepository.create(loan);
+
+    // Act
+    loan.setStatus(LoanStatus.Cancelled);
+    loan = LoanRepository.updateStatus(loan, LoanStatus.Pending);
+
+    // Assert
+    assertEquals(LoanStatus.Pending, loan.getStatus());
+  }
+
+  @Test
+  public void updateLoanStatusNoLoanTest() {
+    // Arrange
+    Loan loan = new Loan("noloan");
+
+    // Act
+
+    // Assert
+    assertThrows(
+        RuntimeException.class, () -> LoanRepository.updateStatus(loan, LoanStatus.Pending));
   }
 }
