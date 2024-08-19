@@ -36,27 +36,27 @@
          <children>
             <VBox layoutX="7.0" layoutY="10.0" prefHeight="536.0" prefWidth="387.0">
                <children>
-                  <Button fx:id="generalBtn" mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="GENERAL">
+                  <Button fx:id="generalBtn" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" text="GENERAL">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="contactBtn" mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="CONTACT">
+                  <Button fx:id="contactBtn" mnemonicParsing="false" onAction="#onContactBtnClick" prefHeight="101.0" prefWidth="379.0" text="CONTACT">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="employerBtn" mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="EMPLOYER">
+                  <Button fx:id="employerBtn" mnemonicParsing="false" onAction="#onEmployerBtnClick" prefHeight="101.0" prefWidth="379.0" text="EMPLOYER">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="notesBtn" mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="NOTES">
+                  <Button fx:id="notesBtn" mnemonicParsing="false" onAction="#onNotesBtnClick" prefHeight="101.0" prefWidth="379.0" text="NOTES">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="loansBtn" mnemonicParsing="false" prefHeight="101.0" prefWidth="379.0" text="LOANS">
+                  <Button fx:id="loansBtn" mnemonicParsing="false" onAction="#onLoansBtnClick" prefHeight="101.0" prefWidth="379.0" text="LOANS">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>

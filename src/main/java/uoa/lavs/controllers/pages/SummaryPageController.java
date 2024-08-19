@@ -2,13 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.controllers.MainController;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -57,13 +59,38 @@ public class SummaryPageController extends AnchorPane implements IController {
     switchCard(GeneralInfoCardController.class);
   }
 
-  public void switchCard(Class<?> card) {
+  private void switchCard(Class<?> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
-    ControllerUtils.swapComponent(infoPane, cards.get(card));
+    ControllerUtils.swapComponent(infoCard, cards.get(card));
   }
 
   @FXML
   private void onBackBtnClick() {
     MainController.getInstance().switchPage(LandingPageController.class);
+  }
+
+  @FXML
+  private void onGeneralBtnClick() {
+    switchCard(GeneralInfoCardController.class);
+  }
+
+  @FXML
+  private void onContactBtnClick() {
+    switchCard(ContactCardController.class);
+  }
+
+  @FXML
+  private void onEmployerBtnClick() {
+    switchCard(EmployerCardController.class);
+  }
+
+  @FXML
+  private void onNotesBtnClick() {
+    switchCard(NoteCardController.class);
+  }
+
+  @FXML
+  private void onLoansBtnClick() {
+    logger.error("Loans not implemented");
   }
 }
