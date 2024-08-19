@@ -1,4 +1,4 @@
-package uoa.lavs.utils.payment;
+package uoa.lavs.utility;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
