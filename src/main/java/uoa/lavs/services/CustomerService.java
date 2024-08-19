@@ -7,17 +7,17 @@ import uoa.lavs.repository.EmployerRepository;
 
 public class CustomerService implements IService {
 
-  public static void createCustomer(Customer customer)
+  public static void createCustomer(Customer newCustomer)
       throws RuntimeException, ValidationException {
-    customer.validate();
-    CustomerRepository.create(customer);
-    AddressService.createAddressesFromCustomer(customer);
-    PhoneService.createPhonesFromCustomer(customer);
-    EmailService.createEmailsFromCustomer(customer);
-    NoteService.createNotesFromCustomer(customer);
+    newCustomer.validate();
+    CustomerRepository.create(newCustomer);
+    AddressService.createAddressesFromCustomer(newCustomer);
+    PhoneService.createPhonesFromCustomer(newCustomer);
+    EmailService.createEmailsFromCustomer(newCustomer);
+    NoteService.createNotesFromCustomer(newCustomer);
 
-    if (customer.getLoans() != null) {
-      LoanService.createLoansFromCustomer(customer);
+    if (newCustomer.getLoans().getLoanCount() > 0) {
+      LoanService.createLoansFromCustomer(newCustomer);
     }
   }
 
@@ -42,7 +42,16 @@ public class CustomerService implements IService {
     return customer;
   }
 
-  public static void updateCustomer(Customer customer) throws RuntimeException {
-    CustomerRepository.update(customer);
+  public static void updateCustomer(Customer newCustomer) throws RuntimeException {
+    CustomerRepository.update(newCustomer);
+
+    AddressService.updateAddressesFromCustomer(newCustomer);
+    PhoneService.updatePhonesFromCustomer(newCustomer);
+    EmailService.updateEmailsFromCustomer(newCustomer);
+    NoteService.updateNotesFromCustomer(newCustomer);
+
+    if (newCustomer.getLoans().getLoanCount() > 0) {
+      LoanService.updateLoansFromCustomer(newCustomer);
+    }
   }
 }

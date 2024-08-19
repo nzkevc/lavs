@@ -16,5 +16,10 @@ public class LoanService implements IService {
     return loan;
   }
 
-  public static void createLoan(Loan loan) throws RuntimeException {}
+  public static void createLoansFromCustomer(Customer customer) throws RuntimeException {
+    Loans loans = customer.getLoans();
+    for (Loan loan : loans.getLoans()) {
+      LoanRepository.create(loan);
+    }
+  }
 }
