@@ -74,6 +74,7 @@ public class CustomerRepository {
       customer.setOccupation(message.getOccupationFromServer());
       customer.setCitizenship(message.getCitizenshipFromServer());
       customer.setStatus(message.getStatusFromServer());
+      customer.setVisa(message.getVisaFromServer());
       return customer;
     }
   }
