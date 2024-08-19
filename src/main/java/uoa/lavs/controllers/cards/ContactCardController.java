@@ -1,9 +1,10 @@
 package uoa.lavs.controllers.cards;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.controllers.cards.ContactCardController.ContactTriple;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
@@ -52,7 +53,7 @@ public class ContactCardController extends AnchorPane implements ICard<ContactTr
   @FXML private FieldController emailAddress;
 
   public ContactCardController() {
-    ControllerUtils.loadFxml(this, "cards/customer/contact-info.fxml");
+    ControllerUtils.loadFxml(this, "cards/contact-card.fxml");
   }
 
   @Override

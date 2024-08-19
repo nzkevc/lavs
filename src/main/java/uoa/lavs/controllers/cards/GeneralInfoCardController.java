@@ -24,7 +24,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
   @FXML private FieldController status;
 
   public GeneralInfoCardController() {
-    ControllerUtils.loadFxml(this, "cards/customer/general-info.fxml");
+    ControllerUtils.loadFxml(this, "cards/general-info-card.fxml");
   }
 
   @Override

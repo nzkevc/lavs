@@ -28,7 +28,7 @@ public class EmployerCardController extends AnchorPane implements ICard<Employer
   @FXML private FieldController website;
 
   public EmployerCardController() {
-    ControllerUtils.loadFxml(this, "cards/customer/employer-info.fxml");
+    ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
   }
 
   @Override
