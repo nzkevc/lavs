@@ -36,7 +36,7 @@ public class GeneralInfoCardController extends AnchorPane implements IController
     status.setValue(customer.getStatus());
   }
 
-  public void clear() {
+  public void clearFields() {
     name.clearValue();
     dateOfBirth.clearValue();
     citizenship.clearValue();

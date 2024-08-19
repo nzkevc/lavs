@@ -10,6 +10,8 @@ public class Employer {
   private String website;
   private boolean isOwner;
 
+  public Employer() {}
+
   public Employer(String customerId, Integer number) {
     this.customerId = customerId;
     this.number = number;

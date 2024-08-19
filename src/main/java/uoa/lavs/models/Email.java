@@ -6,6 +6,8 @@ public class Email implements IModel<Email> {
   private String emailAddress;
   private Boolean isPrimary;
 
+  public Email() {}
+
   public Email(String customerId, Integer number) {
     this.customerID = customerId;
     this.number = number;
