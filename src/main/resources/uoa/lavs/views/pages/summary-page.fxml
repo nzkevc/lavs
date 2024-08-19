@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="104.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="109.0">
          <children>
-            <Button fx:id="backBtn" layoutY="3.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="108.0" text="←">
+            <Button fx:id="backBtn" layoutY="3.0" mnemonicParsing="false" onAction="#onBackBtnClick" prefHeight="63.0" prefWidth="108.0" text="←">
                <font>
                   <Font name="Calibri Bold" size="48.0" />
                </font>
