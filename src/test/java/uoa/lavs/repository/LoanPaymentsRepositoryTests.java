@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Loan;
+import uoa.lavs.models.LoanPayments;
 import uoa.lavs.utils.objects.ConnectionInstance;
+
 
 public class LoanPaymentsRepositoryTests {
 
@@ -16,19 +18,32 @@ public class LoanPaymentsRepositoryTests {
   }
 
   @Test
-  public void getLoanNoPaymentsTest() {
+  public void getLoanPaymentsTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
     Loan loan = TestEntityCreator.createBasicLoan(customer);
+    loan = LoanRepository.create(loan);
 
     // Act
+    LoanPayments loanPayments = new LoanPayments(loan.getLoanId(), 1);
+    loanPayments = LoanPaymentsRepository.get(loanPayments);
+    loan.setLoanPayments(loanPayments);
 
     // Assert
-    assertThrows(RuntimeException.class, () -> LoanPaymentsRepository.get(loan));
+    assertEquals(customer.getId(), loanPayments.getCustomerId());
+    assertEquals(11, loanPayments.getPayments());
+    assertEquals(900.04, loanPayments.getPaymentRemainings().get(0));
+    assertEquals(0.23, loanPayments.getPaymentPrincipals().get(10));
   }
 
-  // TODO: cannot currently test getLoanWithPaymentsTest as it requires a loan with payments, and we
-  // cannot create a loan with payments right now
+  @Test
+  public void getLoanPaymentsTestWithInvalidLoanId() {
+    // Arrange
+    LoanPayments loanPayments = new LoanPayments("invalid", 1);
+
+    // Act & Assert
+    assertThrows(RuntimeException.class, () -> LoanPaymentsRepository.get(loanPayments));
+  }
 }

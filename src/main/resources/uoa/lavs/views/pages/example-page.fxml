@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uoa.lavs.controllers.pages.ExampleController">
+<fx:root type="javafx.scene.layout.AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="329.0" text="Example Create User Page" textAlignment="CENTER">
          <font>
@@ -19,4 +19,4 @@
       </Button>
       <FieldController fx:id="fieldController" layoutX="751.0" layoutY="500.0" key="Customer Name" />
    </children>
-</AnchorPane>
+</fx:root>

@@ -6,11 +6,7 @@
    <children>
       <AnchorPane fx:id="panLayout" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane fx:id="panPage" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <fx:include source="pages/example-page.fxml" />
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="panPage" prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <fx:include source="fragments/nav-bar.fxml" />

@@ -1,43 +1,49 @@
 package uoa.lavs.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
-import uoa.lavs.State;
+import uoa.lavs.controllers.pages.ExampleController;
+import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.utils.ControllerUtils;
-import uoa.lavs.utils.ResourceUtils;
-import uoa.lavs.utils.objects.Component;
 
 public class MainController implements IController {
 
   Logger logger = LoggerFactory.getLogger(MainController.class);
 
-  private static final Component<MainController> singleton = ResourceUtils.loadFxml("main.fxml");
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
+  private final Map<Class<?>, Parent> pages = new HashMap<>();
 
   private double zoom = 1;
-
-  public static Component<MainController> getSingleton() {
-    return singleton;
-  }
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
   @FXML private Pane panPage; // Responsible for swapping pages (contains pages only)
 
   @FXML
   public void initialize() {
-    // Page state listener
-    State.page.addListener(
-        (observable, oldPage, newPage) -> {
-          logger.debug("Page changed to: " + newPage.getName());
-          ControllerUtils.swapComponent(panPage, newPage.getView());
-        });
+    setUpListeners();
+    setUpPages();
+  }
 
-    // Screen resize listeners
+  public void switchPage(Class<?> page) {
+    logger.debug("Switching to page: " + page.getSimpleName());
+    ControllerUtils.swapComponent(panPage, pages.get(page));
+  }
+
+  private void setUpPages() {
+    pages.put(LandingPageController.class, new LandingPageController());
+    pages.put(ExampleController.class, new ExampleController());
+    switchPage(ExampleController.class);
+  }
+
+  private void setUpListeners() {
     Scene scene = App.getScene();
     scene
         .heightProperty()
