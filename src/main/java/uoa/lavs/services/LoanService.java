@@ -26,9 +26,11 @@ public class LoanService implements IService {
     }
   }
 
-  public static void createLoansFromCustomer(Customer customer) throws RuntimeException {
+  public static void createLoansFromCustomer(Customer customer)
+      throws ValidationException, RuntimeException {
     Loans loans = customer.getLoans();
     for (Loan loan : loans.getLoans()) {
+      loan.validate();
       LoanRepository.create(loan);
     }
   }

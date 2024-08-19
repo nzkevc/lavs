@@ -1,17 +1,14 @@
 package uoa.lavs.services;
 
-import uoa.lavs.exceptions.ValidationException;
 import uoa.lavs.models.Customer;
 import uoa.lavs.repository.NoteRepository;
 
 class NoteService {
-  public static void createNotesFromCustomer(Customer newCustomer) {
-    // create notes
-  }
-
-  public static void updateNotesFromCustomer(Customer newCustomer)
-      throws ValidationException, RuntimeException {
+  public static void updateNotesFromCustomer(Customer newCustomer) throws RuntimeException {
     String notes = newCustomer.getNotes();
+    if (notes == null) {
+      notes = "";
+    }
     NoteRepository.update(notes, newCustomer);
   }
 

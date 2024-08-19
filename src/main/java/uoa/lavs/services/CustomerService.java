@@ -14,11 +14,8 @@ public class CustomerService implements IService {
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
     EmailService.createEmailsFromCustomer(newCustomer);
-    NoteService.createNotesFromCustomer(newCustomer);
-
-    if (newCustomer.getLoans().getLoanCount() > 0) {
-      LoanService.createLoansFromCustomer(newCustomer);
-    }
+    NoteService.updateNotesFromCustomer(newCustomer);
+    LoanService.createLoansFromCustomer(newCustomer);
   }
 
   public static Customer getCustomer(String id) throws RuntimeException {

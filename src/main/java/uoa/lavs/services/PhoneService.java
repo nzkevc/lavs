@@ -8,8 +8,13 @@ import uoa.lavs.repository.PhoneRepository;
 import uoa.lavs.repository.PhonesRepository;
 
 class PhoneService {
-  public static void createPhonesFromCustomer(Customer newCustomer) {
-    // create phones
+  public static void createPhonesFromCustomer(Customer newCustomer)
+      throws ValidationException, RuntimeException {
+    Phones phones = newCustomer.getPhones();
+    for (Phone phone : phones.getPhoneNumbers()) {
+      phone.validate();
+      PhoneRepository.create(phone);
+    }
   }
 
   public static void updatePhonesFromCustomer(Customer newCustomer)
