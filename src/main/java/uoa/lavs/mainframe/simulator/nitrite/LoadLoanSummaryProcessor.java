@@ -9,7 +9,7 @@ import uoa.lavs.mainframe.Response;
 import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.loan.LoadLoan;
 import uoa.lavs.mainframe.messages.loan.LoadLoanSummary;
-import uoa.lavs.utils.payment.LoanSummary;
+import uoa.lavs.utility.LoanSummary;
 import uoa.lavs.mainframe.MessageErrorStatus;
 
 import java.util.HashMap;

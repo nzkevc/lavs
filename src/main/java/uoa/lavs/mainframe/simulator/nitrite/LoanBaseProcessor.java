@@ -4,10 +4,10 @@ import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.collection.Document;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.messages.loan.LoadLoan;
-import uoa.lavs.utils.payment.AmortizingLoanCalculator;
-import uoa.lavs.utils.payment.LoanCalculator;
-import uoa.lavs.utils.payment.LoanRepayment;
-import uoa.lavs.utils.payment.PaymentFrequency;
+import uoa.lavs.utility.AmortizingLoanCalculator;
+import uoa.lavs.utility.LoanCalculator;
+import uoa.lavs.utility.LoanRepayment;
+import uoa.lavs.utility.PaymentFrequency;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

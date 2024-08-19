@@ -2,9 +2,9 @@ package uoa.lavs.utility;
 
 import org.junit.jupiter.api.Test;
 
-import uoa.lavs.utils.payment.AmortizingLoanCalculator;
-import uoa.lavs.utils.payment.LoanRepayment;
-import uoa.lavs.utils.payment.PaymentFrequency;
+import uoa.lavs.utility.AmortizingLoanCalculator;
+import uoa.lavs.utility.LoanRepayment;
+import uoa.lavs.utility.PaymentFrequency;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
