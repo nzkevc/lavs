@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerAddress;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerAddress;
 import uoa.lavs.models.Address;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class AddressRepository {
   /** Sets up message for persisting methods */

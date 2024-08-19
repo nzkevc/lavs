@@ -13,12 +13,12 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <fx:include source="components/top-bar.fxml" />
+                  <fx:include source="fragments/top-bar.fxml" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <fx:include source="components/nav-bar.fxml" />
+                  <fx:include source="fragments/nav-bar.fxml" />
                </children>
             </AnchorPane>
          </children>

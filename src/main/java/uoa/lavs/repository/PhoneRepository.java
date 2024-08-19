@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerPhoneNumber;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerPhoneNumber;
 import uoa.lavs.models.Phone;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class PhoneRepository {
   /** Sets up message for persisting methods */

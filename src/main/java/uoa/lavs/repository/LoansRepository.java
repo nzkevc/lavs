@@ -6,7 +6,7 @@ import uoa.lavs.mainframe.messages.loan.FindLoan;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class LoansRepository {
   /** Retrieves loans from database */

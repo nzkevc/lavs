@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerEmail;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmail;
 import uoa.lavs.models.Email;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class EmailRepository {
   /** Sets up message for persisting methods */

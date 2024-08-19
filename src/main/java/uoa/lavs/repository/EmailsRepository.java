@@ -6,7 +6,7 @@ import uoa.lavs.mainframe.messages.customer.LoadCustomerEmails;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class EmailsRepository {
   /** Retrieves all the emails registered to a customer in an Emails object */

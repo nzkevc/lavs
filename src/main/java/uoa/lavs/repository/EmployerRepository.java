@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Status;
 import uoa.lavs.mainframe.messages.customer.LoadCustomerEmployer;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmployer;
 import uoa.lavs.models.Employer;
-import uoa.lavs.utils.ConnectionInstance;
+import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class EmployerRepository {
   /** Sets up message for persisting methods */
