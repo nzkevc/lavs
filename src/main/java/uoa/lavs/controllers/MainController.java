@@ -11,9 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import uoa.lavs.App;
+import uoa.lavs.controllers.pages.ContactInfoController;
+import uoa.lavs.controllers.pages.EmployerInfoController;
 import uoa.lavs.controllers.pages.ExampleController;
 import uoa.lavs.controllers.pages.GeneralInfoController;
 import uoa.lavs.controllers.pages.LandingPageController;
+import uoa.lavs.controllers.pages.NoteController;
 import uoa.lavs.utils.ControllerUtils;
 
 public class MainController implements IController {
@@ -46,8 +49,11 @@ public class MainController implements IController {
 
     // These pages won't stay here but loading them for now to ensure they are working
     pages.put(GeneralInfoController.class, new GeneralInfoController());
+    pages.put(EmployerInfoController.class, new EmployerInfoController());
+    pages.put(ContactInfoController.class, new ContactInfoController());
+    pages.put(NoteController.class, new NoteController());
 
-    switchPage(GeneralInfoController.class);
+    switchPage(NoteController.class);
   }
 
   private void setUpListeners() {
