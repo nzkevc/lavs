@@ -61,6 +61,14 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+    State.customerFromSearch.addListener(
+        (obs, oldCustomer, newCustomer) -> {
+          if (newCustomer == null) {
+            clearAll();
+            return;
+          }
+          renderCustomer(newCustomer);
+        });
   }
 
   private void setUpCards() {
@@ -95,7 +103,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onBackBtnClick() {
-    App.getMainController().switchPage(LandingPageController.class);
+    App.getMainController().switchPage(SearchPageController.class);
   }
 
   @FXML
@@ -161,6 +169,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
+    State.customerId.setValue("");
+    State.customerName.setValue("");
     getLoansCard().clear();
   }
 

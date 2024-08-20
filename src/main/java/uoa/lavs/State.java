@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import uoa.lavs.models.Customer;
 
 /**
  * State is a class that contains public static properties to represent global state. It can also
@@ -24,11 +26,14 @@ public class State {
   public static final Property<String> summaryMessage = new SimpleStringProperty();
   public static final Property<Boolean> summaryMessageIsError = new SimpleBooleanProperty();
 
+  public static final Property<Customer> customerFromSearch = new SimpleObjectProperty<>();
+
   public static void reset() {
     customerName.setValue("");
     customerId.setValue("");
     summaryMessage.setValue("");
     summaryMessageIsError.setValue(false);
+    customerFromSearch.setValue(null);
   }
 
   public static void setMessageSuccess(String msg) {
