@@ -61,7 +61,8 @@ public class SearchPageController extends AnchorPane implements IPage {
   }
 
   private void goToCustomerPage() {
-    if (customerIdInput.getText().equals(State.customerFromSearch.getValue().getId())) {
+    if (State.customerFromSearch.getValue() != null
+        && customerIdInput.getText().equals(State.customerFromSearch.getValue().getId())) {
       logger.debug("Going to customer page");
       App.getMainController().switchPage(SummaryPageController.class);
     }
