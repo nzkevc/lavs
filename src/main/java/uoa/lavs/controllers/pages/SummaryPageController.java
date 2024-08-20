@@ -2,21 +2,20 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
+import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
@@ -65,6 +64,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
+    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -116,7 +116,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    logger.error("Loans not implemented");
+    switchCard(LoansDisplayCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -135,6 +135,10 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
+  private LoansDisplayCardController getLoansCard() {
+    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  }
+
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
@@ -145,6 +149,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
+    getLoansCard().render(customer.getLoans());
   }
 
   private void clearAll() {
@@ -152,6 +157,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
+    getLoansCard().clear();
   }
 
   private Customer assembleCustomer() {
@@ -164,6 +170,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
+    customer.setLoans(getLoansCard().assemble());
     return customer;
   }
 
@@ -187,13 +194,12 @@ public class SummaryPageController extends AnchorPane implements IPage {
           return customer;
         },
         (customer) -> {
-          State.clearMessage();
+          renderCustomer(customer);
           if (isCreating) {
             State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
           } else {
             State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
           }
-          renderCustomer(customer);
         },
         this::handleException);
   }

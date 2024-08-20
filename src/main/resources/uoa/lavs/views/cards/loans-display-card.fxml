@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="1327.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="26.0" layoutY="29.0" pannable="true" prefHeight="550.0" prefWidth="1270.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="displayVbox" prefHeight="710.0" prefWidth="1267.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="849.0" stroke="BLACK" strokeType="INSIDE" width="722.0" VBox.vgrow="ALWAYS" />
+               </children></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

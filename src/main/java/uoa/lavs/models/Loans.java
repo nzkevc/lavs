@@ -5,7 +5,11 @@ import java.util.List;
 
 public class Loans {
   private String customerId;
-  private List<Loan> loans;
+  private final List<Loan> loans;
+
+  public Loans() {
+    this.loans = new ArrayList<>();
+  }
 
   public Loans(String customerId) {
     this.customerId = customerId;
