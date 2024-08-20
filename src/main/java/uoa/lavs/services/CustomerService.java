@@ -1,6 +1,11 @@
 package uoa.lavs.services;
 
-import uoa.lavs.models.*;
+import uoa.lavs.models.Addresses;
+import uoa.lavs.models.Customer;
+import uoa.lavs.models.Emails;
+import uoa.lavs.models.Employer;
+import uoa.lavs.models.Loans;
+import uoa.lavs.models.Phones;
 import uoa.lavs.repository.CustomerRepository;
 import uoa.lavs.repository.EmployerRepository;
 import uoa.lavs.utils.objects.ValidationException;
@@ -45,6 +50,7 @@ public class CustomerService implements IService {
 
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
     newCustomer.validate();
+    System.err.println("******* Customer ID: " + newCustomer.getId());
     CustomerRepository.update(newCustomer);
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);

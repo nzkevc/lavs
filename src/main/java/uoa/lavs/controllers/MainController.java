@@ -10,61 +10,43 @@ import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
-import uoa.lavs.controllers.cards.ContactCardController;
-import uoa.lavs.controllers.cards.EmployerCardController;
-import uoa.lavs.controllers.cards.GeneralInfoCardController;
-import uoa.lavs.controllers.cards.NoteCardController;
-import uoa.lavs.controllers.pages.ExamplePageController;
+import uoa.lavs.controllers.pages.IPage;
 import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
 
 public class MainController extends AnchorPane implements IController {
 
-  Logger logger = LoggerFactory.getLogger(MainController.class);
-  private static MainController instance; // Should only be instantiated once - by App.java
+  private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;
 
-  private final Map<Class<?>, Parent> pages = new HashMap<>();
+  private final Map<Class<? extends IPage>, Parent> pages = new HashMap<>();
   private double zoom = 1;
 
   @FXML private Pane panLayout; // Responsible for responsiveness (contains everything)
   @FXML private Pane panPage; // Responsible for swapping pages (contains pages only)
 
-  public static MainController getInstance() {
-    return instance;
-  }
-
   public MainController() {
-    instance = this;
     ControllerUtils.loadFxml(this, "main.fxml");
   }
 
   @FXML
-  public void initialize() {
+  private void initialize() {
     setUpListeners();
     setUpPages();
   }
 
-  public void switchPage(Class<?> page) {
-    logger.debug("Switching to page: " + page.getSimpleName());
-    ControllerUtils.swapComponent(panPage, pages.get(page));
-  }
-
   private void setUpPages() {
     pages.put(LandingPageController.class, new LandingPageController());
-    pages.put(ExamplePageController.class, new ExamplePageController());
-
-    // These pages won't stay here but loading them for now to ensure they are working
-    pages.put(GeneralInfoCardController.class, new GeneralInfoCardController());
-    pages.put(EmployerCardController.class, new EmployerCardController());
-    pages.put(ContactCardController.class, new ContactCardController());
-    pages.put(NoteCardController.class, new NoteCardController());
     pages.put(SummaryPageController.class, new SummaryPageController());
-
     switchPage(SummaryPageController.class);
+  }
+
+  public void switchPage(Class<? extends IPage> page) {
+    logger.debug("Switching to page: " + page.getSimpleName());
+    ControllerUtils.swapComponent(panPage, pages.get(page));
   }
 
   private void setUpListeners() {

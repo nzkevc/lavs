@@ -13,8 +13,8 @@ class PhoneService {
     Phones phones = newCustomer.getPhones();
     phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
-      phone.setCustomerID(newCustomer.getId());
       phone.validate();
+      phone.setCustomerID(newCustomer.getId());
       PhoneRepository.create(phone);
     }
   }
@@ -22,8 +22,10 @@ class PhoneService {
   public static void updatePhonesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();
+    phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
       phone.validate();
+      phone.setCustomerID(newCustomer.getId());
       PhoneRepository.update(phone);
     }
   }

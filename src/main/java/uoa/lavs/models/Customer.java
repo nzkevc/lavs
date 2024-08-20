@@ -1,6 +1,7 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
+
 import uoa.lavs.utils.objects.ValidationException;
 
 public class Customer implements IModel<Customer> {
@@ -13,12 +14,12 @@ public class Customer implements IModel<Customer> {
   private String occupation;
   private String citizenship;
   private String visa;
-  private Addresses addresses;
-  private Phones phones;
-  private Emails emails;
+  private Addresses addresses = new Addresses(id);
+  private Phones phones = new Phones(id);
+  private Emails emails = new Emails(id);
   private Employer employer;
   private String notes;
-  private Loans loans;
+  private Loans loans = new Loans(id);
 
   public Customer() {}
 

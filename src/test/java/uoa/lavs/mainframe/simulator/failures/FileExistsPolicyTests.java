@@ -1,6 +1,14 @@
 package uoa.lavs.mainframe.simulator.failures;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Response;
 import uoa.lavs.mainframe.Status;
@@ -8,17 +16,11 @@ import uoa.lavs.mainframe.messages.customer.FindCustomer;
 import uoa.lavs.mainframe.simulator.InMemoryConnection;
 import uoa.lavs.mainframe.simulator.IntermittentConnection;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class FileExistsPolicyTests {
     @Test
     public void handlesFileExists() throws IOException {
         // arrange
-        String pathname = "failure-exists.txt";
+        String pathname = "testing/failure-exists.txt";
         File file = new File(pathname);
         file.createNewFile();
         assertTrue(file.exists());
@@ -43,7 +45,7 @@ class FileExistsPolicyTests {
     @Test
     public void conditionChanges() throws IOException {
         // arrange 1
-        String pathname = "failure-changes.txt";
+        String pathname = "testing/failure-changes.txt";
         File file = new File(pathname);
         file.delete();
         assertFalse(file.exists());

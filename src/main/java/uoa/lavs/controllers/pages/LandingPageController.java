@@ -2,11 +2,10 @@ package uoa.lavs.controllers.pages;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import uoa.lavs.controllers.IController;
-import uoa.lavs.controllers.MainController;
+import uoa.lavs.App;
 import uoa.lavs.utils.ControllerUtils;
 
-public class LandingPageController extends AnchorPane implements IController {
+public class LandingPageController extends AnchorPane implements IPage {
 
   public LandingPageController() {
     ControllerUtils.loadFxml(this, "pages/landing-page.fxml");
@@ -14,6 +13,6 @@ public class LandingPageController extends AnchorPane implements IController {
 
   @FXML
   private void onCustomerBtnClick() {
-    MainController.getInstance().switchPage(SummaryPageController.class);
+    App.getMainController().switchPage(SummaryPageController.class);
   }
 }

@@ -10,21 +10,22 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutY="342.0" prefHeight="321.0" prefWidth="989.0">
+      <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
             <VBox prefHeight="321.0" prefWidth="289.0">
-                <FieldController fx:id="address" layoutX="751.0" layoutY="500.0" key="Address" />
-                <FieldController fx:id="suburb" layoutX="751.0" layoutY="500.0" key="Suburb" />
-                <FieldController fx:id="city" layoutX="751.0" layoutY="500.0" key="City" />
-                <FieldController fx:id="postcode" layoutX="751.0" layoutY="500.0" key="Postcode" />
-                <FieldController fx:id="country" layoutX="751.0" layoutY="500.0" key="Country" />
+               <FieldController fx:id="addressLine1" key="Address Line 1" />
+               <FieldController fx:id="addressLine2" key="Address Line 2" />
+               <FieldController fx:id="suburb" key="Suburb" />
+               <FieldController fx:id="city" key="City" />
+               <FieldController fx:id="postcode" key="Postcode" />
+               <FieldController fx:id="country" key="Country" />
             </VBox>
             <VBox prefHeight="321.0" prefWidth="289.0">
-                <FieldController fx:id="prefix" layoutX="751.0" layoutY="500.0" key="Prefix" />
-                <FieldController fx:id="phone" layoutX="751.0" layoutY="500.0" key="Phone" />
+               <FieldController fx:id="prefix" key="Prefix" />
+               <FieldController fx:id="phoneNumber" key="Phone" />
             </VBox>
             <VBox prefHeight="321.0" prefWidth="289.0">
-                <FieldController fx:id="emailAddress" layoutX="751.0" layoutY="500.0" key="Email" />
+               <FieldController fx:id="emailAddress" key="Email" />
             </VBox>
          </children>
       </HBox>
