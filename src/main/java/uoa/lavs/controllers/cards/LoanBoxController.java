@@ -39,14 +39,14 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
   @FXML private FieldController paymentAmount;
 
   // loan payments details
-  @FXML private FieldController loanId;
   @FXML private FieldController number;
   @FXML private FieldController pages;
   @FXML private FieldController payments;
   @FXML private FieldController paymentInterests;
-  @FXML private FieldController paymentPrincipals;
-  @FXML private FieldController paymentRemainings;
-  @FXML private FieldController paymentNumbers;
+
+  // @FXML private FieldController paymentPrincipals;
+  // @FXML private FieldController paymentRemainings;
+  // @FXML private FieldController paymentNumbers;
 
   public LoanBoxController() {
     ControllerUtils.loadFxml(this, "fragments/loan-box.fxml");
@@ -54,6 +54,11 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
 
   @Override
   public void render(Loan loan) {
+    clear();
+    if (loan.getStatus() == null) {
+      loan.setStatus(LoanStatus.New);
+    }
+
     status.setValue(loan.getStatus().toString());
     principleCents.setValue(String.valueOf(loan.getPrincipleCents()));
     startDate.setValue(loan.getStartDate().toString());
@@ -67,22 +72,25 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
     interestOnly.setValue(String.valueOf(loan.isInterestOnly()));
 
     LoanSummary loanSummary = loan.getLoanSummary();
-    principle.setValue(String.valueOf(loanSummary.getPriciple()));
-    rateValue.setValue(String.valueOf(loanSummary.getRateValue()));
-    payoffDate.setValue(loanSummary.getPayoffDate().toString());
-    totalInterest.setValue(String.valueOf(loanSummary.getTotalInterest()));
-    totalLoanCost.setValue(String.valueOf(loanSummary.getTotalLoanCost()));
-    paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
+    if (loanSummary != null) {
+      principle.setValue(String.valueOf(loanSummary.getPriciple()));
+      rateValue.setValue(String.valueOf(loanSummary.getRateValue()));
+      payoffDate.setValue(loanSummary.getPayoffDate().toString());
+      totalInterest.setValue(String.valueOf(loanSummary.getTotalInterest()));
+      totalLoanCost.setValue(String.valueOf(loanSummary.getTotalLoanCost()));
+      paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
+    }
 
     LoanPayments loanPayments = loan.getLoanPayments();
-    loanId.setValue(String.valueOf(loanPayments.getLoanId()));
-    number.setValue(String.valueOf(loanPayments.getNumber()));
-    pages.setValue(String.valueOf(loanPayments.getPages()));
-    payments.setValue(String.valueOf(loanPayments.getPayments()));
-    paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
-    paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
-    paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
-    paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    if (loanPayments != null) {
+      number.setValue(String.valueOf(loanPayments.getNumber()));
+      pages.setValue(String.valueOf(loanPayments.getPages()));
+      payments.setValue(String.valueOf(loanPayments.getPayments()));
+      paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
+      // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
+      // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
+      // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    }
   }
 
   @Override
@@ -106,40 +114,29 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
     totalLoanCost.clearValue();
     paymentAmount.clearValue();
 
-    loanId.clearValue();
     number.clearValue();
     pages.clearValue();
     payments.clearValue();
     paymentInterests.clearValue();
-    paymentPrincipals.clearValue();
-    paymentRemainings.clearValue();
-    paymentNumbers.clearValue();
+    // paymentPrincipals.clearValue();
+    // paymentRemainings.clearValue();
+    // paymentNumbers.clearValue();
   }
 
   @Override
   public Loan assemble() {
     Loan loan = new Loan();
     loan.setStatus(LoanStatus.valueOf(status.getValue()));
-    loan.setPrincipleCents(Integer.parseInt(principleCents.getValue()));
+    loan.setPrincipleCents(Double.parseDouble(principleCents.getValue()));
     loan.setStartDate(ValidationUtils.getDateFromField(startDate));
     loan.setPeriodMonths(Integer.parseInt(periodMonths.getValue()));
     loan.setTerm(Integer.parseInt(term.getValue()));
     loan.setInterestRate(Double.parseDouble(interestRate.getValue()));
     loan.setRateType(RateType.valueOf(rateType.getValue()));
     loan.setCompoundingFrequency(Frequency.valueOf(compoundingFrequency.getValue()));
-    loan.setPaymentAmountCents(Integer.parseInt(paymentAmountCents.getValue()));
+    loan.setPaymentAmountCents(Double.parseDouble(paymentAmountCents.getValue()));
     loan.setPaymentFrequency(Frequency.valueOf(paymentFrequency.getValue()));
     loan.setInterestOnly(Boolean.parseBoolean(interestOnly.getValue()));
-
-    LoanSummary loanSummary = new LoanSummary();
-    loanSummary.setPriciple(Double.valueOf(principle.getValue()));
-    loanSummary.setRateValue(Double.valueOf(rateValue.getValue()));
-    loanSummary.setPayoffDate(ValidationUtils.getDateFromField(payoffDate));
-    loanSummary.setTotalInterest(Double.valueOf(totalInterest.getValue()));
-    loanSummary.setTotalLoanCost(Double.valueOf(totalLoanCost.getValue()));
-    loanSummary.setPaymentAmount(Double.valueOf(paymentAmount.getValue()));
-    loan.setLoanSummary(loanSummary);
-
     return loan;
   }
 }

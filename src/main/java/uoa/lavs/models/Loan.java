@@ -1,6 +1,7 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
+
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
