@@ -2,15 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -58,6 +56,14 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+    State.customerFromSearch.addListener(
+        (obs, oldCustomer, newCustomer) -> {
+          if (newCustomer == null) {
+            clearAll();
+            return;
+          }
+          renderCustomer(newCustomer);
+        });
   }
 
   private void setUpCards() {
@@ -91,7 +97,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onBackBtnClick() {
-    App.getMainController().switchPage(LandingPageController.class);
+    App.getMainController().switchPage(SearchPageController.class);
   }
 
   @FXML

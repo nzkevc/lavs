@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uoa.lavs.App;
+import uoa.lavs.State;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
@@ -29,13 +31,14 @@ public class SearchPageController extends AnchorPane implements IPage {
   private void initialize() {
     customerIdInput
         .textProperty()
-        .addListener((observable, oldValue, newValue) -> notification.setVisible(false));
-    customerIdInput.setOnAction(e -> searchCustomer());
-    goButton.setOnAction(e -> searchCustomer());
-
-    // TODO: implement
-    addButton.setOnAction(
-        e -> System.out.println("TODO: implement switching to create customer page"));
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              searchCustomer();
+              notification.setVisible(false);
+            });
+    customerIdInput.setOnAction(e -> goToCustomerPage());
+    goButton.setOnAction(e -> goToCustomerPage());
+    addButton.setOnAction(e -> addCustomer());
   }
 
   private void searchCustomer() {
@@ -50,11 +53,27 @@ public class SearchPageController extends AnchorPane implements IPage {
         () -> CustomerService.getCustomer(inputString),
         (customer) -> {
           displayFoundNotification(customer.getName());
+          State.customerFromSearch.setValue(customer);
         },
         (Throwable e) -> {
           logger.error("Error searching for customer: " + e.getMessage());
           displayNotFoundNotification();
+          State.customerFromSearch.setValue(null);
         });
+  }
+
+  private void goToCustomerPage() {
+    if (customerIdInput.getText().equals(State.customerFromSearch.getValue().getId())) {
+      logger.debug("Going to customer page");
+      App.getMainController().switchPage(SummaryPageController.class);
+      return;
+    }
+  }
+
+  private void addCustomer() {
+    logger.debug("Adding new customer");
+    State.customerFromSearch.setValue(null);
+    App.getMainController().switchPage(SummaryPageController.class);
   }
 
   private void displayFoundNotification(String customerName) {
