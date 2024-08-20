@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import uoa.lavs.controllers.IController;
 import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ControllerUtils;
 
