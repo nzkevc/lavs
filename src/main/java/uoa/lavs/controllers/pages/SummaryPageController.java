@@ -15,7 +15,9 @@ import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
+import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.fragments.LoanBoxController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
@@ -71,7 +73,10 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-    switchCard(GeneralInfoCardController.class);
+    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
+    cards.put(LoanBoxController.class, new LoanBoxController());
+
+    switchCard(LoanBoxController.class);
   }
 
   private void switchCard(Class<? extends ICard<?>> card) {
@@ -122,7 +127,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    logger.error("Loans not implemented");
+    switchCard(LoansDisplayCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -141,6 +146,10 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
+  private LoansDisplayCardController getLoansCard() {
+    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  }
+
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
@@ -151,6 +160,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
+    getLoansCard().render(customer.getLoans());
   }
 
   private void clearAll() {
@@ -160,6 +170,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getNoteCard().clear();
     State.customerId.setValue("");
     State.customerName.setValue("");
+    getLoansCard().clear();
   }
 
   private Customer assembleCustomer() {
@@ -172,6 +183,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
+    customer.setLoans(getLoansCard().assemble());
     return customer;
   }
 
@@ -195,13 +207,12 @@ public class SummaryPageController extends AnchorPane implements IPage {
           return customer;
         },
         (customer) -> {
-          State.clearMessage();
+          renderCustomer(customer);
           if (isCreating) {
             State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
           } else {
             State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
           }
-          renderCustomer(customer);
         },
         this::handleException);
   }
