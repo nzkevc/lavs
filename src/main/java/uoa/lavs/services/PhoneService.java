@@ -21,6 +21,7 @@ class PhoneService {
 
   public static void updatePhonesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
+    System.out.println("************ Phone customer id: " + newCustomer.getId());
     Phones phones = newCustomer.getPhones();
     for (Phone phone : phones.getPhoneNumbers()) {
       phone.validate();

@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class State {
   public static final Property<String> customerName = new SimpleStringProperty();
+
+  // "" means no customer is selected - null breaks JavaFX bindings
   public static final Property<String> customerId = new SimpleStringProperty();
 
   public static void reset() {

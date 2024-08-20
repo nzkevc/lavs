@@ -127,7 +127,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void renderCustomer(Customer customer) {
-    State.customerId.setValue(customer.getId());
+    State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
     getGeneralInfoCard().render(customer);
     Address address = customer.getAddresses().getResidentialAddress();
@@ -147,6 +147,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
+    customer.setId(State.customerId.getValue());
     customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
     customer.getAddresses().setMailingAddress(getContactCard().assemble().getAddress());
     customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
@@ -159,16 +160,30 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onSubmitBtnClick() {
-    logger.debug("Creating customer...");
+    boolean isCreating = State.customerId.getValue().isEmpty();
+    if (isCreating) {
+      logger.debug("Creating new customer...");
+    } else {
+      logger.debug("Updating existing customer...");
+    }
     AsyncUtils.promise(
         () -> {
           Customer customer = assembleCustomer();
-          CustomerService.createCustomer(customer);
+          if (isCreating) {
+            customer.setId(null);
+            CustomerService.createCustomer(customer);
+          } else {
+            CustomerService.updateCustomer(customer);
+          }
           return customer;
         },
         (customer) -> {
           clearMsgLabel();
-          setSuccess("Customer created successfully with id: " + customer.getId());
+          if (isCreating) {
+            setSuccess("Customer created successfully with id: " + customer.getId());
+          } else {
+            setSuccess("Customer updated successfully with id: " + customer.getId());
+          }
           renderCustomer(customer);
         },
         this::handleException);

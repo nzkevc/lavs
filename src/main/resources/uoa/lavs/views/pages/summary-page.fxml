@@ -71,7 +71,7 @@
          </children></AnchorPane>
       <AnchorPane layoutX="495.0" layoutY="915.0" prefHeight="136.0" prefWidth="1316.0">
          <children>
-            <Label fx:id="errorLbl" alignment="TOP_RIGHT" layoutX="36.0" layoutY="8.0" prefHeight="95.0" prefWidth="1040.0" textAlignment="RIGHT" textFill="RED">
+            <Label fx:id="errorLbl" alignment="TOP_RIGHT" layoutX="36.0" layoutY="8.0" prefHeight="95.0" prefWidth="1040.0" textAlignment="RIGHT" textFill="RED" wrapText="true">
                <font>
                   <Font size="32.0" />
                </font>
