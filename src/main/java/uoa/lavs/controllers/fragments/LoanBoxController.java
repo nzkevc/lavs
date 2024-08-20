@@ -1,9 +1,10 @@
-package uoa.lavs.controllers.cards;
+package uoa.lavs.controllers.fragments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import uoa.lavs.controllers.fragments.FieldController;
+import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
@@ -16,6 +17,8 @@ import uoa.lavs.utils.ValidationUtils;
 public class LoanBoxController extends VBox implements ICard<Loan> {
 
   @FXML private Accordion accordion;
+  @FXML private Label loanIdLbl;
+  private String loanId;
 
   // loan details
   @FXML private FieldController status;
@@ -55,11 +58,13 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
   @Override
   public void render(Loan loan) {
     clear();
+    loanId = loan.getLoanId() == null ? "" : loan.getLoanId();
+    loanIdLbl.setText("Loan ID: " + loanId);
     if (loan.getStatus() == null) {
       loan.setStatus(LoanStatus.New);
     }
-
     status.setValue(loan.getStatus().toString());
+
     principleCents.setValue(String.valueOf(loan.getPrincipleCents()));
     startDate.setValue(loan.getStartDate().toString());
     periodMonths.setValue(String.valueOf(loan.getPeriodMonths()));
@@ -95,7 +100,10 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
 
   @Override
   public void clear() {
+    loanIdLbl.setText("");
+    loanId = null;
     status.clearValue();
+
     principleCents.clearValue();
     startDate.clearValue();
     periodMonths.clearValue();
@@ -126,7 +134,9 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
   @Override
   public Loan assemble() {
     Loan loan = new Loan();
+    loan.setLoanId(loanId);
     loan.setStatus(LoanStatus.valueOf(status.getValue()));
+
     loan.setPrincipleCents(Double.parseDouble(principleCents.getValue()));
     loan.setStartDate(ValidationUtils.getDateFromField(startDate));
     loan.setPeriodMonths(Integer.parseInt(periodMonths.getValue()));

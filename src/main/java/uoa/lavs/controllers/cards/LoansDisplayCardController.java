@@ -1,12 +1,15 @@
 package uoa.lavs.controllers.cards;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import uoa.lavs.controllers.fragments.LoanBoxController;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ControllerUtils;
