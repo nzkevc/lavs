@@ -1,5 +1,7 @@
 package uoa.lavs.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Emails;
@@ -12,11 +14,18 @@ import uoa.lavs.utils.objects.ValidationException;
 
 public class CustomerService implements IService {
 
+  private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
   public static void createCustomer(Customer newCustomer)
       throws RuntimeException, ValidationException {
     newCustomer.validate();
     String customerId = CustomerRepository.create(newCustomer).getId();
     newCustomer.setId(customerId);
+
+    Employer employer = newCustomer.getEmployer();
+    employer.setCustomerId(newCustomer.getId());
+    EmployerRepository.update(employer);
+
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
     EmailService.createEmailsFromCustomer(newCustomer);
@@ -36,7 +45,7 @@ public class CustomerService implements IService {
       Employer employer = EmployerRepository.get(id, 1);
       customer.setEmployer(employer);
     } catch (Exception e) {
-      // do nothing
+      logger.error("Failed to get employer for customer: " + e.getMessage());
     }
 
     customer.setAddresses(addresses);
@@ -51,6 +60,11 @@ public class CustomerService implements IService {
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
     newCustomer.validate();
     CustomerRepository.update(newCustomer);
+
+    Employer employer = newCustomer.getEmployer();
+    employer.setCustomerId(newCustomer.getId());
+    EmployerRepository.update(employer);
+
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);
