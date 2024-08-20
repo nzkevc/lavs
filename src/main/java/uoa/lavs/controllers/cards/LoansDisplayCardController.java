@@ -1,13 +1,12 @@
 package uoa.lavs.controllers.cards;
 
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ControllerUtils;
@@ -24,22 +23,27 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
 
   @Override
   public void render(Loans data) {
+    clear();
     List<Loan> loans = data.getLoans();
     for (Loan loan : loans) {
-      logger.info("Loan: {}", loan);
+      LoanBoxController loanBoxController = new LoanBoxController();
+      loanBoxController.render(loan);
+      displayVbox.getChildren().add(loanBoxController);
     }
-
-    logger.warn("Unimplemented method 'render'");
   }
 
   @Override
   public void clear() {
-    logger.warn("Unimplemented method 'clear'");
+    displayVbox.getChildren().clear();
   }
 
   @Override
   public Loans assemble() {
-    logger.warn("Unimplemented method 'assemble'");
-    return new Loans();
+    Loans loans = new Loans();
+    for (Node node : displayVbox.getChildren()) {
+      Loan loan = ((LoanBoxController) node).assemble();
+      loans.addLoan(loan);
+    }
+    return loans;
   }
 }

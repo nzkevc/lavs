@@ -1,14 +1,9 @@
-package uoa.lavs.controllers.fragments;
-
-import java.time.LocalDate;
-import java.util.List;
+package uoa.lavs.controllers.cards;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.mainframe.Frequency;
+import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Loan;
 import uoa.lavs.utils.ControllerUtils;
 
@@ -49,7 +44,7 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
     @FXML private FieldController paymentPrincipals;
     @FXML private FieldController paymentRemainings;
     @FXML private FieldController paymentNumbers;
-        
+
     public LoanBoxController() {
         ControllerUtils.loadFxml(this, "fragments/loan-box.fxml");
     }
@@ -57,7 +52,7 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
     @FXML
     private void initialize() {
 
-        
+
     }
 
     @Override
