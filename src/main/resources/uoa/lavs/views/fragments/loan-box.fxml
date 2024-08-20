@@ -92,10 +92,16 @@
                      <children>
                         <HBox prefWidth="1246.0">
                            <children>
-                              <VBox prefWidth="277.0" />
-                                 
-                           
-                              <VBox prefWidth="277.0" />
+                              <VBox prefWidth="277.0" >
+                                 <FieldController fx:id="pages" key="Pages" />
+                                 <FieldController fx:id="payments" key="Payments" />
+                                 <FieldController fx:id="paymentInterests" key="PaymentInterests" />
+                              </VBox>
+                              <VBox prefWidth="277.0">
+                                 <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />
+                                 <FieldController fx:id="paymentRemainings" key="PaymentRemainings" />
+                                 <FieldController fx:id="paymentNumbers" key="PaymentNumbers" />
+                              </VBox>
                               <VBox prefWidth="277.0" />
                            </children>
                         </HBox>
