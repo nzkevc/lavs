@@ -33,7 +33,7 @@
       </AnchorPane>
       <AnchorPane layoutX="91.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="400.0">
          <children>
-            <VBox layoutX="7.0" layoutY="10.0" prefHeight="536.0" prefWidth="387.0">
+            <VBox layoutX="7.0" layoutY="10.0" prefHeight="610.0" prefWidth="387.0" spacing="20.0">
                <children>
                   <Button fx:id="generalBtn" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" styleClass="button" text="GENERAL">
                      <font>
@@ -79,17 +79,17 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="testGetBtn" layoutX="92.0" layoutY="836.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="70.0" prefWidth="194.0" text="TEST GET" AnchorPane.bottomAnchor="190.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="testGetBtn" layoutX="47.0" layoutY="865.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="57.0" prefWidth="169.0" text="TEST GET" AnchorPane.bottomAnchor="157.66666666666663" AnchorPane.leftAnchor="47.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="testErrorBtn" layoutX="92.0" layoutY="907.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="70.0" prefWidth="196.0" text="TEST ERROR" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="testErrorBtn" layoutX="37.0" layoutY="927.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="43.0" prefWidth="190.0" text="TEST ERROR" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="37.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="testClearBtn" layoutX="92.0" layoutY="983.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="70.0" prefWidth="197.0" text="TEST CLEAR" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="testClearBtn" layoutX="39.0" layoutY="988.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="53.0" prefWidth="179.0" text="TEST CLEAR" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="39.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
