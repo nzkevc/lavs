@@ -1,5 +1,6 @@
 package uoa.lavs.controllers.fragments;
 
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,6 +16,11 @@ public class FieldController extends AnchorPane implements IController {
 
   public FieldController() {
     ControllerUtils.loadFxml(this, "fragments/field.fxml");
+  }
+
+  @FXML
+  private void initialize() {
+    txtValue.textProperty().addListener((observable, oldValue, newValue) -> clearError());
   }
 
   public void setKey(String key) {
@@ -35,6 +41,10 @@ public class FieldController extends AnchorPane implements IController {
 
   public void clearValue() {
     txtValue.clear();
+  }
+
+  public Property<String> valueProperty() {
+    return txtValue.textProperty();
   }
 
   public void setError(String error) {

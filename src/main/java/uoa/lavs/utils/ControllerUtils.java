@@ -26,7 +26,7 @@ public class ControllerUtils {
    * @param controller the controller to load the FXML into (pass in `this`)
    */
   public static void loadFxml(IController controller, String url) {
-    logger.debug("Loading FXML: " + url);
+    logger.trace("Loading FXML: " + url);
     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + url));
     fxmlLoader.setRoot(controller);
     fxmlLoader.setController(controller);

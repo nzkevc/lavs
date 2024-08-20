@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
+import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
@@ -55,6 +56,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
   @FXML
   private void initialize() {
     setUpCards();
+    setUpInfoPane();
   }
 
   private void setUpCards() {
@@ -68,6 +70,13 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void switchCard(Class<? extends ICard<?>> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
     ControllerUtils.swapComponent(infoCard, cards.get(card));
+  }
+
+  private void setUpInfoPane() {
+    customerName
+        .textProperty()
+        .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
+    customerID.textProperty().bind(State.customerId.map(id -> "ID: " + id));
   }
 
   @FXML
