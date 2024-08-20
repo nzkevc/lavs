@@ -55,6 +55,11 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
     ControllerUtils.loadFxml(this, "fragments/loan-box.fxml");
   }
 
+  @FXML
+  private void initialize() {
+    status.setEditable(false);
+  }
+
   @Override
   public void render(Loan loan) {
     clear();
@@ -95,6 +100,35 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
       // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
       // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
       // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    }
+
+    // Disable fields if loan is already persisted
+    if (loan.getLoanId() != null) {
+      principleCents.setEditable(false);
+      startDate.setEditable(false);
+      periodMonths.setEditable(false);
+      term.setEditable(false);
+      interestRate.setEditable(false);
+      rateType.setEditable(false);
+      compoundingFrequency.setEditable(false);
+      paymentAmountCents.setEditable(false);
+      paymentFrequency.setEditable(false);
+      interestOnly.setEditable(false);
+
+      principle.setEditable(false);
+      rateValue.setEditable(false);
+      payoffDate.setEditable(false);
+      totalInterest.setEditable(false);
+      totalLoanCost.setEditable(false);
+      paymentAmount.setEditable(false);
+
+      number.setEditable(false);
+      pages.setEditable(false);
+      payments.setEditable(false);
+      paymentInterests.setEditable(false);
+      // paymentPrincipals.setEditable(false);
+      // paymentRemainings.setEditable(false);
+      // paymentNumbers.setEditable(false);
     }
   }
 
