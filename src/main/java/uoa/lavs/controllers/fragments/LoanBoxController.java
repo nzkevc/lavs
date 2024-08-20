@@ -102,7 +102,7 @@ public class LoanBoxController extends VBox implements ICard<Loan> {
   public void clear() {
     loanIdLbl.setText("");
     loanId = null;
-    status.clearValue();
+    status.setValue(LoanStatus.New.toString());
 
     principleCents.clearValue();
     startDate.clearValue();

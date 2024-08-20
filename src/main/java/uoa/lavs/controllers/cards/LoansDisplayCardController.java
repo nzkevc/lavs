@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import uoa.lavs.controllers.fragments.LoanBoxController;
@@ -19,6 +20,7 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
   private static final Logger logger = LoggerFactory.getLogger(LoansDisplayCardController.class);
 
   @FXML private VBox displayVbox;
+  @FXML private Button createNewLoanBtn;
 
   public LoansDisplayCardController() {
     ControllerUtils.loadFxml(this, "cards/loans-display-card.fxml");
@@ -33,6 +35,7 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
       loanBoxController.render(loan);
       displayVbox.getChildren().add(loanBoxController);
     }
+    displayVbox.getChildren().add(createNewLoanBtn);
   }
 
   @Override
@@ -43,10 +46,19 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
   @Override
   public Loans assemble() {
     Loans loans = new Loans();
-    for (Node node : displayVbox.getChildren()) {
+    for (Node node : displayVbox.getChildren().filtered(child -> child instanceof LoanBoxController)) {
       Loan loan = ((LoanBoxController) node).assemble();
       loans.addLoan(loan);
     }
     return loans;
+  }
+
+  @FXML
+  private void onCreateNewLoanClick() {
+    LoanBoxController loanBoxController = new LoanBoxController();
+    loanBoxController.clear();
+    displayVbox.getChildren().remove(createNewLoanBtn);
+    displayVbox.getChildren().add(loanBoxController);
+    displayVbox.getChildren().add(createNewLoanBtn);
   }
 }
