@@ -245,6 +245,5 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   private void handleException(Throwable e) {
     State.setMessageError(e.getMessage());
-    e.printStackTrace();
   }
 }
