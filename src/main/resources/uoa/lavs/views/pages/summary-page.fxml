@@ -4,39 +4,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="1080.0" prefWidth="1920.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/globals.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="104.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="109.0">
+      <AnchorPane layoutX="128.0" layoutY="96.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="138.0">
          <children>
-            <Button fx:id="backBtn" layoutY="3.0" mnemonicParsing="false" onAction="#onBackBtnClick" prefHeight="63.0" prefWidth="108.0" text="←">
+            <Button fx:id="backBtn" layoutX="8.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackBtnClick" prefHeight="85.0" prefWidth="116.0" text="←">
                <font>
                   <Font name="Calibri Bold" size="48.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="infoPane" layoutX="538.0" layoutY="150.0" prefHeight="89.0" prefWidth="1287.0">
+      <AnchorPane fx:id="infoPane" layoutX="538.0" layoutY="116.0" prefHeight="89.0" prefWidth="1287.0">
          <children>
-            <Label fx:id="customerName" layoutX="14.0" layoutY="5.0" text="Customer Name">
+            <Label fx:id="customerName" layoutX="-21.0" layoutY="43.0" prefHeight="48.0" prefWidth="516.0" text="Customer Name">
                <font>
-                  <Font size="68.0" />
+                  <Font name="System Bold" size="68.0" />
                </font>
             </Label>
-            <Label fx:id="customerID" layoutX="884.0" layoutY="41.0" text="Customer ID:">
+            <Label fx:id="customerID" layoutX="-13.0" layoutY="17.0" text="Customer ID:">
                <font>
                   <Font size="34.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="92.0" layoutY="243.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="400.0">
+      <AnchorPane layoutX="91.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="400.0">
          <children>
-            <VBox layoutX="7.0" layoutY="10.0" prefHeight="536.0" prefWidth="387.0">
+            <VBox layoutX="7.0" layoutY="10.0" prefHeight="610.0" prefWidth="387.0" spacing="20.0">
                <children>
-                  <Button fx:id="generalBtn" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" text="GENERAL">
+                  <Button fx:id="generalBtn" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" styleClass="button" text="GENERAL">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
@@ -65,10 +64,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="infoCard" layoutX="535.0" layoutY="251.0" prefHeight="607.0" prefWidth="1291.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c7c7c7" height="609.0" layoutX="-1.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" width="1291.0" />
-         </children></AnchorPane>
+      <AnchorPane fx:id="infoCard" layoutX="511.0" layoutY="251.0" prefHeight="607.0" prefWidth="1291.0" styleClass="anchor-pane-with-border" stylesheets="@../../css/fragments/buttons/anchorPane.css" />
       <AnchorPane layoutX="495.0" layoutY="915.0" prefHeight="136.0" prefWidth="1316.0">
          <children>
             <Label fx:id="errorLbl" alignment="TOP_RIGHT" layoutX="36.0" layoutY="8.0" prefHeight="95.0" prefWidth="1040.0" textAlignment="RIGHT" textFill="RED" wrapText="true">
@@ -76,24 +72,25 @@
                   <Font size="32.0" />
                </font>
             </Label>
-            <Button fx:id="submitBtn" layoutX="1105.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSubmitBtnClick" prefHeight="101.0" prefWidth="225.0" text="SUBMIT">
+            <Button fx:id="submitBtn" layoutX="1138.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSubmitBtnClick" prefHeight="101.0" prefWidth="225.0" stylesheets="@../../css/fragments/buttons/button.css" text="SUBMIT">
                <font>
                   <Font name="Calibri Bold" size="23.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="testGetBtn" layoutX="100.0" layoutY="900.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="50.0" prefWidth="160.0" text="DEV: FILL" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="testGetBtn" layoutX="47.0" layoutY="865.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="57.0" prefWidth="169.0" text="DEV: FILL" AnchorPane.bottomAnchor="157.66666666666663" AnchorPane.leftAnchor="47.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="testErrorBtn" layoutX="92.0" layoutY="907.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="50.0" prefWidth="160.0" text="TEST ERROR" visible="false" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="100.0">
+
+      <Button fx:id="testErrorBtn" layoutX="37.0" layoutY="927.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="43.0" prefWidth="190.0" text="DEV: ERROR"  visible="false" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="37.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="testClearBtn" layoutX="100.0" layoutY="970.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="50.0" prefWidth="160.0" text="DEV: CLEAR" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="testClearBtn" layoutX="39.0" layoutY="988.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="53.0" prefWidth="179.0" text="DEV: CLEAR" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="39.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>

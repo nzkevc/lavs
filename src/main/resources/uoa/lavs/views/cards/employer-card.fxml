@@ -9,12 +9,12 @@
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
 
-<fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
-            <VBox prefHeight="321.0" prefWidth="289.0">
-               <FieldController fx:id="employerName" key="EmployerName" />
+            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
+               <FieldController fx:id="employerName" key="Employer Name" />
                <FieldController fx:id="addressLine1" key="Address Line 1" />
                <FieldController fx:id="addressLine2" key="Address Line 2" />
                <FieldController fx:id="suburb" key="Suburb" />
@@ -22,7 +22,7 @@
                <FieldController fx:id="postcode" key="Postcode" />
                <FieldController fx:id="country" key="Country" />
             </VBox>
-            <VBox prefHeight="321.0" prefWidth="253.0">
+            <VBox prefHeight="321.0" prefWidth="253.0" styleClass="vbox-card">
                <FieldController fx:id="phone" key="Phone" />
                <FieldController fx:id="emailAddress" key="Email" />
                <FieldController fx:id="website" key="Website" />
