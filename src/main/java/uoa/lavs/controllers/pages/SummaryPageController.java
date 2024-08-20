@@ -2,13 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -17,12 +19,13 @@ import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
-import uoa.lavs.controllers.fragments.LoanBoxController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
 import uoa.lavs.services.CustomerService;
+import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.TestEntityCreator;
@@ -74,9 +77,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
-    cards.put(LoanBoxController.class, new LoanBoxController());
-
-    switchCard(LoanBoxController.class);
+    switchCard(GeneralInfoCardController.class);
   }
 
   private void switchCard(Class<? extends ICard<?>> card) {
@@ -89,7 +90,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customerName
         .textProperty()
         .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
-    customerID.textProperty().bind(State.customerId.map(id -> "ID: " + id));
+    customerID.textProperty().bind(State.customerId.map(id -> "Customer ID: " + id));
 
     // Error/success message
     errorLbl.textProperty().bind(State.summaryMessage);
@@ -201,8 +202,14 @@ public class SummaryPageController extends AnchorPane implements IPage {
           if (isCreating) {
             customer.setId(null);
             CustomerService.createCustomer(customer);
+            LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
           } else {
             CustomerService.updateCustomer(customer);
+            Loans newLoans = new Loans();
+            customer.getLoans().getLoans().stream()
+                .filter(loan -> loan.getLoanId() == null || loan.getLoanId().isEmpty())
+                .forEach((loan) -> newLoans.addLoan(loan));
+            LoanService.createLoansByCustomerId(customer.getId(), newLoans);
           }
           return customer;
         },
@@ -238,5 +245,6 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   private void handleException(Throwable e) {
     State.setMessageError(e.getMessage());
+    e.printStackTrace();
   }
 }

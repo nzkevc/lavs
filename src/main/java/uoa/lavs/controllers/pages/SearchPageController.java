@@ -21,8 +21,6 @@ public class SearchPageController extends AnchorPane implements IPage {
   @FXML private TextField customerIdInput;
   @FXML private Label notification;
 
-  private String inputString;
-
   public SearchPageController() {
     ControllerUtils.loadFxml(this, "pages/search-page.fxml");
   }
@@ -33,8 +31,8 @@ public class SearchPageController extends AnchorPane implements IPage {
         .textProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              searchCustomer();
               notification.setVisible(false);
+              searchCustomer();
             });
     customerIdInput.setOnAction(e -> goToCustomerPage());
     goButton.setOnAction(e -> goToCustomerPage());
@@ -43,7 +41,7 @@ public class SearchPageController extends AnchorPane implements IPage {
 
   private void searchCustomer() {
     logger.debug("Searching for customer with id: " + customerIdInput.getText());
-    inputString = customerIdInput.getText();
+    String inputString = customerIdInput.getText();
     if (inputString.isEmpty()) {
       displayNotFoundNotification();
       return;
@@ -56,7 +54,7 @@ public class SearchPageController extends AnchorPane implements IPage {
           State.customerFromSearch.setValue(customer);
         },
         (Throwable e) -> {
-          logger.error("Error searching for customer: " + e.getMessage());
+          logger.debug("Error searching for customer: " + e.getMessage());
           displayNotFoundNotification();
           State.customerFromSearch.setValue(null);
         });
@@ -66,12 +64,12 @@ public class SearchPageController extends AnchorPane implements IPage {
     if (customerIdInput.getText().equals(State.customerFromSearch.getValue().getId())) {
       logger.debug("Going to customer page");
       App.getMainController().switchPage(SummaryPageController.class);
-      return;
     }
   }
 
   private void addCustomer() {
     logger.debug("Adding new customer");
+    customerIdInput.setText("");
     State.customerFromSearch.setValue(null);
     App.getMainController().switchPage(SummaryPageController.class);
   }

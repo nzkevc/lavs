@@ -1,6 +1,7 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
+
 import uoa.lavs.mainframe.Frequency;
 
 public class LoanSummary {
@@ -15,6 +16,8 @@ public class LoanSummary {
   private Double totalLoanCost;
   private Double paymentAmount;
   private Frequency paymentFrequency;
+
+  public LoanSummary() {}
 
   public LoanSummary(String loanId) {
     this.loanId = loanId;

@@ -15,7 +15,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="loanIDLbl" layoutX="19.0" layoutY="16.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
+            <Label fx:id="loanIdLbl" layoutX="19.0" layoutY="16.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -46,7 +46,7 @@
                         <FieldController fx:id="loanPayments" key="LoanPayments" />
                         <FieldController fx:id="loanSummary" key="LoanSummary" />
                      </children>
-                  </VBox>      
+                  </VBox>
                </children>
             </HBox>
          </children>
