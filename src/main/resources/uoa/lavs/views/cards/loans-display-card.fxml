@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutX="26.0" layoutY="29.0" prefHeight="715.0" prefWidth="1270.0">
+         <content>
+            <VBox fx:id="displayVbox" prefHeight="710.0" prefWidth="1267.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
