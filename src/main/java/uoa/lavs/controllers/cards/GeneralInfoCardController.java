@@ -2,11 +2,12 @@ package uoa.lavs.controllers.cards;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import javafx.beans.binding.StringBinding;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.State;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Customer;
@@ -36,7 +37,7 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
   @Override
   public void render(Customer customer) {
     title.setValue(customer.getTitle());
-    // name.setValue(customer.getName()); // No name setter - this is tied to global state
+    name.valueProperty().setValue(customer.getName());
     dateOfBirth.setValue(customer.getDateOfBirth().toString());
     citizenship.setValue(customer.getCitizenship());
     visaType.setValue(customer.getVisa());

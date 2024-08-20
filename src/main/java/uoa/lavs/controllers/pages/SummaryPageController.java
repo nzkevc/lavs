@@ -2,14 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.application.Platform;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -126,6 +127,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void renderCustomer(Customer customer) {
+    State.customerId.setValue(customer.getId());
+    State.customerName.setValue(customer.getName());
     getGeneralInfoCard().render(customer);
     Address address = customer.getAddresses().getResidentialAddress();
     Phone phone = customer.getPhones().getPrimaryPhone();
@@ -165,7 +168,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
         },
         (customer) -> {
           clearMsgLabel();
-          setSuccess("Customer created successfully " + customer.getId());
+          setSuccess("Customer created successfully with id: " + customer.getId());
           renderCustomer(customer);
         },
         this::handleException);
@@ -196,23 +199,17 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   private void setSuccess(String msg) {
     logger.debug(msg);
-    Platform.runLater(
-        () -> {
-          errorLbl.setText(msg);
-          errorLbl.setStyle("-fx-text-fill: green;");
-        });
+    errorLbl.setText(msg);
+    errorLbl.setStyle("-fx-text-fill: green;");
   }
 
   private void setError(String msg) {
     logger.warn(msg);
-    Platform.runLater(
-        () -> {
-          errorLbl.setText(msg);
-          errorLbl.setStyle("-fx-text-fill: red;");
-        });
+    errorLbl.setText(msg);
+    errorLbl.setStyle("-fx-text-fill: red;");
   }
 
   private void clearMsgLabel() {
-    Platform.runLater(() -> errorLbl.setText(""));
+    errorLbl.setText("");
   }
 }

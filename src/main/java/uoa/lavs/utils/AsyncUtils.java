@@ -1,15 +1,19 @@
 package uoa.lavs.utils;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javafx.application.Platform;
 
 public class AsyncUtils {
 
@@ -38,7 +42,7 @@ public class AsyncUtils {
           @Override
           public void onSuccess(T result) {
             try {
-              onSuccess.accept(result);
+              Platform.runLater(() -> onSuccess.accept(result));
             } catch (Exception e) {
               onFailure(e);
             }
@@ -47,7 +51,7 @@ public class AsyncUtils {
           @Override
           public void onFailure(Throwable throwable) {
             try {
-              onFailure.accept(throwable);
+              Platform.runLater(() -> onFailure.accept(throwable));
             } catch (Exception e) {
               logger.error("Error in onFailure callback", e);
             }
