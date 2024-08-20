@@ -96,9 +96,9 @@
                                  <FieldController fx:id="paymentInterests" key="PaymentInterests" />
                               </VBox>
                               <VBox prefWidth="277.0">
-                                 <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />
+                                 <!-- <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />
                                  <FieldController fx:id="paymentRemainings" key="PaymentRemainings" />
-                                 <FieldController fx:id="paymentNumbers" key="PaymentNumbers" />
+                                 <FieldController fx:id="paymentNumbers" key="PaymentNumbers" /> -->
                               </VBox>
                               <VBox prefWidth="277.0" />
                            </children>
