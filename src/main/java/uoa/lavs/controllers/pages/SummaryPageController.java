@@ -151,13 +151,13 @@ public class SummaryPageController extends AnchorPane implements IPage {
     AsyncUtils.promise(
         () -> {
           Customer customer = assembleCustomer();
-          CustomerService.createCustomer(customer); // Shouldn't this return the new customer?
-          return null;
+          CustomerService.createCustomer(customer);
+          return customer;
         },
-        (x) -> {
+        (customer) -> {
           clearMsgLabel();
-          setMsgLabel("Customer created successfully", false);
-          clearAll();
+          setSuccess("Customer created successfully " + customer.getId());
+          renderCustomer(customer);
         },
         this::handleException);
   }
@@ -182,22 +182,24 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void handleException(Throwable e) {
-    setMsgLabel(e.getMessage(), true);
+    setError(e.getMessage());
   }
 
-  private void setMsgLabel(String msg, boolean isError) {
-    // Log in console
-    if (isError) {
-      logger.warn(msg);
-    } else {
-      logger.debug(msg);
-    }
-
-    // Update UI
+  private void setSuccess(String msg) {
+    logger.debug(msg);
     Platform.runLater(
         () -> {
           errorLbl.setText(msg);
-          errorLbl.setStyle(isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+          errorLbl.setStyle("-fx-text-fill: green;");
+        });
+  }
+
+  private void setError(String msg) {
+    logger.warn(msg);
+    Platform.runLater(
+        () -> {
+          errorLbl.setText(msg);
+          errorLbl.setStyle("-fx-text-fill: red;");
         });
   }
 
