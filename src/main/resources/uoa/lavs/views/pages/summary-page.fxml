@@ -79,18 +79,18 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="testGetBtn" layoutX="47.0" layoutY="865.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="57.0" prefWidth="169.0" text="DEV: FILL" AnchorPane.bottomAnchor="157.66666666666663" AnchorPane.leftAnchor="47.0">
-         <font>
-            <Font name="Calibri Bold" size="23.0" />
-         </font>
-      </Button>
 
-      <Button fx:id="testErrorBtn" layoutX="37.0" layoutY="927.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="43.0" prefWidth="190.0" text="DEV: ERROR"  visible="false" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="37.0">
+      <Button fx:id="testErrorBtn" layoutX="37.0" layoutY="927.0" mnemonicParsing="false" onAction="#onTestErrorBtnClick" prefHeight="56.0" prefWidth="179.0" text="DEV: ERROR" visible="false" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="testClearBtn" layoutX="39.0" layoutY="988.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="53.0" prefWidth="179.0" text="DEV: CLEAR" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="39.0">
+      <Button fx:id="testGetBtn" layoutX="37.0" layoutY="915.0" mnemonicParsing="false" onAction="#onTestGetBtnClick" prefHeight="56.0" prefWidth="179.0" text="DEV: FILL" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Calibri Bold" size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="testClearBtn" layoutX="39.0" layoutY="988.0" mnemonicParsing="false" onAction="#onTestClearBtnClick" prefHeight="56.0" prefWidth="179.0" text="DEV: CLEAR" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>
