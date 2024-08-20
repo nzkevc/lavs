@@ -57,7 +57,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
   @FXML
   private void initialize() {
     setUpCards();
-    setUpInfoPane();
+    setUpBindings();
   }
 
   private void setUpCards() {
@@ -73,11 +73,20 @@ public class SummaryPageController extends AnchorPane implements IPage {
     ControllerUtils.swapComponent(infoCard, cards.get(card));
   }
 
-  private void setUpInfoPane() {
+  private void setUpBindings() {
+    // Info pane
     customerName
         .textProperty()
         .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
     customerID.textProperty().bind(State.customerId.map(id -> "ID: " + id));
+
+    // Error/success message
+    errorLbl.textProperty().bind(State.summaryMessage);
+    errorLbl
+        .styleProperty()
+        .bind(
+            State.summaryMessageIsError.map(
+                isError -> isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;"));
   }
 
   @FXML
@@ -178,11 +187,11 @@ public class SummaryPageController extends AnchorPane implements IPage {
           return customer;
         },
         (customer) -> {
-          clearMsgLabel();
+          State.clearMessage();
           if (isCreating) {
-            setSuccess("Customer created successfully with id: " + customer.getId());
+            State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
           } else {
-            setSuccess("Customer updated successfully with id: " + customer.getId());
+            State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
           }
           renderCustomer(customer);
         },
@@ -209,22 +218,6 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void handleException(Throwable e) {
-    setError(e.getMessage());
-  }
-
-  private void setSuccess(String msg) {
-    logger.debug(msg);
-    errorLbl.setText(msg);
-    errorLbl.setStyle("-fx-text-fill: green;");
-  }
-
-  private void setError(String msg) {
-    logger.warn(msg);
-    errorLbl.setText(msg);
-    errorLbl.setStyle("-fx-text-fill: red;");
-  }
-
-  private void clearMsgLabel() {
-    errorLbl.setText("");
+    State.setMessageError(e.getMessage());
   }
 }
