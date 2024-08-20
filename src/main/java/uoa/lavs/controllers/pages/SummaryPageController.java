@@ -58,6 +58,14 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+    State.customerFromSearch.addListener(
+        (obs, oldCustomer, newCustomer) -> {
+          if (newCustomer == null) {
+            clearAll();
+            return;
+          }
+          renderCustomer(newCustomer);
+        });
   }
 
   private void setUpCards() {
@@ -66,7 +74,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
-    cards.put( LoanBoxController.class, new LoanBoxController());
+    cards.put(LoanBoxController.class, new LoanBoxController());
 
     switchCard(LoanBoxController.class);
   }
@@ -94,7 +102,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onBackBtnClick() {
-    App.getMainController().switchPage(LandingPageController.class);
+    App.getMainController().switchPage(SearchPageController.class);
   }
 
   @FXML
@@ -160,6 +168,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
+    State.customerId.setValue("");
+    State.customerName.setValue("");
     getLoansCard().clear();
   }
 
