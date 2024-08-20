@@ -1,17 +1,14 @@
 package uoa.lavs.controllers.cards;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.ValidationUtils;
 
 public class GeneralInfoCardController extends AnchorPane implements ICard<Customer> {
 
@@ -61,19 +58,11 @@ public class GeneralInfoCardController extends AnchorPane implements ICard<Custo
     Customer customer = new Customer();
     customer.setTitle(title.getValue());
     customer.setName(name.getValue());
-    customer.setDateOfBirth(getDateFromField(dateOfBirth));
+    customer.setDateOfBirth(ValidationUtils.getDateFromField(dateOfBirth));
     customer.setCitizenship(citizenship.getValue());
     customer.setVisa(visaType.getValue());
     customer.setOccupation(occupation.getValue());
     customer.setStatus(status.getValue());
     return customer;
-  }
-
-  private LocalDate getDateFromField(FieldController field) {
-    try {
-      return LocalDate.parse(field.getValue());
-    } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid date of birth - use YYYY-MM-DD format", e);
-    }
   }
 }

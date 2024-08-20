@@ -24,6 +24,8 @@ public class Loan implements IModel<Loan> {
   private LoanPayments loanPayments;
   private LoanSummary loanSummary;
 
+  public Loan() {}
+
   public Loan(String loanId) {
     this.loanId = loanId;
   }
