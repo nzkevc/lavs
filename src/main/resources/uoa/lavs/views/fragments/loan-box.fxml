@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import uoa.lavs.controllers.fragments.FieldController?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1268.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle fill="#c9c9c9" height="300.0" layoutX="-2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1270.0" />
+            <Label fx:id="loanIDLbl" layoutX="19.0" layoutY="16.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox layoutX="26.0" layoutY="49.0" prefHeight="234.0" prefWidth="1226.0">
+               <children>
+                  <VBox prefHeight="148.0" prefWidth="278.0">
+                     <children>
+                        <FieldController fx:id="status" key="Status" />
+                        <FieldController fx:id="principleCents" key="PrincipleCents" />
+                        <FieldController fx:id="startDate" key="startDate" />
+                        <FieldController fx:id="periodMonths" key="PeriodMonths" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="148.0" prefWidth="301.0">
+                     <children>
+                        <FieldController fx:id="term" key="Term" />
+                        <FieldController fx:id="interestRate" key="InterestRate" />
+                        <FieldController fx:id="rateType" key="RateType" />
+                        <FieldController fx:id="compoundingFrequency" key="CompoundingFrequency" />
+                        <FieldController fx:id="paymentAmountCents" key="PaymentAmountCents" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="148.0" prefWidth="301.0">
+                     <children>
+                        <FieldController fx:id="paymentFrequency" key="PaymentFrequency" />
+                        <FieldController fx:id="interestOnly" key="InterestOnly" />
+                        <FieldController fx:id="loanPayments" key="LoanPayments" />
+                        <FieldController fx:id="loanSummary" key="LoanSummary" />
+                     </children>
+                  </VBox>      
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <Accordion prefWidth="1268.0">
+         <panes>
+            <TitledPane animated="false" prefWidth="1268.0" text="Loan Summary">
+               <content>
+                  <AnchorPane prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="22.0" prefWidth="1246.0">
+                           <children>
+                              <VBox prefWidth="277.0">
+                                 <children>
+                                    <FieldController fx:id="principle" key="Principle" />
+                                    <FieldController fx:id="rateValue" key="RateValue" />
+                                    <FieldController fx:id="payoffDate" key="PayOffDate" />
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="277.0">
+                                 <children>
+                                    <FieldController fx:id="term" key="Term" />
+                                    <FieldController fx:id="totalInterest" key="TotalInterest" />
+                                    <FieldController fx:id="totalLoanCost" key="TotalLoanCost" />
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="277.0">
+                                 <children>
+                                    <FieldController fx:id="paymentAmount" key="PaymentAmount" />
+                                    <FieldController fx:id="paymentFrequency" key="PaymentFrequency" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" prefWidth="1241.0" text="Loan Payments">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1266.0">
+                     <children>
+                        <HBox prefWidth="1246.0">
+                           <children>
+                              <VBox prefWidth="277.0" />
+                                 
+                           
+                              <VBox prefWidth="277.0" />
+                              <VBox prefWidth="277.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+   </children>
+</fx:root>
