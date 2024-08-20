@@ -1,0 +1,7 @@
+.anchor-pane-with-border {
+    -fx-border-color: #000000; 
+    -fx-border-width: 2px; 
+    -fx-border-style: solid; 
+    -fx-border-radius: 10px; 
+    -fx-padding: 10px; 
+}
