@@ -14,7 +14,7 @@
       <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
             <VBox prefHeight="321.0" prefWidth="289.0">
-               <FieldController fx:id="employerName" key="EmployerName" />
+               <FieldController fx:id="employerName" key="Employer Name" />
                <FieldController fx:id="addressLine1" key="Address Line 1" />
                <FieldController fx:id="addressLine2" key="Address Line 2" />
                <FieldController fx:id="suburb" key="Suburb" />

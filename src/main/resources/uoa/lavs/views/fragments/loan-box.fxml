@@ -25,26 +25,24 @@
                   <VBox prefHeight="148.0" prefWidth="278.0">
                      <children>
                         <FieldController fx:id="status" key="Status" />
-                        <FieldController fx:id="principleCents" key="PrincipleCents" />
-                        <FieldController fx:id="startDate" key="startDate" />
-                        <FieldController fx:id="periodMonths" key="PeriodMonths" />
+                        <FieldController fx:id="principleCents" key="Principle Cents" />
+                        <FieldController fx:id="startDate" key="Start Date" />
+                        <FieldController fx:id="periodMonths" key="Period Months" />
                      </children>
                   </VBox>
                   <VBox prefHeight="148.0" prefWidth="301.0">
                      <children>
                         <FieldController fx:id="term" key="Term" />
-                        <FieldController fx:id="interestRate" key="InterestRate" />
-                        <FieldController fx:id="rateType" key="RateType" />
-                        <FieldController fx:id="compoundingFrequency" key="CompoundingFrequency" />
-                        <FieldController fx:id="paymentAmountCents" key="PaymentAmountCents" />
+                        <FieldController fx:id="interestRate" key="Interest Rate" />
+                        <FieldController fx:id="rateType" key="Rate Type" />
+                        <FieldController fx:id="compoundingFrequency" key="Compounding Frequency" />
+                        <FieldController fx:id="paymentAmountCents" key="Payment Amount Cents" />
                      </children>
                   </VBox>
                   <VBox prefHeight="148.0" prefWidth="301.0">
                      <children>
-                        <FieldController fx:id="paymentFrequency" key="PaymentFrequency" />
-                        <FieldController fx:id="interestOnly" key="InterestOnly" />
-                        <FieldController fx:id="loanPayments" key="LoanPayments" />
-                        <FieldController fx:id="loanSummary" key="LoanSummary" />
+                        <FieldController fx:id="paymentFrequency" key="Payment Frequency" />
+                        <FieldController fx:id="interestOnly" key="Interest Only" />
                      </children>
                   </VBox>      
                </children>
@@ -62,19 +60,19 @@
                               <VBox prefWidth="277.0">
                                  <children>
                                     <FieldController fx:id="principle" key="Principle" />
-                                    <FieldController fx:id="rateValue" key="RateValue" />
-                                    <FieldController fx:id="payoffDate" key="PayOffDate" />
+                                    <FieldController fx:id="rateValue" key="Rate Value" />
+                                    <FieldController fx:id="payoffDate" key="Pay Off Date" />
                                  </children>
                               </VBox>
                               <VBox prefWidth="277.0">
                                  <children>
-                                    <FieldController fx:id="totalInterest" key="TotalInterest" />
-                                    <FieldController fx:id="totalLoanCost" key="TotalLoanCost" />
+                                    <FieldController fx:id="totalInterest" key="Total Interest" />
+                                    <FieldController fx:id="totalLoanCost" key="Total Loan Cost" />
                                  </children>
                               </VBox>
                               <VBox prefWidth="277.0">
                                  <children>
-                                    <FieldController fx:id="paymentAmount" key="PaymentAmount" />
+                                    <FieldController fx:id="paymentAmount" key="Payment Amount" />
                                  </children>
                               </VBox>
                            </children>
@@ -93,7 +91,7 @@
                                  <FieldController fx:id="number" key="Number" />
                                  <FieldController fx:id="pages" key="Pages" />
                                  <FieldController fx:id="payments" key="Payments" />
-                                 <FieldController fx:id="paymentInterests" key="PaymentInterests" />
+                                 <FieldController fx:id="paymentInterests" key="Payment Interests" />
                               </VBox>
                               <VBox prefWidth="277.0">
                                  <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />

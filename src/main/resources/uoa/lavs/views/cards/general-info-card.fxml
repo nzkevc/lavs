@@ -15,9 +15,9 @@
             <VBox prefHeight="321.0" prefWidth="289.0">
                <FieldController fx:id="title" key="Title" />
                <FieldController fx:id="name" key="Name" />
-               <FieldController fx:id="dateOfBirth" key="DateOfBirth" />
+               <FieldController fx:id="dateOfBirth" key="Date of Birth" />
                <FieldController fx:id="citizenship" key="Citizenship" />
-               <FieldController fx:id="visaType" key="VisaType" />
+               <FieldController fx:id="visaType" key="Visa Type" />
                <FieldController fx:id="occupation" key="Occupation" />
                <FieldController fx:id="status" key="Status" />
             </VBox>
