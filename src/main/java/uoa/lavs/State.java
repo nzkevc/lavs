@@ -9,23 +9,11 @@ import javafx.beans.property.SimpleStringProperty;
  * views (see ExampleController).
  */
 public class State {
-  public static final Property<String> exampleTitle = new SimpleStringProperty();
-  // public static final Property<Component<?>> page = new SimpleObjectProperty<>();
   public static final Property<String> customerName = new SimpleStringProperty();
   public static final Property<String> customerId = new SimpleStringProperty();
 
   public static void reset() {
-    exampleTitle.setValue("Example Title");
-    // page.setValue(ExampleController.getSingleton());
     customerName.setValue("");
     customerId.setValue("");
   }
-
-  // Used to be in MainController.java
-  // Page state listener
-  // State.page.addListener(
-  //     (observable, oldPage, newPage) -> {
-  //       logger.debug("Page changed to: " + newPage.getName());
-  //       ControllerUtils.swapComponent(panPage, newPage.getView());
-  //     });
 }

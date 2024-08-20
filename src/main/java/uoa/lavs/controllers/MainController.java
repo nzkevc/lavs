@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
-import uoa.lavs.controllers.pages.ExamplePageController;
 import uoa.lavs.controllers.pages.IPage;
 import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
@@ -41,7 +40,6 @@ public class MainController extends AnchorPane implements IController {
 
   private void setUpPages() {
     pages.put(LandingPageController.class, new LandingPageController());
-    pages.put(ExamplePageController.class, new ExamplePageController());
     pages.put(SummaryPageController.class, new SummaryPageController());
     switchPage(SummaryPageController.class);
   }
