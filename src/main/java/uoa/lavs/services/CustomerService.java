@@ -50,7 +50,6 @@ public class CustomerService implements IService {
 
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
     newCustomer.validate();
-    System.err.println("******* Customer ID: " + newCustomer.getId());
     CustomerRepository.update(newCustomer);
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);

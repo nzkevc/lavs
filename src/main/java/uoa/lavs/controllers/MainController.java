@@ -17,7 +17,7 @@ import uoa.lavs.utils.ControllerUtils;
 
 public class MainController extends AnchorPane implements IController {
 
-  Logger logger = LoggerFactory.getLogger(MainController.class);
+  private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
   private static final int DEFAULT_WIDTH = 1920;
   private static final int DEFAULT_HEIGHT = 1080;

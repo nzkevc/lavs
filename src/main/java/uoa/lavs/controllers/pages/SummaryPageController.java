@@ -2,21 +2,20 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
+import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
@@ -57,7 +56,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
   @FXML
   private void initialize() {
     setUpCards();
-    setUpInfoPane();
+    setUpBindings();
   }
 
   private void setUpCards() {
@@ -65,6 +64,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
+    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -73,11 +73,20 @@ public class SummaryPageController extends AnchorPane implements IPage {
     ControllerUtils.swapComponent(infoCard, cards.get(card));
   }
 
-  private void setUpInfoPane() {
+  private void setUpBindings() {
+    // Info pane
     customerName
         .textProperty()
         .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
     customerID.textProperty().bind(State.customerId.map(id -> "ID: " + id));
+
+    // Error/success message
+    errorLbl.textProperty().bind(State.summaryMessage);
+    errorLbl
+        .styleProperty()
+        .bind(
+            State.summaryMessageIsError.map(
+                isError -> isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;"));
   }
 
   @FXML
@@ -107,7 +116,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    logger.error("Loans not implemented");
+    switchCard(LoansDisplayCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -126,6 +135,10 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
+  private LoansDisplayCardController getLoansCard() {
+    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  }
+
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
@@ -136,6 +149,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
+    getLoansCard().render(customer.getLoans());
   }
 
   private void clearAll() {
@@ -143,6 +157,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
+    getLoansCard().clear();
   }
 
   private Customer assembleCustomer() {
@@ -155,6 +170,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
+    customer.setLoans(getLoansCard().assemble());
     return customer;
   }
 
@@ -178,13 +194,12 @@ public class SummaryPageController extends AnchorPane implements IPage {
           return customer;
         },
         (customer) -> {
-          clearMsgLabel();
-          if (isCreating) {
-            setSuccess("Customer created successfully with id: " + customer.getId());
-          } else {
-            setSuccess("Customer updated successfully with id: " + customer.getId());
-          }
           renderCustomer(customer);
+          if (isCreating) {
+            State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
+          } else {
+            State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
+          }
         },
         this::handleException);
   }
@@ -209,22 +224,6 @@ public class SummaryPageController extends AnchorPane implements IPage {
   }
 
   private void handleException(Throwable e) {
-    setError(e.getMessage());
-  }
-
-  private void setSuccess(String msg) {
-    logger.debug(msg);
-    errorLbl.setText(msg);
-    errorLbl.setStyle("-fx-text-fill: green;");
-  }
-
-  private void setError(String msg) {
-    logger.warn(msg);
-    errorLbl.setText(msg);
-    errorLbl.setStyle("-fx-text-fill: red;");
-  }
-
-  private void clearMsgLabel() {
-    errorLbl.setText("");
+    State.setMessageError(e.getMessage());
   }
 }

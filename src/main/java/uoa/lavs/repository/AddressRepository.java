@@ -11,7 +11,6 @@ public class AddressRepository {
   /** Sets up message for persisting methods */
   private static UpdateCustomerAddress persist(Address address) {
     UpdateCustomerAddress message = new UpdateCustomerAddress();
-    System.out.println("************ Address customer id: " + address.getCustomerId());
     message.setCustomerId(address.getCustomerId());
     message.setType(address.getType());
     message.setLine1(address.getLine1());
