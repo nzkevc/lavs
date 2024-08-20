@@ -21,10 +21,10 @@ class EmailService {
 
   public static void updateEmailsFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
-    System.out.println("************ Email customer id: " + newCustomer.getId());
     Emails emails = newCustomer.getEmails();
     for (Email email : emails.getEmails()) {
       email.validate();
+      email.setCustomerId(newCustomer.getId());
       EmailRepository.update(email);
     }
   }

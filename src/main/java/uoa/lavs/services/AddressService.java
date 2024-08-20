@@ -21,10 +21,10 @@ class AddressService {
 
   public static void updateAddressesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
-    System.out.println("************ Address customer id: " + newCustomer.getId());
     Addresses addresses = newCustomer.getAddresses();
     for (Address address : addresses.getAddresses()) {
       address.validate();
+      address.setCustomerId(newCustomer.getId());
       AddressRepository.update(address);
     }
   }
