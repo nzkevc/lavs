@@ -11,7 +11,7 @@
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1268.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1291.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -20,7 +20,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox layoutX="26.0" layoutY="49.0" prefHeight="234.0" prefWidth="1226.0">
+            <HBox layoutX="20.0" layoutY="40.0" prefHeight="234.0" prefWidth="980.0">
                <children>
                   <VBox prefHeight="148.0" prefWidth="278.0">
                      <children>
@@ -30,7 +30,7 @@
                         <FieldController fx:id="periodMonths" key="Period Months" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="148.0" prefWidth="301.0">
+                  <VBox prefHeight="148.0" prefWidth="278.0">
                      <children>
                         <FieldController fx:id="term" key="Term" />
                         <FieldController fx:id="interestRate" key="Interest Rate" />
@@ -39,7 +39,7 @@
                         <FieldController fx:id="paymentAmountCents" key="Payment Amount Cents" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="148.0" prefWidth="301.0">
+                  <VBox prefHeight="148.0" prefWidth="278.0">
                      <children>
                         <FieldController fx:id="paymentFrequency" key="Payment Frequency" />
                         <FieldController fx:id="interestOnly" key="Interest Only" />
@@ -49,28 +49,28 @@
             </HBox>
          </children>
       </AnchorPane>
-      <Accordion prefWidth="1268.0">
+      <Accordion prefWidth="980.0">
          <panes>
-            <TitledPane animated="false" prefWidth="1268.0" text="Loan Summary">
+            <TitledPane animated="false" prefWidth="980.0" text="Loan Summary">
                <content>
                   <AnchorPane prefWidth="200.0">
                      <children>
-                        <HBox layoutX="22.0" prefWidth="1246.0">
+                        <HBox prefWidth="980.0">
                            <children>
-                              <VBox prefWidth="277.0">
+                              <VBox prefWidth="277.0" styleClass="vbox-card">
                                  <children>
                                     <FieldController fx:id="principle" key="Principle" />
                                     <FieldController fx:id="rateValue" key="Rate Value" />
                                     <FieldController fx:id="payoffDate" key="Pay Off Date" />
                                  </children>
                               </VBox>
-                              <VBox prefWidth="277.0">
+                              <VBox prefWidth="277.0" styleClass="vbox-card">
                                  <children>
                                     <FieldController fx:id="totalInterest" key="Total Interest" />
                                     <FieldController fx:id="totalLoanCost" key="Total Loan Cost" />
                                  </children>
                               </VBox>
-                              <VBox prefWidth="277.0">
+                              <VBox prefWidth="277.0" styleClass="vbox-card">
                                  <children>
                                     <FieldController fx:id="paymentAmount" key="Payment Amount" />
                                  </children>
@@ -81,13 +81,13 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane animated="false" prefWidth="1241.0" text="Loan Payments">
+            <TitledPane animated="false" prefWidth="980.0" text="Loan Payments">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1266.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="980.0">
                      <children>
-                        <HBox prefWidth="1246.0">
+                        <HBox prefWidth="980.0">
                            <children>
-                              <VBox prefWidth="277.0" >
+                              <VBox prefWidth="277.0" styleClass="vbox-card">
                                  <FieldController fx:id="number" key="Number" />
                                  <FieldController fx:id="pages" key="Pages" />
                                  <FieldController fx:id="payments" key="Payments" />

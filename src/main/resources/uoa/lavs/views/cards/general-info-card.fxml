@@ -8,11 +8,11 @@
 <?import javafx.scene.text.Text?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" prefHeight="771.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.AnchorPane" prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
-            <VBox prefHeight="321.0" prefWidth="289.0">
+            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
                <FieldController fx:id="title" key="Title" />
                <FieldController fx:id="name" key="Name" />
                <FieldController fx:id="dateOfBirth" key="Date of Birth" />
