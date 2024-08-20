@@ -1,7 +1,10 @@
 package uoa.lavs;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * State is a class that contains public static properties to represent global state. It can also
@@ -9,13 +12,37 @@ import javafx.beans.property.SimpleStringProperty;
  * views (see ExampleController).
  */
 public class State {
+
+  private static final Logger logger = LoggerFactory.getLogger(State.class);
+
   public static final Property<String> customerName = new SimpleStringProperty();
 
   // "" means no customer is selected - null breaks JavaFX bindings
   public static final Property<String> customerId = new SimpleStringProperty();
 
+  public static final Property<String> summaryMessage = new SimpleStringProperty();
+  public static final Property<Boolean> summaryMessageIsError = new SimpleBooleanProperty();
+
   public static void reset() {
     customerName.setValue("");
     customerId.setValue("");
+    summaryMessage.setValue("");
+    summaryMessageIsError.setValue(false);
+  }
+
+  public static void setMessageSuccess(String msg) {
+    logger.debug(msg);
+    summaryMessage.setValue(msg);
+    summaryMessageIsError.setValue(false);
+  }
+
+  public static void setMessageError(String msg) {
+    logger.warn(msg);
+    summaryMessage.setValue(msg);
+    summaryMessageIsError.setValue(true);
+  }
+
+  public static void clearMessage() {
+    summaryMessage.setValue("");
   }
 }

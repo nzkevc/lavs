@@ -39,8 +39,10 @@ public class LoanService implements IService {
    */
   public static Loans createLoansByCustomerId(String customerId, Loans loans)
       throws ValidationException, RuntimeException {
+    loans.setCustomerId(customerId);
     for (Loan loan : loans.getLoans()) {
       loan.validate();
+      loan.setCustomerId(customerId);
       LoanRepository.create(loan);
     }
     return getLoans(new Customer(customerId));

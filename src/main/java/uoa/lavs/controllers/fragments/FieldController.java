@@ -1,14 +1,20 @@
 package uoa.lavs.controllers.fragments;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import uoa.lavs.State;
 import uoa.lavs.controllers.IController;
 import uoa.lavs.utils.ControllerUtils;
 
 public class FieldController extends AnchorPane implements IController {
+
+  private static final Logger logger = LoggerFactory.getLogger(FieldController.class);
 
   @FXML private Label lblKey;
   @FXML private TextField txtValue;
@@ -21,6 +27,13 @@ public class FieldController extends AnchorPane implements IController {
   @FXML
   private void initialize() {
     txtValue.textProperty().addListener((observable, oldValue, newValue) -> clearError());
+
+    txtValue
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              State.clearMessage();
+            });
   }
 
   public void setKey(String key) {
