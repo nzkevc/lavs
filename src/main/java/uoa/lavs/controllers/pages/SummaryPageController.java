@@ -103,6 +103,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onBackBtnClick() {
+    clearAll();
     App.getMainController().switchPage(SearchPageController.class);
   }
 
@@ -245,6 +246,5 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   private void handleException(Throwable e) {
     State.setMessageError(e.getMessage());
-    e.printStackTrace();
   }
 }
