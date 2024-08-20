@@ -158,6 +158,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
+    State.customerId.setValue("");
+    State.customerName.setValue("");
   }
 
   private Customer assembleCustomer() {
