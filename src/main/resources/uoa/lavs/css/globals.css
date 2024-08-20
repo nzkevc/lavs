@@ -1,9 +1,9 @@
 .button {
-    -fx-background-color: #979797;
-    -fx-border-color: #979797;
+    -fx-background-color: #fff9f9;
+    -fx-border-color: #fffbfb;
     -fx-border-width: 2px;
     -fx-border-radius: 15px;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #000000;
     -fx-font-family: "Roobert", sans-serif;
     -fx-font-size: 25px; 
     -fx-font-weight: 800;
