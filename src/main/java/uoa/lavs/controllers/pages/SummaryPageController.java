@@ -19,7 +19,6 @@ import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
-import uoa.lavs.controllers.fragments.LoanBoxController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
@@ -70,9 +69,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
-    cards.put(LoanBoxController.class, new LoanBoxController());
-
-    switchCard(LoanBoxController.class);
+    switchCard(GeneralInfoCardController.class);
   }
 
   private void switchCard(Class<? extends ICard<?>> card) {
