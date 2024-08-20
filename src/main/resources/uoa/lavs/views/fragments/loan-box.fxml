@@ -11,7 +11,7 @@
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1291.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1260.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -35,8 +35,8 @@
                         <FieldController fx:id="term" key="Term" />
                         <FieldController fx:id="interestRate" key="Interest Rate" />
                         <FieldController fx:id="rateType" key="Rate Type" />
-                        <FieldController fx:id="compoundingFrequency" key="Compounding Frequency" />
-                        <FieldController fx:id="paymentAmountCents" key="Payment Amount Cents" />
+                        <FieldController fx:id="compoundingFrequency" key="Frequency" />
+                        <FieldController fx:id="paymentAmountCents" key="Amount" />
                      </children>
                   </VBox>
                   <VBox prefHeight="148.0" prefWidth="278.0">

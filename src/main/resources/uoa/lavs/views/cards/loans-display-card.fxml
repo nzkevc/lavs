@@ -7,11 +7,11 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="1291.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="26.0" layoutY="29.0" pannable="true" prefHeight="550.0" prefWidth="1270.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="26.0" layoutY="29.0" pannable="false" prefHeight="550.0" prefWidth="1270.0">
          <content>
             <VBox fx:id="displayVbox" prefWidth="1267.0">
                <children>
-                  <Button fx:id="createNewLoanBtn" mnemonicParsing="false" onAction="#onCreateNewLoanClick" prefHeight="56.0" prefWidth="1321.0" text="Create New Loan" />
+                  <Button fx:id="createNewLoanBtn" mnemonicParsing="false" onAction="#onCreateNewLoanClick" prefHeight="56.0" prefWidth="1280.0" text="Create New Loan" />
                </children></VBox>
          </content>
       </ScrollPane>

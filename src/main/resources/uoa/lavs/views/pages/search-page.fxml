@@ -10,14 +10,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root prefHeight="1080.0" prefWidth="1920.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="1080.0" prefWidth="1920.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="customerIdInput" layoutX="548.0" layoutY="423.0" prefHeight="80.0" prefWidth="795.0" promptText="Search Customer By ID . . .">
          <font>
             <Font name="Calibri Bold" size="36.0" />
          </font>
       </TextField>
-      <Button fx:id="addButton" layoutX="457.0" layoutY="423.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+      <Button fx:id="addButton" layoutX="457.0" layoutY="423.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="search-button" stylesheets="@../../css/fragments/buttons/search-button.css">
          <tooltip>
             <Tooltip text="Add Customer" />
          </tooltip>
@@ -34,9 +34,9 @@
          </font>
       </Text>
 
-      <Button fx:id="goButton" layoutX="1352.0" layoutY="423.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+      <Button fx:id="goButton" layoutX="1352.0" layoutY="423.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="search-button" stylesheets="@../../css/fragments/buttons/search-button.css">
          <tooltip>
-            <Tooltip text="Add Customer" />
+            <Tooltip text="Search Customer" />
          </tooltip>
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
