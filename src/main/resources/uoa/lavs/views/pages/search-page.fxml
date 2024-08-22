@@ -51,7 +51,7 @@
          <font>
             <Font name="Calibri Bold" size="31.0" />
          </font></Label>
-      <ListView fx:id="searchResults" layoutX="426.0" layoutY="487.0" prefHeight="474.0" prefWidth="1070.0" visible="false" />
-      <ChoiceBox layoutX="1281.0" layoutY="307.0" prefHeight="80.0" prefWidth="214.0" style="-fx-font-size: 28px;" />
+      <ListView fx:id="customerList" layoutX="426.0" layoutY="487.0" prefHeight="474.0" prefWidth="1070.0" style="-fx-font-size: 28px;" visible="false" />
+      <ChoiceBox fx:id="searchType" layoutX="1281.0" layoutY="307.0" prefHeight="80.0" prefWidth="214.0" style="-fx-font-size: 28px;" />
    </children>
 </fx:root>

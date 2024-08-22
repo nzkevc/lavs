@@ -22,11 +22,7 @@ import uoa.lavs.utils.ControllerUtils;
 public class SearchPageController extends AnchorPane implements IPage {
   private static final Logger logger = LoggerFactory.getLogger(SearchPageController.class);
   private static final int SEARCH_DELAY_SECONDS = 1;
-
-  private static enum SearchTypes {
-    ByName,
-    ByID
-  }
+  private static final List<String> SearchTypes = List.of("By Name", "By ID");
 
   @FXML private Button addButton;
   @FXML private Button goButton;
@@ -41,11 +37,16 @@ public class SearchPageController extends AnchorPane implements IPage {
 
   @FXML
   private void initialize() {
-    searchType.getItems().addAll(SearchTypes.values().toString());
-    searchType.setValue(SearchTypes.ByName.toString());
+    searchType.getItems().addAll(SearchTypes);
+    searchType.setValue(SearchTypes.getFirst());
 
     PauseTransition searchPause = new PauseTransition(Duration.seconds(SEARCH_DELAY_SECONDS));
-    searchPause.setOnFinished(e -> searchCustomer());
+    searchPause.setOnFinished(
+        e -> {
+          if (!customerIdInput.getText().isEmpty()) {
+            searchCustomer();
+          }
+        });
 
     // only when the user stops typing, we search for the customer ^
     customerIdInput
@@ -53,40 +54,34 @@ public class SearchPageController extends AnchorPane implements IPage {
         .addListener(
             (observable, oldValue, newValue) -> {
               notification.setVisible(false);
-              notification.setVisible(false);
+              customerList.setVisible(false);
               searchPause.stop();
               searchPause.play();
             });
     customerIdInput.setOnAction(e -> searchCustomer());
     goButton.setOnAction(e -> searchCustomer());
 
+    customerList
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue != null) {
+                goToCustomerPage(newValue);
+              }
+            });
+
     addButton.setOnAction(e -> addCustomer());
   }
 
   private void searchCustomer() {
-    logger.debug("Searching for customer with id: " + customerIdInput.getText());
     String inputString = customerIdInput.getText();
-    if (inputString.isEmpty()) {
-      displayNotFoundNotification();
-      return;
-    }
 
-    if (searchType.getValue().equals(SearchTypes.ByName.toString())) {
+    if (searchType.getValue().equals("By Name")) {
       searchCustomerByName(inputString);
-    } else if (searchType.getValue().equals(SearchTypes.ByID.toString())) {
+    } else if (searchType.getValue().equals("By ID")) {
       searchCustomerById(inputString);
     }
-    AsyncUtils.promise(
-        () -> CustomerService.getCustomer(inputString),
-        (customer) -> {
-          displayFoundById(customer.getName());
-          State.customerFromSearch.setValue(customer);
-        },
-        (Throwable e) -> {
-          logger.debug("Error searching for customer: " + e.getMessage());
-          displayNotFoundNotification();
-          State.customerFromSearch.setValue(null);
-        });
   }
 
   private void searchCustomerByName(String inputString) {
@@ -94,6 +89,10 @@ public class SearchPageController extends AnchorPane implements IPage {
     AsyncUtils.promise(
         () -> CustomerService.getCustomerListByName(inputString),
         (customers) -> {
+          if (customers.isEmpty()) {
+            displayNotFoundNotification();
+            return;
+          }
           displayFoundCustomerNames(customers);
         },
         (Throwable e) -> {
@@ -102,20 +101,12 @@ public class SearchPageController extends AnchorPane implements IPage {
         });
   }
 
-  private void displayFoundCustomerNames(List<Customer> customers) {
-    customerList.getItems().clear();
-    customerList.getItems().addAll(customers);
-    customerList.setVisible(true);
-  }
-
   private void searchCustomerById(String inputString) {
     logger.debug("Searching for customer with id: " + inputString);
     AsyncUtils.promise(
         () -> CustomerService.getCustomer(inputString),
         (customer) -> {
-          customerList.getItems().clear();
-          customerList.getItems().add(customer);
-          displayFoundById(customer.getName());
+          displayFoundById(customer);
           State.customerFromSearch.setValue(customer);
         },
         (Throwable e) -> {
@@ -125,13 +116,20 @@ public class SearchPageController extends AnchorPane implements IPage {
         });
   }
 
-  private void goToCustomerPage() {
-    if (State.customerFromSearch.getValue() != null
-        && customerIdInput.getText().equals(State.customerFromSearch.getValue().getId())) {
-      logger.debug("Going to customer page");
-      customerIdInput.setText("");
-      App.getMainController().switchPage(SummaryPageController.class);
-    }
+  private void goToCustomerPage(Customer partialCustomer) {
+    AsyncUtils.promise(
+        () -> CustomerService.getCustomer(partialCustomer.getId()),
+        (customer) -> {
+          State.customerFromSearch.setValue(customer);
+          logger.debug("Going to customer page");
+          customerIdInput.setText("");
+          App.getMainController().switchPage(SummaryPageController.class);
+        },
+        (Throwable e) -> {
+          logger.debug("Error getting customer from list view: " + e.getMessage());
+          displayNotFoundNotification();
+          State.customerFromSearch.setValue(null);
+        });
   }
 
   private void addCustomer() {
@@ -141,9 +139,22 @@ public class SearchPageController extends AnchorPane implements IPage {
     App.getMainController().switchPage(SummaryPageController.class);
   }
 
-  private void displayFoundById(String customerName) {
-    notification.setText("Customer found: " + customerName);
+  private void displayFoundById(Customer customer) {
+    notification.setText("Customer found: " + customer.getName());
     notification.setVisible(true);
+
+    customerList.getItems().clear();
+    customerList.getItems().add(customer);
+    customerList.setVisible(true);
+  }
+
+  private void displayFoundCustomerNames(List<Customer> customers) {
+    notification.setText("Customers found:");
+    notification.setVisible(true);
+
+    customerList.getItems().clear();
+    customerList.getItems().addAll(customers);
+    customerList.setVisible(true);
   }
 
   private void displayNotFoundNotification() {
