@@ -10,8 +10,8 @@ public class Address implements IModel<Address> {
   private String city;
   private String postcode;
   private String country;
-  private Boolean isPrimary;
-  private Boolean isMailing;
+  private boolean isPrimary;
+  private boolean isMailing;
 
   public Address() {}
 
@@ -117,7 +117,7 @@ public class Address implements IModel<Address> {
     this.country = country;
   }
 
-  public Boolean getPrimary() {
+  public boolean getPrimary() {
     return isPrimary;
   }
 
@@ -125,7 +125,7 @@ public class Address implements IModel<Address> {
     this.isPrimary = isPrimary;
   }
 
-  public Boolean getMailing() {
+  public boolean getMailing() {
     return isMailing;
   }
 
@@ -135,16 +135,58 @@ public class Address implements IModel<Address> {
 
   @Override
   public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
     if (o instanceof Address) {
       Address address = (Address) o;
-      return type.equals(address.type)
-          && line1.equals(address.line1)
-          && line2.equals(address.line2)
-          && suburb.equals(address.suburb)
-          && city.equals(address.city)
-          && postcode.equals(address.postcode)
-          && country.equals(address.country);
+
+      if ((this.type == null && address.type == null) || (this.type == address.type)) {
+      } else {
+        return false;
+      }
+
+      if ((this.line1 == null && address.line1 == null) || (this.line1 == address.line1)) {
+      } else {
+        return false;
+      }
+
+      if ((this.line2 == null && address.line2 == null) || (this.line2 == address.line2)) {
+      } else {
+        return false;
+      }
+
+      if ((this.suburb == null && address.suburb == null) || (this.suburb == address.suburb)) {
+      } else {
+        return false;
+      }
+
+      if ((this.city == null && address.city == null) || (this.city == address.city)) {
+      } else {
+        return false;
+      }
+
+      if ((this.postcode == null && address.postcode == null)
+          || (this.postcode == address.postcode)) {
+      } else {
+        return false;
+      }
+
+      if ((this.country == null && address.country == null) || (this.country == address.country)) {
+      } else {
+        return false;
+      }
+
+      if (this.isPrimary != address.isPrimary) {
+        return false;
+      }
+
+      if (this.isMailing != address.isMailing) {
+        return false;
+      }
+
+      return true;
     }
     return false;
   }
