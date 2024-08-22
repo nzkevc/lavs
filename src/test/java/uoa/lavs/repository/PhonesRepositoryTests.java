@@ -20,6 +20,7 @@ public class PhonesRepositoryTests {
   @Test
   public void getPhonesTest() {
     // Arrange
+    PhonesRepository phonesRepository = new PhonesRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 

@@ -10,7 +10,6 @@ import uoa.lavs.models.Loan;
 import uoa.lavs.models.LoanPayments;
 import uoa.lavs.utils.objects.ConnectionInstance;
 
-
 public class LoanPaymentsRepositoryTests {
 
   @BeforeEach
@@ -21,6 +20,7 @@ public class LoanPaymentsRepositoryTests {
   @Test
   public void getLoanPaymentsTest() {
     // Arrange
+    LoanPaymentsRepository loanPaymentsRepository = new LoanPaymentsRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
