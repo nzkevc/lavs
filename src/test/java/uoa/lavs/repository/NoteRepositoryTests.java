@@ -127,4 +127,19 @@ public class NoteRepositoryTests {
     // Assert
     assertEquals("", note);
   }
+
+  @Test
+  public void newLineNoteTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer = CustomerRepository.create(customer);
+
+    String noteContent = "this is a note\n\n\n\nthis is a note";
+
+    // Act
+    String note = NoteRepository.update(noteContent, customer);
+
+    // Assert
+    assertEquals(noteContent, note);
+  }
 }
