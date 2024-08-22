@@ -45,6 +45,10 @@ public class NoteRepository {
     message.setNumber(1);
     message.send(connection);
 
+    if (message.getLineCountFromServer() == 0) {
+      return "";
+    }
+
     for (int i = 1; i <= message.getLineCountFromServer(); i++) {
       notes.add(message.getLineFromServer(i));
     }
