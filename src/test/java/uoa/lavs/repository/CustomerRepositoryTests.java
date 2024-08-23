@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
@@ -81,5 +82,31 @@ public class CustomerRepositoryTests {
 
     // Assert
     assertThrows(RuntimeException.class, () -> CustomerRepository.get(customer.getId()));
+  }
+
+  @Test
+  public void getCustomersByNameTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer = CustomerRepository.create(customer);
+    Customer customerTwo = TestEntityCreator.createBasicCustomer();
+    customerTwo = CustomerRepository.create(customerTwo);
+
+    // Act
+    List<Customer> customers = CustomerRepository.getCustomersByName("John Doe");
+
+    // Assert
+    assertEquals(2, customers.size());
+  }
+
+  @Test
+  public void getCustomersByNonExistentNameTest() {
+    // Arrange
+
+    // Act
+    List<Customer> customers = CustomerRepository.getCustomersByName("Non Existent");
+
+    // Assert
+    assertEquals(0, customers.size());
   }
 }

@@ -1,5 +1,6 @@
 package uoa.lavs.services;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Addresses;
@@ -69,5 +70,9 @@ public class CustomerService implements IService {
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
+  }
+
+  public static List<Customer> getCustomerListByName(String name) throws RuntimeException {
+    return CustomerRepository.getCustomersByName(name);
   }
 }

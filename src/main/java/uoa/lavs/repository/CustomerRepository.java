@@ -1,7 +1,10 @@
 package uoa.lavs.repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Status;
+import uoa.lavs.mainframe.messages.customer.FindCustomerAdvanced;
 import uoa.lavs.mainframe.messages.customer.LoadCustomer;
 import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
 import uoa.lavs.models.Customer;
@@ -53,6 +56,26 @@ public class CustomerRepository {
       customer.setId(message.getCustomerIdFromServer());
       return customer;
     }
+  }
+
+  /** Used to get all the customers with a given name */
+  public static List<Customer> getCustomersByName(String name) {
+    Connection connection = ConnectionInstance.getConnection();
+    List<Customer> customers = new ArrayList<>();
+
+    FindCustomerAdvanced message = new FindCustomerAdvanced();
+    message.setSearchName(name);
+
+    Status status = message.send(connection);
+
+    for (int i = 1; i <= message.getCustomerCountFromServer(); i++) {
+      Customer customer = new Customer(message.getIdFromServer(i));
+      customer.setName(message.getNameFromServer(i));
+      customer.setDateOfBirth(message.getDateofBirthFromServer(i));
+      customers.add(customer);
+    }
+
+    return customers;
   }
 
   /** Retrieves customer from database */
