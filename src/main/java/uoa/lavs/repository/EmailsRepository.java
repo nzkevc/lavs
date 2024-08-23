@@ -26,12 +26,7 @@ public class EmailsRepository {
 
     for (int i = 1; i <= count; i++) {
       Email email = EmailRepository.get(customer.getId(), message.getNumberFromServer(i));
-
-      if (email.getIsPrimary()) {
-        emails.setPrimaryEmail(email);
-      } else {
-        emails.addEmail(email);
-      }
+      emails.addEmail(email);
     }
 
     return emails;

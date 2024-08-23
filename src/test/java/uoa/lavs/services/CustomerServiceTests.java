@@ -36,7 +36,7 @@ public class CustomerServiceTests {
     customer.getAddresses().addAddress(address);
     customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
     customer.getPhones().setPrimaryPhone(phone);
     customer.getPhones().setTextPhone(phone);
@@ -65,7 +65,7 @@ public class CustomerServiceTests {
     customer.getAddresses().addAddress(address);
     customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
     customer.getPhones().setPrimaryPhone(phone);
     customer.getPhones().setTextPhone(phone);
@@ -104,7 +104,7 @@ public class CustomerServiceTests {
     customer.getAddresses().addAddress(address);
     customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
     customer.getPhones().setPrimaryPhone(phone);
     customer.getPhones().setTextPhone(phone);

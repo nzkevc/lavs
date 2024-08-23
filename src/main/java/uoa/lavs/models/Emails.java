@@ -30,7 +30,11 @@ public class Emails {
 
   public void addEmail(Email newEmail) {
     if (newEmail != null) {
-      emails.add(newEmail);
+      if (newEmail.getIsPrimary()) {
+        setPrimaryEmail(newEmail);
+      } else {
+        emails.add(newEmail);
+      }
     }
   }
 
@@ -46,7 +50,7 @@ public class Emails {
     return primaryEmail;
   }
 
-  public void setPrimaryEmail(Email email) {
+  void setPrimaryEmail(Email email) {
     if (email != null) {
       if (primaryEmail != null) {
         primaryEmail.setIsPrimary(false);

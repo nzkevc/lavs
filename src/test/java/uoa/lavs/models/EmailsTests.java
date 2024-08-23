@@ -13,7 +13,7 @@ public class EmailsTests {
     Email primaryEmail = new Email(emails.getCustomerId(), 1, "123@123.com", true);
 
     // Act
-    emails.setPrimaryEmail(primaryEmail);
+    emails.addEmail(primaryEmail);
 
     // Assert
     assertEquals(primaryEmail, emails.getPrimaryEmail());
@@ -39,7 +39,7 @@ public class EmailsTests {
 
     // Act
     Email newPrimaryEmail = new Email("123", 2, "124@124.com", true);
-    emails.setPrimaryEmail(newPrimaryEmail);
+    emails.addEmail(newPrimaryEmail);
 
     // Assert
     assertEquals(newPrimaryEmail, emails.getPrimaryEmail());
@@ -81,7 +81,7 @@ public class EmailsTests {
     Emails emails = new Emails("123", primaryEmail);
 
     // Act
-    emails.setPrimaryEmail(null);
+    emails.addEmail(null);
 
     // Assert
     assertEquals(primaryEmail, emails.getPrimaryEmail());
