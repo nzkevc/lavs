@@ -53,11 +53,13 @@ public class Phones {
   }
 
   public void setPrimaryPhone(Phone phone) {
-    if (primaryPhone != null) {
-      primaryPhone.setPrimary(false);
+    if (phone != null) {
+      if (primaryPhone != null) {
+        primaryPhone.setPrimary(false);
+      }
+      primaryPhone = phone;
+      phoneNumbers.add(phone);
     }
-    primaryPhone = phone;
-    phoneNumbers.add(phone);
   }
 
   public Phone getTextPhone() {
@@ -65,14 +67,18 @@ public class Phones {
   }
 
   public void setTextPhone(Phone phone) {
-    if (textPhone != null) {
-      textPhone.setCanSendTxt(false);
+    if (phone != null) {
+      if (textPhone != null) {
+        textPhone.setCanSendTxt(false);
+      }
+      textPhone = phone;
+      phoneNumbers.add(phone);
     }
-    textPhone = phone;
-    phoneNumbers.add(phone);
   }
 
   public void addPhone(Phone phone) {
-    phoneNumbers.add(phone);
+    if (phone != null) {
+      phoneNumbers.add(phone);
+    }
   }
 }
