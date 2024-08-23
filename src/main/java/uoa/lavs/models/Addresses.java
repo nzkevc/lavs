@@ -14,6 +14,10 @@ public class Addresses {
     this.addresses = new HashSet<>();
   }
 
+  public Addresses(Set<Address> addresses) {
+    this.addresses = addresses;
+  }
+
   public String getCustomerId() {
     return customerId;
   }
