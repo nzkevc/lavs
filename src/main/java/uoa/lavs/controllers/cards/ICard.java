@@ -2,10 +2,11 @@ package uoa.lavs.controllers.cards;
 
 import uoa.lavs.controllers.IController;
 
-public interface ICard<T> extends IController {
-  void render(T data);
+public abstract class ICard<T> extends IController {
 
-  void clear();
+  abstract public void render(T data); // Service --T-> Screen
 
-  T assemble();
+  abstract public void clear(); // Clear the screen
+
+  abstract public T assemble(); // Screen --T-> Service
 }

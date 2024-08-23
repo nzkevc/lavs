@@ -33,7 +33,7 @@ import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.TestEntityCreator;
 
-public class SummaryPageController extends AnchorPane implements IPage {
+public class SummaryPageController extends IPage {
 
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 

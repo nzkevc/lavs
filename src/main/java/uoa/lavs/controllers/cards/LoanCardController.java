@@ -3,7 +3,6 @@ package uoa.lavs.controllers.cards;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
@@ -14,7 +13,7 @@ import uoa.lavs.models.LoanSummary;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.ValidationUtils;
 
-public class LoanCardController extends VBox implements ICard<Loan> {
+public class LoanCardController extends ICard<Loan> {
 
   @FXML private Accordion accordion;
   @FXML private Label loanIdLbl;

@@ -1,9 +1,9 @@
 package uoa.lavs.controllers.cards;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
@@ -11,7 +11,7 @@ import uoa.lavs.models.Employer;
 import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
 
-public class EmployerCardController extends AnchorPane implements ICard<Employer> {
+public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 

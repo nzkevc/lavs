@@ -2,13 +2,14 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.pages.IPage;
 import uoa.lavs.controllers.pages.LandingPageController;
@@ -16,7 +17,7 @@ import uoa.lavs.controllers.pages.SearchPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
 
-public class MainController extends AnchorPane implements IController {
+public class MainController extends IController {
 
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 

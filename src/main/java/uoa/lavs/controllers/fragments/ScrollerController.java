@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.ReflectionUtils;
 
-public class ScrollerController<T> extends AnchorPane implements ICard<Set<T>> {
+public class ScrollerController<T> extends ICard<Set<T>> {
 
   private static final Logger logger = LoggerFactory.getLogger(ScrollerController.class);
 
@@ -63,7 +62,7 @@ public class ScrollerController<T> extends AnchorPane implements ICard<Set<T>> {
     ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
     cardController.clear();
     displayVbox.getChildren().remove(addBtn);
-    displayVbox.getChildren().add((Node) cardController);
+    displayVbox.getChildren().add(cardController);
     displayVbox.getChildren().add(addBtn);
   }
 }
