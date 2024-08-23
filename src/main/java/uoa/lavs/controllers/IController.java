@@ -1,5 +1,7 @@
 package uoa.lavs.controllers;
 
+import javafx.scene.layout.Pane;
+
 /**
  * Every controller must implement this interface to be loaded by the FXMLLoader.
  *
@@ -11,4 +13,4 @@ package uoa.lavs.controllers;
  *
  * @see uoa.lavs.utils.objects.Component
  */
-public interface IController {}
+public abstract class IController extends Pane {}

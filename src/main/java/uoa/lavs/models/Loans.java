@@ -5,10 +5,14 @@ import java.util.Set;
 
 public class Loans {
   private String customerId;
-  private Set<Loan> loans;
+  private final Set<Loan> loans;
 
   public Loans() {
     this.loans = new HashSet<>();
+  }
+
+  public Loans(Set<Loan> loans) {
+    this.loans = loans;
   }
 
   public Loans(String customerId) {

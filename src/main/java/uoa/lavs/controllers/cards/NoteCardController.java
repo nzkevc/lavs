@@ -5,10 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import uoa.lavs.utils.ControllerUtils;
 
-public class NoteCardController extends AnchorPane implements ICard<String> {
+public class NoteCardController extends ICard<String> {
 
   private static final Logger logger = LoggerFactory.getLogger(NoteCardController.class);
 

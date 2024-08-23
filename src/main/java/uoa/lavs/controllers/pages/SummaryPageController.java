@@ -2,24 +2,28 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.controllers.cards.LoansDisplayCardController;
+import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
 import uoa.lavs.services.CustomerService;
@@ -28,7 +32,7 @@ import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.DevEntityCreator;
 
-public class SummaryPageController extends AnchorPane implements IPage {
+public class SummaryPageController extends IPage {
 
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
@@ -76,7 +80,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
+    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
+
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -129,7 +134,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    switchCard(LoansDisplayCardController.class);
+    switchCard(LoanCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -148,8 +153,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
-  private LoansDisplayCardController getLoansCard() {
-    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  private ScrollerController<Loan> getLoansCard() {
+    return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
 
   private void renderCustomer(Customer customer) {
@@ -162,7 +167,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
-    getLoansCard().render(customer.getLoans());
+    getLoansCard().render(customer.getLoans().getLoans());
   }
 
   private void clearAll() {
@@ -185,7 +190,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.getEmails().addEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
-    customer.setLoans(getLoansCard().assemble());
+    customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;
   }
 

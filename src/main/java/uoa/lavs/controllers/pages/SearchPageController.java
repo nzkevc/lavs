@@ -1,6 +1,10 @@
 package uoa.lavs.controllers.pages;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,10 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.models.Customer;
@@ -19,7 +20,7 @@ import uoa.lavs.services.CustomerService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 
-public class SearchPageController extends AnchorPane implements IPage {
+public class SearchPageController extends IPage {
   private static final Logger logger = LoggerFactory.getLogger(SearchPageController.class);
   private static final int SEARCH_DELAY_SECONDS = 1;
   private static final List<String> SearchTypes = List.of("By Name", "By ID");

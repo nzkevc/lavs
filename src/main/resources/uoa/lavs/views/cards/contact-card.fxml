@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" minHeight="0.0" minWidth="0.0"  prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.Pane" minHeight="0.0" minWidth="0.0"  prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="321.0" prefWidth="989.0">
          <children>
