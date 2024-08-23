@@ -74,7 +74,7 @@ public class Phone implements IModel<Phone> {
   }
 
   public String getFullNumber() {
-    return prefix + number;
+    return prefix + phoneNumber;
   }
 
   public Boolean getPrimary() {
@@ -100,7 +100,7 @@ public class Phone implements IModel<Phone> {
       Phone phone = (Phone) o;
       return type.equals(phone.getType())
           && prefix.equals(phone.getPrefix())
-          && number.equals(phone.getNumber());
+          && phoneNumber.equals(phone.getPhoneNumber());
     }
     return false;
   }

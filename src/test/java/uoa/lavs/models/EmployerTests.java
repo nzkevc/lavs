@@ -1,3 +1,15 @@
 package uoa.lavs.models;
 
-public class EmployerTests {}
+import org.junit.jupiter.api.Test;
+
+public class EmployerTests {
+  @Test
+  public void constructorTest() {
+    // Arrange
+
+    // Act
+
+    // Assert
+
+  }
+}
