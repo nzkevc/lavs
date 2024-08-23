@@ -1,6 +1,7 @@
 package uoa.lavs.controllers.fragments;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,32 +12,35 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.controllers.cards.LoanCardController;
-import uoa.lavs.models.Loan;
-import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.ReflectionUtils;
 
-public class ScrollerController extends AnchorPane implements ICard<Loans> {
+public class ScrollerController<T> extends AnchorPane implements ICard<Set<T>> {
 
   private static final Logger logger = LoggerFactory.getLogger(ScrollerController.class);
 
   @FXML private VBox displayVbox;
-  @FXML private Button createNewLoanBtn;
+  @FXML private Button addBtn;
+
+  private Class<? extends ICard<T>> cardControllerClass;
 
   public ScrollerController() {
     ControllerUtils.loadFxml(this, "fragments/scroller.fxml");
   }
 
+  public void setCardController(Class<? extends ICard<T>> cardControllerClass) {
+    this.cardControllerClass = cardControllerClass;
+  }
+
   @Override
-  public void render(Loans data) {
+  public void render(Set<T> models) {
     clear();
-    List<Loan> loans = data.getLoans();
-    for (Loan loan : loans) {
-      LoanCardController loanBoxController = new LoanCardController();
-      loanBoxController.render(loan);
-      displayVbox.getChildren().add(loanBoxController);
+    for (T model : models) {
+        ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
+        cardController.render(model);
+        displayVbox.getChildren().add((Node) cardController);
     }
-    displayVbox.getChildren().add(createNewLoanBtn);
+    displayVbox.getChildren().add(addBtn);
   }
 
   @Override
@@ -45,21 +49,21 @@ public class ScrollerController extends AnchorPane implements ICard<Loans> {
   }
 
   @Override
-  public Loans assemble() {
-    Loans loans = new Loans();
-    for (Node node : displayVbox.getChildren().filtered(child -> child instanceof LoanCardController)) {
-      Loan loan = ((LoanCardController) node).assemble();
-      loans.addLoan(loan);
+  public Set<T> assemble() {
+    Set<T> models = new HashSet<>();
+    for (Node node : displayVbox.getChildren().filtered(child -> cardControllerClass.isInstance(child))) {
+      T model = (cardControllerClass.cast(node)).assemble();
+      models.add(model);
     }
-    return loans;
+    return models;
   }
 
   @FXML
-  private void onCreateNewLoanClick() {
-    LoanCardController loanBoxController = new LoanCardController();
-    loanBoxController.clear();
-    displayVbox.getChildren().remove(createNewLoanBtn);
-    displayVbox.getChildren().add(loanBoxController);
-    displayVbox.getChildren().add(createNewLoanBtn);
+  private void onAddClick() {
+    ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
+    cardController.clear();
+    displayVbox.getChildren().remove(addBtn);
+    displayVbox.getChildren().add((Node) cardController);
+    displayVbox.getChildren().add(addBtn);
   }
 }

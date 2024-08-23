@@ -2,6 +2,7 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,13 @@ import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
+import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
 import uoa.lavs.services.CustomerService;
@@ -76,7 +79,11 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(ScrollerController.class, new ScrollerController());
+
+    ScrollerController<Loan> loanCardScrollerController = new ScrollerController<>();
+    loanCardScrollerController.setCardController(LoanCardController.class);
+    cards.put(LoanCardController.class, loanCardScrollerController);
+
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -129,7 +136,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    switchCard(ScrollerController.class);
+    switchCard(LoanCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -148,8 +155,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
-  private ScrollerController getLoansCard() {
-    return (ScrollerController) cards.get(ScrollerController.class);
+  private ScrollerController<Loan> getLoansCard() {
+    return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
 
   private void renderCustomer(Customer customer) {
@@ -162,7 +169,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
-    getLoansCard().render(customer.getLoans());
+    getLoansCard().render(Set.copyOf(customer.getLoans().getLoans()));
   }
 
   private void clearAll() {
@@ -185,7 +192,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
-    customer.setLoans(getLoansCard().assemble());
+    customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;
   }
 

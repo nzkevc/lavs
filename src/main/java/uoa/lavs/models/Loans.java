@@ -2,6 +2,7 @@ package uoa.lavs.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Loans {
   private String customerId;
@@ -9,6 +10,10 @@ public class Loans {
 
   public Loans() {
     this.loans = new ArrayList<>();
+  }
+
+  public Loans(Set<Loan> loans) {
+    this.loans = List.copyOf(loans);
   }
 
   public Loans(String customerId) {
