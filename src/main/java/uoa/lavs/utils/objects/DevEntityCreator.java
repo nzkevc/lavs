@@ -1,6 +1,7 @@
-package uoa.lavs;
+package uoa.lavs.utils.objects;
 
 import java.time.LocalDate;
+
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.RateType;
 import uoa.lavs.models.Address;
@@ -10,7 +11,21 @@ import uoa.lavs.models.Employer;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Phone;
 
-public class TestEntityCreator {
+// Nate: copy of Adam's TestEntityCreator - temporary for now
+public class DevEntityCreator {
+
+  // This method is new - assumes one address, phone, email, employer, and loan
+  public static Customer createFullCustomer() {
+    Customer customer = createBasicCustomer();
+    customer.getAddresses().addAddress(createBasicPrimaryAddress(customer));
+    customer.getPhones().addPhone(createBasicPrimaryPhone(customer));
+    customer.getEmails().addEmail(createBasicEmail(customer));
+    customer.setEmployer(createBasicEmployer(customer));
+    customer.getLoans().addLoan(createBasicLoan(customer));
+    customer.setId(null);
+    return customer;
+  }
+
   public static Customer createBasicCustomer() {
     LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
     return new Customer.Builder(

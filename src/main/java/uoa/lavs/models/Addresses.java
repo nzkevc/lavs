@@ -1,34 +1,17 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Addresses {
   private String customerId;
-  private List<Address> addresses;
+  private Set<Address> addresses;
   private Address residentialAddress;
   private Address mailingAddress;
 
   public Addresses(String customerId) {
     this.customerId = customerId;
-    this.addresses = new ArrayList<>();
-  }
-
-  public Addresses(String customerId, Address residentAddress) {
-    this.customerId = customerId;
-    this.addresses = new ArrayList<>();
-    this.residentialAddress = residentAddress;
-    this.mailingAddress = residentAddress;
-    this.addresses.add(residentAddress);
-  }
-
-  public Addresses(String customerId, Address residentAddress, Address mailAddress) {
-    this.customerId = customerId;
-    this.addresses = new ArrayList<>();
-    this.residentialAddress = residentAddress;
-    this.mailingAddress = mailAddress;
-    this.addresses.add(residentAddress);
-    this.addresses.add(mailAddress);
+    this.addresses = new HashSet<>();
   }
 
   public String getCustomerId() {
@@ -40,10 +23,22 @@ public class Addresses {
   }
 
   public void addAddress(Address newAddress) {
-    addresses.add(newAddress);
+    if (newAddress != null) {
+      if (newAddress.getPrimary()) {
+        setResidentialAddress(newAddress);
+      }
+
+      if (newAddress.getMailing()) {
+        setMailingAddress(newAddress);
+      }
+
+      if (!newAddress.getPrimary() && !newAddress.getMailing()) {
+        addresses.add(newAddress);
+      }
+    }
   }
 
-  public List<Address> getAddresses() {
+  public Set<Address> getAddresses() {
     return addresses;
   }
 
@@ -55,23 +50,27 @@ public class Addresses {
     return residentialAddress;
   }
 
-  public void setResidentialAddress(Address address) {
-    if (residentialAddress != null) {
-      residentialAddress.setIsPrimary(false);
+  void setResidentialAddress(Address address) {
+    if (address != null) {
+      if (residentialAddress != null) {
+        residentialAddress.setIsPrimary(false);
+      }
+      residentialAddress = address;
+      addresses.add(address);
     }
-    residentialAddress = address;
-    addresses.add(address);
   }
 
   public Address getMailingAddress() {
     return mailingAddress;
   }
 
-  public void setMailingAddress(Address address) {
-    if (mailingAddress != null) {
-      mailingAddress.setIsMailing(false);
+  void setMailingAddress(Address address) {
+    if (address != null) {
+      if (mailingAddress != null) {
+        mailingAddress.setIsMailing(false);
+      }
+      mailingAddress = address;
+      addresses.add(address);
     }
-    mailingAddress = address;
-    addresses.add(address);
   }
 }

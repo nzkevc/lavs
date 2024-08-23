@@ -4,20 +4,13 @@ public class Email implements IModel<Email> {
   private String customerID;
   private Integer number;
   private String emailAddress;
-  private Boolean isPrimary;
+  private boolean isPrimary;
 
   public Email() {}
 
   public Email(String customerId, Integer number) {
     this.customerID = customerId;
     this.number = number;
-  }
-
-  public Email(String customerID, Integer number, String emailAddress, Boolean isPrimary) {
-    this.customerID = customerID;
-    this.number = number;
-    this.emailAddress = emailAddress;
-    this.isPrimary = isPrimary;
   }
 
   public String getCustomerId() {

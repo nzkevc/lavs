@@ -1,15 +1,13 @@
 package uoa.lavs.controllers.cards;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.fragments.LoanBoxController;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
@@ -29,7 +27,7 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
   @Override
   public void render(Loans data) {
     clear();
-    List<Loan> loans = data.getLoans();
+    Set<Loan> loans = data.getLoans();
     for (Loan loan : loans) {
       LoanBoxController loanBoxController = new LoanBoxController();
       loanBoxController.render(loan);
@@ -46,7 +44,8 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
   @Override
   public Loans assemble() {
     Loans loans = new Loans();
-    for (Node node : displayVbox.getChildren().filtered(child -> child instanceof LoanBoxController)) {
+    for (Node node :
+        displayVbox.getChildren().filtered(child -> child instanceof LoanBoxController)) {
       Loan loan = ((LoanBoxController) node).assemble();
       loans.addLoan(loan);
     }

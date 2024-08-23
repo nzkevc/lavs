@@ -106,18 +106,22 @@ public class LoanPayments {
 
   public void addPaymentInterest(Double paymentInterest) {
     this.paymentInterests.add(paymentInterest);
+    this.payments = paymentInterests.size();
   }
 
   public void addPaymentPrincipal(Double paymentPrincipal) {
     this.paymentPrincipals.add(paymentPrincipal);
+    this.payments = paymentPrincipals.size();
   }
 
   public void addPaymentRemaining(Double paymentRemaining) {
     this.paymentRemainings.add(paymentRemaining);
+    this.payments = paymentRemainings.size();
   }
 
   public void addPaymentNumber(Integer paymentNumber) {
     this.paymentNumbers.add(paymentNumber);
+    this.payments = paymentNumbers.size();
   }
 
   public void addPayment(Integer number, double interest, double principal, double remaining) {
@@ -125,5 +129,6 @@ public class LoanPayments {
     paymentInterests.add(interest);
     paymentPrincipals.add(principal);
     paymentRemainings.add(remaining);
+    payments = paymentNumbers.size();
   }
 }
