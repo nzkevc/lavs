@@ -25,39 +25,6 @@ public class AddressesTests {
   }
 
   @Test
-  public void addressesContructor2Test() {
-    // Arrange
-    Customer customer = TestEntityCreator.createBasicCustomer();
-    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
-    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
-
-    Addresses addresses2 = new Addresses(customer.getId(), primaryAddress);
-
-    // Act
-    addresses2.addAddress(mailingAddress);
-
-    // Assert
-    assertEquals(primaryAddress, addresses2.getResidentialAddress());
-    assertEquals(mailingAddress, addresses2.getMailingAddress());
-  }
-
-  @Test
-  public void addressesConstructor3Test() {
-    // Arrange
-    Customer customer = TestEntityCreator.createBasicCustomer();
-    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
-    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
-
-    Addresses addresses3 = new Addresses(customer.getId(), primaryAddress, mailingAddress);
-
-    // Act
-
-    // Assert
-    assertEquals(primaryAddress, addresses3.getResidentialAddress());
-    assertEquals(mailingAddress, addresses3.getMailingAddress());
-  }
-
-  @Test
   public void addressesAddNonKeyAddressTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
@@ -93,7 +60,9 @@ public class AddressesTests {
     Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
     Address newPrimaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
 
-    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(mailingAddress);
+    addresses.addAddress(primaryAddress);
 
     // Act
     addresses.setResidentialAddress(newPrimaryAddress);
@@ -109,7 +78,8 @@ public class AddressesTests {
     Customer customer = TestEntityCreator.createBasicCustomer();
     Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
 
-    Addresses addresses = new Addresses(customer.getId(), primaryAddress);
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
 
     // Act
     addresses.addAddress(null);
@@ -125,7 +95,9 @@ public class AddressesTests {
     Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
     Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
 
-    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+    addresses.addAddress(mailingAddress);
 
     // Act
     addresses.addAddress(null);
@@ -141,7 +113,9 @@ public class AddressesTests {
     Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
     Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
 
-    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+    addresses.addAddress(mailingAddress);
 
     // Act
     addresses.addAddress(null);

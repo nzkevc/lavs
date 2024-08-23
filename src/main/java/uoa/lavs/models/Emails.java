@@ -13,13 +13,6 @@ public class Emails {
     this.emails = new HashSet<>();
   }
 
-  public Emails(String customerId, Email primaryEmail) {
-    this.customerId = customerId;
-    this.emails = new HashSet<>();
-    this.primaryEmail = primaryEmail;
-    this.emails.add(primaryEmail);
-  }
-
   public String getCustomerId() {
     return customerId;
   }

@@ -12,21 +12,19 @@ public class LoanTests {
   public void constuctorTest() {
     // Arrange
     LocalDate date = LocalDate.of(2021, 1, 1);
-    Loan loan =
-        new Loan(
-            "123",
-            "123",
-            "John Doe",
-            1000,
-            date,
-            12,
-            12,
-            0.05,
-            RateType.Fixed,
-            Frequency.Monthly,
-            100,
-            Frequency.Monthly,
-            false);
+    Loan loan = new Loan("123");
+    loan.setCustomerId("123");
+    loan.setCustomerName("John Doe");
+    loan.setPrincipleCents(1000);
+    loan.setStartDate(date);
+    loan.setPeriodMonths(12);
+    loan.setTerm(12);
+    loan.setInterestRate(0.05);
+    loan.setRateType(RateType.Fixed);
+    loan.setCompoundingFrequency(Frequency.Monthly);
+    loan.setPaymentAmountCents(100);
+    loan.setPaymentFrequency(Frequency.Monthly);
+    loan.setInterestOnly(false);
 
     // Act
     boolean isCorrect =

@@ -10,8 +10,12 @@ public class PhonesTests {
     // Arrange
     Phones phones = new Phones("123");
     phones.setCustomerId("124");
-    Phone primaryPhone =
-        new Phone(phones.getCustomerId(), 1, "Mobile", "09", "123456789", true, true);
+    Phone primaryPhone = new Phone(phones.getCustomerId(), 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
 
     // Act
     phones.addPhone(primaryPhone);
@@ -25,8 +29,15 @@ public class PhonesTests {
   @Test
   public void constructor2Test() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
 
@@ -37,9 +48,23 @@ public class PhonesTests {
   @Test
   public void constructor3Test() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, false);
-    Phone textPhone = new Phone("123", 2, "Mobile", "09", "123456789", false, true);
-    Phones phones = new Phones("123", primaryPhone, textPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(false);
+
+    Phone textPhone = new Phone("123", 2);
+    textPhone.setType("Mobile");
+    textPhone.setPrefix("09");
+    textPhone.setPhoneNumber("987654321");
+    textPhone.setPrimary(false);
+    textPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+    phones.addPhone(textPhone);
 
     // Act
 
@@ -51,11 +76,24 @@ public class PhonesTests {
   @Test
   public void changePrimaryPhoneTest() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
-    Phone newPrimaryPhone = new Phone("123", 2, "Mobile", "09", "987654321", true, true);
+    Phone newPrimaryPhone = new Phone("123", 2);
+    newPrimaryPhone.setType("Mobile");
+    newPrimaryPhone.setPrefix("09");
+    newPrimaryPhone.setPhoneNumber("987654321");
+    newPrimaryPhone.setPrimary(true);
+    newPrimaryPhone.setCanSendTxt(true);
+
     phones.addPhone(newPrimaryPhone);
 
     // Assert
@@ -66,12 +104,25 @@ public class PhonesTests {
   @Test
   public void addPhoneTest() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
     int firstPhoneCount = phones.getPhoneCount();
-    Phone newPhone = new Phone("123", 2, "Mobile", "09", "987654321", false, true);
+    Phone newPhone = new Phone("123", 2);
+    newPhone.setType("Mobile");
+    newPhone.setPrefix("09");
+    newPhone.setPhoneNumber("987654321");
+    newPhone.setPrimary(false);
+    newPhone.setCanSendTxt(true);
+
     phones.addPhone(newPhone);
 
     // Assert
@@ -81,13 +132,33 @@ public class PhonesTests {
   @Test
   public void addAllPhonesTest() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone textPhone = new Phone("123", 2, "Mobile", "09", "987654321", false, true);
-    Phones phones = new Phones("123", primaryPhone, textPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phone textPhone = new Phone("123", 2);
+    textPhone.setType("Mobile");
+    textPhone.setPrefix("09");
+    textPhone.setPhoneNumber("987654321");
+    textPhone.setPrimary(false);
+    textPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+    phones.addPhone(textPhone);
 
     // Act
     int firstPhoneCount = phones.getPhoneCount();
-    Phone newPhone = new Phone("123", 3, "Mobile", "09", "987654321", false, false);
+    Phone newPhone = new Phone("123", 3);
+    newPhone.setType("Mobile");
+    newPhone.setPrefix("09");
+    newPhone.setPhoneNumber("123987654");
+    newPhone.setPrimary(false);
+    newPhone.setCanSendTxt(false);
+
     phones.addPhone(newPhone);
     phones.addPhone(null);
 
@@ -98,9 +169,22 @@ public class PhonesTests {
   @Test
   public void changeTextPhone() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone textPhone = new Phone("123", 2, "Mobile", "09", "987654321", false, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phone textPhone = new Phone("123", 2);
+    textPhone.setType("Mobile");
+    textPhone.setPrefix("09");
+    textPhone.setPhoneNumber("987654321");
+    textPhone.setPrimary(false);
+    textPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
     phones.addPhone(textPhone);
@@ -113,8 +197,15 @@ public class PhonesTests {
   @Test
   public void setTextPhoneWhenNull() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
     phones.addPhone(null);
@@ -126,8 +217,15 @@ public class PhonesTests {
   @Test
   public void setPrimaryPhoneWhenNull() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phones phones = new Phones("123", primaryPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
 
     // Act
     phones.addPhone(null);
@@ -139,9 +237,23 @@ public class PhonesTests {
   @Test
   public void getPhoneNumbers() {
     // Arrange
-    Phone primaryPhone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone textPhone = new Phone("123", 2, "Mobile", "09", "987654321", false, true);
-    Phones phones = new Phones("123", primaryPhone, textPhone);
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phone textPhone = new Phone("123", 2);
+    textPhone.setType("Mobile");
+    textPhone.setPrefix("09");
+    textPhone.setPhoneNumber("987654321");
+    textPhone.setPrimary(false);
+    textPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+    phones.addPhone(textPhone);
 
     // Act
 

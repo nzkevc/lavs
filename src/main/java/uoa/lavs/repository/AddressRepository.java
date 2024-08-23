@@ -60,7 +60,9 @@ public class AddressRepository {
 
   /** Retrieves address from databas */
   public static Address get(String customerId, Integer number) {
-    Address address = new Address(customerId, number);
+    Address address = new Address();
+    address.setCustomerId(customerId);
+    address.setNumber(number);
 
     Connection connection = ConnectionInstance.getConnection();
     LoadCustomerAddress message = new LoadCustomerAddress();

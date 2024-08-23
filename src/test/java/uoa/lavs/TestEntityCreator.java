@@ -19,87 +19,115 @@ public class TestEntityCreator {
   }
 
   public static Address createBasicAddress(Customer customer) {
-    return new Address(
-        customer.getId(),
-        null,
-        "Home",
-        "123 Fake St",
-        null,
-        "Fakeville",
-        "Faketown",
-        "1234",
-        "New Zealand",
-        true,
-        true);
+    Address address = new Address();
+    address.setCustomerId(customer.getId());
+    address.setType("Home");
+    address.setLine1("123 Fake St");
+    address.setSuburb("Fakeville");
+    address.setCity("Faketown");
+    address.setPostCode("1234");
+    address.setCountry("New Zealand");
+    address.setIsPrimary(true);
+    address.setIsMailing(true);
+    return address;
   }
 
   public static Address createBasicPrimaryAddress(Customer customer) {
-    return new Address(
-        customer.getId(),
-        null,
-        "Home",
-        "123 Fake St",
-        null,
-        "Fakeville",
-        "Faketown",
-        "1234",
-        "New Zealand",
-        true,
-        false);
+    Address address = new Address();
+    address.setCustomerId(customer.getId());
+    address.setType("Home");
+    address.setLine1("123 Fake St");
+    address.setSuburb("Fakeville");
+    address.setCity("Faketown");
+    address.setPostCode("1234");
+    address.setCountry("New Zealand");
+    address.setIsPrimary(true);
+    address.setIsMailing(false);
+    return address;
   }
 
   public static Address createBasicMailingAddress(Customer customer) {
-    return new Address(
-        customer.getId(),
-        null,
-        "Home",
-        "123 Faker Ln",
-        null,
-        "Fakerton",
-        "Fakecity",
-        "1234",
-        "New Zealand",
-        false,
-        true);
+    Address address = new Address();
+    address.setCustomerId(customer.getId());
+    address.setType("Home");
+    address.setLine1("123 Faker Ln");
+    address.setSuburb("Fakerton");
+    address.setCity("Fakecity");
+    address.setPostCode("1234");
+    address.setCountry("New Zealand");
+    address.setIsPrimary(false);
+    address.setIsMailing(true);
+    return address;
   }
 
   public static Address createBasicSecondaryAddress(Customer customer) {
-    return new Address(
-        customer.getId(),
-        null,
-        "Home",
-        "321 Fakes Rd",
-        null,
-        "Fakecity",
-        "Fakecity",
-        "2312",
-        "New Zealand",
-        false,
-        false);
+    Address address = new Address();
+    address.setCustomerId(customer.getId());
+    address.setType("Home");
+    address.setLine1("321 Fakes Rd");
+    address.setSuburb("Fakecity");
+    address.setCity("Fakecity");
+    address.setPostCode("2312");
+    address.setCountry("New Zealand");
+    address.setIsPrimary(false);
+    address.setIsMailing(false);
+    return address;
   }
 
   public static Email createBasicEmail(Customer customer) {
-    return new Email(customer.getId(), null, "fakeEmail@fake.com", true);
+    Email email = new Email();
+    email.setCustomerId(customer.getId());
+    email.setAddress("fakeEmail@fake.com");
+    email.setIsPrimary(true);
+    return email;
   }
 
   public static Email createBasicNonPrimaryEmail(Customer customer) {
-    return new Email(customer.getId(), null, "fakeEmail2@fake.com", false);
+    Email email = new Email();
+    email.setCustomerId(customer.getId());
+    email.setAddress("fakeEmail2@fake.com");
+    email.setIsPrimary(false);
+    return email;
   }
 
   public static Phone createBasicPhone(Customer customer) {
-    return new Phone(customer.getId(), null, "Mobile", "021", "1234567", true, true);
+    Phone phone = new Phone(customer.getId(), null);
+    phone.setType("Mobile");
+    phone.setPrefix("021");
+    phone.setPhoneNumber("1234567");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
+    return phone;
   }
 
   public static Phone createBasicPrimaryPhone(Customer customer) {
-    return new Phone(customer.getId(), null, "Home", "09", "1234567", true, false);
+    Phone phone = new Phone(customer.getId(), null);
+    phone.setType("Home");
+    phone.setPrefix("09");
+    phone.setPhoneNumber("1234567");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(false);
+    return phone;
   }
 
   public static Phone createBasicTextPhone(Customer customer) {
-    return new Phone(customer.getId(), null, "Mobile", "022", "7654321", false, true);
+    Phone phone = new Phone(customer.getId(), null);
+    phone.setType("Mobile");
+    phone.setPrefix("022");
+    phone.setPhoneNumber("7654321");
+    phone.setPrimary(false);
+    phone.setCanSendTxt(true);
+    return phone;
   }
 
   public static Phone createBasicSecondaryPhone(Customer customer) {
-    return new Phone(customer.getId(), null, "Work", "09", "123987", false, false);
+    Phone phone = new Phone(customer.getId(), null);
+    phone.setType("Work");
+    phone.setPrefix("09");
+    phone.setPhoneNumber("123987");
+    phone.setPrimary(false);
+    phone.setCanSendTxt(false);
+    return phone;
   }
 
   public static Employer createBasicEmployer(Customer customer) {
@@ -115,37 +143,39 @@ public class TestEntityCreator {
 
   public static Loan createBasicLoan(Customer customer) {
     LocalDate startDate = LocalDate.of(1990, 1, 1);
-    return new Loan(
-        customer.getId(),
-        null,
-        customer.getName(),
-        1000.00,
-        startDate,
-        10,
-        5,
-        0.05,
-        RateType.Floating,
-        Frequency.Weekly,
-        100.00,
-        Frequency.Monthly,
-        true);
+    Loan loan = new Loan();
+    loan.setCustomerId(customer.getId());
+    loan.setLoanId(null);
+    loan.setCustomerName(customer.getName());
+    loan.setPrincipleCents(1000.00);
+    loan.setStartDate(startDate);
+    loan.setPeriodMonths(10);
+    loan.setTerm(10);
+    loan.setInterestRate(0.05);
+    loan.setRateType(RateType.Floating);
+    loan.setCompoundingFrequency(Frequency.Weekly);
+    loan.setPaymentAmountCents(100.00);
+    loan.setPaymentFrequency(Frequency.Monthly);
+    loan.setInterestOnly(true);
+    return loan;
   }
 
   public static Loan createBasicSecondaryLoan(Customer customer) {
     LocalDate startDate = LocalDate.of(1991, 2, 2);
-    return new Loan(
-        customer.getId(),
-        null,
-        customer.getName(),
-        2000.00,
-        startDate,
-        20,
-        10,
-        0.10,
-        RateType.Fixed,
-        Frequency.Monthly,
-        200.00,
-        Frequency.Fortnightly,
-        false);
+    Loan loan = new Loan();
+    loan.setCustomerId(customer.getId());
+    loan.setLoanId(null);
+    loan.setCustomerName(customer.getName());
+    loan.setPrincipleCents(2000.00);
+    loan.setStartDate(startDate);
+    loan.setPeriodMonths(20);
+    loan.setTerm(10);
+    loan.setInterestRate(0.10);
+    loan.setRateType(RateType.Fixed);
+    loan.setCompoundingFrequency(Frequency.Monthly);
+    loan.setPaymentAmountCents(200.00);
+    loan.setPaymentFrequency(Frequency.Fortnightly);
+    loan.setInterestOnly(false);
+    return loan;
   }
 }

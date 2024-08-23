@@ -20,31 +20,6 @@ public class Address implements IModel<Address> {
     this.number = number;
   }
 
-  public Address(
-      String customerID,
-      Integer number,
-      String type,
-      String line1,
-      String line2,
-      String suburb,
-      String city,
-      String postcode,
-      String country,
-      Boolean isPrimary,
-      Boolean isMailing) {
-    this.customerID = customerID;
-    this.number = number;
-    this.type = type;
-    this.line1 = line1;
-    this.line2 = line2;
-    this.suburb = suburb;
-    this.city = city;
-    this.postcode = postcode;
-    this.country = country;
-    this.isPrimary = isPrimary;
-    this.isMailing = isMailing;
-  }
-
   public String getCustomerId() {
     return customerID;
   }

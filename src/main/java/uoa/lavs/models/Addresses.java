@@ -14,23 +14,6 @@ public class Addresses {
     this.addresses = new HashSet<>();
   }
 
-  public Addresses(String customerId, Address residentAddress) {
-    this.customerId = customerId;
-    this.addresses = new HashSet<>();
-    this.residentialAddress = residentAddress;
-    this.mailingAddress = residentAddress;
-    this.addresses.add(residentAddress);
-  }
-
-  public Addresses(String customerId, Address residentAddress, Address mailAddress) {
-    this.customerId = customerId;
-    this.addresses = new HashSet<>();
-    this.residentialAddress = residentAddress;
-    this.mailingAddress = mailAddress;
-    this.addresses.add(residentAddress);
-    this.addresses.add(mailAddress);
-  }
-
   public String getCustomerId() {
     return customerId;
   }

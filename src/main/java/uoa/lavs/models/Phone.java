@@ -16,22 +16,22 @@ public class Phone implements IModel<Phone> {
     this.number = number;
   }
 
-  public Phone(
-      String customerID,
-      Integer number,
-      String type,
-      String prefix,
-      String phoneNumber,
-      Boolean isPrimary,
-      Boolean canSendTxt) {
-    this.customerID = customerID;
-    this.number = number;
-    this.type = type;
-    this.prefix = prefix;
-    this.phoneNumber = phoneNumber;
-    this.isPrimary = isPrimary;
-    this.canSendTxt = canSendTxt;
-  }
+  // public Phone(
+  //     String customerID,
+  //     Integer number,
+  //     String type,
+  //     String prefix,
+  //     String phoneNumber,
+  //     Boolean isPrimary,
+  //     Boolean canSendTxt) {
+  //   this.customerID = customerID;
+  //   this.number = number;
+  //   this.type = type;
+  //   this.prefix = prefix;
+  //   this.phoneNumber = phoneNumber;
+  //   this.isPrimary = isPrimary;
+  //   this.canSendTxt = canSendTxt;
+  // }
 
   public String getCustomerId() {
     return customerID;

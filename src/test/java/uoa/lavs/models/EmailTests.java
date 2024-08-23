@@ -8,7 +8,9 @@ public class EmailTests {
   @Test
   public void constructorTest() {
     // Arrange
-    Email email = new Email("123", 1, "123@123.com", true);
+    Email email = new Email("123", 1);
+    email.setAddress("123@123.com");
+    email.setIsPrimary(true);
 
     // Act
     boolean isCorrect =
@@ -62,7 +64,9 @@ public class EmailTests {
   @Test
   public void equalsTest() {
     // Arrange
-    Email email1 = new Email("123", 1, "123@123.com", true);
+    Email email1 = new Email("123", 1);
+    email1.setIsPrimary(true);
+    email1.setAddress("123@123.com");
     Email email2 = new Email("123", 1);
 
     // Act
@@ -101,7 +105,7 @@ public class EmailTests {
   @Test
   public void validateTest() {
     // Arrange
-    Email email = new Email("123", 1, "123@123.com", true);
+    Email email = new Email("123", 1);
 
     // Act
 

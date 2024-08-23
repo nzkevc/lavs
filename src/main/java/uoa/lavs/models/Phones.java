@@ -14,24 +14,6 @@ public class Phones {
     this.phoneNumbers = new HashSet<>();
   }
 
-  public Phones(String customerId, Phone primaryPhone) {
-    this.customerId = customerId;
-    this.phoneNumbers = new HashSet<>();
-    this.primaryPhone = primaryPhone;
-    this.textPhone = primaryPhone;
-    this.phoneNumbers.add(primaryPhone);
-    this.phoneNumbers.add(textPhone);
-  }
-
-  public Phones(String customerId, Phone primaryPhone, Phone textPhone) {
-    this.customerId = customerId;
-    this.phoneNumbers = new HashSet<>();
-    this.primaryPhone = primaryPhone;
-    this.textPhone = textPhone;
-    this.phoneNumbers.add(primaryPhone);
-    this.phoneNumbers.add(textPhone);
-  }
-
   public String getCustomerId() {
     return customerId;
   }

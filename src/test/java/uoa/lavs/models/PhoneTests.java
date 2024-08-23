@@ -8,7 +8,12 @@ public class PhoneTests {
   @Test
   public void constructorTest() {
     // Arrange
-    Phone phone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone = new Phone("123", 1);
+    phone.setType("Mobile");
+    phone.setPrefix("09");
+    phone.setPhoneNumber("123456789");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
 
     // Act
     boolean isCorrect =
@@ -77,7 +82,12 @@ public class PhoneTests {
   @Test
   public void getFullNumberTest() {
     // Arrange
-    Phone phone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone = new Phone("123", 1);
+    phone.setType("Mobile");
+    phone.setPrefix("09");
+    phone.setPhoneNumber("123456789");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
 
     // Act
     String fullNumber = phone.getFullNumber();
@@ -89,7 +99,12 @@ public class PhoneTests {
   @Test
   public void getFullNumberNoPrefix() {
     // Arrange
-    Phone phone = new Phone("123", 1, "Mobile", "", "123456789", true, true);
+    Phone phone = new Phone("123", 1);
+    phone.setType("Mobile");
+    phone.setPrefix("");
+    phone.setPhoneNumber("123456789");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
 
     // Act
     String fullNumber = phone.getFullNumber();
@@ -101,8 +116,19 @@ public class PhoneTests {
   @Test
   public void equalsTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone phone2 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
+    Phone phone2 = new Phone("123", 1);
+    phone2.setType("Mobile");
+    phone2.setPrefix("09");
+    phone2.setPhoneNumber("123456789");
+    phone2.setPrimary(true);
+    phone2.setCanSendTxt(true);
 
     // Act
 
@@ -114,7 +140,13 @@ public class PhoneTests {
   @Test
   public void notEqualObjectsTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
     String phone2 = "123456789";
 
     // Act
@@ -126,7 +158,13 @@ public class PhoneTests {
   @Test
   public void noteEqualNullTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
     Phone phone2 = null;
 
     // Act
@@ -138,9 +176,19 @@ public class PhoneTests {
   @Test
   public void notEqualTypeTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone phone2 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
+    Phone phone2 = new Phone("123", 1);
     phone2.setType("Home");
+    phone2.setPrefix("09");
+    phone2.setPhoneNumber("123456789");
+    phone2.setPrimary(true);
+    phone2.setCanSendTxt(true);
 
     // Act
 
@@ -152,9 +200,19 @@ public class PhoneTests {
   @Test
   public void notEqualPrefixTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone phone2 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
+    Phone phone2 = new Phone("123", 1);
+    phone2.setType("Mobile");
     phone2.setPrefix("02");
+    phone2.setPhoneNumber("123456789");
+    phone2.setPrimary(true);
+    phone2.setCanSendTxt(true);
 
     // Act
 
@@ -166,9 +224,19 @@ public class PhoneTests {
   @Test
   public void notEqualNumberTest() {
     // Arrange
-    Phone phone1 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
-    Phone phone2 = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone1 = new Phone("123", 1);
+    phone1.setType("Mobile");
+    phone1.setPrefix("09");
+    phone1.setPhoneNumber("123456789");
+    phone1.setPrimary(true);
+    phone1.setCanSendTxt(true);
+
+    Phone phone2 = new Phone("123", 1);
+    phone2.setType("Mobile");
+    phone2.setPrefix("09");
     phone2.setPhoneNumber("987654321");
+    phone2.setPrimary(true);
+    phone2.setCanSendTxt(true);
 
     // Act
 
@@ -180,7 +248,7 @@ public class PhoneTests {
   @Test
   public void validateTest() {
     // Arrange
-    Phone phone = new Phone("123", 1, "Mobile", "09", "123456789", true, true);
+    Phone phone = new Phone("123", 1);
 
     // Act
 
