@@ -1,7 +1,6 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
@@ -29,35 +28,6 @@ public class Loan implements IModel<Loan> {
 
   public Loan(String loanId) {
     this.loanId = loanId;
-  }
-
-  public Loan(
-      String customerId,
-      String loanId,
-      String customerName,
-      double principleCents,
-      LocalDate startDate,
-      int periodMonths,
-      int term,
-      double interestRate,
-      RateType rateType,
-      Frequency compoundingFrequency,
-      double paymentAmountCents,
-      Frequency paymentFrequency,
-      boolean interestOnly) {
-    this.customerId = customerId;
-    this.loanId = loanId;
-    this.customerName = customerName;
-    this.principleCents = principleCents;
-    this.startDate = startDate;
-    this.periodMonths = periodMonths;
-    this.term = term;
-    this.interestRate = interestRate;
-    this.rateType = rateType;
-    this.compoundingFrequency = compoundingFrequency;
-    this.paymentAmountCents = paymentAmountCents;
-    this.paymentFrequency = paymentFrequency;
-    this.interestOnly = interestOnly;
   }
 
   public String getCustomerId() {

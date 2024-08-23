@@ -19,6 +19,7 @@ public class AddressRepositoryTests {
   @Test
   public void createAddressTest() {
     // Arrange
+    AddressRepository addressRepository = new AddressRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 

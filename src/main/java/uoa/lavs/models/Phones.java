@@ -1,35 +1,17 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Phones {
   private String customerId;
-  private List<Phone> phoneNumbers;
+  private Set<Phone> phoneNumbers;
   private Phone primaryPhone;
   private Phone textPhone;
 
   public Phones(String customerId) {
     this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
-  }
-
-  public Phones(String customerId, Phone primaryPhone) {
-    this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
-    this.primaryPhone = primaryPhone;
-    this.textPhone = primaryPhone;
-    this.phoneNumbers.add(primaryPhone);
-    this.phoneNumbers.add(textPhone);
-  }
-
-  public Phones(String customerId, Phone primaryPhone, Phone textPhone) {
-    this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
-    this.primaryPhone = primaryPhone;
-    this.textPhone = textPhone;
-    this.phoneNumbers.add(primaryPhone);
-    this.phoneNumbers.add(textPhone);
+    this.phoneNumbers = new HashSet<>();
   }
 
   public String getCustomerId() {
@@ -40,7 +22,7 @@ public class Phones {
     this.customerId = customerId;
   }
 
-  public List<Phone> getPhoneNumbers() {
+  public Set<Phone> getPhoneNumbers() {
     return phoneNumbers;
   }
 
@@ -52,27 +34,43 @@ public class Phones {
     return primaryPhone;
   }
 
-  public void setPrimaryPhone(Phone phone) {
-    if (primaryPhone != null) {
-      primaryPhone.setPrimary(false);
+  void setPrimaryPhone(Phone phone) {
+    if (phone != null) {
+      if (primaryPhone != null) {
+        primaryPhone.setPrimary(false);
+      }
+      primaryPhone = phone;
+      phoneNumbers.add(phone);
     }
-    primaryPhone = phone;
-    phoneNumbers.add(phone);
   }
 
   public Phone getTextPhone() {
     return textPhone;
   }
 
-  public void setTextPhone(Phone phone) {
-    if (textPhone != null) {
-      textPhone.setCanSendTxt(false);
+  void setTextPhone(Phone phone) {
+    if (phone != null) {
+      if (textPhone != null) {
+        textPhone.setCanSendTxt(false);
+      }
+      textPhone = phone;
+      phoneNumbers.add(phone);
     }
-    textPhone = phone;
-    phoneNumbers.add(phone);
   }
 
   public void addPhone(Phone phone) {
-    phoneNumbers.add(phone);
+    if (phone != null) {
+      if (phone.getPrimary()) {
+        setPrimaryPhone(phone);
+      }
+
+      if (phone.getCanSendTxt()) {
+        setTextPhone(phone);
+      }
+
+      if (!phone.getPrimary() && !phone.getCanSendTxt()) {
+        phoneNumbers.add(phone);
+      }
+    }
   }
 }

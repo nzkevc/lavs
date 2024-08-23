@@ -22,7 +22,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void test() {
+  public void createCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
@@ -33,13 +33,13 @@ public class CustomerServiceTests {
     Email email = TestEntityCreator.createBasicEmail(customer);
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     // Act
     CustomerService.createCustomer(customer);
@@ -51,7 +51,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void getTest() {
+  public void getCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
@@ -62,13 +62,13 @@ public class CustomerServiceTests {
     Email email = TestEntityCreator.createBasicEmail(customer);
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     CustomerService.createCustomer(customer);
 
@@ -88,7 +88,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void updateTest() {
+  public void updateCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
@@ -101,13 +101,13 @@ public class CustomerServiceTests {
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
     // Can be different addresses, emails, phones, but MUST set the key ones here
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
-    customer.getEmails().setPrimaryEmail(email);
+    customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     // Creating the customer
     CustomerService.createCustomer(customer);

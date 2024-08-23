@@ -20,6 +20,7 @@ public class LoanSummaryRepositoryTests {
   @Test
   public void getLoanSummaryTest() {
     // Arrange
+    LoanSummaryRepository loanSummaryRepository = new LoanSummaryRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 

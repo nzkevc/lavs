@@ -2,14 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -29,7 +30,7 @@ import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
-import uoa.lavs.utils.objects.TestEntityCreator;
+import uoa.lavs.utils.objects.DevEntityCreator;
 
 public class SummaryPageController extends IPage {
 
@@ -62,6 +63,8 @@ public class SummaryPageController extends IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+
+    // Rerender customer when customerFromSearch changes
     State.customerFromSearch.addListener(
         (obs, oldCustomer, newCustomer) -> {
           if (newCustomer == null) {
@@ -164,7 +167,7 @@ public class SummaryPageController extends IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
-    getLoansCard().render(Set.copyOf(customer.getLoans().getLoans()));
+    getLoansCard().render(customer.getLoans().getLoans());
   }
 
   private void clearAll() {
@@ -180,11 +183,11 @@ public class SummaryPageController extends IPage {
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
-    customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
-    customer.getAddresses().setMailingAddress(getContactCard().assemble().getAddress());
-    customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
-    customer.getPhones().setTextPhone(getContactCard().assemble().getPhone());
-    customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
+    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
+    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
+    customer.getEmails().addEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
     customer.setLoans(new Loans(getLoansCard().assemble()));
@@ -231,8 +234,8 @@ public class SummaryPageController extends IPage {
   private void onTestGetBtnClick() {
     logger.debug("Getting TestEntity customer...");
     AsyncUtils.promise(
-        () -> TestEntityCreator.createFullCustomer(),
-        (customer) -> renderCustomer(customer),
+        () -> DevEntityCreator.createFullCustomer(),
+        (customer) -> State.customerFromSearch.setValue(customer),
         this::handleException);
   }
 

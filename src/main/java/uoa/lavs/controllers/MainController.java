@@ -78,7 +78,7 @@ public class MainController extends IController {
   private void updateLayoutSize(double sceneWidth, double sceneHeight) {
     // Calculate layout width (which may be smaller than scene width to maintain aspect ratio)
     double aspectRatio = (double) DEFAULT_WIDTH / DEFAULT_HEIGHT;
-    Double layoutWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
+    double layoutWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
 
     // Calculate zoom and shift (to recentre)
     zoom = layoutWidth / DEFAULT_WIDTH;

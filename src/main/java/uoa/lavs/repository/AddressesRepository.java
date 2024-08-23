@@ -27,17 +27,7 @@ public class AddressesRepository {
     // If the connection was successful, adding the addresses to the Addresses object
     for (int i = 1; i <= count; i++) {
       Address address = AddressRepository.get(customer.getId(), message.getNumberFromServer(i));
-
-      if (address.getPrimary() || address.getMailing()) {
-        if (address.getPrimary()) {
-          addresses.setResidentialAddress(address);
-        }
-        if (address.getMailing()) {
-          addresses.setMailingAddress(address);
-        }
-      } else {
-        addresses.addAddress(address);
-      }
+      addresses.addAddress(address);
     }
 
     return addresses;
