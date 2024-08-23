@@ -13,6 +13,6 @@ class NoteService {
   }
 
   public static String getNotes(Customer customer) throws RuntimeException {
-    return NoteRepository.get(customer, 1);
+    return NoteRepository.get(customer);
   }
 }
