@@ -1,7 +1,6 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-
 import uoa.lavs.utils.objects.ValidationException;
 
 public class Customer implements IModel<Customer> {
@@ -17,7 +16,7 @@ public class Customer implements IModel<Customer> {
   private Addresses addresses = new Addresses(id);
   private Phones phones = new Phones(id);
   private Emails emails = new Emails(id);
-  private Employer employer;
+  private Employers employers = new Employers(id);
   private String notes;
   private Loans loans = new Loans(id);
 
@@ -38,7 +37,7 @@ public class Customer implements IModel<Customer> {
     this.addresses = builder.addresses;
     this.phones = builder.phones;
     this.emails = builder.emails;
-    this.employer = builder.employer;
+    this.employers = builder.employers;
     this.notes = builder.notes;
     this.loans = builder.loans;
   }
@@ -63,7 +62,7 @@ public class Customer implements IModel<Customer> {
     private Addresses addresses;
     private Phones phones;
     private Emails emails;
-    private Employer employer;
+    private Employers employers;
     private String notes;
     private Loans loans;
 
@@ -135,7 +134,8 @@ public class Customer implements IModel<Customer> {
     }
 
     public Builder addEmployer(Employer employer) {
-      this.employer = employer;
+      this.employers.addEmployer(employer);
+      ;
       return this;
     }
 
@@ -232,12 +232,12 @@ public class Customer implements IModel<Customer> {
     this.emails = emails;
   }
 
-  public Employer getEmployer() {
-    return employer;
+  public Employers getEmployers() {
+    return employers;
   }
 
-  public void setEmployer(Employer employer) {
-    this.employer = employer;
+  public void setEmployers(Employers employers) {
+    this.employers = employers;
   }
 
   public String getNotes() {

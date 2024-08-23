@@ -22,7 +22,7 @@ public class CustomerService implements IService {
     String customerId = CustomerRepository.create(newCustomer).getId();
     newCustomer.setId(customerId);
 
-    Employer employer = newCustomer.getEmployer();
+    Employers employers = newCustomer.getEmployer();
     employer.setCustomerId(newCustomer.getId());
     EmployerRepository.update(employer);
 
