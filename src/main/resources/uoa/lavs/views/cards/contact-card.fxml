@@ -8,17 +8,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
-<?import uoa.lavs.controllers.cards.AddressCardController?>
-<?import uoa.lavs.controllers.cards.PhoneCardController?>
-<?import uoa.lavs.controllers.cards.EmailCardController?>
+<?import uoa.lavs.controllers.fragments.ScrollerController?>
 
 <fx:root type="javafx.scene.layout.Pane" minHeight="0.0" minWidth="0.0"  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="600.0" prefWidth="800.0" styleClass="vbox-card" spacing="50">
          <children>
-            <AddressCardController fx:id="addressCard" />
-            <PhoneCardController fx:id="phoneCard" />
-            <EmailCardController fx:id="emailCard" />
+            <ScrollerController fx:id="addressCards" />
+            <ScrollerController fx:id="phoneCards" />
+            <ScrollerController fx:id="emailCards" />
          </children>
       </VBox>
    </children>

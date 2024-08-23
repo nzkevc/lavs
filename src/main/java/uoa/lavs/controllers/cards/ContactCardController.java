@@ -1,9 +1,12 @@
 package uoa.lavs.controllers.cards;
 
 import java.util.Set;
-import javafx.fxml.FXML;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
+import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Email;
@@ -17,12 +20,19 @@ public class ContactCardController extends ICard<ContactInfo> {
 
   private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
-  @FXML private AddressCardController addressCard;
-  @FXML private PhoneCardController phoneCard;
-  @FXML private EmailCardController emailCard;
+  @FXML private ScrollerController<Address> addressCards;
+  @FXML private ScrollerController<Phone> phoneCards;
+  @FXML private ScrollerController<Email> emailCards;
 
   public ContactCardController() {
     ControllerUtils.loadFxml(this, "cards/contact-card.fxml");
+  }
+
+  @FXML
+  public void initialize() {
+    addressCards.setCardController(AddressCardController.class);
+    phoneCards.setCardController(PhoneCardController.class);
+    emailCards.setCardController(EmailCardController.class);
   }
 
   @Override
@@ -30,29 +40,23 @@ public class ContactCardController extends ICard<ContactInfo> {
     Set<Address> addresses = contactInfo.addresses().getAddresses();
     Set<Phone> phones = contactInfo.phones().getPhoneNumbers();
     Set<Email> emails = contactInfo.emails().getEmails();
-
-    addressCard.render(addresses.iterator().next());
-    phoneCard.render(phones.iterator().next());
-    emailCard.render(emails.iterator().next());
+    addressCards.render(addresses);
+    phoneCards.render(phones);
+    emailCards.render(emails);
   }
 
   @Override
   public void clear() {
-    addressCard.clear();
-    phoneCard.clear();
-    emailCard.clear();
+    addressCards.clear();
+    phoneCards.clear();
+    emailCards.clear();
   }
 
   @Override
   public ContactInfo assemble() {
-    Address address = addressCard.assemble();
-    Phone phone = phoneCard.assemble();
-    Email email = emailCard.assemble();
-
-    Addresses addresses = new Addresses(Set.of(address));
-    Phones phones = new Phones(Set.of(phone));
-    Emails emails = new Emails(Set.of(email));
-
+    Addresses addresses = new Addresses(addressCards.assemble());
+    Phones phones = new Phones(phoneCards.assemble());
+    Emails emails = new Emails(emailCards.assemble());
     return new ContactInfo(addresses, phones, emails);
   }
 }
