@@ -14,8 +14,8 @@ public class PhonesTests {
         new Phone(phones.getCustomerId(), 1, "Mobile", "09", "123456789", true, true);
 
     // Act
-    phones.setPrimaryPhone(primaryPhone);
-    phones.setTextPhone(primaryPhone);
+    phones.addPhone(primaryPhone);
+    phones.addPhone(primaryPhone);
 
     // Assert
     assertEquals(primaryPhone, phones.getPrimaryPhone());
@@ -56,7 +56,7 @@ public class PhonesTests {
 
     // Act
     Phone newPrimaryPhone = new Phone("123", 2, "Mobile", "09", "987654321", true, true);
-    phones.setPrimaryPhone(newPrimaryPhone);
+    phones.addPhone(newPrimaryPhone);
 
     // Assert
     assertEquals(newPrimaryPhone, phones.getPrimaryPhone());
@@ -72,7 +72,7 @@ public class PhonesTests {
     // Act
     int firstPhoneCount = phones.getPhoneCount();
     Phone newPhone = new Phone("123", 2, "Mobile", "09", "987654321", false, true);
-    phones.setPrimaryPhone(newPhone);
+    phones.addPhone(newPhone);
 
     // Assert
     assertEquals(firstPhoneCount + 1, phones.getPhoneCount());
@@ -103,7 +103,7 @@ public class PhonesTests {
     Phones phones = new Phones("123", primaryPhone);
 
     // Act
-    phones.setTextPhone(textPhone);
+    phones.addPhone(textPhone);
 
     // Assert
     assertEquals(textPhone, phones.getTextPhone());
@@ -117,7 +117,7 @@ public class PhonesTests {
     Phones phones = new Phones("123", primaryPhone);
 
     // Act
-    phones.setTextPhone(null);
+    phones.addPhone(null);
 
     // Assert
     assertNotNull(phones.getTextPhone());
@@ -130,7 +130,7 @@ public class PhonesTests {
     Phones phones = new Phones("123", primaryPhone);
 
     // Act
-    phones.setPrimaryPhone(null);
+    phones.addPhone(null);
 
     // Assert
     assertNotNull(phones.getPrimaryPhone());

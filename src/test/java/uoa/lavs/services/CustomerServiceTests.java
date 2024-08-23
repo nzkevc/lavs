@@ -38,8 +38,8 @@ public class CustomerServiceTests {
 
     customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     // Act
     CustomerService.createCustomer(customer);
@@ -67,8 +67,8 @@ public class CustomerServiceTests {
 
     customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     CustomerService.createCustomer(customer);
 
@@ -106,8 +106,8 @@ public class CustomerServiceTests {
 
     customer.getEmails().addEmail(email);
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     // Creating the customer
     CustomerService.createCustomer(customer);

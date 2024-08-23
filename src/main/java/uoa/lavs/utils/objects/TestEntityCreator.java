@@ -17,7 +17,7 @@ public class TestEntityCreator {
   public static Customer createFullCustomer() {
     Customer customer = createBasicCustomer();
     customer.getAddresses().addAddress(createBasicPrimaryAddress(customer));
-    customer.getPhones().setPrimaryPhone(createBasicPrimaryPhone(customer));
+    customer.getPhones().addPhone(createBasicPrimaryPhone(customer));
     customer.getEmails().addEmail(createBasicEmail(customer));
     customer.setEmployer(createBasicEmployer(customer));
     customer.getLoans().addLoan(createBasicLoan(customer));
