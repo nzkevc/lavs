@@ -84,4 +84,69 @@ public class AddressesTests {
     // Assert
     assertEquals("10001", addresses.getCustomerId());
   }
+
+  @Test
+  public void addingNewResidentialAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+    Address newPrimaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+
+    // Act
+    addresses.setResidentialAddress(newPrimaryAddress);
+
+    // Assert
+    assertEquals(newPrimaryAddress, addresses.getResidentialAddress());
+    assertFalse(primaryAddress.getPrimary());
+  }
+
+  @Test
+  public void addressesAddNullAddressTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId(), primaryAddress);
+
+    // Act
+    addresses.addAddress(null);
+
+    // Assert
+    assertEquals(1, addresses.getAddressCount());
+  }
+
+  @Test
+  public void addingNullResidentialAddressTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+
+    // Act
+    addresses.setResidentialAddress(null);
+
+    // Assert
+    assertEquals(primaryAddress, addresses.getResidentialAddress());
+  }
+
+  @Test
+  public void addingNullMailingAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
+
+    // Act
+    addresses.setMailingAddress(null);
+
+    // Assert
+    assertEquals(mailingAddress, addresses.getMailingAddress());
+  }
 }

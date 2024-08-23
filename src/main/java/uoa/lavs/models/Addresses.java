@@ -40,7 +40,9 @@ public class Addresses {
   }
 
   public void addAddress(Address newAddress) {
-    addresses.add(newAddress);
+    if (newAddress != null) {
+      addresses.add(newAddress);
+    }
   }
 
   public List<Address> getAddresses() {
@@ -56,11 +58,13 @@ public class Addresses {
   }
 
   public void setResidentialAddress(Address address) {
-    if (residentialAddress != null) {
-      residentialAddress.setIsPrimary(false);
+    if (address != null) {
+      if (residentialAddress != null) {
+        residentialAddress.setIsPrimary(false);
+      }
+      residentialAddress = address;
+      addresses.add(address);
     }
-    residentialAddress = address;
-    addresses.add(address);
   }
 
   public Address getMailingAddress() {
@@ -68,10 +72,12 @@ public class Addresses {
   }
 
   public void setMailingAddress(Address address) {
-    if (mailingAddress != null) {
-      mailingAddress.setIsMailing(false);
+    if (address != null) {
+      if (mailingAddress != null) {
+        mailingAddress.setIsMailing(false);
+      }
+      mailingAddress = address;
+      addresses.add(address);
     }
-    mailingAddress = address;
-    addresses.add(address);
   }
 }

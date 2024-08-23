@@ -60,4 +60,48 @@ public class EmailsTests {
     // Assert
     assertEquals(firstEmailCount + 1, emails.getEmailCount());
   }
+
+  @Test
+  public void addingNullEmailTest() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1, "123@123.com", true);
+    Emails emails = new Emails("123", primaryEmail);
+
+    // Act
+    emails.addEmail(null);
+
+    // Assert
+    assertEquals(1, emails.getEmailCount());
+  }
+
+  @Test
+  public void addingNullPrimaryEmailTest() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1, "123@123.com", true);
+    Emails emails = new Emails("123", primaryEmail);
+
+    // Act
+    emails.setPrimaryEmail(null);
+
+    // Assert
+    assertEquals(primaryEmail, emails.getPrimaryEmail());
+  }
+
+  @Test
+  public void gettingMultipleEmails() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1, "123@123.com", true);
+    Email secondaryEmail = new Email("123", 2, "124@14.com", false);
+    Email tertiaryEmail = new Email("123", 3, "125@15.com", false);
+    Emails emails = new Emails("123", primaryEmail);
+
+    // Act
+    int firstEmailCount = emails.getEmailCount();
+    emails.addEmail(secondaryEmail);
+    emails.addEmail(tertiaryEmail);
+
+    // Assert
+    assertEquals(firstEmailCount + 2, emails.getEmailCount());
+    assertEquals(tertiaryEmail, emails.getEmails().get(2));
+  }
 }

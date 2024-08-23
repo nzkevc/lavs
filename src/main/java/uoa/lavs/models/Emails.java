@@ -29,7 +29,9 @@ public class Emails {
   }
 
   public void addEmail(Email newEmail) {
-    emails.add(newEmail);
+    if (newEmail != null) {
+      emails.add(newEmail);
+    }
   }
 
   public List<Email> getEmails() {
@@ -45,11 +47,13 @@ public class Emails {
   }
 
   public void setPrimaryEmail(Email email) {
-    if (primaryEmail != null) {
-      primaryEmail.setIsPrimary(false);
+    if (email != null) {
+      if (primaryEmail != null) {
+        primaryEmail.setIsPrimary(false);
+      }
+      email.setIsPrimary(true);
+      primaryEmail = email;
+      emails.add(email);
     }
-    email.setIsPrimary(true);
-    primaryEmail = email;
-    emails.add(email);
   }
 }
