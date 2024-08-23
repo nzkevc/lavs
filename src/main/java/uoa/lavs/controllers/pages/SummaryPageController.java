@@ -26,7 +26,7 @@ import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
-import uoa.lavs.utils.objects.TestEntityCreator;
+import uoa.lavs.utils.objects.DevEntityCreator;
 
 public class SummaryPageController extends AnchorPane implements IPage {
 
@@ -59,6 +59,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+
+    // Rerender customer when customerFromSearch changes
     State.customerFromSearch.addListener(
         (obs, oldCustomer, newCustomer) -> {
           if (newCustomer == null) {
@@ -227,8 +229,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void onTestGetBtnClick() {
     logger.debug("Getting TestEntity customer...");
     AsyncUtils.promise(
-        () -> TestEntityCreator.createFullCustomer(),
-        (customer) -> renderCustomer(customer),
+        () -> DevEntityCreator.createFullCustomer(),
+        (customer) -> State.customerFromSearch.setValue(customer),
         this::handleException);
   }
 
