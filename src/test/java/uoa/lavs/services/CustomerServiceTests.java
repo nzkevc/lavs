@@ -22,7 +22,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void test() {
+  public void createCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
@@ -51,7 +51,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void getTest() {
+  public void getCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
@@ -88,7 +88,7 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void updateTest() {
+  public void updateCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer.setAddresses(new Addresses(null));
