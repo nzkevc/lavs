@@ -3,15 +3,13 @@ package uoa.lavs.controllers.pages;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -79,10 +77,7 @@ public class SummaryPageController extends IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-
-    ScrollerController<Loan> loanCardScrollerController = new ScrollerController<>();
-    loanCardScrollerController.setCardController(LoanCardController.class);
-    cards.put(LoanCardController.class, loanCardScrollerController);
+    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
 
     switchCard(GeneralInfoCardController.class);
   }

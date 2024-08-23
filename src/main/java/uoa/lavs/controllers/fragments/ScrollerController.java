@@ -27,6 +27,11 @@ public class ScrollerController<T> extends ICard<Set<T>> {
     ControllerUtils.loadFxml(this, "fragments/scroller.fxml");
   }
 
+  public ScrollerController(Class<? extends ICard<T>> cardControllerClass) {
+    this();
+    this.cardControllerClass = cardControllerClass;
+  }
+
   public void setCardController(Class<? extends ICard<T>> cardControllerClass) {
     this.cardControllerClass = cardControllerClass;
   }
@@ -37,7 +42,7 @@ public class ScrollerController<T> extends ICard<Set<T>> {
     for (T model : models) {
         ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
         cardController.render(model);
-        displayVbox.getChildren().add((Node) cardController);
+        displayVbox.getChildren().add(cardController);
     }
     displayVbox.getChildren().add(addBtn);
   }
