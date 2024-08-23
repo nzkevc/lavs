@@ -1,21 +1,21 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Emails {
   private String customerId;
-  private List<Email> emails;
+  private Set<Email> emails;
   private Email primaryEmail;
 
   public Emails(String customerId) {
     this.customerId = customerId;
-    this.emails = new ArrayList<>();
+    this.emails = new HashSet<>();
   }
 
   public Emails(String customerId, Email primaryEmail) {
     this.customerId = customerId;
-    this.emails = new ArrayList<>();
+    this.emails = new HashSet<>();
     this.primaryEmail = primaryEmail;
     this.emails.add(primaryEmail);
   }
@@ -34,7 +34,7 @@ public class Emails {
     }
   }
 
-  public List<Email> getEmails() {
+  public Set<Email> getEmails() {
     return emails;
   }
 

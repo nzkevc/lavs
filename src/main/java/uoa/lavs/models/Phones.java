@@ -1,22 +1,22 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Phones {
   private String customerId;
-  private List<Phone> phoneNumbers;
+  private Set<Phone> phoneNumbers;
   private Phone primaryPhone;
   private Phone textPhone;
 
   public Phones(String customerId) {
     this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
+    this.phoneNumbers = new HashSet<>();
   }
 
   public Phones(String customerId, Phone primaryPhone) {
     this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
+    this.phoneNumbers = new HashSet<>();
     this.primaryPhone = primaryPhone;
     this.textPhone = primaryPhone;
     this.phoneNumbers.add(primaryPhone);
@@ -25,7 +25,7 @@ public class Phones {
 
   public Phones(String customerId, Phone primaryPhone, Phone textPhone) {
     this.customerId = customerId;
-    this.phoneNumbers = new ArrayList<>();
+    this.phoneNumbers = new HashSet<>();
     this.primaryPhone = primaryPhone;
     this.textPhone = textPhone;
     this.phoneNumbers.add(primaryPhone);
@@ -40,7 +40,7 @@ public class Phones {
     this.customerId = customerId;
   }
 
-  public List<Phone> getPhoneNumbers() {
+  public Set<Phone> getPhoneNumbers() {
     return phoneNumbers;
   }
 

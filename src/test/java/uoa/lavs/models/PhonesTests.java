@@ -2,7 +2,6 @@ package uoa.lavs.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class PhonesTests {
@@ -145,11 +144,10 @@ public class PhonesTests {
     Phones phones = new Phones("123", primaryPhone, textPhone);
 
     // Act
-    List<Phone> phoneNumbers = phones.getPhoneNumbers();
 
     // Assert
-    assertEquals(2, phoneNumbers.size());
-    assertEquals(primaryPhone, phoneNumbers.get(0));
-    assertEquals(textPhone, phoneNumbers.get(1));
+    assertEquals(2, phones.getPhoneNumbers().size());
+    assertEquals(primaryPhone, phones.getPrimaryPhone());
+    assertEquals(textPhone, phones.getTextPhone());
   }
 }

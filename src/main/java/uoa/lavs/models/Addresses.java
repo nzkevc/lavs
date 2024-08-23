@@ -1,22 +1,22 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Addresses {
   private String customerId;
-  private List<Address> addresses;
+  private Set<Address> addresses;
   private Address residentialAddress;
   private Address mailingAddress;
 
   public Addresses(String customerId) {
     this.customerId = customerId;
-    this.addresses = new ArrayList<>();
+    this.addresses = new HashSet<>();
   }
 
   public Addresses(String customerId, Address residentAddress) {
     this.customerId = customerId;
-    this.addresses = new ArrayList<>();
+    this.addresses = new HashSet<>();
     this.residentialAddress = residentAddress;
     this.mailingAddress = residentAddress;
     this.addresses.add(residentAddress);
@@ -24,7 +24,7 @@ public class Addresses {
 
   public Addresses(String customerId, Address residentAddress, Address mailAddress) {
     this.customerId = customerId;
-    this.addresses = new ArrayList<>();
+    this.addresses = new HashSet<>();
     this.residentialAddress = residentAddress;
     this.mailingAddress = mailAddress;
     this.addresses.add(residentAddress);
@@ -45,7 +45,7 @@ public class Addresses {
     }
   }
 
-  public List<Address> getAddresses() {
+  public Set<Address> getAddresses() {
     return addresses;
   }
 

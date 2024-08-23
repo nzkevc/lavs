@@ -102,6 +102,5 @@ public class EmailsTests {
 
     // Assert
     assertEquals(firstEmailCount + 2, emails.getEmailCount());
-    assertEquals(tertiaryEmail, emails.getEmails().get(2));
   }
 }

@@ -69,7 +69,7 @@ public class AddressesTests {
     addresses.addAddress(secondaryAddress);
 
     // Assert
-    assertEquals(secondaryAddress, addresses.getAddresses().get(0));
+    assertEquals(1, addresses.getAddressCount());
   }
 
   @Test

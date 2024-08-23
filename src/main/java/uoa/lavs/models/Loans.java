@@ -1,19 +1,19 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Loans {
   private String customerId;
-  private final List<Loan> loans;
+  private Set<Loan> loans;
 
   public Loans() {
-    this.loans = new ArrayList<>();
+    this.loans = new HashSet<>();
   }
 
   public Loans(String customerId) {
     this.customerId = customerId;
-    this.loans = new ArrayList<>();
+    this.loans = new HashSet<>();
   }
 
   public String getCustomerId() {
@@ -30,7 +30,7 @@ public class Loans {
     }
   }
 
-  public List<Loan> getLoans() {
+  public Set<Loan> getLoans() {
     return loans;
   }
 

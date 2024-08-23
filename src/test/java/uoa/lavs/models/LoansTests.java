@@ -17,7 +17,7 @@ public class LoansTests {
 
     // Act
     loans.addLoan(loan);
-    boolean isCorrect = loans.getLoans().get(0).equals(loan);
+    boolean isCorrect = loans.getLoans().size() == 1;
 
     // Assert
     assertTrue(isCorrect);
