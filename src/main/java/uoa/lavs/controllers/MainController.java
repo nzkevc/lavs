@@ -2,13 +2,15 @@ package uoa.lavs.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.pages.IPage;
 import uoa.lavs.controllers.pages.LandingPageController;
@@ -77,7 +79,7 @@ public class MainController extends AnchorPane implements IController {
   private void updateLayoutSize(double sceneWidth, double sceneHeight) {
     // Calculate layout width (which may be smaller than scene width to maintain aspect ratio)
     double aspectRatio = (double) DEFAULT_WIDTH / DEFAULT_HEIGHT;
-    Double layoutWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
+    double layoutWidth = Math.min(sceneWidth, sceneHeight * aspectRatio);
 
     // Calculate zoom and shift (to recentre)
     zoom = layoutWidth / DEFAULT_WIDTH;
