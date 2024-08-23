@@ -1,4 +1,4 @@
-package uoa.lavs.controllers.cards;
+package uoa.lavs.controllers.fragments;
 
 import java.util.List;
 
@@ -10,20 +10,21 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import uoa.lavs.controllers.fragments.LoanBoxController;
+import uoa.lavs.controllers.cards.ICard;
+import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.utils.ControllerUtils;
 
-public class LoansDisplayCardController extends AnchorPane implements ICard<Loans> {
+public class ScrollerController extends AnchorPane implements ICard<Loans> {
 
-  private static final Logger logger = LoggerFactory.getLogger(LoansDisplayCardController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ScrollerController.class);
 
   @FXML private VBox displayVbox;
   @FXML private Button createNewLoanBtn;
 
-  public LoansDisplayCardController() {
-    ControllerUtils.loadFxml(this, "cards/loans-display-card.fxml");
+  public ScrollerController() {
+    ControllerUtils.loadFxml(this, "fragments/scroller.fxml");
   }
 
   @Override
@@ -31,7 +32,7 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
     clear();
     List<Loan> loans = data.getLoans();
     for (Loan loan : loans) {
-      LoanBoxController loanBoxController = new LoanBoxController();
+      LoanCardController loanBoxController = new LoanCardController();
       loanBoxController.render(loan);
       displayVbox.getChildren().add(loanBoxController);
     }
@@ -46,8 +47,8 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
   @Override
   public Loans assemble() {
     Loans loans = new Loans();
-    for (Node node : displayVbox.getChildren().filtered(child -> child instanceof LoanBoxController)) {
-      Loan loan = ((LoanBoxController) node).assemble();
+    for (Node node : displayVbox.getChildren().filtered(child -> child instanceof LoanCardController)) {
+      Loan loan = ((LoanCardController) node).assemble();
       loans.addLoan(loan);
     }
     return loans;
@@ -55,7 +56,7 @@ public class LoansDisplayCardController extends AnchorPane implements ICard<Loan
 
   @FXML
   private void onCreateNewLoanClick() {
-    LoanBoxController loanBoxController = new LoanBoxController();
+    LoanCardController loanBoxController = new LoanCardController();
     loanBoxController.clear();
     displayVbox.getChildren().remove(createNewLoanBtn);
     displayVbox.getChildren().add(loanBoxController);

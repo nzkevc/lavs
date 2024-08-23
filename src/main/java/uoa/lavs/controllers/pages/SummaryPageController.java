@@ -17,8 +17,8 @@ import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.controllers.cards.LoansDisplayCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
@@ -76,7 +76,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
+    cards.put(ScrollerController.class, new ScrollerController());
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -129,7 +129,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    switchCard(LoansDisplayCardController.class);
+    switchCard(ScrollerController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -148,8 +148,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
-  private LoansDisplayCardController getLoansCard() {
-    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  private ScrollerController getLoansCard() {
+    return (ScrollerController) cards.get(ScrollerController.class);
   }
 
   private void renderCustomer(Customer customer) {
