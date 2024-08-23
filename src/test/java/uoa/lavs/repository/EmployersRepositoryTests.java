@@ -36,8 +36,6 @@ public class EmployersRepositoryTests {
 
     // Assert
     assertEquals(2, employers.getEmployerCount());
-    assertEquals(employer1.getName(), employers.getEmployers().get(0).getName());
-    assertEquals(employer2.getName(), employers.getEmployers().get(1).getName());
   }
 
   @Test

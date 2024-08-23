@@ -1,15 +1,15 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Employers {
   private String customerId;
-  private List<Employer> employers;
+  private Set<Employer> employers;
 
   public Employers(String customerId) {
     this.customerId = customerId;
-    this.employers = new ArrayList<>();
+    this.employers = new HashSet<>();
   }
 
   public String getCustomerId() {
@@ -26,7 +26,7 @@ public class Employers {
     }
   }
 
-  public List<Employer> getEmployers() {
+  public Set<Employer> getEmployers() {
     return employers;
   }
 
