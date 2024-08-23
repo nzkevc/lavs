@@ -51,4 +51,17 @@ public class EmployersRepositoryTests {
     // Assert
     assertThrows(RuntimeException.class, () -> EmployersRepository.get(customer));
   }
+
+  @Test
+  public void getNoEmployersTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer = CustomerRepository.create(customer);
+
+    // Act
+    Employers employers = EmployersRepository.get(customer);
+
+    // Assert
+    assertEquals(0, employers.getEmployerCount());
+  }
 }
