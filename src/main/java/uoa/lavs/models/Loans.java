@@ -25,7 +25,9 @@ public class Loans {
   }
 
   public void addLoan(Loan newLoan) {
-    loans.add(newLoan);
+    if (newLoan != null) {
+      loans.add(newLoan);
+    }
   }
 
   public List<Loan> getLoans() {
