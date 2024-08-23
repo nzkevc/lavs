@@ -6,8 +6,8 @@ public class Phone implements IModel<Phone> {
   private String type;
   private String prefix;
   private String phoneNumber;
-  private Boolean isPrimary;
-  private Boolean canSendTxt;
+  private boolean isPrimary;
+  private boolean canSendTxt;
 
   public Phone() {}
 
@@ -77,19 +77,19 @@ public class Phone implements IModel<Phone> {
     return prefix + phoneNumber;
   }
 
-  public Boolean getPrimary() {
+  public boolean getPrimary() {
     return isPrimary;
   }
 
-  public void setPrimary(Boolean primary) {
+  public void setPrimary(boolean primary) {
     isPrimary = primary;
   }
 
-  public Boolean getCanSendTxt() {
+  public boolean getCanSendTxt() {
     return canSendTxt;
   }
 
-  public void setCanSendTxt(Boolean canSendTxt) {
+  public void setCanSendTxt(boolean canSendTxt) {
     this.canSendTxt = canSendTxt;
   }
 
