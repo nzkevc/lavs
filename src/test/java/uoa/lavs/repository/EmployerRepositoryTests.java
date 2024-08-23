@@ -19,6 +19,7 @@ public class EmployerRepositoryTests {
   @Test
   public void createEmployerTest() {
     // Arrange
+    EmployerRepository employerRepository = new EmployerRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 

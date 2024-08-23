@@ -20,6 +20,7 @@ public class CustomerRepositoryTests {
   @Test
   public void createCustomerTest() {
     // Arrange
+    CustomerRepository customerRepository = new CustomerRepository();
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
