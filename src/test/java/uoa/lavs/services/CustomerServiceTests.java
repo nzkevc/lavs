@@ -33,8 +33,8 @@ public class CustomerServiceTests {
     Email email = TestEntityCreator.createBasicEmail(customer);
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
     customer.getEmails().setPrimaryEmail(email);
 
@@ -62,8 +62,8 @@ public class CustomerServiceTests {
     Email email = TestEntityCreator.createBasicEmail(customer);
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
     customer.getEmails().setPrimaryEmail(email);
 
@@ -101,8 +101,8 @@ public class CustomerServiceTests {
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
     // Can be different addresses, emails, phones, but MUST set the key ones here
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
 
     customer.getEmails().setPrimaryEmail(email);
 

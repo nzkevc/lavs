@@ -16,8 +16,8 @@ public class AddressesTests {
     Addresses addresses1 = new Addresses(customer.getId());
 
     // Act
-    addresses1.setResidentialAddress(primaryAddress);
-    addresses1.setMailingAddress(mailingAddress);
+    addresses1.addAddress(primaryAddress);
+    addresses1.addAddress(mailingAddress);
 
     // Assert
     assertEquals(primaryAddress, addresses1.getResidentialAddress());
@@ -34,7 +34,7 @@ public class AddressesTests {
     Addresses addresses2 = new Addresses(customer.getId(), primaryAddress);
 
     // Act
-    addresses2.setMailingAddress(mailingAddress);
+    addresses2.addAddress(mailingAddress);
 
     // Assert
     assertEquals(primaryAddress, addresses2.getResidentialAddress());
@@ -128,7 +128,7 @@ public class AddressesTests {
     Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
 
     // Act
-    addresses.setResidentialAddress(null);
+    addresses.addAddress(null);
 
     // Assert
     assertEquals(primaryAddress, addresses.getResidentialAddress());
@@ -144,7 +144,7 @@ public class AddressesTests {
     Addresses addresses = new Addresses(customer.getId(), primaryAddress, mailingAddress);
 
     // Act
-    addresses.setMailingAddress(null);
+    addresses.addAddress(null);
 
     // Assert
     assertEquals(mailingAddress, addresses.getMailingAddress());

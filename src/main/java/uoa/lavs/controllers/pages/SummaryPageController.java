@@ -2,15 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -178,8 +176,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
-    customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
-    customer.getAddresses().setMailingAddress(getContactCard().assemble().getAddress());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
     customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
     customer.getPhones().setTextPhone(getContactCard().assemble().getPhone());
     customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());

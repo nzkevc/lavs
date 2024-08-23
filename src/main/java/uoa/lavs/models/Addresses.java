@@ -41,7 +41,17 @@ public class Addresses {
 
   public void addAddress(Address newAddress) {
     if (newAddress != null) {
-      addresses.add(newAddress);
+      if (newAddress.getPrimary()) {
+        setResidentialAddress(newAddress);
+      }
+
+      if (newAddress.getMailing()) {
+        setMailingAddress(newAddress);
+      }
+
+      if (!newAddress.getPrimary() && !newAddress.getMailing()) {
+        addresses.add(newAddress);
+      }
     }
   }
 
@@ -57,7 +67,7 @@ public class Addresses {
     return residentialAddress;
   }
 
-  public void setResidentialAddress(Address address) {
+  void setResidentialAddress(Address address) {
     if (address != null) {
       if (residentialAddress != null) {
         residentialAddress.setIsPrimary(false);
@@ -71,7 +81,7 @@ public class Addresses {
     return mailingAddress;
   }
 
-  public void setMailingAddress(Address address) {
+  void setMailingAddress(Address address) {
     if (address != null) {
       if (mailingAddress != null) {
         mailingAddress.setIsMailing(false);
