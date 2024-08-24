@@ -12,6 +12,7 @@ class PhoneService implements IService {
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();
     phones.setCustomerId(newCustomer.getId());
+    phones.validate();
     for (Phone phone : phones.getPhoneNumbers()) {
       phone.validate();
       phone.setCustomerID(newCustomer.getId());
@@ -23,6 +24,7 @@ class PhoneService implements IService {
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();
     phones.setCustomerId(newCustomer.getId());
+    phones.validate();
     for (Phone phone : phones.getPhoneNumbers()) {
       phone.validate();
       phone.setCustomerID(newCustomer.getId());

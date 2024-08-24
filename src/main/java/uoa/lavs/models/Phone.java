@@ -1,5 +1,7 @@
 package uoa.lavs.models;
 
+import uoa.lavs.utils.objects.ValidationException;
+
 public class Phone implements IModel<Phone> {
   private String customerID;
   private Integer number;
@@ -90,7 +92,42 @@ public class Phone implements IModel<Phone> {
 
   // TODO
   @Override
-  public boolean validate() {
-    return true;
+  public boolean validate() throws ValidationException {
+    if (validateCustomerId(customerID)
+        && validateType(type)
+        && validatePrefix(prefix)
+        && validatePhoneNumber(phoneNumber)) {
+      return true;
+    } else {
+      throw new ValidationException("Phone validation failed");
+    }
+  }
+
+  public boolean validateCustomerId(String customerID) {
+    if (customerID == null) {
+      return false;
+    }
+    return customerID.length() <= 10 && !customerID.isEmpty();
+  }
+
+  public boolean validateType(String type) {
+    if (type == null) {
+      return false;
+    }
+    return type.length() <= 10 && !type.isEmpty();
+  }
+
+  public boolean validatePrefix(String prefix) {
+    if (prefix == null) {
+      return false;
+    }
+    return prefix.matches("[0-9\\+]+") && prefix.length() <= 10 && !prefix.isEmpty();
+  }
+
+  public boolean validatePhoneNumber(String phoneNumber) {
+    if (phoneNumber == null) {
+      return false;
+    }
+    return phoneNumber.matches("[0-9\\-]+") && phoneNumber.length() <= 20 && !phoneNumber.isEmpty();
   }
 }

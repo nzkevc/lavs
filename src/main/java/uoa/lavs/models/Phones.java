@@ -2,6 +2,7 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Phones {
   private String customerId;
@@ -71,6 +72,14 @@ public class Phones {
       if (!phone.getPrimary() && !phone.getCanSendTxt()) {
         phoneNumbers.add(phone);
       }
+    }
+  }
+
+  public boolean validate() throws ValidationException {
+    if (phoneNumbers.isEmpty() || (primaryPhone != null && primaryPhone.getPrimary())) {
+      return true;
+    } else {
+      throw new ValidationException("Primary phone is not set");
     }
   }
 }
