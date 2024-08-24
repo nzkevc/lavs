@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -36,30 +37,59 @@
          <children>
             <VBox layoutX="7.0" layoutY="10.0" prefHeight="610.0" prefWidth="387.0" spacing="20.0">
                <children>
-                  <Button fx:id="generalBtn" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" styleClass="button" text="GENERAL">
+                  <Button fx:id="generalBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="305.0" prefWidth="387.0" styleClass="button" text="GENERAL" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="contactBtn" mnemonicParsing="false" onAction="#onContactBtnClick" prefHeight="101.0" prefWidth="379.0" text="CONTACT">
+                  <Button fx:id="contactBtn" mnemonicParsing="false" onAction="#onContactBtnClick" prefHeight="305.0" prefWidth="381.0">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
+                     <graphic>
+                        <AnchorPane prefHeight="269.0" prefWidth="344.0">
+                           <children>
+                              <MFXButton fx:id="contactAddress" layoutX="61.0" layoutY="71.0" prefHeight="56.0" prefWidth="275.0" text="Address" />
+                              <MFXButton fx:id="contactEmail" layoutX="60.0" layoutY="136.0" prefHeight="56.0" prefWidth="277.0" text="Email" />
+                              <MFXButton fx:id="contactPhone" layoutX="60.0" layoutY="201.0" prefHeight="56.0" prefWidth="277.0" text="Phone" />
+                              <Label layoutX="117.0" layoutY="20.0" prefHeight="38.0" prefWidth="164.0" text="CONTACT" />
+                           </children>
+                        </AnchorPane>
+                     </graphic>
                   </Button>
-                  <Button fx:id="employerBtn" mnemonicParsing="false" onAction="#onEmployerBtnClick" prefHeight="101.0" prefWidth="379.0" text="EMPLOYER">
+                  <Button fx:id="employerBtn" mnemonicParsing="false" onAction="#onEmployerBtnClick" prefHeight="101.0" prefWidth="379.0">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
+                     <graphic>
+                        <AnchorPane prefHeight="269.0" prefWidth="344.0">
+                           <children>
+                              <MFXButton fx:id="employerAddress" layoutX="61.0" layoutY="71.0" prefHeight="56.0" prefWidth="275.0" text="Address" />
+                              <MFXButton fx:id="employerEmail" layoutX="60.0" layoutY="136.0" prefHeight="56.0" prefWidth="277.0" text="Email" />
+                              <MFXButton fx:id="employerPhone" layoutX="60.0" layoutY="201.0" prefHeight="56.0" prefWidth="277.0" text="Phone" />
+                              <Label layoutX="117.0" layoutY="20.0" prefHeight="38.0" prefWidth="164.0" text="EMPLOYER" />
+                           </children>
+                        </AnchorPane>
+                     </graphic>
                   </Button>
                   <Button fx:id="notesBtn" mnemonicParsing="false" onAction="#onNotesBtnClick" prefHeight="101.0" prefWidth="379.0" text="NOTES">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="loansBtn" mnemonicParsing="false" onAction="#onLoansBtnClick" prefHeight="101.0" prefWidth="379.0" text="LOANS">
+                  <Button fx:id="loansBtn" mnemonicParsing="false" onAction="#onLoansBtnClick" prefHeight="101.0" prefWidth="379.0">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
+                     <graphic>
+                        <AnchorPane prefHeight="269.0" prefWidth="344.0">
+                           <children>
+                              <MFXButton fx:id="loanSummary" layoutX="61.0" layoutY="71.0" prefHeight="56.0" prefWidth="275.0" text="Loan Summary" />
+                              <MFXButton fx:id="loanPayments" layoutX="60.0" layoutY="136.0" prefHeight="56.0" prefWidth="277.0" text="Loan Payments" />
+                              <Label layoutX="117.0" layoutY="20.0" prefHeight="38.0" prefWidth="164.0" text="LOANS" />
+                           </children>
+                        </AnchorPane>
+                     </graphic>
                   </Button>
                </children>
             </VBox>
