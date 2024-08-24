@@ -92,7 +92,6 @@ public class LoanCardController extends ICard<Loan> {
 
     LoanPayments loanPayments = loan.getLoanPayments();
     if (loanPayments != null) {
-      number.setValue(String.valueOf(loanPayments.getNumber()));
       pages.setValue(String.valueOf(loanPayments.getPages()));
       payments.setValue(String.valueOf(loanPayments.getPayments()));
       paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));

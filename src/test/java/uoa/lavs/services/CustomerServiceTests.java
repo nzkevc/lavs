@@ -47,7 +47,7 @@ public class CustomerServiceTests {
     // Assert
     assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
     assertEquals(customer.getId(), customer.getEmails().getPrimaryEmail().getCustomerId());
-    assertEquals(2, customer.getPhones().getPhoneNumbers().size());
+    assertEquals(1, customer.getPhones().getPhoneNumbers().size());
   }
 
   @Test
@@ -63,11 +63,9 @@ public class CustomerServiceTests {
     Phone phone = TestEntityCreator.createBasicPhone(customer);
 
     customer.getAddresses().addAddress(address);
-    customer.getAddresses().addAddress(address);
 
     customer.getEmails().addEmail(email);
 
-    customer.getPhones().addPhone(phone);
     customer.getPhones().addPhone(phone);
 
     CustomerService.createCustomer(customer);
@@ -83,8 +81,8 @@ public class CustomerServiceTests {
         customer.getEmails().getPrimaryEmail().getCustomerId(),
         retrievedCustomer.getEmails().getPrimaryEmail().getCustomerId());
     assertEquals(
-        customer.getPhones().getPrimaryPhone().getNumber(),
-        retrievedCustomer.getPhones().getPrimaryPhone().getNumber());
+        customer.getPhones().getPrimaryPhone().getPhoneNumber(),
+        retrievedCustomer.getPhones().getPrimaryPhone().getPhoneNumber());
   }
 
   @Test
@@ -102,11 +100,9 @@ public class CustomerServiceTests {
 
     // Can be different addresses, emails, phones, but MUST set the key ones here
     customer.getAddresses().addAddress(address);
-    customer.getAddresses().addAddress(address);
 
     customer.getEmails().addEmail(email);
 
-    customer.getPhones().addPhone(phone);
     customer.getPhones().addPhone(phone);
 
     // Creating the customer

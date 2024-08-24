@@ -2,6 +2,7 @@ package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
@@ -28,21 +29,22 @@ public class LoanPaymentsRepositoryTests {
     loan = LoanRepository.create(loan);
 
     // Act
-    LoanPayments loanPayments = new LoanPayments(loan.getLoanId(), 1);
+    LoanPayments loanPayments = new LoanPayments(loan.getLoanId());
     loanPayments = LoanPaymentsRepository.get(loanPayments);
     loan.setLoanPayments(loanPayments);
 
     // Assert
     assertEquals(customer.getId(), loanPayments.getCustomerId());
-    assertEquals(11, loanPayments.getPayments());
-    assertEquals(900.04, loanPayments.getPaymentRemainings().get(0));
-    assertEquals(0.23, loanPayments.getPaymentPrincipals().get(10));
+    assertEquals(17, loanPayments.getPayments());
+    assertEquals(LocalDate.of(2025, 12, 22), loanPayments.getPaymentDates().get(16));
+    assertEquals(449707.25, loanPayments.getPaymentRemainings().get(0));
+    assertEquals(332.93, loanPayments.getPaymentPrincipals().get(17));
   }
 
   @Test
   public void getLoanPaymentsTestWithInvalidLoanId() {
     // Arrange
-    LoanPayments loanPayments = new LoanPayments("invalid", 1);
+    LoanPayments loanPayments = new LoanPayments("invalid");
 
     // Act & Assert
     assertThrows(RuntimeException.class, () -> LoanPaymentsRepository.get(loanPayments));

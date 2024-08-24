@@ -2,7 +2,7 @@ package uoa.lavs.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
 import uoa.lavs.models.Customer;
@@ -12,8 +12,8 @@ import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class LoansRepositoryTests {
 
-  @BeforeAll
-  public static void resetTestConnection() {
+  @BeforeEach
+  public void resetTestConnection() {
     ConnectionInstance.resetTestConnection();
   }
 
