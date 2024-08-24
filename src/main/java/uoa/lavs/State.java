@@ -49,21 +49,18 @@ public class State implements Serializable {
 
   public void saveState() {
     logger.info("Saving state");
-    CacheUtils.saveToCache("state", this);
+    CacheUtils.saveToCache(customerId.getValue(), customerFromSearch.getValue());
   }
 
   public static void loadState() {
     logger.info("Loading state");
     try {
-      State state = CacheUtils.loadFromCache("state");
-      instance.customerName.setValue(state.customerName.getValue());
-      instance.customerId.setValue(state.customerId.getValue());
-      instance.summaryMessage.setValue(state.summaryMessage.getValue());
-      instance.summaryMessageIsError.setValue(state.summaryMessageIsError.getValue());
-      instance.customerFromSearch.setValue(state.customerFromSearch.getValue());
+      Customer customer = CacheUtils.loadFromCache("state");
+      State.getInstance().customerFromSearch.setValue(customer);
+      State.getInstance().customerId.setValue(customer.getId());
+      State.getInstance().customerName.setValue(customer.getName());
     } catch (IOException e) {
-      logger.error("Failed to load state from cache");
-      instance.reset();
+      logger.error("Failed to load state from cache", e);
     }
   }
 }
