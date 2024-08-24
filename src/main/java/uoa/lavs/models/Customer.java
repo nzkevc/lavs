@@ -262,14 +262,83 @@ public class Customer implements IModel<Customer> {
     this.loans = loans;
   }
 
-  // TODO
+  // TODO: is this actually going to be used?
   @Override
   public boolean validate() throws ValidationException {
-    return true;
+    boolean validCustomerId = true;
+    if (id != null) {
+      validCustomerId = validateCustomerId(id);
+    }
+    if (validCustomerId
+        && validateTitle(title)
+        && validateName(name)
+        && validateDateOfBirth(dateOfBirth)
+        && validateOccupation(occupation)
+        && validateCitizenship(citizenship)
+        && validateVisa(visa)) {
+      return true;
+    } else {
+      throw new ValidationException("Customer validation failed.");
+    }
   }
 
   @Override
   public String toString() {
     return "%s: ID = %s".formatted(name, id);
   }
+
+  public boolean validateCustomerId(String id) {
+    return id.length() <= 10 && !id.isEmpty();
+  }
+
+  public boolean validateTitle(String title) {
+    if (title == null) {
+      return false;
+    }
+    return title.length() <= 10 && !title.isEmpty();
+  }
+
+  public boolean validateName(String name) {
+    if (name == null) {
+      return false;
+    }
+    return name.length() <= 60 && !name.isEmpty();
+  }
+
+  public boolean validateDateOfBirth(LocalDate dateOfBirth) {
+    return dateOfBirth != null && dateOfBirth.isBefore(LocalDate.now());
+  }
+
+  public boolean validateOccupation(String occupation) {
+    if (occupation == null) {
+      return false;
+    }
+    return occupation.length() <= 40 && !occupation.isEmpty();
+  }
+
+  public boolean validateCitizenship(String citizenship) {
+    if (citizenship == null) {
+      return false;
+    }
+    return citizenship.length() <= 40 && !citizenship.isEmpty();
+  }
+
+  public boolean validateVisa(String visa) {
+    if (visa == null) {
+      return false;
+    }
+    return visa.length() <= 40 && !visa.isEmpty();
+  }
+
+  // TODO: check
+  // public boolean validateNotes(String notes) {
+  //   if (notes == null || notes.isEmpty()) {
+  //     return false;
+  //   }
+  //   if (notes.length() > 255) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
 }
