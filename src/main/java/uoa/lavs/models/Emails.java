@@ -2,6 +2,7 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Emails {
   private String customerId;
@@ -51,6 +52,14 @@ public class Emails {
       email.setIsPrimary(true);
       primaryEmail = email;
       emails.add(email);
+    }
+  }
+
+  public boolean validate() throws ValidationException {
+    if (emails.isEmpty() || (primaryEmail != null && primaryEmail.getIsPrimary())) {
+      return true;
+    } else {
+      throw new ValidationException("Primary email is not set");
     }
   }
 }

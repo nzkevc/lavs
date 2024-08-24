@@ -76,7 +76,7 @@ public class Addresses {
   }
 
   public boolean validate() throws ValidationException {
-    if (primaryAddress != null && primaryAddress.getPrimary()) {
+    if (addresses.isEmpty() || (primaryAddress != null && primaryAddress.getPrimary())) {
       return true;
     } else {
       throw new ValidationException("Primary address is required");

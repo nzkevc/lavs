@@ -1,5 +1,7 @@
 package uoa.lavs.models;
 
+import uoa.lavs.utils.objects.ValidationException;
+
 public class Email implements IModel<Email> {
   private String customerID;
   private Integer number;
@@ -57,7 +59,36 @@ public class Email implements IModel<Email> {
 
   // TODO
   @Override
-  public boolean validate() {
-    return true;
+  public boolean validate() throws ValidationException {
+    if (validateCustomerId(customerID)
+        && validateNumber(number)
+        && validateAddress(emailAddress)
+        && validateIsPrimary(isPrimary)) {
+      return true;
+    } else {
+      throw new ValidationException("Email validation failed");
+    }
+  }
+
+  public boolean validateCustomerId(String customerId) {
+    if (customerId == null) {
+      return false;
+    }
+    return customerId.length() <= 10 && !customerId.isEmpty();
+  }
+
+  public boolean validateNumber(Integer number) {
+    return number != null;
+  }
+
+  public boolean validateAddress(String address) {
+    if (address == null) {
+      return false;
+    }
+    return address.length() <= 60 && !address.isEmpty();
+  }
+
+  public boolean validateIsPrimary(Boolean isPrimary) {
+    return isPrimary != null;
   }
 }

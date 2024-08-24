@@ -89,7 +89,7 @@ public class Customer implements IModel<Customer> {
     }
 
     public Builder addPrimaryAddress(Address primaryAddress) {
-      this.addresses.setResidentialAddress(primaryAddress);
+      this.addresses.setPrimaryAddress(primaryAddress);
       return this;
     }
 
@@ -323,11 +323,12 @@ public class Customer implements IModel<Customer> {
     return citizenship.length() <= 40 && !citizenship.isEmpty();
   }
 
+  // visa is optional
   public boolean validateVisa(String visa) {
     if (visa == null) {
-      return false;
+      return true;
     }
-    return visa.length() <= 40 && !visa.isEmpty();
+    return visa.length() <= 40;
   }
 
   // TODO: check
