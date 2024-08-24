@@ -125,6 +125,7 @@ public class AddressServiceTests {
     customer.getAddresses().addAddress(address2);
     customer.getAddresses().addAddress(address3);
     AddressService.updateAddressesFromCustomer(customer);
+    customer.setAddresses(AddressService.getAddresses(customer));
 
     // Assert
     assertEquals(address3, customer.getAddresses().getMailingAddress());
