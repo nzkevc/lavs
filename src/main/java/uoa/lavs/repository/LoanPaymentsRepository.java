@@ -6,7 +6,6 @@ import uoa.lavs.mainframe.messages.loan.LoadLoanPayments;
 import uoa.lavs.models.LoanPayments;
 import uoa.lavs.utils.objects.ConnectionInstance;
 
-
 public class LoanPaymentsRepository {
   /** Retrieves loan payments from database */
   public static LoanPayments get(LoanPayments loanPayments) {
@@ -16,19 +15,32 @@ public class LoanPaymentsRepository {
     message.setLoanId(loanPayments.getLoanId());
 
     Status status = message.send(connection);
+
     if (!status.getWasSuccessful()) {
       throw new RuntimeException("Failed to get loan payments: " + status.getErrorMessage());
     }
 
     loanPayments.setCustomerId(message.getCustomerIdFromServer());
     loanPayments.setCustomerName(message.getCustomerNameFromServer());
-    loanPayments.setPages(message.getPageCountFromServer());
     loanPayments.setPayments(message.getPaymentCountFromServer());
-    for (int i = 1; i <= loanPayments.getPayments(); i++) {
-      loanPayments.getPaymentInterests().add(message.getPaymentInterestFromServer(i));
-      loanPayments.getPaymentPrincipals().add(message.getPaymentPrincipalFromServer(i));
-      loanPayments.getPaymentRemainings().add(message.getPaymentRemainingFromServer(i));
-      loanPayments.getPaymentNumbers().add(message.getPaymentNumberFromServer(i));
+
+    int pages = message.getPageCountFromServer();
+
+    for (int i = 1; i <= pages; i++) {
+      message.setNumber(i);
+      status = message.send(connection);
+
+      if (!status.getWasSuccessful()) {
+        throw new RuntimeException("Failed to get loan payments: " + status.getErrorMessage());
+      }
+
+      for (int j = 1; j <= message.getPaymentCountFromServer(); j++) {
+        loanPayments.getPaymentDates().add(message.getPaymentDateFromServer(j));
+        loanPayments.getPaymentInterests().add(message.getPaymentInterestFromServer(i));
+        loanPayments.getPaymentPrincipals().add(message.getPaymentPrincipalFromServer(i));
+        loanPayments.getPaymentRemainings().add(message.getPaymentRemainingFromServer(i));
+        loanPayments.getPaymentNumbers().add(message.getPaymentNumberFromServer(i));
+      }
     }
 
     return loanPayments;

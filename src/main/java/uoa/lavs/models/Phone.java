@@ -6,31 +6,14 @@ public class Phone implements IModel<Phone> {
   private String type;
   private String prefix;
   private String phoneNumber;
-  private Boolean isPrimary;
-  private Boolean canSendTxt;
+  private boolean isPrimary;
+  private boolean canSendTxt;
 
   public Phone() {}
 
   public Phone(String customerID, Integer number) {
     this.customerID = customerID;
     this.number = number;
-  }
-
-  public Phone(
-      String customerID,
-      Integer number,
-      String type,
-      String prefix,
-      String phoneNumber,
-      Boolean isPrimary,
-      Boolean canSendTxt) {
-    this.customerID = customerID;
-    this.number = number;
-    this.type = type;
-    this.prefix = prefix;
-    this.phoneNumber = phoneNumber;
-    this.isPrimary = isPrimary;
-    this.canSendTxt = canSendTxt;
   }
 
   public String getCustomerId() {
@@ -74,22 +57,22 @@ public class Phone implements IModel<Phone> {
   }
 
   public String getFullNumber() {
-    return prefix + number;
+    return prefix + phoneNumber;
   }
 
-  public Boolean getPrimary() {
+  public boolean getPrimary() {
     return isPrimary;
   }
 
-  public void setPrimary(Boolean primary) {
+  public void setPrimary(boolean primary) {
     isPrimary = primary;
   }
 
-  public Boolean getCanSendTxt() {
+  public boolean getCanSendTxt() {
     return canSendTxt;
   }
 
-  public void setCanSendTxt(Boolean canSendTxt) {
+  public void setCanSendTxt(boolean canSendTxt) {
     this.canSendTxt = canSendTxt;
   }
 
@@ -100,7 +83,7 @@ public class Phone implements IModel<Phone> {
       Phone phone = (Phone) o;
       return type.equals(phone.getType())
           && prefix.equals(phone.getPrefix())
-          && number.equals(phone.getNumber());
+          && phoneNumber.equals(phone.getPhoneNumber());
     }
     return false;
   }

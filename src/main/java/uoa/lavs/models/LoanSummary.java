@@ -1,7 +1,6 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-
 import uoa.lavs.mainframe.Frequency;
 
 public class LoanSummary {

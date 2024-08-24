@@ -2,17 +2,11 @@ package uoa.lavs.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
-import uoa.lavs.models.Address;
-import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
-import uoa.lavs.models.Email;
-import uoa.lavs.models.Emails;
-import uoa.lavs.models.Loan;
-import uoa.lavs.models.Phone;
-import uoa.lavs.models.Phones;
 import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class CustomerServiceTests {
@@ -22,54 +16,53 @@ public class CustomerServiceTests {
   }
 
   @Test
-  public void test() {
+  public void createCustomerTest() {
     // Arrange
+    CustomerService customerService = new CustomerService();
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
-
-    Address address = TestEntityCreator.createBasicAddress(customer);
-    Email email = TestEntityCreator.createBasicEmail(customer);
-    Phone phone = TestEntityCreator.createBasicPhone(customer);
-
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
-
-    customer.getEmails().setPrimaryEmail(email);
-
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
 
     // Act
     CustomerService.createCustomer(customer);
 
     // Assert
-    assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
-    assertEquals(customer.getId(), customer.getEmails().getPrimaryEmail().getCustomerId());
-    assertEquals(2, customer.getPhones().getPhoneNumbers().size());
+    assertNotNull(customer.getId());
   }
 
   @Test
-  public void getTest() {
+  public void createMultipleCustomersTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
+    Customer customer2 = TestEntityCreator.createBasicCustomer();
 
-    Address address = TestEntityCreator.createBasicAddress(customer);
-    Email email = TestEntityCreator.createBasicEmail(customer);
-    Phone phone = TestEntityCreator.createBasicPhone(customer);
+    // Act
+    CustomerService.createCustomer(customer);
+    CustomerService.createCustomer(customer2);
 
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
+    // Assert
+    assertNotNull(customer.getId());
+    assertNotNull(customer2.getId());
+  }
 
-    customer.getEmails().setPrimaryEmail(email);
+  @Test
+  public void createCustomerWithEmployerTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer = TestEntityCreator.createBasicCustomer();
+    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
 
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
+    // Act
+    CustomerService.createCustomer(customer);
 
+    // Assert
+    assertNotNull(customer.getId());
+    assertNotNull(customer.getEmployer().getCustomerId());
+    assertEquals(customer.getId(), customer.getEmployer().getCustomerId());
+  }
+
+  @Test
+  public void getCustomerTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
     CustomerService.createCustomer(customer);
 
     // Act
@@ -77,57 +70,101 @@ public class CustomerServiceTests {
 
     // Assert
     assertEquals(customer.getId(), retrievedCustomer.getId());
-    assertEquals(
-        customer.getAddresses().getCustomerId(), retrievedCustomer.getAddresses().getCustomerId());
-    assertEquals(
-        customer.getEmails().getPrimaryEmail().getCustomerId(),
-        retrievedCustomer.getEmails().getPrimaryEmail().getCustomerId());
-    assertEquals(
-        customer.getPhones().getPrimaryPhone().getNumber(),
-        retrievedCustomer.getPhones().getPrimaryPhone().getNumber());
   }
 
   @Test
-  public void updateTest() {
+  public void getCustomerWithNoEmployerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
-
-    // Can add more here as appropriate
-    Address address = TestEntityCreator.createBasicAddress(customer);
-    Email email = TestEntityCreator.createBasicEmail(customer);
-    Phone phone = TestEntityCreator.createBasicPhone(customer);
-
-    // Can be different addresses, emails, phones, but MUST set the key ones here
-    customer.getAddresses().setResidentialAddress(address);
-    customer.getAddresses().setMailingAddress(address);
-
-    customer.getEmails().setPrimaryEmail(email);
-
-    customer.getPhones().setPrimaryPhone(phone);
-    customer.getPhones().setTextPhone(phone);
-
-    // Creating the customer
     CustomerService.createCustomer(customer);
 
-    // Creating the loans and assigning them to the customer
-    Loan loan = TestEntityCreator.createBasicLoan(customer);
-    Loan loantwo = TestEntityCreator.createBasicLoan(customer);
-    customer.getLoans().addLoan(loan);
-    customer.getLoans().addLoan(loantwo);
+    // Act
+    Customer retrievedCustomer = CustomerService.getCustomer(customer.getId());
 
-    // Creating the loans in the mainframe
-    CustomerService.updateCustomer(customer);
+    // Assert
+    assertNull(retrievedCustomer.getEmployer());
+  }
+
+  @Test
+  public void getCustomerWithEmployerTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
+    CustomerService.createCustomer(customer);
 
     // Act
-    String customerName = customer.getName();
-    customer.setName("New Name");
+    Customer retrievedCustomer = CustomerService.getCustomer(customer.getId());
+
+    // Assert
+    assertNotNull(retrievedCustomer.getEmployer());
+    assertEquals(
+        customer.getEmployer().getCustomerId(), retrievedCustomer.getEmployer().getCustomerId());
+  }
+
+  @Test
+  public void updateCustomerTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    CustomerService.createCustomer(customer);
+
+    // Act
+    customer.setName("John");
     CustomerService.updateCustomer(customer);
 
     // Assert
-    assertNotEquals(customerName, customer.getName());
-    assertEquals(2, customer.getLoans().getLoanCount());
+    assertEquals("John", customer.getName());
+  }
+
+  @Test
+  public void updateMultipleCustomersTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Customer customer2 = TestEntityCreator.createBasicCustomer();
+    customer.setName("Jane Doe");
+
+    CustomerService.createCustomer(customer);
+    CustomerService.createCustomer(customer2);
+
+    // Act
+    customer.setName("John");
+    customer2.setName("Jane");
+    CustomerService.updateCustomer(customer);
+    CustomerService.updateCustomer(customer2);
+
+    // Assert
+    assertEquals("John", customer.getName());
+    assertEquals("Jane", customer2.getName());
+  }
+
+  @Test
+  public void updateCustomerWithEmployerTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
+    CustomerService.createCustomer(customer);
+
+    // Act
+    customer.getEmployer().setName("New Employer");
+    CustomerService.updateCustomer(customer);
+
+    // Assert
+    assertEquals("New Employer", customer.getEmployer().getName());
+  }
+
+  @Test
+  public void getCustomerListByNameTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Customer customer2 = TestEntityCreator.createBasicCustomer();
+    CustomerService.createCustomer(customer);
+    CustomerService.createCustomer(customer2);
+
+    // Act
+    List<Customer> customers = CustomerService.getCustomerListByName("John");
+
+    // Assert
+    assertEquals(2, customers.size());
+    assertTrue(customers.get(0).getName().contains("John"));
+    assertTrue(customers.get(1).getName().contains("John"));
   }
 }

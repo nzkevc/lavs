@@ -26,17 +26,7 @@ public class PhonesRepository {
 
     for (int i = 1; i <= count; i++) {
       Phone phone = PhoneRepository.get(customer.getId(), message.getNumberFromServer(i));
-
-      if (phone.getPrimary() || phone.getCanSendTxt()) {
-        if (phone.getPrimary()) {
-          phones.setPrimaryPhone(phone);
-        }
-        if (phone.getCanSendTxt()) {
-          phones.setTextPhone(phone);
-        }
-      } else {
-        phones.addPhone(phone);
-      }
+      phones.addPhone(phone);
     }
 
     return phones;

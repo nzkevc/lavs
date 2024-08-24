@@ -1,5 +1,6 @@
 package uoa.lavs.services;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Addresses;
@@ -22,9 +23,11 @@ public class CustomerService implements IService {
     String customerId = CustomerRepository.create(newCustomer).getId();
     newCustomer.setId(customerId);
 
-    Employers employers = newCustomer.getEmployer();
-    employer.setCustomerId(newCustomer.getId());
-    EmployerRepository.update(employer);
+    Employer employer = newCustomer.getEmployer();
+    if (employer != null) {
+      employer.setCustomerId(newCustomer.getId());
+      EmployerRepository.create(employer);
+    }
 
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
@@ -62,12 +65,18 @@ public class CustomerService implements IService {
     CustomerRepository.update(newCustomer);
 
     Employer employer = newCustomer.getEmployer();
-    employer.setCustomerId(newCustomer.getId());
-    EmployerRepository.update(employer);
+    if (employer != null) {
+      employer.setCustomerId(newCustomer.getId());
+      EmployerRepository.update(employer);
+    }
 
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
+  }
+
+  public static List<Customer> getCustomerListByName(String name) throws RuntimeException {
+    return CustomerRepository.getCustomersByName(name);
   }
 }

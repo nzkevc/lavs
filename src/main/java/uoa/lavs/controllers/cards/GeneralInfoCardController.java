@@ -1,16 +1,16 @@
 package uoa.lavs.controllers.cards;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
 import uoa.lavs.State;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.ValidationUtils;
 
-public class GeneralInfoCardController extends AnchorPane implements ICard<Customer> {
+public class GeneralInfoCardController extends ICard<Customer> {
 
   private static final Logger logger = LoggerFactory.getLogger(GeneralInfoCardController.class);
 

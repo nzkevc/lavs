@@ -267,4 +267,9 @@ public class Customer implements IModel<Customer> {
   public boolean validate() throws ValidationException {
     return true;
   }
+
+  @Override
+  public String toString() {
+    return "%s: ID = %s".formatted(name, id);
+  }
 }

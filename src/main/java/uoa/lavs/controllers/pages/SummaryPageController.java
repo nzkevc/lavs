@@ -15,20 +15,22 @@ import uoa.lavs.controllers.cards.ContactCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.controllers.cards.LoansDisplayCardController;
+import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
-import uoa.lavs.utils.objects.TestEntityCreator;
+import uoa.lavs.utils.objects.DevEntityCreator;
 
-public class SummaryPageController extends AnchorPane implements IPage {
+public class SummaryPageController extends IPage {
 
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
@@ -59,6 +61,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+
+    // Rerender customer when customerFromSearch changes
     State.customerFromSearch.addListener(
         (obs, oldCustomer, newCustomer) -> {
           if (newCustomer == null) {
@@ -74,7 +78,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     cards.put(EmployerCardController.class, new EmployerCardController());
     cards.put(ContactCardController.class, new ContactCardController());
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(LoansDisplayCardController.class, new LoansDisplayCardController());
+    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
+
     switchCard(GeneralInfoCardController.class);
   }
 
@@ -127,7 +132,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    switchCard(LoansDisplayCardController.class);
+    switchCard(LoanCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -146,8 +151,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
     return (NoteCardController) cards.get(NoteCardController.class);
   }
 
-  private LoansDisplayCardController getLoansCard() {
-    return (LoansDisplayCardController) cards.get(LoansDisplayCardController.class);
+  private ScrollerController<Loan> getLoansCard() {
+    return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
 
   private void renderCustomer(Customer customer) {
@@ -160,7 +165,7 @@ public class SummaryPageController extends AnchorPane implements IPage {
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
-    getLoansCard().render(customer.getLoans());
+    getLoansCard().render(customer.getLoans().getLoans());
   }
 
   private void clearAll() {
@@ -176,14 +181,14 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
-    customer.getAddresses().setResidentialAddress(getContactCard().assemble().getAddress());
-    customer.getAddresses().setMailingAddress(getContactCard().assemble().getAddress());
-    customer.getPhones().setPrimaryPhone(getContactCard().assemble().getPhone());
-    customer.getPhones().setTextPhone(getContactCard().assemble().getPhone());
-    customer.getEmails().setPrimaryEmail(getContactCard().assemble().getEmail());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
+    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
+    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
+    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
+    customer.getEmails().addEmail(getContactCard().assemble().getEmail());
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
-    customer.setLoans(getLoansCard().assemble());
+    customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;
   }
 
@@ -227,8 +232,8 @@ public class SummaryPageController extends AnchorPane implements IPage {
   private void onTestGetBtnClick() {
     logger.debug("Getting TestEntity customer...");
     AsyncUtils.promise(
-        () -> TestEntityCreator.createFullCustomer(),
-        (customer) -> renderCustomer(customer),
+        () -> DevEntityCreator.createFullCustomer(),
+        (customer) -> State.customerFromSearch.setValue(customer),
         this::handleException);
   }
 

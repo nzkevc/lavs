@@ -1,23 +1,16 @@
 package uoa.lavs.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Emails {
   private String customerId;
-  private List<Email> emails;
+  private Set<Email> emails;
   private Email primaryEmail;
 
   public Emails(String customerId) {
     this.customerId = customerId;
-    this.emails = new ArrayList<>();
-  }
-
-  public Emails(String customerId, Email primaryEmail) {
-    this.customerId = customerId;
-    this.emails = new ArrayList<>();
-    this.primaryEmail = primaryEmail;
-    this.emails.add(primaryEmail);
+    this.emails = new HashSet<>();
   }
 
   public String getCustomerId() {
@@ -29,10 +22,16 @@ public class Emails {
   }
 
   public void addEmail(Email newEmail) {
-    emails.add(newEmail);
+    if (newEmail != null) {
+      if (newEmail.getIsPrimary()) {
+        setPrimaryEmail(newEmail);
+      } else {
+        emails.add(newEmail);
+      }
+    }
   }
 
-  public List<Email> getEmails() {
+  public Set<Email> getEmails() {
     return emails;
   }
 
@@ -44,12 +43,14 @@ public class Emails {
     return primaryEmail;
   }
 
-  public void setPrimaryEmail(Email email) {
-    if (primaryEmail != null) {
-      primaryEmail.setIsPrimary(false);
+  void setPrimaryEmail(Email email) {
+    if (email != null) {
+      if (primaryEmail != null) {
+        primaryEmail.setIsPrimary(false);
+      }
+      email.setIsPrimary(true);
+      primaryEmail = email;
+      emails.add(email);
     }
-    email.setIsPrimary(true);
-    primaryEmail = email;
-    emails.add(email);
   }
 }
