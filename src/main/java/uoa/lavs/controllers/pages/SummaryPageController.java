@@ -20,16 +20,17 @@ import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
-import uoa.lavs.models.Address;
+import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
-import uoa.lavs.models.Email;
+import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
-import uoa.lavs.models.Phone;
+import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ContactInfo;
 import uoa.lavs.utils.objects.DevEntityCreator;
 
 public class SummaryPageController extends IPage {
@@ -161,10 +162,12 @@ public class SummaryPageController extends IPage {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
     getGeneralInfoCard().render(customer);
-    Address address = customer.getAddresses().getResidentialAddress();
-    Phone phone = customer.getPhones().getPrimaryPhone();
-    Email email = customer.getEmails().getPrimaryEmail();
-    getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
+
+    Addresses addresses = customer.getAddresses();
+    Phones phones = customer.getPhones();
+    Emails emails = customer.getEmails();
+    getContactCard().render(new ContactInfo(addresses, phones, emails));
+
     getEmployerCard().render(customer.getEmployer());
     getNoteCard().render(customer.getNotes());
     getLoansCard().render(customer.getLoans().getLoans());
@@ -183,11 +186,14 @@ public class SummaryPageController extends IPage {
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
-    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
-    customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
-    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
-    customer.getPhones().addPhone(getContactCard().assemble().getPhone());
-    customer.getEmails().addEmail(getContactCard().assemble().getEmail());
+
+    Addresses addresses = getContactCard().assemble().addresses();
+    Phones phones = getContactCard().assemble().phones();
+    Emails emails = getContactCard().assemble().emails();
+    customer.setAddresses(addresses);
+    customer.setPhones(phones);
+    customer.setEmails(emails);
+
     customer.setEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
     customer.setLoans(new Loans(getLoansCard().assemble()));

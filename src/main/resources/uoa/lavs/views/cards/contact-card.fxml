@@ -8,27 +8,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import uoa.lavs.controllers.fragments.FieldController?>
+<?import uoa.lavs.controllers.fragments.ScrollerController?>
 
-<fx:root type="javafx.scene.layout.Pane" minHeight="0.0" minWidth="0.0"  prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.Pane" minHeight="0.0" minWidth="0.0"  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="321.0" prefWidth="989.0">
+      <VBox prefHeight="600.0" prefWidth="800.0" styleClass="vbox-card" spacing="50">
          <children>
-            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
-               <FieldController fx:id="addressLine1" key="Address Line 1" />
-               <FieldController fx:id="addressLine2" key="Address Line 2" />
-               <FieldController fx:id="suburb" key="Suburb" />
-               <FieldController fx:id="city" key="City" />
-               <FieldController fx:id="postcode" key="Postcode" />
-               <FieldController fx:id="country" key="Country" />
-            </VBox>
-            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
-               <FieldController fx:id="prefix" key="Prefix" />
-               <FieldController fx:id="phoneNumber" key="Phone" />
-            </VBox>
-            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
-               <FieldController fx:id="emailAddress" key="Email" />
-            </VBox>
+            <ScrollerController fx:id="addressCards" />
+            <ScrollerController fx:id="phoneCards" />
+            <ScrollerController fx:id="emailCards" />
          </children>
-      </HBox>
+      </VBox>
    </children>
 </fx:root>

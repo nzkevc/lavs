@@ -1,6 +1,7 @@
 package uoa.lavs.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +26,10 @@ public class CustomerServiceTests {
   public void createCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
 
     Address address = TestEntityCreator.createBasicAddress(customer);
     Email email = TestEntityCreator.createBasicEmail(customer);
@@ -54,9 +56,10 @@ public class CustomerServiceTests {
   public void getCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
 
     Address address = TestEntityCreator.createBasicAddress(customer);
     Email email = TestEntityCreator.createBasicEmail(customer);
@@ -91,9 +94,10 @@ public class CustomerServiceTests {
   public void updateCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setAddresses(new Addresses(null));
-    customer.setEmails(new Emails(null));
-    customer.setPhones(new Phones(null));
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
 
     // Can add more here as appropriate
     Address address = TestEntityCreator.createBasicAddress(customer);

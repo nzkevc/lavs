@@ -1,123 +1,62 @@
 package uoa.lavs.controllers.cards;
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
-import uoa.lavs.controllers.cards.ContactCardController.ContactTriple;
-import uoa.lavs.controllers.fragments.FieldController;
+import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
+import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Emails;
 import uoa.lavs.models.Phone;
+import uoa.lavs.models.Phones;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ContactInfo;
 
-public class ContactCardController extends ICard<ContactTriple> {
-
-  // Temporary, will probably be removed after demo
-  public static class ContactTriple {
-    Address address;
-    Phone phone;
-    Email email;
-
-    public ContactTriple(Address address, Phone phone, Email email) {
-      this.address = address;
-      this.phone = phone;
-      this.email = email;
-    }
-
-    public Address getAddress() {
-      return address;
-    }
-
-    public Phone getPhone() {
-      return phone;
-    }
-
-    public Email getEmail() {
-      return email;
-    }
-  }
+public class ContactCardController extends ICard<ContactInfo> {
 
   private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
-  @FXML private FieldController addressLine1;
-  @FXML private FieldController addressLine2;
-  @FXML private FieldController suburb;
-  @FXML private FieldController city;
-  @FXML private FieldController postcode;
-  @FXML private FieldController country;
-
-  @FXML private FieldController prefix;
-  @FXML private FieldController phoneNumber;
-
-  @FXML private FieldController emailAddress;
+  @FXML private ScrollerController<Address> addressCards;
+  @FXML private ScrollerController<Phone> phoneCards;
+  @FXML private ScrollerController<Email> emailCards;
 
   public ContactCardController() {
     ControllerUtils.loadFxml(this, "cards/contact-card.fxml");
   }
 
+  @FXML
+  public void initialize() {
+    addressCards.setCardController(AddressCardController.class);
+    phoneCards.setCardController(PhoneCardController.class);
+    emailCards.setCardController(EmailCardController.class);
+  }
+
   @Override
-  public void render(ContactTriple contacts) {
-    Address address = contacts.address;
-    addressLine1.setValue(address.getLine1());
-    addressLine2.setValue(address.getLine2());
-    suburb.setValue(address.getSuburb());
-    city.setValue(address.getCity());
-    postcode.setValue(address.getPostCode());
-    country.setValue(address.getCountry());
-
-    Phone phone = contacts.phone;
-    prefix.setValue(phone.getPrefix());
-    phoneNumber.setValue(phone.getPhoneNumber());
-
-    Email email = contacts.email;
-    emailAddress.setValue(email.getAddress());
+  public void render(ContactInfo contactInfo) {
+    Set<Address> addresses = contactInfo.addresses().getAddresses();
+    Set<Phone> phones = contactInfo.phones().getPhoneNumbers();
+    Set<Email> emails = contactInfo.emails().getEmails();
+    addressCards.render(addresses);
+    phoneCards.render(phones);
+    emailCards.render(emails);
   }
 
   @Override
   public void clear() {
-    addressLine1.clearValue();
-    addressLine2.clearValue();
-    suburb.clearValue();
-    city.clearValue();
-    postcode.clearValue();
-    country.clearValue();
-    prefix.clearValue();
-    phoneNumber.clearValue();
-    emailAddress.clearValue();
+    addressCards.clear();
+    phoneCards.clear();
+    emailCards.clear();
   }
 
   @Override
-  public ContactTriple assemble() {
-    return new ContactTriple(assembleAddress(), assemblePhone(), assembleEmail());
-  }
-
-  private Address assembleAddress() {
-    Address address = new Address();
-    address.setLine1(addressLine1.getValue());
-    address.setLine2(addressLine2.getValue());
-    address.setSuburb(suburb.getValue());
-    address.setCity(city.getValue());
-    address.setPostCode(postcode.getValue());
-    address.setCountry(country.getValue());
-    address.setIsPrimary(true);
-    address.setIsMailing(true);
-    return address;
-  }
-
-  private Phone assemblePhone() {
-    Phone phone = new Phone();
-    phone.setPrefix(prefix.getValue());
-    phone.setPhoneNumber(phoneNumber.getValue());
-    phone.setPrimary(true);
-    phone.setCanSendTxt(true);
-    return phone;
-  }
-
-  private Email assembleEmail() {
-    Email email = new Email();
-    email.setAddress(emailAddress.getValue());
-    email.setIsPrimary(true);
-    return email;
+  public ContactInfo assemble() {
+    Addresses addresses = new Addresses(addressCards.assemble());
+    Phones phones = new Phones(phoneCards.assemble());
+    Emails emails = new Emails(emailCards.assemble());
+    return new ContactInfo(addresses, phones, emails);
   }
 }
