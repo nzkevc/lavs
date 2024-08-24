@@ -1,14 +1,12 @@
 package uoa.lavs.mainframe.simulator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-
 import uoa.lavs.mainframe.messages.customer.FindCustomer;
 import uoa.lavs.mainframe.messages.customer.LoadCustomer;
 
