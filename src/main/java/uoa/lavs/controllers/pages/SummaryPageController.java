@@ -3,6 +3,7 @@ package uoa.lavs.controllers.pages;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.math3.analysis.function.Add;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,18 +14,25 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import uoa.lavs.App;
 import uoa.lavs.State;
+import uoa.lavs.controllers.cards.AddressCardController;
 import uoa.lavs.controllers.cards.ContactCardController;
+import uoa.lavs.controllers.cards.EmailCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoanCardController;
+import uoa.lavs.controllers.cards.LoanPaymentsCardController;
+import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
+import uoa.lavs.controllers.cards.PhoneCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
+import uoa.lavs.models.LoanSummary;
 import uoa.lavs.models.Loans;
+import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
@@ -146,6 +154,18 @@ public class SummaryPageController extends IPage {
     return (ContactCardController) cards.get(ContactCardController.class);
   }
 
+  private AddressCardController getAddressCard() {
+    return (AddressCardController) cards.get(AddressCardController.class);
+  }
+  
+  private EmailCardController getEmailCard() {
+    return (EmailCardController) cards.get(EmailCardController.class);
+  }
+
+  private PhoneCardController getPhoneCard() {
+    return (PhoneCardController) cards.get(PhoneCardController.class);
+  }
+
   private EmployerCardController getEmployerCard() {
     return (EmployerCardController) cards.get(EmployerCardController.class);
   }
@@ -157,6 +177,16 @@ public class SummaryPageController extends IPage {
   private ScrollerController<Loan> getLoansCard() {
     return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
+
+  private LoanSummaryCardController getLoanSummaryCard() {
+    return (LoanSummaryCardController) cards.get(LoanSummaryCardController.class);
+  }
+
+  private LoanPaymentsCardController getLoanPaymentsCard() {
+    return (LoanPaymentsCardController) cards.get(LoanPaymentsCardController.class);
+  }
+
+
 
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
