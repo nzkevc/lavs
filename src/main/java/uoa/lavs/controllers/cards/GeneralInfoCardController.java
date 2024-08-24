@@ -7,10 +7,8 @@ import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import uoa.lavs.State;
-import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
-import uoa.lavs.utils.ValidationUtils;
 
 public class GeneralInfoCardController extends ICard<Customer> {
 
