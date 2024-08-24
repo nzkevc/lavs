@@ -104,7 +104,7 @@ public class TestEntityCreator {
     Phone phone = new Phone(customer.getId(), null);
     phone.setType("Home");
     phone.setPrefix("09");
-    phone.setPhoneNumber("1234567");
+    phone.setPhoneNumber("7777777");
     phone.setPrimary(true);
     phone.setCanSendTxt(false);
     return phone;
@@ -142,21 +142,21 @@ public class TestEntityCreator {
   }
 
   public static Loan createBasicLoan(Customer customer) {
-    LocalDate startDate = LocalDate.of(1990, 1, 1);
+    LocalDate startDate = LocalDate.of(2024, 07, 22);
     Loan loan = new Loan();
     loan.setCustomerId(customer.getId());
     loan.setLoanId(null);
     loan.setCustomerName(customer.getName());
-    loan.setPrincipleCents(1000.00);
+    loan.setPrincipleCents(450000.00);
     loan.setStartDate(startDate);
-    loan.setPeriodMonths(10);
-    loan.setTerm(10);
-    loan.setInterestRate(0.05);
-    loan.setRateType(RateType.Floating);
-    loan.setCompoundingFrequency(Frequency.Weekly);
-    loan.setPaymentAmountCents(100.00);
+    loan.setPeriodMonths(24);
+    loan.setTerm(30);
+    loan.setInterestRate(8.15);
+    loan.setRateType(RateType.Fixed);
+    loan.setCompoundingFrequency(Frequency.Monthly);
+    loan.setPaymentAmountCents(3349.00);
     loan.setPaymentFrequency(Frequency.Monthly);
-    loan.setInterestOnly(true);
+    loan.setInterestOnly(false);
     return loan;
   }
 

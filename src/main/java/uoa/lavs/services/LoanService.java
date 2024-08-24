@@ -16,8 +16,7 @@ public class LoanService implements IService {
         LoanSummary loanSummary = LoanSummaryRepository.get(new LoanSummary(loan.getLoanId()));
         loan.setLoanSummary(loanSummary);
 
-        LoanPayments loanPayments =
-            LoanPaymentsRepository.get(new LoanPayments(loan.getLoanId(), 1));
+        LoanPayments loanPayments = LoanPaymentsRepository.get(new LoanPayments(loan.getLoanId()));
         loan.setLoanPayments(loanPayments);
       }
       return loans;
