@@ -6,7 +6,7 @@ import java.util.Set;
 public class Addresses {
   private String customerId;
   private Set<Address> addresses;
-  private Address residentialAddress;
+  private Address primaryAddress;
   private Address mailingAddress;
 
   public Addresses(String customerId) {
@@ -25,7 +25,7 @@ public class Addresses {
   public void addAddress(Address newAddress) {
     if (newAddress != null) {
       if (newAddress.getPrimary()) {
-        setResidentialAddress(newAddress);
+        setPrimaryAddress(newAddress);
       }
 
       if (newAddress.getMailing()) {
@@ -46,16 +46,16 @@ public class Addresses {
     return addresses.size();
   }
 
-  public Address getResidentialAddress() {
-    return residentialAddress;
+  public Address getPrimaryAddress() {
+    return primaryAddress;
   }
 
-  void setResidentialAddress(Address address) {
+  void setPrimaryAddress(Address address) {
     if (address != null) {
-      if (residentialAddress != null) {
-        residentialAddress.setIsPrimary(false);
+      if (primaryAddress != null) {
+        primaryAddress.setIsPrimary(false);
       }
-      residentialAddress = address;
+      primaryAddress = address;
       addresses.add(address);
     }
   }

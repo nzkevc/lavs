@@ -34,7 +34,7 @@ public class AddressesRepositoryTests {
 
     // Act
     Addresses addresses = AddressesRepository.get(customer);
-    Address fetchedPrimaryAddress = addresses.getResidentialAddress();
+    Address fetchedPrimaryAddress = addresses.getPrimaryAddress();
     Address fetchedMailingAddress = addresses.getMailingAddress();
 
     // Assert
