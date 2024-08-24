@@ -1,9 +1,8 @@
 package uoa.lavs.controllers.cards;
 
+import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javafx.fxml.FXML;
 import uoa.lavs.controllers.cards.ContactCardController.ContactTriple;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;

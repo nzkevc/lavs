@@ -1,16 +1,14 @@
 package uoa.lavs;
 
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.MainController;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
 import uoa.lavs.utils.AsyncUtils;
@@ -62,7 +60,7 @@ public class App extends Application {
 
     // Set up application
     ConnectionInstance.setConnection(new NitriteConnection("data/nitrite.db"));
-    State.getInstance().loadState();
+    State.loadState();
     stage.show();
   }
 
