@@ -1,195 +1,204 @@
 package uoa.lavs.mainframe.simulator.nitrite;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+
 import uoa.lavs.mainframe.Connection;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.RateType;
 import uoa.lavs.mainframe.Status;
-import uoa.lavs.mainframe.messages.customer.*;
+import uoa.lavs.mainframe.messages.customer.FindCustomer;
+import uoa.lavs.mainframe.messages.customer.LoadCustomer;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomer;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerAddress;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerChildMessage;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmail;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerEmployer;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerNote;
+import uoa.lavs.mainframe.messages.customer.UpdateCustomerPhoneNumber;
 import uoa.lavs.mainframe.messages.loan.LoadLoanPayments;
 import uoa.lavs.mainframe.messages.loan.UpdateLoan;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
 
-import java.io.IOException;
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class IntegrationTests {
-    private static String getTypeName(Object message) {
-        String fullName = message.getClass().getName();
-        String[] parts = fullName.split("\\.");
-        return parts[parts.length - 1];
+  private static String getTypeName(Object message) {
+    String fullName = message.getClass().getName();
+    String[] parts = fullName.split("\\.");
+    return parts[parts.length - 1];
+  }
+
+  @Test
+  public void addingMultipleCustomersWillUpdateTheNextId() throws IOException {
+    // Arrange
+    Connection connection = new NitriteConnection("data/testing/lavs-data.db");
+
+    try {
+      // Act 1: add the first customer
+      UpdateCustomer update = new UpdateCustomer();
+      update.setCustomerId(null);
+      update.setName("John Doe");
+      Status firstStatus = update.send(connection);
+      String firstId = update.getCustomerIdFromServer();
+
+      // Assert 1
+      assertTrue(firstStatus.getWasSuccessful());
+
+      // Act 2: add the second customer
+      update.setCustomerId(null);
+      Status secondStatus = update.send(connection);
+      String secondId = update.getCustomerIdFromServer();
+
+      // Assert 2
+      assertAll(
+          () -> assertTrue(secondStatus.getWasSuccessful()),
+          () -> assertNotEquals(firstId, secondId));
+
+      // Act 3: add the third customer
+      update.setCustomerId(null);
+      Status thirdStatus = update.send(connection);
+      String thirdId = update.getCustomerIdFromServer();
+      assertAll(
+          () -> assertTrue(thirdStatus.getWasSuccessful()),
+          () -> assertNotEquals(firstId, thirdId),
+          () -> assertNotEquals(thirdId, secondId));
+    } finally {
+      connection.close();
+    }
+  }
+
+  @Test
+  public void testDataPersistence() throws IOException {
+    // arrange
+    Connection connection = new NitriteConnection("data/testing/lavs-data.db");
+    String customerId;
+
+    // act #1: add a customer
+    try {
+      UpdateCustomer newCustomer = new UpdateCustomer();
+      newCustomer.setCustomerId(null);
+      newCustomer.setName("John Doe");
+      Status status = newCustomer.send(connection);
+      assertTrue(status.getWasSuccessful());
+      customerId = newCustomer.getCustomerIdFromServer();
+    } finally {
+      connection.close();
     }
 
-    @Test
-    public void addingMultipleCustomersWillUpdateTheNextId() throws IOException {
-        // Arrange
-        Connection connection = new NitriteConnection("testing/lavs-data.db");
+    // act #2: load the customer
+    connection = new NitriteConnection("data/testing/lavs-data.db");
+    try {
+      LoadCustomer loadCustomer = new LoadCustomer();
+      loadCustomer.setCustomerId(customerId);
+      Status status = loadCustomer.send(connection);
+      assertAll(
+          () -> assertTrue(status.getWasSuccessful()),
+          () -> assertEquals(0, status.getErrorCode()),
+          () -> assertNull(status.getErrorMessage()));
 
-        try {
-            // Act 1: add the first customer
-            UpdateCustomer update = new UpdateCustomer();
-            update.setCustomerId(null);
-            update.setName("John Doe");
-            Status firstStatus = update.send(connection);
-            String firstId = update.getCustomerIdFromServer();
-
-            // Assert 1
-            assertTrue(firstStatus.getWasSuccessful());
-
-            // Act 2: add the second customer
-            update.setCustomerId(null);
-            Status secondStatus = update.send(connection);
-            String secondId = update.getCustomerIdFromServer();
-
-            // Assert 2
-            assertAll(
-                    () -> assertTrue(secondStatus.getWasSuccessful()),
-                    () -> assertNotEquals(firstId, secondId)
-            );
-
-            // Act 3: add the third customer
-            update.setCustomerId(null);
-            Status thirdStatus = update.send(connection);
-            String thirdId = update.getCustomerIdFromServer();
-            assertAll(
-                    () -> assertTrue(thirdStatus.getWasSuccessful()),
-                    () -> assertNotEquals(firstId, thirdId),
-                    () -> assertNotEquals(thirdId, secondId)
-            );
-        } finally {
-            connection.close();
-        }
+      // assert
+      assertEquals("John Doe", loadCustomer.getNameFromServer());
+    } finally {
+      connection.close();
     }
+  }
 
-    @Test
-    public void testDataPersistence() throws IOException {
-        // arrange
-        Connection connection = new NitriteConnection("testing/lavs-data.db");
-        String customerId;
+  @Test
+  public void addACustomerAndALoan() throws IOException {
+    // Arrange
+    Connection connection = new NitriteConnection("data/testing/lavs-data.db");
 
-        // act #1: add a customer
-        try {
-            UpdateCustomer newCustomer = new UpdateCustomer();
-            newCustomer.setCustomerId(null);
-            newCustomer.setName("John Doe");
-            Status status = newCustomer.send(connection);
-            assertTrue(status.getWasSuccessful());
-            customerId = newCustomer.getCustomerIdFromServer();
-        } finally {
-            connection.close();
-        }
+    try {
+      // Act 1: add a new customer
+      UpdateCustomer newCustomer = new UpdateCustomer();
+      newCustomer.setCustomerId(null);
+      newCustomer.setName("John Doe");
+      Status customerStatus = newCustomer.send(connection);
+      assertTrue(customerStatus.getWasSuccessful());
+      String customerId = newCustomer.getCustomerIdFromServer();
 
-        // act #2: load the customer
-        connection = new NitriteConnection("testing/lavs-data.db");
-        try {
-            LoadCustomer loadCustomer = new LoadCustomer();
-            loadCustomer.setCustomerId(customerId);
-            Status status = loadCustomer.send(connection);
-            assertAll(
-                    () -> assertTrue(status.getWasSuccessful()),
-                    () -> assertEquals(0, status.getErrorCode()),
-                    () -> assertNull(status.getErrorMessage())
-            );
+      // Act 2: add a new loan for the customer
+      UpdateLoan newLoan = new UpdateLoan();
+      newLoan.setCustomerId(customerId);
+      newLoan.setLoanId(null);
+      newLoan.setRateType(RateType.Fixed);
+      newLoan.setPaymentFrequency(Frequency.Weekly);
+      newLoan.setCompounding(Frequency.Weekly);
+      Status loanStatus = newLoan.send(connection);
 
-            // assert
-            assertEquals("John Doe", loadCustomer.getNameFromServer());
-        } finally {
-            connection.close();
-        }
+      // Assert
+      assertAll(
+          () -> assertTrue(loanStatus.getWasSuccessful()),
+          () -> assertEquals(0, loanStatus.getErrorCode()),
+          () -> assertNull(loanStatus.getErrorMessage()),
+          () -> assertEquals(customerId + "-01", newLoan.getLoanIdFromServer()));
+    } finally {
+      connection.close();
     }
+  }
 
-    @Test
-    public void addACustomerAndALoan() throws IOException {
-        // Arrange
-        Connection connection = new NitriteConnection("testing/lavs-data.db");
+  @Test
+  public void updateLoadCustomer() throws IOException {
+    // Arrange
+    Connection connection = new NitriteConnection("data/testing/lavs-data.db");
 
-        try {
-            // Act 1: add a new customer
-            UpdateCustomer newCustomer = new UpdateCustomer();
-            newCustomer.setCustomerId(null);
-            newCustomer.setName("John Doe");
-            Status customerStatus = newCustomer.send(connection);
-            assertTrue(customerStatus.getWasSuccessful());
-            String customerId = newCustomer.getCustomerIdFromServer();
+    try {
+      // Act 1: add a new customer
+      UpdateCustomer update = new UpdateCustomer();
+      update.setCustomerId(null);
+      update.setName("John Doe");
+      Status status = update.send(connection);
+      assertTrue(status.getWasSuccessful());
 
-            // Act 2: add a new loan for the customer
-            UpdateLoan newLoan = new UpdateLoan();
-            newLoan.setCustomerId(customerId);
-            newLoan.setLoanId(null);
-            newLoan.setRateType(RateType.Fixed);
-            newLoan.setPaymentFrequency(Frequency.Weekly);
-            newLoan.setCompounding(Frequency.Weekly);
-            Status loanStatus = newLoan.send(connection);
+      // Act 2: retrieve the customer details
+      LoadCustomer load = new LoadCustomer();
+      load.setCustomerId(update.getCustomerIdFromServer());
+      status = load.send(connection);
+      assertTrue(status.getWasSuccessful());
 
-            // Assert
-            assertAll(
-                    () -> assertTrue(loanStatus.getWasSuccessful()),
-                    () -> assertEquals(0, loanStatus.getErrorCode()),
-                    () -> assertNull(loanStatus.getErrorMessage()),
-                    () -> assertEquals(customerId + "-01", newLoan.getLoanIdFromServer())
-            );
-        } finally {
-            connection.close();
-        }
+      // Act 3: attempt to find the customer
+      FindCustomer find = new FindCustomer();
+      find.setCustomerId(update.getCustomerIdFromServer());
+      status = find.send(connection);
+      assertTrue(status.getWasSuccessful());
+
+      // Assert
+      assertAll(
+          () -> assertEquals("John Doe", load.getNameFromServer()),
+          () -> assertEquals("John Doe", find.getNameFromServer(1)));
+    } finally {
+      connection.close();
     }
+  }
 
-    @Test
-    public void updateLoadCustomer() throws IOException {
-        // Arrange
-        Connection connection = new NitriteConnection("testing/lavs-data.db");
+  private Status runUpdateCustomerChildTest(
+      UpdateCustomerChildMessage message, Connection connection, String customerId)
+      throws IOException {
+    message.setCustomerId(customerId);
+    message.setNumber(null);
+    Status status = message.send(connection);
+    assertAll(
+        () -> assertTrue(status.getWasSuccessful()),
+        () -> assertEquals(0, status.getErrorCode()),
+        () -> assertNull(status.getErrorMessage()),
+        () ->
+            assertNotNull(
+                message.getNumberFromServer(),
+                "Child update message " + getTypeName(message) + " returned null"));
+    return status;
+  }
 
-        try {
-            // Act 1: add a new customer
-            UpdateCustomer update = new UpdateCustomer();
-            update.setCustomerId(null);
-            update.setName("John Doe");
-            Status status = update.send(connection);
-            assertTrue(status.getWasSuccessful());
-
-            // Act 2: retrieve the customer details
-            LoadCustomer load = new LoadCustomer();
-            load.setCustomerId(update.getCustomerIdFromServer());
-            status = load.send(connection);
-            assertTrue(status.getWasSuccessful());
-
-            // Act 3: attempt to find the customer
-            FindCustomer find = new FindCustomer();
-            find.setCustomerId(update.getCustomerIdFromServer());
-            status = find.send(connection);
-            assertTrue(status.getWasSuccessful());
-
-            // Assert
-            assertAll(
-                    () -> assertEquals("John Doe", load.getNameFromServer()),
-                    () -> assertEquals("John Doe", find.getNameFromServer(1))
-            );
-        } finally {
-            connection.close();
-        }
-    }
-
-    private Status runUpdateCustomerChildTest(
-            UpdateCustomerChildMessage message,
-            Connection connection,
-            String customerId) throws IOException {
-        message.setCustomerId(customerId);
-        message.setNumber(null);
-        Status status = message.send(connection);
-        assertAll(
-                () -> assertTrue(status.getWasSuccessful()),
-                () -> assertEquals(0, status.getErrorCode()),
-                () -> assertNull(status.getErrorMessage()),
-                () -> assertNotNull(message.getNumberFromServer(), "Child update message " + getTypeName(message) + " returned null")
-        );
-        return status;
-    }
-
-    @Test
-    public void addNewCustomerAndAllChildItems() throws IOException {
-        // Arrange
-        Connection connection = new NitriteConnection("testing/lavs-data.db");
+  @Test
+  public void addNewCustomerAndAllChildItems() throws IOException {
+    // Arrange
+    Connection connection = new NitriteConnection("data/testing/lavs-data.db");
 
         try {
             // Act 1: add a new customer
