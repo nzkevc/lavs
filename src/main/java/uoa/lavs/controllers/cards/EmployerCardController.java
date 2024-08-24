@@ -3,6 +3,8 @@ package uoa.lavs.controllers.cards;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
@@ -15,17 +17,29 @@ public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 
-  @FXML private FieldController employerName;
-  @FXML private FieldController addressLine1;
-  @FXML private FieldController addressLine2;
-  @FXML private FieldController suburb;
-  @FXML private FieldController city;
-  @FXML private FieldController postcode;
-  @FXML private FieldController country;
 
-  @FXML private FieldController phone;
-  @FXML private FieldController emailAddress;
-  @FXML private FieldController website;
+  @FXML private MFXTextField employerName;
+  @FXML private MFXCheckbox isOwner;
+
+  @FXML private MFXTextField addressLine1;
+  @FXML private MFXTextField addressLine2;
+  @FXML private MFXTextField suburb;
+  @FXML private MFXTextField city;
+  @FXML private MFXTextField postcode;
+  @FXML private MFXTextField country;
+  @FXML private MFXCheckbox isPrimary;
+  @FXML private MFXCheckbox isMailing;
+
+  @FXML private MFXTextField prefix;
+  @FXML private MFXTextField phoneNumber;
+  @FXML private MFXCheckbox isPhonePrimary;
+  @FXML private MFXCheckbox isPhoneSendText;
+
+  @FXML private MFXTextField  emailAddress;
+  @FXML private MFXCheckbox isEmailPrimary;
+
+  @FXML private MFXTextField website;
+
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
@@ -33,62 +47,89 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public void render(Employer employer) {
-    employerName.setValue(employer.getName());
+    employerName.setText(employer.getName());
+    isOwner.setSelected(employer.isOwner());
 
-    Address employerAddress = employer.getAddress();
-    addressLine1.setValue(employerAddress.getLine1());
-    addressLine2.setValue(employerAddress.getLine2());
-    suburb.setValue(employerAddress.getSuburb());
-    city.setValue(employerAddress.getCity());
-    postcode.setValue(employerAddress.getPostCode());
-    country.setValue(employerAddress.getCountry());
+    Address address = employer.getAddress();
+    addressLine1.setText(address.getLine1());
+    addressLine2.setText(address.getLine2());
+    suburb.setText(address.getSuburb());
+    city.setText(address.getCity());
+    postcode.setText(address.getPostCode());
+    country.setText(address.getCountry());
+    isPrimary.setSelected(address.getPrimary());
+    isMailing.setSelected(address.getMailing());
 
-    Phone employerPhone = employer.getPhone();
-    phone.setValue(employerPhone.getFullNumber()); // Check
+    Phone phone = employer.getPhone();
+    prefix.setText(phone.getPrefix());
+    phoneNumber.setText(phone.getPhoneNumber());
+    isPhonePrimary.setSelected(phone.getPrimary());
+    isPhoneSendText.setSelected(phone.getCanSendTxt());
 
-    Email employerEmail = employer.getEmail();
-    emailAddress.setValue(employerEmail.getAddress());
+    Email email = employer.getEmail();
+    emailAddress.setText(email.getAddress());
+    isEmailPrimary.setSelected(email.getIsPrimary());
 
-    website.setValue(employer.getWebsite());
+    website.setText(employer.getWebsite());
   }
 
   @Override
   public void clear() {
-    employerName.clearValue();
-    addressLine1.clearValue();
-    addressLine2.clearValue();
-    suburb.clearValue();
-    city.clearValue();
-    postcode.clearValue();
-    country.clearValue();
-    phone.clearValue();
-    emailAddress.clearValue();
-    website.clearValue();
+    employerName.clear();
+    isOwner.setSelected(false);
+
+    addressLine1.clear();
+    addressLine2.clear();
+    suburb.clear();
+    city.clear();
+    postcode.clear();
+    country.clear();
+    isPrimary.setSelected(false);
+    isMailing.setSelected(false);
+
+    prefix.clear();
+    phoneNumber.clear();
+    isPhonePrimary.setSelected(false);
+    isPhoneSendText.setSelected(false);
+
+    emailAddress.clear();
+    isEmailPrimary.setSelected(false);
+
+    website.clear();
   }
 
   @Override
   public Employer assemble() {
+   
     Employer employer = new Employer();
-    employer.setName(employerName.getValue());
+    employer.setName(employerName.getText());
+    employer.setOwner(isOwner.isSelected());
 
-    Address employerAddress = new Address();
-    employerAddress.setLine1(addressLine1.getValue());
-    employerAddress.setLine2(addressLine2.getValue());
-    employerAddress.setSuburb(suburb.getValue());
-    employerAddress.setCity(city.getValue());
-    employerAddress.setPostCode(postcode.getValue());
-    employerAddress.setCountry(country.getValue());
-    employer.setAddress(employerAddress);
+    Address address = new Address();
+    address.setLine1(addressLine1.getText());
+    address.setLine2(addressLine2.getText());
+    address.setSuburb(suburb.getText());
+    address.setCity(city.getText());
+    address.setPostCode(postcode.getText());
+    address.setCountry(country.getText());
+    address.setIsPrimary(isPrimary.isSelected());
+    address.setIsMailing(isMailing.isSelected());
+    employer.setAddress(address);
 
-    Phone employerPhone = new Phone();
-    employerPhone.setPhoneNumber(phone.getValue());
-    employer.setPhone(employerPhone);
+    Phone phone = new Phone();
+    phone.setPrefix(prefix.getText());
+    phone.setPhoneNumber(phoneNumber.getText());
+    phone.setPrimary(isPhonePrimary.isSelected());
+    phone.setCanSendTxt(isPhoneSendText.isSelected());
+    employer.setPhone(phone);
 
-    Email employerEmail = new Email();
-    employerEmail.setAddress(emailAddress.getValue());
-    employer.setEmail(employerEmail);
+    Email email = new Email();
+    email.setAddress(emailAddress.getText());
+    email.setIsPrimary(isEmailPrimary.isSelected());
+    employer.setEmail(email);
 
-    employer.setWebsite(website.getValue());
+    employer.setWebsite(website.getText());
+
     return employer;
   }
 }
