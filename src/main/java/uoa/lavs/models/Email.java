@@ -60,10 +60,7 @@ public class Email implements IModel<Email> {
   // TODO
   @Override
   public boolean validate() throws ValidationException {
-    if (validateCustomerId(customerID)
-        && validateNumber(number)
-        && validateAddress(emailAddress)
-        && validateIsPrimary(isPrimary)) {
+    if (validateCustomerId(customerID) && validateNumber(number) && validateAddress(emailAddress)) {
       return true;
     } else {
       throw new ValidationException("Email validation failed");
@@ -86,9 +83,5 @@ public class Email implements IModel<Email> {
       return false;
     }
     return address.length() <= 60 && !address.isEmpty();
-  }
-
-  public boolean validateIsPrimary(Boolean isPrimary) {
-    return isPrimary != null;
   }
 }

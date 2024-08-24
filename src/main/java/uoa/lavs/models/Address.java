@@ -178,9 +178,7 @@ public class Address implements IModel<Address> {
         && validateSuburb(suburb)
         && validateCity(city)
         && validatePostcode(postcode)
-        && validateCountry(country)
-        && validatePrimary(isPrimary)
-        && validateMailing(isMailing)) {
+        && validateCountry(country)) {
       return true;
     } else {
       throw new ValidationException("Address validation failed.");
@@ -242,13 +240,5 @@ public class Address implements IModel<Address> {
       return false;
     }
     return country.length() <= 30 && !country.isEmpty();
-  }
-
-  public boolean validatePrimary(Boolean isPrimary) {
-    return isPrimary != null;
-  }
-
-  public boolean validateMailing(Boolean isMailing) {
-    return isMailing != null;
   }
 }
