@@ -255,5 +255,6 @@ public class SummaryPageController extends IPage {
 
   private void handleException(Throwable e) {
     MessageUtils.setMessageError(e.getMessage());
+    e.printStackTrace();
   }
 }

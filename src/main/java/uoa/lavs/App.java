@@ -53,7 +53,6 @@ public class App extends Application {
     stage.getIcons().add(ResourceUtils.loadImage("countrywide-bank-logo.png"));
 
     // Set up fullscreen
-    stage.setMaximized(true);
     stage.setFullScreen(true);
     stage.setFullScreenExitHint("Press F11 to exit full screen mode.");
     scene.setOnKeyPressed(
