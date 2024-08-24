@@ -24,7 +24,7 @@ public class AddressServiceTests {
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = CustomerRepository.create(customer);
 
-    Address address = TestEntityCreator.createBasicPrimaryAddress(customer);
+    Address address = TestEntityCreator.createBasicAddress(customer);
 
     customer.getAddresses().addAddress(address);
 
