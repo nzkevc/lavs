@@ -123,4 +123,11 @@ public class Employer implements IModel<Employer> {
   public boolean validate() throws ValidationException {
     return true;
   }
+
+  public boolean validateCustomerId(String customerId) throws ValidationException {
+    if (customerId == null || customerId.isEmpty()) {
+      throw new ValidationException("Customer ID is required.");
+    }
+    return true;
+  }
 }
