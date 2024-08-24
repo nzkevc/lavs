@@ -1,5 +1,7 @@
 package uoa.lavs.models;
 
+import uoa.lavs.utils.objects.ValidationException;
+
 public class Address implements IModel<Address> {
   private String customerID;
   private Integer number;
@@ -168,7 +170,75 @@ public class Address implements IModel<Address> {
 
   // TODO
   @Override
-  public boolean validate() {
-    return true;
+  public boolean validate() throws ValidationException {
+    if (validateCustomerId(customerID)
+        && validateType(type)
+        && validateLine1(line1)
+        && validateLine2(line2)
+        && validateSuburb(suburb)
+        && validateCity(city)
+        && validatePostcode(postcode)
+        && validateCountry(country)) {
+      return true;
+    } else {
+      throw new ValidationException("Address validation failed.");
+    }
+  }
+
+  public boolean validateCustomerId(String customerId) {
+    if (customerId == null) {
+      return false;
+    }
+    return customerId.length() <= 10 && !customerId.isEmpty();
+  }
+
+  public boolean validateType(String type) {
+    if (type == null) {
+      return false;
+    }
+    return type.length() <= 20 && !type.isEmpty();
+  }
+
+  public boolean validateLine1(String line1) {
+    if (line1 == null) {
+      return false;
+    }
+    return line1.length() <= 60 && !line1.isEmpty();
+  }
+
+  // this means line2 is optional
+  public boolean validateLine2(String line2) {
+    if (line2 == null) {
+      return false;
+    }
+    return line2.length() <= 60;
+  }
+
+  public boolean validateSuburb(String suburb) {
+    if (suburb == null) {
+      return false;
+    }
+    return suburb.length() <= 30 && !suburb.isEmpty();
+  }
+
+  public boolean validateCity(String city) {
+    if (city == null) {
+      return false;
+    }
+    return city.length() <= 30 && !city.isEmpty();
+  }
+
+  public boolean validatePostcode(String postcode) {
+    if (postcode == null) {
+      return false;
+    }
+    return postcode.length() <= 10 && !postcode.isEmpty();
+  }
+
+  public boolean validateCountry(String country) {
+    if (country == null) {
+      return false;
+    }
+    return country.length() <= 30 && !country.isEmpty();
   }
 }
