@@ -19,11 +19,9 @@ public class LoanPaymentsCardController extends ICard<LoanPayments>{
 
     @FXML private MFXPaginatedTableView<LoanPaymentRow> loanPaymentsTable;
 
-
     @Override
     public void render(LoanPayments loanPayments) {
         
-        //Add loan payments to the table
         setupTable(loanPayments);
         loanPaymentsTable.autosizeColumnsOnInitialization();
 
@@ -34,38 +32,38 @@ public class LoanPaymentsCardController extends ICard<LoanPayments>{
     }
 
     private void setupTable(LoanPayments loanPayments) {
-    List<Double> paymentInterests = loanPayments.getPaymentInterests();
-    List<Double> paymentPrincipals = loanPayments.getPaymentPrincipals();
-    List<Double> paymentRemainings = loanPayments.getPaymentRemainings();
-    List<Integer> paymentNumbers = loanPayments.getPaymentNumbers();
+        List<Double> paymentInterests = loanPayments.getPaymentInterests();
+        List<Double> paymentPrincipals = loanPayments.getPaymentPrincipals();
+        List<Double> paymentRemainings = loanPayments.getPaymentRemainings();
+        List<Integer> paymentNumbers = loanPayments.getPaymentNumbers();
 
-    List<LoanPaymentRow> tableRows = new ArrayList<>();
-    for (int i = 0; i < paymentNumbers.size(); i++) {
-        tableRows.add(new LoanPaymentRow(
-            paymentInterests.get(i),
-            paymentPrincipals.get(i),
-            paymentRemainings.get(i),
-            paymentNumbers.get(i)
-        ));
-}
-    MFXTableColumn<LoanPaymentRow> interestColumn = new MFXTableColumn<>("Interest", false, Comparator.comparing(LoanPaymentRow::getPaymentInterest));
-    MFXTableColumn<LoanPaymentRow> principalColumn = new MFXTableColumn<>("Principal", false, Comparator.comparing(LoanPaymentRow::getPaymentPrincipal));
-    MFXTableColumn<LoanPaymentRow> remainingColumn = new MFXTableColumn<>("Remaining", false, Comparator.comparing(LoanPaymentRow::getPaymentRemaining));
-    MFXTableColumn<LoanPaymentRow> numberColumn = new MFXTableColumn<>("Number", false, Comparator.comparing(LoanPaymentRow::getPaymentNumber));
+        List<LoanPaymentRow> tableRows = new ArrayList<>();
+        for (int i = 0; i < paymentNumbers.size(); i++) {
+            tableRows.add(new LoanPaymentRow(
+                paymentInterests.get(i),
+                paymentPrincipals.get(i),
+                paymentRemainings.get(i),
+                paymentNumbers.get(i)
+            ));
+        }
+        MFXTableColumn<LoanPaymentRow> interestColumn = new MFXTableColumn<>("Interest", false, Comparator.comparing(LoanPaymentRow::getPaymentInterest));
+        MFXTableColumn<LoanPaymentRow> principalColumn = new MFXTableColumn<>("Principal", false, Comparator.comparing(LoanPaymentRow::getPaymentPrincipal));
+        MFXTableColumn<LoanPaymentRow> remainingColumn = new MFXTableColumn<>("Remaining", false, Comparator.comparing(LoanPaymentRow::getPaymentRemaining));
+        MFXTableColumn<LoanPaymentRow> numberColumn = new MFXTableColumn<>("Number", false, Comparator.comparing(LoanPaymentRow::getPaymentNumber));
 
-    interestColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentInterest));
-    principalColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentPrincipal));
-    remainingColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentRemaining));
-    numberColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentNumber));
+        interestColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentInterest));
+        principalColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentPrincipal));
+        remainingColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentRemaining));
+        numberColumn.setRowCellFactory(payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentNumber));
 
-    loanPaymentsTable.getTableColumns().addAll(interestColumn, principalColumn, remainingColumn, numberColumn);
-    loanPaymentsTable.getFilters().addAll(
-        new DoubleFilter<>("Interest", LoanPaymentRow::getPaymentInterest),
-        new DoubleFilter<>("Principal", LoanPaymentRow::getPaymentPrincipal),
-        new DoubleFilter<>("Remaining", LoanPaymentRow::getPaymentRemaining),
-        new IntegerFilter<>("Number", LoanPaymentRow::getPaymentNumber)
-	);
-    loanPaymentsTable.setItems(FXCollections.observableArrayList(tableRows));
+        loanPaymentsTable.getTableColumns().addAll(interestColumn, principalColumn, remainingColumn, numberColumn);
+        loanPaymentsTable.getFilters().addAll(
+            new DoubleFilter<>("Interest", LoanPaymentRow::getPaymentInterest),
+            new DoubleFilter<>("Principal", LoanPaymentRow::getPaymentPrincipal),
+            new DoubleFilter<>("Remaining", LoanPaymentRow::getPaymentRemaining),
+            new IntegerFilter<>("Number", LoanPaymentRow::getPaymentNumber)
+        );
+        loanPaymentsTable.setItems(FXCollections.observableArrayList(tableRows));
     }
 
     @Override
