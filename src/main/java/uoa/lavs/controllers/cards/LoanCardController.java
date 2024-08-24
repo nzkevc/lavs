@@ -1,5 +1,10 @@
 package uoa.lavs.controllers.cards;
 
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.base.MFXCombo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
@@ -15,36 +20,34 @@ import uoa.lavs.utils.ValidationUtils;
 
 public class LoanCardController extends ICard<Loan> {
 
-  @FXML private Accordion accordion;
   @FXML private Label loanIdLbl;
   private String loanId;
 
-  // loan details
-  @FXML private FieldController status;
-  @FXML private FieldController principleCents;
-  @FXML private FieldController startDate;
-  @FXML private FieldController periodMonths;
-  @FXML private FieldController term;
-  @FXML private FieldController interestRate;
-  @FXML private FieldController rateType;
-  @FXML private FieldController compoundingFrequency;
-  @FXML private FieldController paymentAmountCents;
-  @FXML private FieldController paymentFrequency;
-  @FXML private FieldController interestOnly;
+  @FXML private MFXComboBox<LoanStatus> loanStatus;
+  @FXML private MFXTextField principal;
+  @FXML private MFXDatePicker startDate;
+  @FXML private MFXTextField period;
+  @FXML private MFXTextField term;
+  @FXML private MFXTextField interestRate;
+  @FXML private MFXComboBox<RateType> rateType;
+  @FXML private MFXComboBox<Frequency> compoundingFrequency;
+  @FXML private MFXTextField paymentAmount;
+  @FXML private MFXComboBox<Frequency> paymentFrequency;
+  @FXML private MFXCheckbox interestOnly;
 
   // loan summary details
-  @FXML private FieldController principle;
-  @FXML private FieldController rateValue;
-  @FXML private FieldController payoffDate;
-  @FXML private FieldController totalInterest;
-  @FXML private FieldController totalLoanCost;
-  @FXML private FieldController paymentAmount;
+  // @FXML private FieldController principle;
+  // @FXML private FieldController rateValue;
+  // @FXML private FieldController payoffDate;
+  // @FXML private FieldController totalInterest;
+  // @FXML private FieldController totalLoanCost;
+  // @FXML private FieldController paymentAmount;
 
-  // loan payments details
-  @FXML private FieldController number;
-  @FXML private FieldController pages;
-  @FXML private FieldController payments;
-  @FXML private FieldController paymentInterests;
+  // // loan payments details
+  // @FXML private FieldController number;
+  // @FXML private FieldController pages;
+  // @FXML private FieldController payments;
+  // @FXML private FieldController paymentInterests;
 
   // @FXML private FieldController paymentPrincipals;
   // @FXML private FieldController paymentRemainings;
@@ -56,7 +59,7 @@ public class LoanCardController extends ICard<Loan> {
 
   @FXML
   private void initialize() {
-    status.setEditable(false);
+    loanStatus.setEditable(false);
   }
 
   @Override
@@ -67,98 +70,99 @@ public class LoanCardController extends ICard<Loan> {
     if (loan.getStatus() == null) {
       loan.setStatus(LoanStatus.New);
     }
-    status.setValue(loan.getStatus().toString());
+    loanStatus.setValue(loan.getStatus());
 
-    principleCents.setValue(String.valueOf(loan.getPrincipleCents()));
-    startDate.setValue(loan.getStartDate().toString());
-    periodMonths.setValue(String.valueOf(loan.getPeriodMonths()));
-    term.setValue(String.valueOf(loan.getTerm()));
-    interestRate.setValue(String.valueOf(loan.getInterestRate()));
-    rateType.setValue(loan.getRateType().toString());
-    compoundingFrequency.setValue(loan.getCompoundingFrequency().toString());
-    paymentAmountCents.setValue(String.valueOf(loan.getPaymentAmountCents()));
-    paymentFrequency.setValue(loan.getPaymentFrequency().toString());
-    interestOnly.setValue(String.valueOf(loan.isInterestOnly()));
+    principal.setText(String.valueOf(loan.getPrincipleCents()));
+    startDate.setValue(loan.getStartDate());
+    period.setText(String.valueOf(loan.getPeriodMonths()));
+    term.setText(String.valueOf(loan.getTerm()));
+    interestRate.setText(String.valueOf(loan.getInterestRate()));
+    rateType.setValue(loan.getRateType());
+    compoundingFrequency.setValue(loan.getCompoundingFrequency());
+    paymentAmount.setText(String.valueOf(loan.getPaymentAmountCents()));
+    paymentFrequency.setValue(loan.getPaymentFrequency());
+    interestOnly.setSelected(loan.isInterestOnly());
+    
 
-    LoanSummary loanSummary = loan.getLoanSummary();
-    if (loanSummary != null) {
-      principle.setValue(String.valueOf(loanSummary.getPriciple()));
-      rateValue.setValue(String.valueOf(loanSummary.getRateValue()));
-      payoffDate.setValue(loanSummary.getPayoffDate().toString());
-      totalInterest.setValue(String.valueOf(loanSummary.getTotalInterest()));
-      totalLoanCost.setValue(String.valueOf(loanSummary.getTotalLoanCost()));
-      paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
-    }
+    // LoanSummary loanSummary = loan.getLoanSummary();
+    // if (loanSummary != null) {
+    //   principle.setValue(String.valueOf(loanSummary.getPriciple()));
+    //   rateValue.setValue(String.valueOf(loanSummary.getRateValue()));
+    //   payoffDate.setValue(loanSummary.getPayoffDate().toString());
+    //   totalInterest.setValue(String.valueOf(loanSummary.getTotalInterest()));
+    //   totalLoanCost.setValue(String.valueOf(loanSummary.getTotalLoanCost()));
+    //   paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
+    // }
 
-    LoanPayments loanPayments = loan.getLoanPayments();
-    if (loanPayments != null) {
-      number.setValue(String.valueOf(loanPayments.getNumber()));
-      pages.setValue(String.valueOf(loanPayments.getPages()));
-      payments.setValue(String.valueOf(loanPayments.getPayments()));
-      paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
-      // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
-      // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
-      // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
-    }
+    // LoanPayments loanPayments = loan.getLoanPayments();
+    // if (loanPayments != null) {
+    //   number.setValue(String.valueOf(loanPayments.getNumber()));
+    //   pages.setValue(String.valueOf(loanPayments.getPages()));
+    //   payments.setValue(String.valueOf(loanPayments.getPayments()));
+    //   paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
+    //   // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
+    //   // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
+    //   // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    // }
 
-    // Disable fields if loan is already persisted
-    if (loan.getLoanId() != null) {
-      principleCents.setEditable(false);
-      startDate.setEditable(false);
-      periodMonths.setEditable(false);
-      term.setEditable(false);
-      interestRate.setEditable(false);
-      rateType.setEditable(false);
-      compoundingFrequency.setEditable(false);
-      paymentAmountCents.setEditable(false);
-      paymentFrequency.setEditable(false);
-      interestOnly.setEditable(false);
+    // // Disable fields if loan is already persisted
+    // if (loan.getLoanId() != null) {
+    //   principleCents.setEditable(false);
+    //   startDate.setEditable(false);
+    //   periodMonths.setEditable(false);
+    //   term.setEditable(false);
+    //   interestRate.setEditable(false);
+    //   rateType.setEditable(false);
+    //   compoundingFrequency.setEditable(false);
+    //   paymentAmountCents.setEditable(false);
+    //   paymentFrequency.setEditable(false);
+    //   interestOnly.setEditable(false);
 
-      principle.setEditable(false);
-      rateValue.setEditable(false);
-      payoffDate.setEditable(false);
-      totalInterest.setEditable(false);
-      totalLoanCost.setEditable(false);
-      paymentAmount.setEditable(false);
+    //   principle.setEditable(false);
+    //   rateValue.setEditable(false);
+    //   payoffDate.setEditable(false);
+    //   totalInterest.setEditable(false);
+    //   totalLoanCost.setEditable(false);
+    //   paymentAmount.setEditable(false);
 
-      number.setEditable(false);
-      pages.setEditable(false);
-      payments.setEditable(false);
-      paymentInterests.setEditable(false);
+    //   number.setEditable(false);
+    //   pages.setEditable(false);
+    //   payments.setEditable(false);
+    //   paymentInterests.setEditable(false);
       // paymentPrincipals.setEditable(false);
       // paymentRemainings.setEditable(false);
       // paymentNumbers.setEditable(false);
-    }
+    // }
   }
 
   @Override
   public void clear() {
     loanIdLbl.setText("");
     loanId = null;
-    status.setValue(LoanStatus.New.toString());
+    loanStatus.setValue(LoanStatus.New);
 
-    principleCents.clearValue();
-    startDate.clearValue();
-    periodMonths.clearValue();
-    term.clearValue();
-    interestRate.clearValue();
-    rateType.clearValue();
-    compoundingFrequency.clearValue();
-    paymentAmountCents.clearValue();
-    paymentFrequency.clearValue();
-    interestOnly.clearValue();
+    principal.clear();
+    startDate.clear();
+    period.clear();
+    term.clear();
+    interestRate.clear();
+    rateType.clear();
+    compoundingFrequency.clear();
+    paymentAmount.clear();
+    paymentFrequency.clear();
+    interestOnly.setSelected(false);
 
-    principle.clearValue();
-    rateValue.clearValue();
-    payoffDate.clearValue();
-    totalInterest.clearValue();
-    totalLoanCost.clearValue();
-    paymentAmount.clearValue();
+    // principle.clearValue();
+    // rateValue.clearValue();
+    // payoffDate.clearValue();
+    // totalInterest.clearValue();
+    // totalLoanCost.clearValue();
+    // paymentAmount.clearValue();
 
-    number.clearValue();
-    pages.clearValue();
-    payments.clearValue();
-    paymentInterests.clearValue();
+    // number.clearValue();
+    // pages.clearValue();
+    // payments.clearValue();
+    // paymentInterests.clearValue();
     // paymentPrincipals.clearValue();
     // paymentRemainings.clearValue();
     // paymentNumbers.clearValue();
@@ -168,18 +172,17 @@ public class LoanCardController extends ICard<Loan> {
   public Loan assemble() {
     Loan loan = new Loan();
     loan.setLoanId(loanId);
-    loan.setStatus(LoanStatus.valueOf(status.getValue()));
-
-    loan.setPrincipleCents(Double.parseDouble(principleCents.getValue()));
-    loan.setStartDate(ValidationUtils.getDateFromField(startDate));
-    loan.setPeriodMonths(Integer.parseInt(periodMonths.getValue()));
-    loan.setTerm(Integer.parseInt(term.getValue()));
-    loan.setInterestRate(Double.parseDouble(interestRate.getValue()));
-    loan.setRateType(RateType.valueOf(rateType.getValue()));
-    loan.setCompoundingFrequency(Frequency.valueOf(compoundingFrequency.getValue()));
-    loan.setPaymentAmountCents(Double.parseDouble(paymentAmountCents.getValue()));
-    loan.setPaymentFrequency(Frequency.valueOf(paymentFrequency.getValue()));
-    loan.setInterestOnly(Boolean.parseBoolean(interestOnly.getValue()));
+    loan.setStatus(loanStatus.getValue());
+    loan.setPrincipleCents(Double.parseDouble(principal.getText()));
+    loan.setStartDate(startDate.getValue());
+    loan.setPeriodMonths(Integer.parseInt(period.getText()));
+    loan.setTerm(Integer.parseInt(term.getText()));
+    loan.setInterestRate(Double.parseDouble(interestRate.getText()));
+    loan.setRateType(rateType.getValue());
+    loan.setCompoundingFrequency(compoundingFrequency.getValue());
+    loan.setPaymentAmountCents(Double.parseDouble(paymentAmount.getText()));
+    loan.setPaymentFrequency(Frequency.valueOf(paymentFrequency.getText()));
+    loan.setInterestOnly(interestOnly.isSelected());
     return loan;
   }
 }
