@@ -2,6 +2,7 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Addresses {
   private String customerId;
@@ -71,6 +72,14 @@ public class Addresses {
       }
       mailingAddress = address;
       addresses.add(address);
+    }
+  }
+
+  public boolean validate() throws ValidationException {
+    if (primaryAddress != null && primaryAddress.getPrimary()) {
+      return true;
+    } else {
+      throw new ValidationException("Primary address is required");
     }
   }
 }

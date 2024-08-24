@@ -11,6 +11,7 @@ class AddressService implements IService {
   public static void createAddressesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Addresses addresses = newCustomer.getAddresses();
+    addresses.validate();
     addresses.setCustomerId(newCustomer.getId());
     for (Address address : addresses.getAddresses()) {
       address.setCustomerId(newCustomer.getId());
