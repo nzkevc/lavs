@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.RadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import uoa.lavs.controllers.fragments.FieldController?>
 
-<fx:root type="javafx.scene.layout.Pane" minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<!-- <?import uoa.lavs.controllers.fragments.FieldController?> -->
+
+<fx:root minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="800.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="60.0" prefWidth="800.0" styleClass="vbox-card">
-         <children>
-            <HBox prefHeight="60.0" prefWidth="400.0">
-               <FieldController fx:id="emailAddress" key="Email" />
-            </HBox>
-         </children>
-      </VBox>
+      <MFXTextField fx:id="emailAddress" floatingText="Email Address" layoutX="26.0" layoutY="6.0" prefHeight="48.0" prefWidth="290.0" />
+      <MFXCheckbox fx:id="isPrimary" layoutX="355.0" layoutY="17.0" text="Primary" />
    </children>
 </fx:root>
