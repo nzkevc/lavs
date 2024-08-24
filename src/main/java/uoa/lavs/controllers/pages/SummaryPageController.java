@@ -2,15 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -30,6 +28,7 @@ import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.MessageUtils;
 import uoa.lavs.utils.objects.DevEntityCreator;
 
 public class SummaryPageController extends IPage {
@@ -65,14 +64,16 @@ public class SummaryPageController extends IPage {
     setUpBindings();
 
     // Rerender customer when customerFromSearch changes
-    State.customerFromSearch.addListener(
-        (obs, oldCustomer, newCustomer) -> {
-          if (newCustomer == null) {
-            clearAll();
-            return;
-          }
-          renderCustomer(newCustomer);
-        });
+    State.getInstance()
+        .customerFromSearch
+        .addListener(
+            (obs, oldCustomer, newCustomer) -> {
+              if (newCustomer == null) {
+                clearAll();
+                return;
+              }
+              renderCustomer(newCustomer);
+            });
   }
 
   private void setUpCards() {
@@ -94,16 +95,17 @@ public class SummaryPageController extends IPage {
     // Info pane
     customerName
         .textProperty()
-        .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
-    customerID.textProperty().bind(State.customerId.map(id -> "Customer ID: " + id));
+        .bind(State.getInstance().customerName.map(name -> name.isEmpty() ? "New Customer" : name));
+    customerID.textProperty().bind(State.getInstance().customerId.map(id -> "Customer ID: " + id));
 
     // Error/success message
-    errorLbl.textProperty().bind(State.summaryMessage);
+    errorLbl.textProperty().bind(State.getInstance().summaryMessage);
     errorLbl
         .styleProperty()
         .bind(
-            State.summaryMessageIsError.map(
-                isError -> isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;"));
+            State.getInstance()
+                .summaryMessageIsError
+                .map(isError -> isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;"));
   }
 
   @FXML
@@ -158,8 +160,8 @@ public class SummaryPageController extends IPage {
   }
 
   private void renderCustomer(Customer customer) {
-    State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
-    State.customerName.setValue(customer.getName());
+    State.getInstance().customerId.setValue(customer.getId() == null ? "" : customer.getId());
+    State.getInstance().customerName.setValue(customer.getName());
     getGeneralInfoCard().render(customer);
     Address address = customer.getAddresses().getResidentialAddress();
     Phone phone = customer.getPhones().getPrimaryPhone();
@@ -175,14 +177,14 @@ public class SummaryPageController extends IPage {
     getContactCard().clear();
     getEmployerCard().clear();
     getNoteCard().clear();
-    State.customerId.setValue("");
-    State.customerName.setValue("");
+    State.getInstance().customerId.setValue("");
+    State.getInstance().customerName.setValue("");
     getLoansCard().clear();
   }
 
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
-    customer.setId(State.customerId.getValue());
+    customer.setId(State.getInstance().customerId.getValue());
     customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
     customer.getAddresses().addAddress(getContactCard().assemble().getAddress());
     customer.getPhones().addPhone(getContactCard().assemble().getPhone());
@@ -196,7 +198,7 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onSubmitBtnClick() {
-    boolean isCreating = State.customerId.getValue().isEmpty();
+    boolean isCreating = State.getInstance().customerId.getValue().isEmpty();
     if (isCreating) {
       logger.debug("Creating new customer...");
     } else {
@@ -222,9 +224,11 @@ public class SummaryPageController extends IPage {
         (customer) -> {
           renderCustomer(customer);
           if (isCreating) {
-            State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
+            MessageUtils.setMessageSuccess(
+                "Customer created successfully with id: " + customer.getId());
           } else {
-            State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
+            MessageUtils.setMessageSuccess(
+                "Customer updated successfully with id: " + customer.getId());
           }
         },
         this::handleException);
@@ -235,7 +239,7 @@ public class SummaryPageController extends IPage {
     logger.debug("Getting TestEntity customer...");
     AsyncUtils.promise(
         () -> DevEntityCreator.createFullCustomer(),
-        (customer) -> State.customerFromSearch.setValue(customer),
+        (customer) -> State.getInstance().customerFromSearch.setValue(customer),
         this::handleException);
   }
 
@@ -250,6 +254,6 @@ public class SummaryPageController extends IPage {
   }
 
   private void handleException(Throwable e) {
-    State.setMessageError(e.getMessage());
+    MessageUtils.setMessageError(e.getMessage());
   }
 }
