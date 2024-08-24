@@ -44,6 +44,7 @@ public class App extends Application {
     // Load resources
     ResourceUtils.loadFont("Montserrat-Medium.ttf");
     scene.getStylesheets().add(ResourceUtils.loadCss("globals.css"));
+    scene.getStylesheets().add(ResourceUtils.loadCss("materialfx.css"));
 
     // Set up stage
     scene.setFill(Color.web("#131d23"));
