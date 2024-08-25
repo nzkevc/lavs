@@ -36,13 +36,6 @@ public class ContactCardController extends ICard<ContactInfo> {
     this.emailCards = emailCards;
   }
 
-  @FXML
-  public void initialize() {
-    addressCards.setCardController(AddressCardController.class);
-    phoneCards.setCardController(PhoneCardController.class);
-    emailCards.setCardController(EmailCardController.class);
-  }
-
   @Override
   public void render(ContactInfo contactInfo) {
     Set<Address> addresses = contactInfo.addresses().getAddresses();

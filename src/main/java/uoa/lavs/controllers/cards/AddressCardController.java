@@ -1,11 +1,10 @@
 package uoa.lavs.controllers.cards;
 
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.github.palexdev.materialfx.controls.MFXCheckbox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import uoa.lavs.models.Address;
 import uoa.lavs.utils.ControllerUtils;
 
@@ -13,6 +12,7 @@ public class AddressCardController extends ICard<Address> {
 
   private static final Logger logger = LoggerFactory.getLogger(ContactCardController.class);
 
+  private Integer number;
   @FXML private MFXTextField addressLine1;
   @FXML private MFXTextField addressLine2;
   @FXML private MFXTextField suburb;
@@ -28,6 +28,7 @@ public class AddressCardController extends ICard<Address> {
 
   @Override
   public void render(Address address) {
+    number = address.getNumber();
     ControllerUtils.renderText(addressLine1, address.getLine1());
     ControllerUtils.renderText(addressLine2, address.getLine2());
     ControllerUtils.renderText(suburb, address.getSuburb());
@@ -40,6 +41,7 @@ public class AddressCardController extends ICard<Address> {
 
   @Override
   public void clear() {
+    number = 0;
     addressLine1.clear();
     addressLine2.clear();
     suburb.clear();
@@ -53,6 +55,7 @@ public class AddressCardController extends ICard<Address> {
   @Override
   public Address assemble() {
     Address address = new Address();
+    address.setNumber(number);
     address.setLine1(addressLine1.getText());
     address.setLine2(addressLine2.getText());
     address.setSuburb(suburb.getText());

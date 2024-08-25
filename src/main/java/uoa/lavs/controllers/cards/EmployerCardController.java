@@ -15,6 +15,8 @@ public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 
+  private Integer number;
+
   @FXML private MFXTextField employerName;
   @FXML private MFXCheckbox isOwner;
 
@@ -40,6 +42,7 @@ public class EmployerCardController extends ICard<Employer> {
   public void render(Employer employer) {
     ControllerUtils.renderText(employerName, employer.getName());
     isOwner.setSelected(employer.isOwner());
+    number = employer.getNumber();
 
     Address address = employer.getAddress();
     ControllerUtils.renderText(addressLine1, address.getLine1());
@@ -61,6 +64,7 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public void clear() {
+    number = 0;
     employerName.clear();
     isOwner.setSelected(false);
 
@@ -81,8 +85,8 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public Employer assemble() {
-
     Employer employer = new Employer();
+    employer.setNumber(number);
     employer.setName(employerName.getText());
     employer.setOwner(isOwner.isSelected());
 
