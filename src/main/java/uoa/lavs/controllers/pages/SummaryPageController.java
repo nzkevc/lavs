@@ -247,6 +247,7 @@ public class SummaryPageController extends IPage {
 
   // TODO: I have a feeling switching to sets means updating might not work anymore
   private Customer assembleCustomer() {
+    logger.debug("Assembling customer...");
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
 

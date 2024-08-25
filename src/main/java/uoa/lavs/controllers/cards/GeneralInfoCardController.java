@@ -2,6 +2,7 @@ package uoa.lavs.controllers.cards;
 
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.time.LocalDate;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,8 @@ public class GeneralInfoCardController extends ICard<Customer> {
   public void render(Customer customer) {
     ControllerUtils.renderIntoComponent(title, customer.getTitle());
     ControllerUtils.renderIntoComponent(name, customer.getName());
-    ControllerUtils.renderIntoComponent(dateOfBirth, customer.getDateOfBirth().toString());
+    dateOfBirth.setValue(
+        customer.getDateOfBirth() == null ? LocalDate.EPOCH : customer.getDateOfBirth());
     ControllerUtils.renderIntoComponent(citizenship, customer.getCitizenship());
     ControllerUtils.renderIntoComponent(visaType, customer.getVisa());
     ControllerUtils.renderIntoComponent(occupation, customer.getOccupation());

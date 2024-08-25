@@ -2,14 +2,12 @@ package uoa.lavs;
 
 import java.io.IOException;
 import java.util.function.Supplier;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.CacheUtils;
 
@@ -40,10 +38,15 @@ public class State {
     summaryMessage.setValue("");
     summaryMessageIsError.setValue(false);
     customerFromSearch.setValue(null);
-    assembleCustomerFunction = () -> new Customer();
+    assembleCustomerFunction =
+        () -> {
+          logger.warn("Called assembleCustomerFunction before it was set");
+          return new Customer();
+        };
   }
 
   public static void setAssembleCustomerFunction(Supplier<Customer> assembleCustomerFunction) {
+    logger.debug("assembleCustomerFunction set");
     State.assembleCustomerFunction = assembleCustomerFunction;
   }
 
