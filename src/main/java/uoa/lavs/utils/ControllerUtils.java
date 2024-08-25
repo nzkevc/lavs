@@ -1,6 +1,9 @@
 package uoa.lavs.utils;
 
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.io.IOException;
+import java.time.LocalDate;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -37,14 +40,26 @@ public class ControllerUtils {
     }
   }
 
-  public static void renderIntoComponent(TextField field, String text) {
-    renderIntoComponent(field, text, null);
+  public static void renderText(TextField field, Object text) {
+    renderText(field, text, null);
   }
 
-  public static void renderIntoComponent(TextField field, String text, String fallBackIfNull) {
+  public static void renderText(TextField field, Object text, String fallBackIfNull) {
     if (fallBackIfNull == null) {
       fallBackIfNull = "";
     }
-    field.setText(text == null ? fallBackIfNull : text);
+    field.setText(text == null ? fallBackIfNull : String.valueOf(text));
+  }
+
+  public static <T> void renderCombo(MFXComboBox<T> combo, T value) {
+    renderCombo(combo, value, value);
+  }
+
+  public static <T> void renderCombo(MFXComboBox<T> combo, T value, T fallBackIfNull) {
+    combo.getSelectionModel().selectItem(ValidationUtils.isNullOrBlank(value) ? fallBackIfNull : value);
+  }
+
+  public static void renderDate(MFXDatePicker field, LocalDate date) {
+    field.setValue(ValidationUtils.isNullOrBlank(date) ? LocalDate.EPOCH : date);
   }
 }

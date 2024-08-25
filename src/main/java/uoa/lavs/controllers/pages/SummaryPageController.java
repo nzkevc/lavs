@@ -161,12 +161,7 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    boolean isCreating = State.customerId.getValue().isEmpty();
-    if(isCreating) {
     switchCard(LoanCardController.class);
-    } else {
-      switchCard(LoanSummaryCardController.class);
-    }
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {

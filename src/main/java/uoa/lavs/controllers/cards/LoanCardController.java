@@ -36,7 +36,7 @@ public class LoanCardController extends ICard<Loan> {
 
   @FXML
   private void initialize() {
-    loanStatus.setEditable(false);
+    loanStatus.setDisable(true);
     loanStatus.setItems(FXCollections.observableArrayList(LoanStatus.values()));
     rateType.setItems(FXCollections.observableArrayList(RateType.values()));
     compoundingFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
@@ -47,20 +47,20 @@ public class LoanCardController extends ICard<Loan> {
   public void render(Loan loan) {
     clear();
     loanId = loan.getLoanId();
-    loanIdLbl.setText("Loan ID: " + loanId == null ? "" : loanId);
-    if (loan.getStatus() == null) {
-      loan.setStatus(LoanStatus.New);
-    }
+    loanIdLbl.setText("Loan ID: " + (loanId == null ? "" : loanId));
+    ControllerUtils.renderCombo(loanStatus, loan.getStatus(), LoanStatus.New);
 
-    principal.setText(String.valueOf(loan.getPrincipleCents()));
-    startDate.setValue(loan.getStartDate());
-    period.setText(String.valueOf(loan.getPeriodMonths()));
-    term.setText(String.valueOf(loan.getTerm()));
-    interestRate.setText(String.valueOf(loan.getInterestRate()));
-    paymentAmount.setText(String.valueOf(loan.getPaymentAmountCents()));
-    paymentFrequency.setValue(loan.getPaymentFrequency());
+    ControllerUtils.renderText(principal, loan.getPrincipleCents());
+    ControllerUtils.renderDate(startDate, loan.getStartDate());
+    ControllerUtils.renderText(period, loan.getPeriodMonths());
+    ControllerUtils.renderText(term, loan.getTerm());
+    ControllerUtils.renderText(interestRate, loan.getInterestRate());
+    ControllerUtils.renderCombo(rateType, loan.getRateType(), RateType.Unknown);
+    ControllerUtils.renderCombo(
+        compoundingFrequency, loan.getCompoundingFrequency(), Frequency.Unknown);
+    ControllerUtils.renderText(paymentAmount, loan.getPaymentAmountCents());
+    ControllerUtils.renderCombo(paymentFrequency, loan.getPaymentFrequency(), Frequency.Unknown);
     interestOnly.setSelected(loan.isInterestOnly());
-
 
     // LoanSummary loanSummary = loan.getLoanSummary();
     // if (loanSummary != null) {
@@ -77,9 +77,9 @@ public class LoanCardController extends ICard<Loan> {
     //   pages.setValue(String.valueOf(loanPayments.getPages()));
     //   payments.setValue(String.valueOf(loanPayments.getPayments()));
     //   paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
-      // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
-      // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
-      // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
+    // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
+    // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
     // }
 
     // // Disable fields if loan is already persisted
@@ -89,19 +89,20 @@ public class LoanCardController extends ICard<Loan> {
 
   @Override
   public void clear() {
-    loanIdLbl.setText("");
+    loanIdLbl.setText("Loan ID:");
     loanId = null;
-    loanStatus.setValue(LoanStatus.New);
+    ControllerUtils.renderCombo(loanStatus, LoanStatus.New);
 
     principal.clear();
-    startDate.clear();
+    ControllerUtils.renderDate(startDate, null);
     period.clear();
     term.clear();
+
     interestRate.clear();
-    rateType.clear();
-    compoundingFrequency.clear();
+    ControllerUtils.renderCombo(rateType, RateType.Unknown);
+    ControllerUtils.renderCombo(compoundingFrequency, Frequency.Unknown);
     paymentAmount.clear();
-    paymentFrequency.clear();
+    ControllerUtils.renderCombo(paymentFrequency, Frequency.Unknown);
     interestOnly.setSelected(false);
   }
 
@@ -118,7 +119,7 @@ public class LoanCardController extends ICard<Loan> {
     loan.setRateType(rateType.getSelectedItem());
     loan.setCompoundingFrequency(compoundingFrequency.getSelectedItem());
     loan.setPaymentAmountCents(Double.parseDouble(paymentAmount.getText()));
-    loan.setPaymentFrequency(Frequency.valueOf(paymentFrequency.getText()));
+    loan.setPaymentFrequency(paymentFrequency.getSelectedItem());
     loan.setInterestOnly(interestOnly.isSelected());
     return loan;
   }

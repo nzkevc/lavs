@@ -21,14 +21,18 @@ public class ValidationUtils {
   }
 
   public static void validateFieldExists(String value) throws ValidationException {
-    if (value == null || value.isEmpty()) {
+    if (isNullOrBlank(value)) {
       throw new ValidationException("Field is required.");
     }
   }
 
   public static void validateFieldExists(String value, String message) throws ValidationException {
-    if (value == null || value.isEmpty()) {
+    if (isNullOrBlank(value)) {
       throw new ValidationException(message);
     }
+  }
+
+  public static boolean isNullOrBlank(Object obj) {
+    return obj == null || String.valueOf(obj).isBlank();
   }
 }

@@ -43,30 +43,30 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public void render(Employer employer) {
-    ControllerUtils.renderIntoComponent(employerName, employer.getName());
+    ControllerUtils.renderText(employerName, employer.getName());
     isOwner.setSelected(employer.isOwner());
 
     Address address = employer.getAddress();
-    ControllerUtils.renderIntoComponent(addressLine1, address.getLine1());
-    ControllerUtils.renderIntoComponent(addressLine2, address.getLine2());
-    ControllerUtils.renderIntoComponent(suburb, address.getSuburb());
-    ControllerUtils.renderIntoComponent(city, address.getCity());
-    ControllerUtils.renderIntoComponent(postcode, address.getPostCode());
-    ControllerUtils.renderIntoComponent(country, address.getCountry());
+    ControllerUtils.renderText(addressLine1, address.getLine1());
+    ControllerUtils.renderText(addressLine2, address.getLine2());
+    ControllerUtils.renderText(suburb, address.getSuburb());
+    ControllerUtils.renderText(city, address.getCity());
+    ControllerUtils.renderText(postcode, address.getPostCode());
+    ControllerUtils.renderText(country, address.getCountry());
     isPrimary.setSelected(address.getPrimary());
     isMailing.setSelected(address.getMailing());
 
     Phone phone = employer.getPhone();
-    ControllerUtils.renderIntoComponent(prefix, phone.getPrefix());
-    ControllerUtils.renderIntoComponent(phoneNumber, phone.getPhoneNumber());
+    ControllerUtils.renderText(prefix, phone.getPrefix());
+    ControllerUtils.renderText(phoneNumber, phone.getPhoneNumber());
     isPhonePrimary.setSelected(phone.getPrimary());
     isPhoneSendText.setSelected(phone.getCanSendTxt());
 
     Email email = employer.getEmail();
-    ControllerUtils.renderIntoComponent(emailAddress, email.getAddress());
+    ControllerUtils.renderText(emailAddress, email.getAddress());
     isEmailPrimary.setSelected(email.getIsPrimary());
 
-    ControllerUtils.renderIntoComponent(website, employer.getWebsite());
+    ControllerUtils.renderText(website, employer.getWebsite());
   }
 
   @Override
