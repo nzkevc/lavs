@@ -17,7 +17,6 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   private static final Logger logger = LoggerFactory.getLogger(ScrollerController.class);
 
   @FXML private VBox displayVbox;
-  @FXML private Button addBtn;
 
   private Class<? extends ICard<T>> cardControllerClass;
 
@@ -42,7 +41,6 @@ public class ScrollerController<T> extends ICard<Set<T>> {
       cardController.render(model);
       displayVbox.getChildren().add(cardController);
     }
-    displayVbox.getChildren().add(addBtn);
   }
 
   @Override
@@ -65,8 +63,6 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   private void onAddClick() {
     ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
     cardController.clear();
-    displayVbox.getChildren().remove(addBtn);
     displayVbox.getChildren().add(cardController);
-    displayVbox.getChildren().add(addBtn);
   }
 }
