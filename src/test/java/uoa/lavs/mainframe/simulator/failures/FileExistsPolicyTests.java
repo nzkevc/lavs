@@ -17,35 +17,30 @@ import uoa.lavs.mainframe.simulator.InMemoryConnection;
 import uoa.lavs.mainframe.simulator.IntermittentConnection;
 
 class FileExistsPolicyTests {
-    @Test
-    public void handlesFileExists() throws IOException {
-        // arrange
-        String pathname = "testing/failure-exists.txt";
-        File file = new File(pathname);
-        file.createNewFile();
-        assertTrue(file.exists());
-        Connection conn = new IntermittentConnection(
-                new InMemoryConnection(
-                        new Response(
-                                new Status(1),
-                                new HashMap<>()
-                        )
-                ),
-                new FileExistsPolicy(pathname)
-        );
-        FindCustomer message = new FindCustomer();
+  @Test
+  public void handlesFileExists() throws IOException {
+    // arrange
+    String pathname = "data/testing/failure-exists.txt";
+    File file = new File(pathname);
+    file.createNewFile();
+    assertTrue(file.exists());
+    Connection conn =
+        new IntermittentConnection(
+            new InMemoryConnection(new Response(new Status(1), new HashMap<>())),
+            new FileExistsPolicy(pathname));
+    FindCustomer message = new FindCustomer();
 
-        // act
-        Status status = message.send(conn);
+    // act
+    Status status = message.send(conn);
 
-        // assert
-        assertFalse(status.getWasSuccessful());
-    }
+    // assert
+    assertFalse(status.getWasSuccessful());
+  }
 
-    @Test
-    public void conditionChanges() throws IOException {
-        // arrange 1
-        String pathname = "testing/failure-changes.txt";
+  @Test
+  public void conditionChanges() throws IOException {
+    // arrange 1
+    String pathname = "data/testing/failure-changes.txt";
         File file = new File(pathname);
         file.delete();
         assertFalse(file.exists());

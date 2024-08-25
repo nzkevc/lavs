@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import uoa.lavs.utils.objects.ValidationException;
 
-public class Addresses {
+public class Addresses implements IModel<Addresses> {
   private String customerId;
   private Set<Address> addresses;
   private Address primaryAddress;

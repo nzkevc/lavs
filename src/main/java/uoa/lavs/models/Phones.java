@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import uoa.lavs.utils.objects.ValidationException;
 
-public class Phones {
+public class Phones implements IModel<Phones> {
   private String customerId;
   private Set<Phone> phoneNumbers;
   private Phone primaryPhone;

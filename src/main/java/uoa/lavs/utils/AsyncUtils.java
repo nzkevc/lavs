@@ -1,19 +1,16 @@
 package uoa.lavs.utils;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import javafx.application.Platform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AsyncUtils {
 
