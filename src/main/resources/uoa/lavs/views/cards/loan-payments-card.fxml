@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXPaginatedTableView?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <MFXPaginatedTableView fx:id="loanTableView" layoutX="17.0" layoutY="68.0" prefHeight="294.0" prefWidth="735.0" />
-   <Label fx:id="loanIdLbl" layoutX="35.0" layoutY="20.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <MFXButton fx:id="SummaryBtn" layoutX="660.0" layoutY="19.0" onAction="#onSummaryBtnClick" prefHeight="37.0" prefWidth="100.0" text="Summary" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <MFXPaginatedTableView fx:id="loanTableView" layoutY="2.0" prefHeight="309.0" prefWidth="712.0" />
 </Pane>
