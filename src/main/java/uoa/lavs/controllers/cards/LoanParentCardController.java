@@ -27,6 +27,12 @@ public class LoanParentCardController extends ICard<Loan> {
 
   public LoanParentCardController() {
     ControllerUtils.loadFxml(this, "cards/loan-parent-card.fxml");
+    System.out.println("LoanParentCardController: " + this);
+  }
+
+  @FXML
+  private void initialize() {
+    render(new Loan());
   }
 
   @Override
@@ -37,9 +43,7 @@ public class LoanParentCardController extends ICard<Loan> {
     if (ValidationUtils.isNullOrBlank(loanId)) {
       loanIdLbl.setText("New Loan");
       loanCreationCardController.render(loan);
-      System.out.println("loanCreationCardController: " + loanCreationCardController);
       ControllerUtils.swapComponent(switchPane, loanCreationCardController);
-      System.out.println("switchPane: " + switchPane);
       SummaryBtn.setVisible(false);
     } else {
       loanIdLbl.setText("Loan ID: " + loan.getLoanId());
@@ -53,7 +57,6 @@ public class LoanParentCardController extends ICard<Loan> {
   @Override
   public void clear() {
     logger.debug(String.valueOf(loanIdLbl));
-    logger.debug("Clearing loan parent card");
     loanId = null;
     loanIdLbl.setText("New Loan");
     loanCreationCardController.clear();

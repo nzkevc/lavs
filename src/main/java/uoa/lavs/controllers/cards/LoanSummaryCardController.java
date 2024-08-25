@@ -3,13 +3,11 @@ package uoa.lavs.controllers.cards;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import uoa.lavs.models.LoanSummary;
 import uoa.lavs.utils.ControllerUtils;
 
 public class LoanSummaryCardController extends ICard<LoanSummary> {
 
-  @FXML private Label loanIdLabel;
   @FXML private MFXButton paymentsBtn;
   @FXML private MFXTextField principleField;
   @FXML private MFXTextField rateValueField;
@@ -26,8 +24,6 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
 
   @Override
   public void render(LoanSummary loanSummary) {
-
-    loanIdLabel.setText("Loan ID: " + loanSummary.getLoanId());
     principleField.setText(loanSummary.getPriciple().toString());
     rateValueField.setText(loanSummary.getRateValue().toString());
     payoffDateField.setText(loanSummary.getPayoffDate().toString());
@@ -40,7 +36,6 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
 
   @Override
   public void clear() {
-    loanIdLabel.setText("Loan ID: ");
     principleField.clear();
     rateValueField.clear();
     payoffDateField.clear();

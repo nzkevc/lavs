@@ -17,7 +17,6 @@ import uoa.lavs.controllers.cards.EmailCardController;
 import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
-import uoa.lavs.controllers.cards.LoanCardController;
 import uoa.lavs.controllers.cards.LoanParentCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
@@ -98,7 +97,8 @@ public class SummaryPageController extends IPage {
 
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(
-        LoanCardController.class, new ScrollerController<>(LoanParentCardController.class, "Loan"));
+        LoanParentCardController.class,
+        new ScrollerController<>(LoanParentCardController.class, "Loan"));
 
     switchCard(GeneralInfoCardController.class);
   }
@@ -179,7 +179,7 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onLoansBtnClick() {
-    switchCard(LoanCardController.class);
+    switchCard(LoanParentCardController.class);
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -211,7 +211,7 @@ public class SummaryPageController extends IPage {
   }
 
   private ScrollerController<Loan> getLoansCard() {
-    return (ScrollerController<Loan>) cards.get(LoanCardController.class);
+    return (ScrollerController<Loan>) cards.get(LoanParentCardController.class);
   }
 
   private void renderCustomer(Customer customer) {
