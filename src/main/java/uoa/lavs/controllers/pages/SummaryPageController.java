@@ -18,7 +18,6 @@ import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoanCardController;
-import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
@@ -100,7 +99,12 @@ public class SummaryPageController extends IPage {
     // Info pane
     customerName
         .textProperty()
-        .bind(State.customerName.map(name -> name.isEmpty() ? "New Customer" : name));
+        .bind(
+            State.customerName.map(
+                name -> {
+                  logger.debug("Name changed: " + name);
+                  return name.isEmpty() ? "New Customer" : name;
+                }));
     customerID.textProperty().bind(State.customerId.map(id -> "Customer ID: " + id));
 
     // Error/success message
