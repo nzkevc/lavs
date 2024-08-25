@@ -106,12 +106,12 @@ public class SearchPageController extends IPage {
         () -> CustomerService.getCustomer(inputString),
         (customer) -> {
           displayFoundById(customer);
-          State.getInstance().customerFromSearch.setValue(customer);
+          State.customerFromSearch.setValue(customer);
         },
         (Throwable e) -> {
           logger.debug("Error searching for customer by id: " + e.getMessage());
           displayNotFoundNotification();
-          State.getInstance().customerFromSearch.setValue(null);
+          State.customerFromSearch.setValue(null);
         });
   }
 
@@ -119,7 +119,7 @@ public class SearchPageController extends IPage {
     AsyncUtils.promise(
         () -> CustomerService.getCustomer(partialCustomer.getId()),
         (customer) -> {
-          State.getInstance().customerFromSearch.setValue(customer);
+          State.customerFromSearch.setValue(customer);
           logger.debug("Going to customer page");
           customerIdInput.setText("");
           App.getMainController().switchPage(SummaryPageController.class);
@@ -127,14 +127,14 @@ public class SearchPageController extends IPage {
         (Throwable e) -> {
           logger.debug("Error getting customer from list view: " + e.getMessage());
           displayNotFoundNotification();
-          State.getInstance().customerFromSearch.setValue(null);
+          State.customerFromSearch.setValue(null);
         });
   }
 
   private void addCustomer() {
     logger.debug("Adding new customer");
     customerIdInput.setText("");
-    State.getInstance().customerFromSearch.setValue(null);
+    State.customerFromSearch.setValue(null);
     App.getMainController().switchPage(SummaryPageController.class);
   }
 

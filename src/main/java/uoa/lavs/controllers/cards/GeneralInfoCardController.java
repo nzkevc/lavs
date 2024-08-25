@@ -27,7 +27,7 @@ public class GeneralInfoCardController extends ICard<Customer> {
 
   @FXML
   private void initialize() {
-    name.valueProperty().bindBidirectional(State.getInstance().customerName);
+    name.valueProperty().bindBidirectional(State.customerName);
   }
 
   @Override

@@ -21,25 +21,20 @@ import uoa.lavs.utils.CacheUtils;
 public class State {
 
   private static final Logger logger = LoggerFactory.getLogger(State.class);
-  private static final State instance = new State();
 
-  public final Property<String> customerName = new SimpleStringProperty();
+  public static final Property<String> customerName = new SimpleStringProperty();
 
   // "" means no customer is selected - null breaks JavaFX bindings
-  public final Property<String> customerId = new SimpleStringProperty();
+  public static final Property<String> customerId = new SimpleStringProperty();
 
-  public final Property<String> summaryMessage = new SimpleStringProperty();
-  public final Property<Boolean> summaryMessageIsError = new SimpleBooleanProperty();
+  public static final Property<String> summaryMessage = new SimpleStringProperty();
+  public static final Property<Boolean> summaryMessageIsError = new SimpleBooleanProperty();
 
-  public final Property<Customer> customerFromSearch = new SimpleObjectProperty<>();
+  public static final Property<Customer> customerFromSearch = new SimpleObjectProperty<>();
 
-  private Supplier<Customer> assembleCustomerFunction;
+  private static Supplier<Customer> assembleCustomerFunction;
 
-  public static State getInstance() {
-    return instance;
-  }
-
-  public State() {
+  public static void reset() {
     customerName.setValue("");
     customerId.setValue("");
     summaryMessage.setValue("");
@@ -48,25 +43,41 @@ public class State {
     assembleCustomerFunction = () -> new Customer();
   }
 
-  public void setAssembleCustomerFunction(Supplier<Customer> assembleCustomerFunction) {
-    this.assembleCustomerFunction = assembleCustomerFunction;
+  public static void setAssembleCustomerFunction(Supplier<Customer> assembleCustomerFunction) {
+    State.assembleCustomerFunction = assembleCustomerFunction;
   }
 
   public static void saveState() {
     logger.info("Saving state");
-    instance.customerFromSearch.setValue(instance.assembleCustomerFunction.get());
-    CacheUtils.saveToCache(instance.customerId.getValue(), instance.customerFromSearch.getValue());
+    customerFromSearch.setValue(assembleCustomerFunction.get());
+    CacheUtils.saveToCache(customerId.getValue(), customerFromSearch.getValue());
   }
 
   public static void loadState() {
     logger.info("Loading state");
     try {
-      Customer customer = CacheUtils.loadFromCache(instance.customerId.getValue());
-      instance.customerFromSearch.setValue(customer);
-      instance.customerId.setValue(customer.getId());
-      instance.customerName.setValue(customer.getName());
+      Customer customer = CacheUtils.loadFromCache(customerId.getValue());
+      customerFromSearch.setValue(customer);
+      customerId.setValue(customer.getId());
+      customerName.setValue(customer.getName());
     } catch (IOException e) {
       logger.error("Failed to load state from cache", e);
     }
+  }
+
+  public static void setMessageSuccess(String msg) {
+    logger.debug(msg);
+    summaryMessage.setValue(msg);
+    summaryMessageIsError.setValue(false);
+  }
+
+  public static void setMessageError(String msg) {
+    logger.warn(msg);
+    summaryMessage.setValue(msg);
+    summaryMessageIsError.setValue(true);
+  }
+
+  public static void clearMessage() {
+    summaryMessage.setValue("");
   }
 }
