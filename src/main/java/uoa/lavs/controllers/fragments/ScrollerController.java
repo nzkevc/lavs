@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   private static final Logger logger = LoggerFactory.getLogger(ScrollerController.class);
 
   @FXML private VBox displayVbox;
+  @FXML private Button addBtn;
 
   private Class<? extends ICard<T>> cardControllerClass;
 
@@ -28,8 +30,9 @@ public class ScrollerController<T> extends ICard<Set<T>> {
     this.cardControllerClass = cardControllerClass;
   }
 
-  public void setCardController(Class<? extends ICard<T>> cardControllerClass) {
-    this.cardControllerClass = cardControllerClass;
+  public ScrollerController(Class<? extends ICard<T>> cardControllerClass, String modelName) {
+    this(cardControllerClass);
+    addBtn.setText("Add " + modelName);
   }
 
   @Override

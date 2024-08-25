@@ -2,13 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.AddressCardController;
@@ -26,6 +28,8 @@ import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
+import uoa.lavs.models.Employer;
+import uoa.lavs.models.Employers;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
@@ -75,21 +79,22 @@ public class SummaryPageController extends IPage {
 
   private void setUpCards() {
     cards.put(GeneralInfoCardController.class, new GeneralInfoCardController());
-    cards.put(EmployerCardController.class, new EmployerCardController());
 
-    ScrollerController<Address> addressCard = new ScrollerController<>(AddressCardController.class);
-    ScrollerController<Phone> phoneCard = new ScrollerController<>(PhoneCardController.class);
-    ScrollerController<Email> emailCard = new ScrollerController<>(EmailCardController.class);
-    cards.put(AddressCardController.class, addressCard);
-    cards.put(PhoneCardController.class, phoneCard);
-    cards.put(EmailCardController.class, emailCard);
+    cards.put(EmployerCardController.class, new ScrollerController<>(EmployerCardController.class, "Employer"));
 
-    // Not rendered but let's keep it for rendering and assembling Address, Phone, Email
     cards.put(
-        ContactCardController.class, new ContactCardController(addressCard, phoneCard, emailCard));
+        AddressCardController.class,
+        new ScrollerController<>(AddressCardController.class, "Address"));
+    cards.put(PhoneCardController.class, new ScrollerController<>(PhoneCardController.class, "Phone"));
+    cards.put(EmailCardController.class, new ScrollerController<>(EmailCardController.class, "Email"));
+
+    // Not visible but let's keep it for rendering and assembling Address, Phone, Email
+    cards.put(
+        ContactCardController.class,
+        new ContactCardController(getAddressCard(), getPhoneCard(), getEmailCard()));
 
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
+    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class, "Loan"));
 
     switchCard(GeneralInfoCardController.class);
   }
@@ -193,8 +198,8 @@ public class SummaryPageController extends IPage {
     return (ScrollerController<Phone>) cards.get(PhoneCardController.class);
   }
 
-  private EmployerCardController getEmployerCard() {
-    return (EmployerCardController) cards.get(EmployerCardController.class);
+  private ScrollerController<Employer> getEmployerCard() {
+    return (ScrollerController<Employer>) cards.get(EmployerCardController.class);
   }
 
   private NoteCardController getNoteCard() {
@@ -215,7 +220,7 @@ public class SummaryPageController extends IPage {
     Emails emails = customer.getEmails();
     getContactCard().render(new ContactInfo(addresses, phones, emails));
 
-    getEmployerCard().render(customer.getEmployers().getEmployers().iterator().next());
+    getEmployerCard().render(customer.getEmployers().getEmployers());
     getNoteCard().render(customer.getNotes());
     getLoansCard().render(customer.getLoans().getLoans());
   }
@@ -230,7 +235,6 @@ public class SummaryPageController extends IPage {
     getLoansCard().clear();
   }
 
-  // TODO: I have a feeling switching to sets means updating might not work anymore
   private Customer assembleCustomer() {
     logger.debug("Assembling customer...");
     Customer customer = getGeneralInfoCard().assemble();
@@ -243,8 +247,7 @@ public class SummaryPageController extends IPage {
     customer.setPhones(phones);
     customer.setEmails(emails);
 
-    // TODO: This and a lot of these might need to change
-    customer.getEmployers().addEmployer(getEmployerCard().assemble());
+    customer.setEmployers(new Employers(getEmployerCard().assemble()));
     customer.setNotes(getNoteCard().assemble());
     customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;

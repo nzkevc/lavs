@@ -12,6 +12,10 @@ public class Employers implements IModel {
     this.employers = new HashSet<>();
   }
 
+  public Employers(Set<Employer> employers) {
+    this.employers = employers;
+  }
+
   public String getCustomerId() {
     return customerId;
   }
