@@ -147,6 +147,17 @@ public class TestEntityCreator {
         true);
   }
 
+  public static Employer createBasicSecondaryEmployer(Customer customer) {
+    return new Employer(
+        customer.getId(),
+        "Fake Employer 2",
+        createBasicSecondaryAddress(customer),
+        createBasicSecondaryPhone(customer),
+        createBasicNonPrimaryEmail(customer),
+        "www.fakeemployer2.com",
+        false);
+  }
+
   public static Loan createBasicLoan(Customer customer) {
     LocalDate startDate = LocalDate.of(2024, 07, 22);
     Loan loan = new Loan();

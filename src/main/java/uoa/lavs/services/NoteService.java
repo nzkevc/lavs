@@ -3,7 +3,7 @@ package uoa.lavs.services;
 import uoa.lavs.models.Customer;
 import uoa.lavs.repository.NoteRepository;
 
-class NoteService {
+class NoteService implements IService {
   public static void updateNotesFromCustomer(Customer newCustomer) throws RuntimeException {
     String notes = newCustomer.getNotes();
     if (notes == null) {

@@ -48,15 +48,19 @@ public class CustomerServiceTests {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
     customer = TestEntityCreator.createBasicCustomer();
-    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
+    customer.getEmployers().addEmployer(TestEntityCreator.createBasicEmployer(customer));
 
     // Act
     CustomerService.createCustomer(customer);
 
     // Assert
     assertNotNull(customer.getId());
-    assertNotNull(customer.getEmployer().getCustomerId());
-    assertEquals(customer.getId(), customer.getEmployer().getCustomerId());
+    assertNotNull(customer.getEmployers().getCustomerId());
+    customer
+        .getEmployers()
+        .getEmployers()
+        .forEach(employer -> assertNotNull(employer.getCustomerId()));
+    assertEquals(customer.getId(), customer.getEmployers().getCustomerId());
   }
 
   @Test
@@ -82,23 +86,30 @@ public class CustomerServiceTests {
     Customer retrievedCustomer = CustomerService.getCustomer(customer.getId());
 
     // Assert
-    assertNull(retrievedCustomer.getEmployer());
+    assertTrue(retrievedCustomer.getEmployers().getEmployers().isEmpty());
   }
 
   @Test
   public void getCustomerWithEmployerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
+    customer.getEmployers().addEmployer(TestEntityCreator.createBasicEmployer(customer));
     CustomerService.createCustomer(customer);
 
     // Act
     Customer retrievedCustomer = CustomerService.getCustomer(customer.getId());
 
     // Assert
-    assertNotNull(retrievedCustomer.getEmployer());
+    assertNotNull(retrievedCustomer.getEmployers());
+    assertTrue(retrievedCustomer.getEmployers().getEmployers().size() > 0);
     assertEquals(
-        customer.getEmployer().getCustomerId(), retrievedCustomer.getEmployer().getCustomerId());
+        customer.getEmployers().getCustomerId(), retrievedCustomer.getEmployers().getCustomerId());
+    customer
+        .getEmployers()
+        .getEmployers()
+        .forEach(
+            employer ->
+                assertEquals(customer.getEmployers().getCustomerId(), employer.getCustomerId()));
   }
 
   @Test
@@ -140,15 +151,21 @@ public class CustomerServiceTests {
   public void updateCustomerWithEmployerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
-    customer.setEmployer(TestEntityCreator.createBasicEmployer(customer));
+    customer.getEmployers().addEmployer(TestEntityCreator.createBasicEmployer(customer));
     CustomerService.createCustomer(customer);
 
     // Act
-    customer.getEmployer().setName("New Employer");
+    customer
+        .getEmployers()
+        .getEmployers()
+        .forEach(employer -> employer.setName("New Employer Name"));
     CustomerService.updateCustomer(customer);
 
     // Assert
-    assertEquals("New Employer", customer.getEmployer().getName());
+    customer
+        .getEmployers()
+        .getEmployers()
+        .forEach(employer -> assertEquals("New Employer Name", employer.getName()));
   }
 
   @Test

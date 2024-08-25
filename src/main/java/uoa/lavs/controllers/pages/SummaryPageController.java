@@ -1,5 +1,6 @@
 package uoa.lavs.controllers.pages;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Email;
+import uoa.lavs.models.Employer;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phone;
@@ -154,7 +156,13 @@ public class SummaryPageController extends IPage {
     Phone phone = customer.getPhones().getPrimaryPhone();
     Email email = customer.getEmails().getPrimaryEmail();
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));
-    getEmployerCard().render(customer.getEmployer());
+
+    // TODO: change this to render multiple employers
+    getEmployerCard()
+        .render(
+            customer.getEmployers().getEmployers().stream()
+                .min(Comparator.comparing(Employer::getNumber))
+                .orElse(null));
     getNoteCard().render(customer.getNotes());
     getLoansCard().render(customer.getLoans().getLoans());
   }
@@ -169,6 +177,7 @@ public class SummaryPageController extends IPage {
     getLoansCard().clear();
   }
 
+  // TODO: I have a feeling switching to sets means updating might not work anymore
   private Customer assembleCustomer() {
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
@@ -177,7 +186,9 @@ public class SummaryPageController extends IPage {
     customer.getPhones().addPhone(getContactCard().assemble().getPhone());
     customer.getPhones().addPhone(getContactCard().assemble().getPhone());
     customer.getEmails().addEmail(getContactCard().assemble().getEmail());
-    customer.setEmployer(getEmployerCard().assemble());
+
+    // TODO: This and a lot of these might need to change
+    customer.getEmployers().addEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
     customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;
