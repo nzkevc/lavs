@@ -44,6 +44,8 @@ public class NoteRepository {
     message.setCustomerId(customer.getId());
     message.setNumber(1);
     message.send(connection);
+    message.setNumber(message.getPageCountFromServer());
+    message.send(connection);
 
     // If there are no notes, returning an empty string
     if (message.getLineCountFromServer() == 0) {

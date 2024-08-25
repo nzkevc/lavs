@@ -24,8 +24,10 @@ public class CustomerService implements IService {
     newCustomer.setId(customerId);
 
     Employer employer = newCustomer.getEmployer();
-    employer.setCustomerId(newCustomer.getId());
-    EmployerRepository.update(employer);
+    if (employer != null) {
+      employer.setCustomerId(newCustomer.getId());
+      EmployerRepository.create(employer);
+    }
 
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
@@ -63,8 +65,10 @@ public class CustomerService implements IService {
     CustomerRepository.update(newCustomer);
 
     Employer employer = newCustomer.getEmployer();
-    employer.setCustomerId(newCustomer.getId());
-    EmployerRepository.update(employer);
+    if (employer != null) {
+      employer.setCustomerId(newCustomer.getId());
+      EmployerRepository.update(employer);
+    }
 
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);

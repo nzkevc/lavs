@@ -102,17 +102,4 @@ public class Employer {
   public void setOwner(boolean owner) {
     isOwner = owner;
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    if (o instanceof Employer) {
-      Employer employer = (Employer) o;
-      return name.equals(employer.getName())
-          && address.equals(employer.getAddress())
-          && email.equals(employer.getEmail())
-          && isOwner == employer.isOwner();
-    }
-    return false;
-  }
 }

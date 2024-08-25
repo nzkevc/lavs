@@ -90,16 +90,15 @@ public class LoanCardController extends ICard<Loan> {
     //   paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
     // }
 
-    // LoanPayments loanPayments = loan.getLoanPayments();
-    // if (loanPayments != null) {
-    //   number.setValue(String.valueOf(loanPayments.getNumber()));
-    //   pages.setValue(String.valueOf(loanPayments.getPages()));
-    //   payments.setValue(String.valueOf(loanPayments.getPayments()));
-    //   paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
-    //   // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
-    //   // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
-    //   // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
-    // }
+    LoanPayments loanPayments = loan.getLoanPayments();
+    if (loanPayments != null) {
+      pages.setValue(String.valueOf(loanPayments.getPages()));
+      payments.setValue(String.valueOf(loanPayments.getPayments()));
+      paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
+      // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
+      // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
+      // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
+    }
 
     // // Disable fields if loan is already persisted
     // if (loan.getLoanId() != null) {
