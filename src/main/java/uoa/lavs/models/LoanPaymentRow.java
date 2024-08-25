@@ -1,6 +1,6 @@
 package uoa.lavs.models;
 
-public class LoanPaymentRow implements IModel<LoanPaymentRow> {
+public class LoanPaymentRow implements IModel {
     private final double paymentInterest;
     private final double paymentPrincipal;
     private final double paymentRemaining;
@@ -27,12 +27,6 @@ public class LoanPaymentRow implements IModel<LoanPaymentRow> {
 
     public int getPaymentNumber() {
         return paymentNumber;
-    }
-
-    @Override
-    public boolean validate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validate'");
     }
 }
 

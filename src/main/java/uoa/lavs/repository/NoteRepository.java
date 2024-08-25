@@ -18,6 +18,8 @@ public class NoteRepository {
 
     UpdateCustomerNote message = new UpdateCustomerNote();
 
+    // Assume we're only working with one page of notes for now
+    message.setNumber(1);
     message.setCustomerId(customer.getId());
     for (int i = 0; i < serializedNotes.size(); i++) {
       message.setLine(i + 1, serializedNotes.get(i));

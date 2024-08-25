@@ -6,12 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uoa.lavs.models.Customer;
 
 public class CacheUtils {
 
@@ -28,7 +27,7 @@ public class CacheUtils {
     }
   }
 
-  public static void saveToCache(String key, Serializable value) {
+  public static void saveToCache(String key, Customer customer) {
     try {
       File cacheFile = new File(CACHE_DIR, key + ".ser");
       logger.debug("Saving to {}", cacheFile.getAbsolutePath());
@@ -36,8 +35,8 @@ public class CacheUtils {
       if (parent == null) Files.createDirectories(Paths.get(parent));
       if (cacheFile.exists()) cacheFile.delete();
       try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
-        if (value != null) {
-          oos.writeObject(value);
+        if (customer != null) {
+          oos.writeObject(customer);
         } // Else just delete the file
       }
     } catch (IOException e) {

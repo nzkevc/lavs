@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
-public class Loan implements IModel<Loan> {
+public class Loan implements IModel {
 
   private String customerId;
   private String loanId;
@@ -172,9 +174,45 @@ public class Loan implements IModel<Loan> {
     return false;
   }
 
-  // TODO: Also, maybe have a separate method for validating loans
-  @Override
-  public boolean validate() {
-    return true;
+  /**
+   * Validates the loanId. ONLY USE WHEN UPDATING A LOAN. DO NOT USE WHEN CREATING A NEW LOAN.
+   *
+   * @param loanId
+   * @throws ValidationException
+   */
+  public static void validateLoanId(String loanId) throws ValidationException {
+    ValidationUtils.validateFieldExists(loanId);
+    if (loanId.length() > 14) {
+      throw new ValidationException("Loan ID must be 14 characters or less.");
+    }
+  }
+
+  public static void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
+  }
+
+  public static void validatePaymentFrequency(Frequency paymentFrequency)
+      throws ValidationException {
+    if (paymentFrequency == null) {
+      throw new ValidationException("Payment frequency must be provided.");
+    }
+    if (!paymentFrequency.equals(Frequency.Monthly)
+        && !paymentFrequency.equals(Frequency.Fortnightly)
+        && !paymentFrequency.equals(Frequency.Weekly)) {
+      throw new ValidationException("Payment frequency must be Monthly, Fortnightly or Weekly.");
+    }
+  }
+
+  public static void validateCompoundingFrequency(Frequency compoundingFrequency)
+      throws ValidationException {
+    if (compoundingFrequency == null) {
+      throw new ValidationException("Compounding frequency must be provided.");
+    }
+    if (!compoundingFrequency.equals(Frequency.Weekly)
+        && !compoundingFrequency.equals(Frequency.Monthly)
+        && !compoundingFrequency.equals(Frequency.Yearly)) {
+      throw new ValidationException("Compounding frequency must be Weekly, Monthly or Yearly.");
+    }
   }
 }
