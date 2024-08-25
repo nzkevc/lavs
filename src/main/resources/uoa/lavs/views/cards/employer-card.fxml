@@ -15,14 +15,9 @@
       <MFXTextField fx:id="postcode" floatingText="Postcode" layoutX="630.0" layoutY="103.0" prefHeight="48.0" prefWidth="124.0" />
       <MFXTextField fx:id="city" floatingText="City" layoutX="413.0" layoutY="103.0" prefHeight="48.0" prefWidth="191.0" />
       <MFXTextField fx:id="country" floatingText="Country" layoutX="413.0" layoutY="164.0" prefHeight="48.0" prefWidth="341.0" />
-      <MFXCheckbox fx:id="isPrimary" layoutX="413.0" layoutY="225.0" prefHeight="48.0" prefWidth="75.0" text="Primary" />
-      <MFXCheckbox fx:id="isMailing" layoutX="528.0" layoutY="236.0" text="Mailing" />
       <MFXTextField fx:id="phoneNumber" floatingText="Phone Number" layoutX="175.0" layoutY="302.0" prefHeight="48.0" prefWidth="271.0" />
       <MFXTextField fx:id="prefix" floatingText="Prefix" layoutX="60.0" layoutY="302.0" prefHeight="48.0" prefWidth="104.0" />
-      <MFXCheckbox fx:id="isPhonePrimary" layoutX="545.0" layoutY="313.0" text="Primary" />
-      <MFXCheckbox fx:id="isPhoneSendText" layoutX="690.0" layoutY="313.0" text="Send Text" />
       <MFXTextField fx:id="emailAddress" floatingText="Email Address" layoutX="60.0" layoutY="376.0" prefHeight="48.0" prefWidth="290.0" />
-      <MFXCheckbox fx:id="isEmailPrimary" layoutX="389.0" layoutY="387.0" text="Primary" />
       <MFXCheckbox fx:id="isOwner" layoutX="389.0" layoutY="33.0" text="Owner" />
       <MFXTextField fx:id="website" floatingText="Website" layoutX="60.0" layoutY="454.0" prefHeight="48.0" prefWidth="297.0" />
    </children>

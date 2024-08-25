@@ -24,16 +24,11 @@ public class EmployerCardController extends ICard<Employer> {
   @FXML private MFXTextField city;
   @FXML private MFXTextField postcode;
   @FXML private MFXTextField country;
-  @FXML private MFXCheckbox isPrimary;
-  @FXML private MFXCheckbox isMailing;
 
   @FXML private MFXTextField prefix;
   @FXML private MFXTextField phoneNumber;
-  @FXML private MFXCheckbox isPhonePrimary;
-  @FXML private MFXCheckbox isPhoneSendText;
 
   @FXML private MFXTextField emailAddress;
-  @FXML private MFXCheckbox isEmailPrimary;
 
   @FXML private MFXTextField website;
 
@@ -53,18 +48,13 @@ public class EmployerCardController extends ICard<Employer> {
     ControllerUtils.renderText(city, address.getCity());
     ControllerUtils.renderText(postcode, address.getPostCode());
     ControllerUtils.renderText(country, address.getCountry());
-    isPrimary.setSelected(address.getPrimary());
-    isMailing.setSelected(address.getMailing());
 
     Phone phone = employer.getPhone();
     ControllerUtils.renderText(prefix, phone.getPrefix());
     ControllerUtils.renderText(phoneNumber, phone.getPhoneNumber());
-    isPhonePrimary.setSelected(phone.getPrimary());
-    isPhoneSendText.setSelected(phone.getCanSendTxt());
 
     Email email = employer.getEmail();
     ControllerUtils.renderText(emailAddress, email.getAddress());
-    isEmailPrimary.setSelected(email.getIsPrimary());
 
     ControllerUtils.renderText(website, employer.getWebsite());
   }
@@ -80,16 +70,11 @@ public class EmployerCardController extends ICard<Employer> {
     city.clear();
     postcode.clear();
     country.clear();
-    isPrimary.setSelected(false);
-    isMailing.setSelected(false);
 
     prefix.clear();
     phoneNumber.clear();
-    isPhonePrimary.setSelected(false);
-    isPhoneSendText.setSelected(false);
 
     emailAddress.clear();
-    isEmailPrimary.setSelected(false);
 
     website.clear();
   }
@@ -108,20 +93,15 @@ public class EmployerCardController extends ICard<Employer> {
     address.setCity(city.getText());
     address.setPostCode(postcode.getText());
     address.setCountry(country.getText());
-    address.setIsPrimary(isPrimary.isSelected());
-    address.setIsMailing(isMailing.isSelected());
     employer.setAddress(address);
 
     Phone phone = new Phone();
     phone.setPrefix(prefix.getText());
     phone.setPhoneNumber(phoneNumber.getText());
-    phone.setPrimary(isPhonePrimary.isSelected());
-    phone.setCanSendTxt(isPhoneSendText.isSelected());
     employer.setPhone(phone);
 
     Email email = new Email();
     email.setAddress(emailAddress.getText());
-    email.setIsPrimary(isEmailPrimary.isSelected());
     employer.setEmail(email);
 
     employer.setWebsite(website.getText());
