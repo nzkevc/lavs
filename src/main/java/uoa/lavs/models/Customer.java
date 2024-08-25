@@ -1,9 +1,8 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-import uoa.lavs.utils.objects.ValidationException;
 
-public class Customer implements IModel<Customer> {
+public class Customer implements IModel {
 
   private String id;
   private String status;
@@ -260,26 +259,6 @@ public class Customer implements IModel<Customer> {
 
   public void setLoans(Loans loans) {
     this.loans = loans;
-  }
-
-  // TODO: is this actually going to be used?
-  @Override
-  public boolean validate() throws ValidationException {
-    boolean validCustomerId = true;
-    if (id != null) {
-      validCustomerId = validateCustomerId(id);
-    }
-    if (validCustomerId
-        && validateTitle(title)
-        && validateName(name)
-        && validateDateOfBirth(dateOfBirth)
-        && validateOccupation(occupation)
-        && validateCitizenship(citizenship)
-        && validateVisa(visa)) {
-      return true;
-    } else {
-      throw new ValidationException("Customer validation failed.");
-    }
   }
 
   @Override

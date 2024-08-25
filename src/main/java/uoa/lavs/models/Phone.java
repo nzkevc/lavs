@@ -1,8 +1,6 @@
 package uoa.lavs.models;
 
-import uoa.lavs.utils.objects.ValidationException;
-
-public class Phone implements IModel<Phone> {
+public class Phone implements IModel {
   private String customerID;
   private Integer number;
   private String type;
@@ -88,19 +86,6 @@ public class Phone implements IModel<Phone> {
           && phoneNumber.equals(phone.getPhoneNumber());
     }
     return false;
-  }
-
-  // TODO
-  @Override
-  public boolean validate() throws ValidationException {
-    if (validateCustomerId(customerID)
-        && validateType(type)
-        && validatePrefix(prefix)
-        && validatePhoneNumber(phoneNumber)) {
-      return true;
-    } else {
-      throw new ValidationException("Phone validation failed");
-    }
   }
 
   public boolean validateCustomerId(String customerID) {

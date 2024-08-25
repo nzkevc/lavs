@@ -1,8 +1,6 @@
 package uoa.lavs.models;
 
-import uoa.lavs.utils.objects.ValidationException;
-
-public class Email implements IModel<Email> {
+public class Email implements IModel {
   private String customerID;
   private Integer number;
   private String emailAddress;
@@ -55,16 +53,6 @@ public class Email implements IModel<Email> {
       return emailAddress.equals(email.emailAddress);
     }
     return false;
-  }
-
-  // TODO
-  @Override
-  public boolean validate() throws ValidationException {
-    if (validateCustomerId(customerID) && validateNumber(number) && validateAddress(emailAddress)) {
-      return true;
-    } else {
-      throw new ValidationException("Email validation failed");
-    }
   }
 
   public boolean validateCustomerId(String customerId) {

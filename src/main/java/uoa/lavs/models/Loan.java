@@ -5,7 +5,7 @@ import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
 
-public class Loan implements IModel<Loan> {
+public class Loan implements IModel {
 
   private String customerId;
   private String loanId;
@@ -172,9 +172,5 @@ public class Loan implements IModel<Loan> {
     return false;
   }
 
-  // TODO: Also, maybe have a separate method for validating loans
-  @Override
-  public boolean validate() {
-    return true;
-  }
+  // TODO: Validation
 }

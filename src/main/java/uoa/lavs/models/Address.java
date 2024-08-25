@@ -1,8 +1,6 @@
 package uoa.lavs.models;
 
-import uoa.lavs.utils.objects.ValidationException;
-
-public class Address implements IModel<Address> {
+public class Address implements IModel {
   private String customerID;
   private Integer number;
   private String type;
@@ -166,23 +164,6 @@ public class Address implements IModel<Address> {
       return true;
     }
     return false;
-  }
-
-  // TODO
-  @Override
-  public boolean validate() throws ValidationException {
-    if (validateCustomerId(customerID)
-        && validateType(type)
-        && validateLine1(line1)
-        && validateLine2(line2)
-        && validateSuburb(suburb)
-        && validateCity(city)
-        && validatePostcode(postcode)
-        && validateCountry(country)) {
-      return true;
-    } else {
-      throw new ValidationException("Address validation failed.");
-    }
   }
 
   public boolean validateCustomerId(String customerId) {

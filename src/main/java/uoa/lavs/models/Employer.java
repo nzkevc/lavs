@@ -2,7 +2,7 @@ package uoa.lavs.models;
 
 import uoa.lavs.utils.objects.ValidationException;
 
-public class Employer implements IModel<Employer> {
+public class Employer implements IModel {
   private String customerId;
   private Integer number;
   private String name;
@@ -116,12 +116,6 @@ public class Employer implements IModel<Employer> {
           && isOwner == employer.isOwner();
     }
     return false;
-  }
-
-  // TODO:
-  @Override
-  public boolean validate() throws ValidationException {
-    return true;
   }
 
   public boolean validateCustomerId(String customerId) throws ValidationException {
