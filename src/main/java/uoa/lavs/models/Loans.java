@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Loans implements IModel<Loans> {
+public class Loans implements IModel {
   private String customerId;
   private final Set<Loan> loans;
 
@@ -58,11 +58,5 @@ public class Loans implements IModel<Loans> {
         return;
       }
     }
-  }
-
-  @Override
-  public boolean validate() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

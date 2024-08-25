@@ -1,7 +1,5 @@
 package uoa.lavs.models;
 
-import java.io.Serializable;
-
 /**
  * Models should have a several validateField methods for each field in the model.
  *
