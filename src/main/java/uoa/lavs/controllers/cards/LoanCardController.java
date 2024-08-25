@@ -61,30 +61,6 @@ public class LoanCardController extends ICard<Loan> {
     ControllerUtils.renderText(paymentAmount, loan.getPaymentAmountCents());
     ControllerUtils.renderCombo(paymentFrequency, loan.getPaymentFrequency(), Frequency.Unknown);
     interestOnly.setSelected(loan.isInterestOnly());
-
-    // LoanSummary loanSummary = loan.getLoanSummary();
-    // if (loanSummary != null) {
-    //   principle.setValue(String.valueOf(loanSummary.getPriciple()));
-    //   rateValue.setValue(String.valueOf(loanSummary.getRateValue()));
-    //   payoffDate.setValue(loanSummary.getPayoffDate().toString());
-    //   totalInterest.setValue(String.valueOf(loanSummary.getTotalInterest()));
-    //   totalLoanCost.setValue(String.valueOf(loanSummary.getTotalLoanCost()));
-    //   paymentAmount.setValue(String.valueOf(loanSummary.getPaymentAmount()));
-    // }
-
-    // LoanPayments loanPayments = loan.getLoanPayments();
-    // if (loanPayments != null) {
-    //   pages.setValue(String.valueOf(loanPayments.getPages()));
-    //   payments.setValue(String.valueOf(loanPayments.getPayments()));
-    //   paymentInterests.setValue(String.valueOf(loanPayments.getPaymentInterests()));
-    // paymentPrincipals.setValue(String.valueOf(loanPayments.getPaymentPrincipals()));
-    // paymentRemainings.setValue(String.valueOf(loanPayments.getPaymentRemainings()));
-    // paymentNumbers.setValue(String.valueOf(loanPayments.getPaymentNumbers()));
-    // }
-
-    // // Disable fields if loan is already persisted
-    // if (loan.getLoanId() != null) {
-    //
   }
 
   @Override

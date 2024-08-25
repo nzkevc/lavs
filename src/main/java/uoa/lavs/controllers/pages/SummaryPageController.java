@@ -3,14 +3,15 @@ package uoa.lavs.controllers.pages;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.AddressCardController;
@@ -20,6 +21,8 @@ import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoanCardController;
+import uoa.lavs.controllers.cards.LoanParentCardController;
+import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
@@ -80,13 +83,17 @@ public class SummaryPageController extends IPage {
   private void setUpCards() {
     cards.put(GeneralInfoCardController.class, new GeneralInfoCardController());
 
-    cards.put(EmployerCardController.class, new ScrollerController<>(EmployerCardController.class, "Employer"));
+    cards.put(
+        EmployerCardController.class,
+        new ScrollerController<>(EmployerCardController.class, "Employer"));
 
     cards.put(
         AddressCardController.class,
         new ScrollerController<>(AddressCardController.class, "Address"));
-    cards.put(PhoneCardController.class, new ScrollerController<>(PhoneCardController.class, "Phone"));
-    cards.put(EmailCardController.class, new ScrollerController<>(EmailCardController.class, "Email"));
+    cards.put(
+        PhoneCardController.class, new ScrollerController<>(PhoneCardController.class, "Phone"));
+    cards.put(
+        EmailCardController.class, new ScrollerController<>(EmailCardController.class, "Email"));
 
     // Not visible but let's keep it for rendering and assembling Address, Phone, Email
     cards.put(
@@ -94,7 +101,9 @@ public class SummaryPageController extends IPage {
         new ContactCardController(getAddressCard(), getPhoneCard(), getEmailCard()));
 
     cards.put(NoteCardController.class, new NoteCardController());
-    cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class, "Loan"));
+    cards.put(
+        LoanCardController.class,
+        new ScrollerController<>(LoanParentCardController.class, "Loan"));
 
     switchCard(GeneralInfoCardController.class);
   }

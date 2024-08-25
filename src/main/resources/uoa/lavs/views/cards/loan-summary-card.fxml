@@ -3,7 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane prefHeight="305.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.Pane" prefHeight="305.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MFXTextField fx:id="principleField" editable="false" floatingText="Principal" prefHeight="48.0" prefWidth="234.0" />
       <MFXTextField fx:id="rateValueField" editable="false" floatingText="Rate Value" layoutX="257.0" prefHeight="48.0" prefWidth="251.0" />
@@ -14,4 +14,4 @@
       <MFXTextField fx:id="paymentAmountField" editable="false" floatingText="Payment Amount" layoutY="117.0" prefHeight="48.0" prefWidth="228.0" />
       <MFXTextField fx:id="paymentFrequencyField" editable="false" floatingText="Payment Frequency" layoutX="253.0" layoutY="117.0" prefHeight="48.0" prefWidth="209.0" />
    </children>
-</Pane>
+</fx:root>

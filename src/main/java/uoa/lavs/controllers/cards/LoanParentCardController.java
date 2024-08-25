@@ -4,32 +4,79 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Loan;
+import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.ValidationUtils;
 
 public class LoanParentCardController extends ICard<Loan> {
-    
-    @FXML Label loanIdLbl;
-    @FXML MFXButton SummaryBtn;
-    @FXML Pane SwitchPane;
 
-    @Override
-    public void render(Loan data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+  private static final Logger logger = LoggerFactory.getLogger(LoanParentCardController.class);
 
+  private String loanId;
+  private final LoanCardController loanCreationCardController = new LoanCardController();
+  private final LoanSummaryCardController loanSummaryCardController =
+      new LoanSummaryCardController();
+  private final LoanPaymentsCardController loanPaymentsCardController =
+      new LoanPaymentsCardController();
+
+  @FXML private Label loanIdLbl;
+  @FXML private MFXButton SummaryBtn;
+  @FXML private Pane switchPane;
+
+  public LoanParentCardController() {
+    ControllerUtils.loadFxml(this, "cards/loan-parent-card.fxml");
+  }
+
+  @Override
+  public void render(Loan loan) {
+    logger.debug("Rendering loan parent card");
+    loanId = loan.getLoanId();
+
+    if (ValidationUtils.isNullOrBlank(loanId)) {
+      loanIdLbl.setText("New Loan");
+      loanCreationCardController.render(loan);
+      System.out.println("loanCreationCardController: " + loanCreationCardController);
+      ControllerUtils.swapComponent(switchPane, loanCreationCardController);
+      System.out.println("switchPane: " + switchPane);
+      SummaryBtn.setVisible(false);
+    } else {
+      loanIdLbl.setText("Loan ID: " + loan.getLoanId());
+      loanSummaryCardController.render(loan.getLoanSummary());
+      loanPaymentsCardController.render(loan.getLoanPayments());
+      ControllerUtils.swapComponent(switchPane, loanSummaryCardController);
+      SummaryBtn.setVisible(true);
     }
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+  }
+
+  @Override
+  public void clear() {
+    logger.debug(String.valueOf(loanIdLbl));
+    logger.debug("Clearing loan parent card");
+    loanId = null;
+    loanIdLbl.setText("New Loan");
+    loanCreationCardController.clear();
+    loanSummaryCardController.clear();
+    loanPaymentsCardController.clear();
+  }
+
+  @Override
+  public Loan assemble() {
+    return loanCreationCardController.assemble();
+  }
+
+  @FXML
+  private void onSummaryBtnClick() {
+    logger.debug("Summary button clicked");
+    if (loanId == null) {
+      return;
     }
-    @Override
-    public Loan assemble() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'assemble'");
+
+    if (switchPane.getChildren().contains(loanSummaryCardController)) {
+      ControllerUtils.swapComponent(switchPane, loanPaymentsCardController);
+    } else {
+      ControllerUtils.swapComponent(switchPane, loanSummaryCardController);
     }
-
-    
-
-
+  }
 }
