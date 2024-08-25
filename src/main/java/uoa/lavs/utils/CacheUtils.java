@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,17 +29,26 @@ public class CacheUtils {
   }
 
   public static void saveToCache(String key, Serializable value) {
-    File cacheDir = new File(CACHE_DIR);
-    File cacheFile = new File(cacheDir, key);
-    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
-      oos.writeObject(value);
+    try {
+      File cacheFile = new File(CACHE_DIR, key + ".ser");
+      logger.debug("Saving to {}", cacheFile.getAbsolutePath());
+      String parent = cacheFile.getParent();
+      if (parent == null) Files.createDirectories(Paths.get(parent));
+      if (cacheFile.exists()) cacheFile.delete();
+      try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
+        if (value != null) {
+          oos.writeObject(value);
+        } // Else just delete the file
+      }
     } catch (IOException e) {
-      logger.error("Failed to save to {}/{}", CACHE_DIR, key, e);
+      logger.error("Failed to save to {}/{}", CACHE_DIR, key);
+      throw new RuntimeException(e);
     }
   }
 
   public static <T> T loadFromCache(String key) throws IOException {
-    File cacheFile = new File(CACHE_DIR, key);
+    File cacheFile = new File(CACHE_DIR, key + ".ser");
+    logger.debug("Reading from {}", cacheFile.getAbsolutePath());
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(cacheFile))) {
       T value = (T) ois.readObject();
       if (value == null) throw new IOException("Failed to load from cache: " + key);

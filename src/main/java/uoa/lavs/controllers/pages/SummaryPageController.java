@@ -2,13 +2,14 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.ContactCardController;
@@ -37,20 +38,10 @@ public class SummaryPageController extends IPage {
 
   private final Map<Class<? extends ICard<?>>, Parent> cards = new HashMap<>();
 
-  @FXML private Button backBtn;
-
   @FXML private Label errorLbl;
-  @FXML private Button submitBtn;
 
-  @FXML private AnchorPane infoPane;
   @FXML private Label customerName;
   @FXML private Label customerID;
-
-  @FXML private Button generalBtn;
-  @FXML private Button contactBtn;
-  @FXML private Button employerBtn;
-  @FXML private Button notesBtn;
-  @FXML private Button loansBtn;
 
   @FXML private AnchorPane infoCard;
 
@@ -62,6 +53,7 @@ public class SummaryPageController extends IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+    State.getInstance().setAssembleCustomerFunction(this::assembleCustomer);
 
     // Rerender customer when customerFromSearch changes
     State.getInstance()
@@ -72,6 +64,7 @@ public class SummaryPageController extends IPage {
                 clearAll();
                 return;
               }
+              logger.trace("Rendering customer...");
               renderCustomer(newCustomer);
             });
   }
@@ -249,8 +242,13 @@ public class SummaryPageController extends IPage {
   }
 
   @FXML
-  private void onTestErrorBtnClick() {
-    handleException(new Exception("Submit is currently throwing, so this is redundant for now."));
+  private void onTestSaveBtnClick() {
+    State.saveState();
+  }
+
+  @FXML
+  private void onTestLoadBtnClick() {
+    State.loadState();
   }
 
   private void handleException(Throwable e) {
