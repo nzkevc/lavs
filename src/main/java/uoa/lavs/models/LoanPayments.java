@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanPayments {
+public class LoanPayments implements IModel<LoanPayments> {
   private String loanId;
   private String customerId;
   private String customerName;
@@ -133,5 +133,11 @@ public class LoanPayments {
     paymentPrincipals.add(principal);
     paymentRemainings.add(remaining);
     payments = paymentNumbers.size();
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

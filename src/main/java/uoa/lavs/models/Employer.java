@@ -1,6 +1,6 @@
 package uoa.lavs.models;
 
-public class Employer {
+public class Employer implements IModel<Employer> {
   private String customerId;
   private Integer number;
   private String name;
@@ -101,5 +101,11 @@ public class Employer {
 
   public void setOwner(boolean owner) {
     isOwner = owner;
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

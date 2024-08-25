@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Addresses {
+public class Addresses implements IModel<Addresses> {
   private String customerId;
   private Set<Address> addresses;
   private Address residentialAddress;
@@ -72,5 +72,11 @@ public class Addresses {
       mailingAddress = address;
       addresses.add(address);
     }
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

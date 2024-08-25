@@ -7,8 +7,8 @@ public class Instance {
     // private constructor so that this class can only be initialized internally
     private Instance() {}
 
-    // the path to the data file
-    private static final String dataPath = "testing/nitrite-test.db";
+  // the path to the data file
+  private static final String dataPath = "data/testing/nitrite-test.db";
 
     // internal class to initialize the singleton, this enables lazy-loading
     // for the singleton
