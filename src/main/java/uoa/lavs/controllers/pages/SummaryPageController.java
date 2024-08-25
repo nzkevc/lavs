@@ -18,7 +18,6 @@ import uoa.lavs.controllers.cards.EmployerCardController;
 import uoa.lavs.controllers.cards.GeneralInfoCardController;
 import uoa.lavs.controllers.cards.ICard;
 import uoa.lavs.controllers.cards.LoanCardController;
-import uoa.lavs.controllers.cards.LoanPaymentsCardController;
 import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
@@ -126,26 +125,26 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onContactBtnClick() {
-    if (currentCard == getPhoneCard().getClass() || currentCard == getEmailCard().getClass()) {
+    if (cards.get(currentCard) == getPhoneCard() || cards.get(currentCard) == getEmailCard()) {
       return;
     }
     switchCard(AddressCardController.class);
   }
 
   @FXML
-  private void onContactAddressBtnClicked(Event event) {
+  private void onContactAddressBtnClick(Event event) {
     event.consume();
     switchCard(AddressCardController.class);
   }
 
   @FXML
-  private void onContactPhoneBtnClicked(Event event) {
+  private void onContactPhoneBtnClick(Event event) {
     event.consume();
     switchCard(PhoneCardController.class);
   }
 
   @FXML
-  private void onContactEmailBtnClicked(Event event) {
+  private void onContactEmailBtnClick(Event event) {
     event.consume();
     switchCard(EmailCardController.class);
   }
