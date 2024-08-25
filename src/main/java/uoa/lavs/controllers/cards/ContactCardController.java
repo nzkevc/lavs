@@ -26,6 +26,16 @@ public class ContactCardController extends ICard<ContactInfo> {
     ControllerUtils.loadFxml(this, "cards/contact-card.fxml");
   }
 
+  public ContactCardController(
+      ScrollerController<Address> addressCards,
+      ScrollerController<Phone> phoneCards,
+      ScrollerController<Email> emailCards) {
+    this();
+    this.addressCards = addressCards;
+    this.phoneCards = phoneCards;
+    this.emailCards = emailCards;
+  }
+
   @FXML
   public void initialize() {
     addressCards.setCardController(AddressCardController.class);

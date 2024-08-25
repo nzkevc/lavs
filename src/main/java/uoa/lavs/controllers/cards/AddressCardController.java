@@ -28,12 +28,12 @@ public class AddressCardController extends ICard<Address> {
 
   @Override
   public void render(Address address) {
-    addressLine1.setText(address.getLine1());
-    addressLine2.setText(address.getLine2());
-    suburb.setText(address.getSuburb());
-    city.setText(address.getCity());
-    postcode.setText(address.getPostCode());
-    country.setText(address.getCountry());
+    ControllerUtils.renderText(addressLine1, address.getLine1());
+    ControllerUtils.renderText(addressLine2, address.getLine2());
+    ControllerUtils.renderText(suburb, address.getSuburb());
+    ControllerUtils.renderText(city, address.getCity());
+    ControllerUtils.renderText(postcode, address.getPostCode());
+    ControllerUtils.renderText(country, address.getCountry());
     isPrimary.setSelected(address.getPrimary());
     isMailing.setSelected(address.getMailing());
   }

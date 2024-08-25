@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +50,7 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   @Override
   public Set<T> assemble() {
     Set<T> models = new HashSet<>();
-    for (Node node :
-        displayVbox.getChildren().filtered(child -> cardControllerClass.isInstance(child))) {
+    for (Node node : displayVbox.getChildren()) {
       T model = (cardControllerClass.cast(node)).assemble();
       models.add(model);
     }

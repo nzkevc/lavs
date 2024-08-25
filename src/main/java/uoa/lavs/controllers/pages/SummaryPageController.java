@@ -76,13 +76,18 @@ public class SummaryPageController extends IPage {
   private void setUpCards() {
     cards.put(GeneralInfoCardController.class, new GeneralInfoCardController());
     cards.put(EmployerCardController.class, new EmployerCardController());
+
+    ScrollerController<Address> addressCard = new ScrollerController<>(AddressCardController.class);
+    ScrollerController<Phone> phoneCard = new ScrollerController<>(PhoneCardController.class);
+    ScrollerController<Email> emailCard = new ScrollerController<>(EmailCardController.class);
+    cards.put(AddressCardController.class, addressCard);
+    cards.put(PhoneCardController.class, phoneCard);
+    cards.put(EmailCardController.class, emailCard);
+
+    // Not rendered but let's keep it for rendering and assembling Address, Phone, Email
     cards.put(
-        ContactCardController.class,
-        new ContactCardController()); // Not rendered but let's keep it for rendering and assembling
-    // Address, Phone, Email
-    cards.put(AddressCardController.class, new ScrollerController<>(AddressCardController.class));
-    cards.put(PhoneCardController.class, new ScrollerController<>(PhoneCardController.class));
-    cards.put(EmailCardController.class, new ScrollerController<>(EmailCardController.class));
+        ContactCardController.class, new ContactCardController(addressCard, phoneCard, emailCard));
+
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
 
