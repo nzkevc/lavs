@@ -20,7 +20,7 @@ public class AddressesTests {
     addresses1.addAddress(mailingAddress);
 
     // Assert
-    assertEquals(primaryAddress, addresses1.getResidentialAddress());
+    assertEquals(primaryAddress, addresses1.getPrimaryAddress());
     assertEquals(mailingAddress, addresses1.getMailingAddress());
   }
 
@@ -65,10 +65,10 @@ public class AddressesTests {
     addresses.addAddress(primaryAddress);
 
     // Act
-    addresses.setResidentialAddress(newPrimaryAddress);
+    addresses.setPrimaryAddress(newPrimaryAddress);
 
     // Assert
-    assertEquals(newPrimaryAddress, addresses.getResidentialAddress());
+    assertEquals(newPrimaryAddress, addresses.getPrimaryAddress());
     assertFalse(primaryAddress.getPrimary());
   }
 
@@ -103,7 +103,7 @@ public class AddressesTests {
     addresses.addAddress(null);
 
     // Assert
-    assertEquals(primaryAddress, addresses.getResidentialAddress());
+    assertEquals(primaryAddress, addresses.getPrimaryAddress());
   }
 
   @Test

@@ -1,10 +1,9 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
-
 import uoa.lavs.mainframe.Frequency;
 
-public class LoanSummary implements IModel<LoanSummary> {
+public class LoanSummary implements IModel {
   private String loanId;
   private String customerId;
   private String customerName;
@@ -109,11 +108,5 @@ public class LoanSummary implements IModel<LoanSummary> {
 
   public void setPaymentFrequency(Frequency paymentFrequency) {
     this.paymentFrequency = paymentFrequency;
-  }
-
-  @Override
-  public boolean validate() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

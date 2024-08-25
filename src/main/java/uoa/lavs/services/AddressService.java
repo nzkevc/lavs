@@ -14,7 +14,6 @@ class AddressService implements IService {
     addresses.setCustomerId(newCustomer.getId());
     for (Address address : addresses.getAddresses()) {
       address.setCustomerId(newCustomer.getId());
-      address.validate();
       AddressRepository.create(address);
     }
   }
@@ -24,7 +23,6 @@ class AddressService implements IService {
     Addresses addresses = newCustomer.getAddresses();
     addresses.setCustomerId(newCustomer.getId());
     for (Address address : addresses.getAddresses()) {
-      address.validate();
       address.setCustomerId(newCustomer.getId());
       AddressRepository.update(address);
     }

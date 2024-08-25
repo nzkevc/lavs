@@ -1,13 +1,9 @@
 package uoa.lavs.models;
 
-import java.io.Serializable;
-
 /**
- * Models should have a full-model validate method that is called in the constructor.
+ * Models should have a several validateField methods for each field in the model.
  *
- * <p>If the model is invalid, the constructor should throw a custom exception that is caught at the
- * controller level, with fields indicating what subfields are invalid.
+ * <p>These validate methods should return a boolean indicating whether the field is valid or not,
+ * and shall be called in the controller level.
  */
-public interface IModel<T extends IModel<T>> extends Serializable {
-  boolean validate();
-}
+public interface IModel {}

@@ -152,7 +152,7 @@ public class SummaryPageController extends IPage {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
     getGeneralInfoCard().render(customer);
-    Address address = customer.getAddresses().getResidentialAddress();
+    Address address = customer.getAddresses().getPrimaryAddress();
     Phone phone = customer.getPhones().getPrimaryPhone();
     Email email = customer.getEmails().getPrimaryEmail();
     getContactCard().render(new ContactCardController.ContactTriple(address, phone, email));

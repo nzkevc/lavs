@@ -2,8 +2,9 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
-public class Emails implements IModel<Emails> {
+public class Emails implements IModel {
   private String customerId;
   private Set<Email> emails;
   private Email primaryEmail;
@@ -54,9 +55,15 @@ public class Emails implements IModel<Emails> {
     }
   }
 
-  @Override
-  public boolean validate() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'validate'");
+  public static void validate(Emails emails) throws ValidationException {
+    if (emails.getEmails().isEmpty()) {
+      return;
+    }
+    if (emails.getEmails().stream().noneMatch(Email::getIsPrimary)) {
+      throw new ValidationException("Primary email must be set.");
+    }
+    if (emails.getEmails().stream().filter(Email::getIsPrimary).count() > 1) {
+      throw new ValidationException("Only one primary email is allowed.");
+    }
   }
 }

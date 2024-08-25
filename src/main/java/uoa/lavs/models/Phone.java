@@ -1,6 +1,9 @@
 package uoa.lavs.models;
 
-public class Phone implements IModel<Phone> {
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
+
+public class Phone implements IModel {
   private String customerID;
   private Integer number;
   private String type;
@@ -88,9 +91,35 @@ public class Phone implements IModel<Phone> {
     return false;
   }
 
-  // TODO
-  @Override
-  public boolean validate() {
-    return true;
+  public static void validateCustomerID(String customerID) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerID);
+    Customer.validateCustomerId(customerID);
+  }
+
+  public static void validateType(String type) throws ValidationException {
+    ValidationUtils.validateFieldExists(type);
+    if (type.length() > 10) {
+      throw new ValidationException("Must be between 1 and 10 characters.");
+    }
+  }
+
+  public static void validatePrefix(String prefix) throws ValidationException {
+    ValidationUtils.validateFieldExists(prefix);
+    if (prefix.length() > 10) {
+      throw new ValidationException("Must be between 1 and 10 characters.");
+    }
+    if (!prefix.matches("[0-9\\+]+")) {
+      throw new ValidationException("Must comprise only numbers and '+'.");
+    }
+  }
+
+  public static void validatePhoneNumber(String phoneNumber) throws ValidationException {
+    ValidationUtils.validateFieldExists(phoneNumber);
+    if (phoneNumber.length() > 20) {
+      throw new ValidationException("Must be between 1 and 20 characters.");
+    }
+    if (!phoneNumber.matches("[0-9\\-]+")) {
+      throw new ValidationException("Must comprise only numbers and '-'.");
+    }
   }
 }

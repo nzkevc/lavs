@@ -1,6 +1,9 @@
 package uoa.lavs.models;
 
-public class Email implements IModel<Email> {
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
+
+public class Email implements IModel {
   private String customerID;
   private Integer number;
   private String emailAddress;
@@ -55,9 +58,15 @@ public class Email implements IModel<Email> {
     return false;
   }
 
-  // TODO
-  @Override
-  public boolean validate() {
-    return true;
+  public static void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
+  }
+
+  public static void validateAddress(String address) throws ValidationException {
+    ValidationUtils.validateFieldExists(address);
+    if (address.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
+    }
   }
 }

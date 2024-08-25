@@ -14,7 +14,6 @@ class EmailService implements IService {
     emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
       email.setCustomerId(newCustomer.getId());
-      email.validate();
       EmailRepository.create(email);
     }
   }
@@ -24,7 +23,6 @@ class EmailService implements IService {
     Emails emails = newCustomer.getEmails();
     emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
-      email.validate();
       email.setCustomerId(newCustomer.getId());
       EmailRepository.update(email);
     }
