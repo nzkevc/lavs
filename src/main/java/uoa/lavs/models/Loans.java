@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Loans {
+public class Loans implements IModel {
   private String customerId;
   private final Set<Loan> loans;
 

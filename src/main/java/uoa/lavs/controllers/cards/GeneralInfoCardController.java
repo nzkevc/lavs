@@ -1,11 +1,11 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.time.LocalDate;
 import javafx.fxml.FXML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
@@ -21,8 +21,6 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML private MFXTextField visaType;
   @FXML private MFXTextField occupation;
   @FXML private MFXTextField status;
-  
- 
 
   public GeneralInfoCardController() {
     ControllerUtils.loadFxml(this, "cards/general-info-card.fxml");
@@ -31,17 +29,18 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML
   private void initialize() {
     name.textProperty().bindBidirectional(State.customerName);
-  } 
+  }
 
   @Override
   public void render(Customer customer) {
-    title.setText(customer.getTitle());
-    name.setText(customer.getName());
-    dateOfBirth.setText(customer.getDateOfBirth().toString());
-    citizenship.setText(customer.getCitizenship());
-    visaType.setText(customer.getVisa());
-    occupation.setText(customer.getOccupation());
-    status.setText(customer.getStatus());
+    ControllerUtils.renderIntoComponent(title, customer.getTitle());
+    ControllerUtils.renderIntoComponent(name, customer.getName());
+    dateOfBirth.setValue(
+        customer.getDateOfBirth() == null ? LocalDate.EPOCH : customer.getDateOfBirth());
+    ControllerUtils.renderIntoComponent(citizenship, customer.getCitizenship());
+    ControllerUtils.renderIntoComponent(visaType, customer.getVisa());
+    ControllerUtils.renderIntoComponent(occupation, customer.getOccupation());
+    ControllerUtils.renderIntoComponent(status, customer.getStatus());
   }
 
   @Override

@@ -2,11 +2,12 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
-public class Addresses {
+public class Addresses implements IModel {
   private String customerId;
   private Set<Address> addresses;
-  private Address residentialAddress;
+  private Address primaryAddress;
   private Address mailingAddress;
 
   public Addresses(String customerId) {
@@ -29,7 +30,7 @@ public class Addresses {
   public void addAddress(Address newAddress) {
     if (newAddress != null) {
       if (newAddress.getPrimary()) {
-        setResidentialAddress(newAddress);
+        setPrimaryAddress(newAddress);
       }
 
       if (newAddress.getMailing()) {
@@ -50,16 +51,16 @@ public class Addresses {
     return addresses.size();
   }
 
-  public Address getResidentialAddress() {
-    return residentialAddress;
+  public Address getPrimaryAddress() {
+    return primaryAddress;
   }
 
-  void setResidentialAddress(Address address) {
+  void setPrimaryAddress(Address address) {
     if (address != null) {
-      if (residentialAddress != null) {
-        residentialAddress.setIsPrimary(false);
+      if (primaryAddress != null) {
+        primaryAddress.setIsPrimary(false);
       }
-      residentialAddress = address;
+      primaryAddress = address;
       addresses.add(address);
     }
   }
@@ -75,6 +76,24 @@ public class Addresses {
       }
       mailingAddress = address;
       addresses.add(address);
+    }
+  }
+
+  public static void validate(Addresses addresses) throws ValidationException {
+    if (addresses.getAddresses().isEmpty()) {
+      return;
+    }
+    if (addresses.getAddresses().stream().noneMatch(Address::getPrimary)) {
+      throw new ValidationException("Primary address must be set.");
+    }
+    if (addresses.getAddresses().stream().filter(Address::getPrimary).count() > 1) {
+      throw new ValidationException("Only one primary address is allowed.");
+    }
+    if (addresses.getAddresses().stream().noneMatch(Address::getMailing)) {
+      throw new ValidationException("Mailing address must be set.");
+    }
+    if (addresses.getAddresses().stream().filter(Address::getMailing).count() > 1) {
+      throw new ValidationException("Only one mailing address is allowed.");
     }
   }
 }

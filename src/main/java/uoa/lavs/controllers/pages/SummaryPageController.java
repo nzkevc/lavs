@@ -2,15 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.AddressCardController;
@@ -25,11 +23,14 @@ import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
+import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
+import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
+import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
@@ -43,21 +44,12 @@ public class SummaryPageController extends IPage {
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
   private final Map<Class<? extends ICard<?>>, Parent> cards = new HashMap<>();
-
-  @FXML private Button backBtn;
+  private Class<? extends ICard<?>> currentCard;
 
   @FXML private Label errorLbl;
-  @FXML private Button submitBtn;
 
-  @FXML private AnchorPane infoPane;
   @FXML private Label customerName;
   @FXML private Label customerID;
-
-  @FXML private Button generalBtn;
-  @FXML private Button contactBtn;
-  @FXML private Button employerBtn;
-  @FXML private Button notesBtn;
-  @FXML private Button loansBtn;
 
   @FXML private AnchorPane infoCard;
 
@@ -69,6 +61,7 @@ public class SummaryPageController extends IPage {
   private void initialize() {
     setUpCards();
     setUpBindings();
+    State.setAssembleCustomerFunction(this::assembleCustomer);
 
     // Rerender customer when customerFromSearch changes
     State.customerFromSearch.addListener(
@@ -77,6 +70,7 @@ public class SummaryPageController extends IPage {
             clearAll();
             return;
           }
+          logger.trace("Rendering customer...");
           renderCustomer(newCustomer);
         });
   }
@@ -84,7 +78,13 @@ public class SummaryPageController extends IPage {
   private void setUpCards() {
     cards.put(GeneralInfoCardController.class, new GeneralInfoCardController());
     cards.put(EmployerCardController.class, new EmployerCardController());
-    cards.put(ContactCardController.class, new ContactCardController());
+    cards.put(
+        ContactCardController.class,
+        new ContactCardController()); // Not rendered but let's keep it for rendering and assembling
+    // Address, Phone, Email
+    cards.put(AddressCardController.class, new ScrollerController<>(AddressCardController.class));
+    cards.put(PhoneCardController.class, new ScrollerController<>(PhoneCardController.class));
+    cards.put(EmailCardController.class, new ScrollerController<>(EmailCardController.class));
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
 
@@ -94,6 +94,7 @@ public class SummaryPageController extends IPage {
   private void switchCard(Class<? extends ICard<?>> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
     ControllerUtils.swapComponent(infoCard, cards.get(card));
+    currentCard = card;
   }
 
   private void setUpBindings() {
@@ -125,19 +126,28 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onContactBtnClick() {
-    switchCard(ContactCardController.class);
-  }
-
-  @FXML void onContactAddressBtnClick() {
+    if (currentCard == getPhoneCard().getClass() || currentCard == getEmailCard().getClass()) {
+      return;
+    }
     switchCard(AddressCardController.class);
   }
 
-  @FXML void onContactEmailBtnClick() {
-    switchCard(EmailCardController.class);
+  @FXML
+  private void onContactAddressBtnClicked(Event event) {
+    event.consume();
+    switchCard(AddressCardController.class);
   }
 
-  @FXML void onContactPhoneBtnClick() {
+  @FXML
+  private void onContactPhoneBtnClicked(Event event) {
+    event.consume();
     switchCard(PhoneCardController.class);
+  }
+
+  @FXML
+  private void onContactEmailBtnClicked(Event event) {
+    event.consume();
+    switchCard(EmailCardController.class);
   }
 
   @FXML
@@ -165,20 +175,19 @@ public class SummaryPageController extends IPage {
   }
 
   private ContactCardController getContactCard() {
-
     return (ContactCardController) cards.get(ContactCardController.class);
   }
 
-  private AddressCardController getAddressCard() {
-    return (AddressCardController) cards.get(AddressCardController.class);
-  }
-  
-  private EmailCardController getEmailCard() {
-    return (EmailCardController) cards.get(EmailCardController.class);
+  private ScrollerController<Address> getAddressCard() {
+    return (ScrollerController<Address>) cards.get(AddressCardController.class);
   }
 
-  private PhoneCardController getPhoneCard() {
-    return (PhoneCardController) cards.get(PhoneCardController.class);
+  private ScrollerController<Email> getEmailCard() {
+    return (ScrollerController<Email>) cards.get(EmailCardController.class);
+  }
+
+  private ScrollerController<Phone> getPhoneCard() {
+    return (ScrollerController<Phone>) cards.get(PhoneCardController.class);
   }
 
   private EmployerCardController getEmployerCard() {
@@ -193,14 +202,6 @@ public class SummaryPageController extends IPage {
     return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
 
-  private ScrollerController<Loan> getLoanSummaryCard() {
-    return (ScrollerController<Loan>) cards.get(LoanSummaryCardController.class);
-  }
-
-  private ScrollerController<Loan> getLoanPaymentsCard() {
-    return (ScrollerController<Loan>) cards.get(LoanPaymentsCardController.class);
-  }
-
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());
     State.customerName.setValue(customer.getName());
@@ -211,7 +212,7 @@ public class SummaryPageController extends IPage {
     Emails emails = customer.getEmails();
     getContactCard().render(new ContactInfo(addresses, phones, emails));
 
-    getEmployerCard().render(customer.getEmployer());
+    getEmployerCard().render(customer.getEmployers().getEmployers().iterator().next());
     getNoteCard().render(customer.getNotes());
     getLoansCard().render(customer.getLoans().getLoans());
   }
@@ -226,7 +227,9 @@ public class SummaryPageController extends IPage {
     getLoansCard().clear();
   }
 
+  // TODO: I have a feeling switching to sets means updating might not work anymore
   private Customer assembleCustomer() {
+    logger.debug("Assembling customer...");
     Customer customer = getGeneralInfoCard().assemble();
     customer.setId(State.customerId.getValue());
 
@@ -237,7 +240,8 @@ public class SummaryPageController extends IPage {
     customer.setPhones(phones);
     customer.setEmails(emails);
 
-    customer.setEmployer(getEmployerCard().assemble());
+    // TODO: This and a lot of these might need to change
+    customer.getEmployers().addEmployer(getEmployerCard().assemble());
     customer.setNotes(getNoteCard().assemble());
     customer.setLoans(new Loans(getLoansCard().assemble()));
     return customer;
@@ -294,8 +298,13 @@ public class SummaryPageController extends IPage {
   }
 
   @FXML
-  private void onTestErrorBtnClick() {
-    handleException(new Exception("Submit is currently throwing, so this is redundant for now."));
+  private void onTestSaveBtnClick() {
+    State.saveState();
+  }
+
+  @FXML
+  private void onTestLoadBtnClick() {
+    State.loadState();
   }
 
   private void handleException(Throwable e) {

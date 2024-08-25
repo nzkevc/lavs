@@ -1,6 +1,6 @@
 package uoa.lavs.models;
 
-public class LoanPaymentRow {
+public class LoanPaymentRow implements IModel {
     private final double paymentInterest;
     private final double paymentPrincipal;
     private final double paymentRemaining;

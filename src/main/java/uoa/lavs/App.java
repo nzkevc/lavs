@@ -62,9 +62,7 @@ public class App extends Application {
         });
 
     // Set up application
-    ConnectionInstance.setConnection(new NitriteConnection("testing/nitrite.db"));
-    State.reset();
-
+    ConnectionInstance.setConnection(new NitriteConnection("data/nitrite.db"));
     stage.show();
   }
 

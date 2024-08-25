@@ -7,13 +7,12 @@ import uoa.lavs.repository.PhoneRepository;
 import uoa.lavs.repository.PhonesRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
-class PhoneService {
+class PhoneService implements IService {
   public static void createPhonesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();
     phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
-      phone.validate();
       phone.setCustomerID(newCustomer.getId());
       PhoneRepository.create(phone);
     }
@@ -24,7 +23,6 @@ class PhoneService {
     Phones phones = newCustomer.getPhones();
     phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
-      phone.validate();
       phone.setCustomerID(newCustomer.getId());
       PhoneRepository.update(phone);
     }

@@ -1,6 +1,9 @@
 package uoa.lavs.models;
 
-public class Employer {
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
+
+public class Employer implements IModel {
   private String customerId;
   private Integer number;
   private String name;
@@ -101,5 +104,48 @@ public class Employer {
 
   public void setOwner(boolean owner) {
     isOwner = owner;
+  }
+
+  // TODO: actually implement in a "robust" manner perhaps
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    if (o instanceof Employer) {
+      Employer employer = (Employer) o;
+      return name.equals(employer.getName())
+          && address.equals(employer.getAddress())
+          && email.equals(employer.getEmail())
+          && isOwner == employer.isOwner();
+    }
+    return false;
+  }
+
+  public static void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
+  }
+
+  public static void validateName(String name) throws ValidationException {
+    ValidationUtils.validateFieldExists(name);
+    if (name.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
+    }
+  }
+
+  public static void validatePhone(String phone) throws ValidationException {
+    ValidationUtils.validateFieldExists(phone);
+    if (phone.length() > 30) {
+      throw new ValidationException("Must be between 1 and 30 characters.");
+    }
+    if (!phone.matches("^\\+?[0-9-]+$")) {
+      throw new ValidationException("Must only contain numbers and hyphens, optional '+' prefix.");
+    }
+  }
+
+  public static void validateWebsite(String website) throws ValidationException {
+    ValidationUtils.validateFieldExists(website);
+    if (website.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
+    }
   }
 }

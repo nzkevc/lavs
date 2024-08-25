@@ -40,7 +40,6 @@ public class LoanService implements IService {
       throws ValidationException, RuntimeException {
     loans.setCustomerId(customerId);
     for (Loan loan : loans.getLoans()) {
-      loan.validate();
       loan.setCustomerId(customerId);
       LoanRepository.create(loan);
     }
@@ -56,8 +55,6 @@ public class LoanService implements IService {
    * @throws RuntimeException
    */
   public static Loan updateLoanStatus(Loan loan) throws ValidationException, RuntimeException {
-    // TODO: also should be validateStatus
-    loan.validate();
     return LoanRepository.updateStatus(loan, loan.getStatus());
   }
 }

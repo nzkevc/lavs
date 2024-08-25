@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanPayments {
+public class LoanPayments implements IModel {
   private String loanId;
   private String customerId;
   private String customerName;

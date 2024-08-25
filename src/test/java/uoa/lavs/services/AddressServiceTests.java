@@ -35,7 +35,7 @@ public class AddressServiceTests {
     // Assert
     assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
     assertEquals(1, customer.getAddresses().getAddresses().size());
-    assertEquals(address, customer.getAddresses().getResidentialAddress());
+    assertEquals(address, customer.getAddresses().getPrimaryAddress());
   }
 
   @Test
@@ -84,7 +84,7 @@ public class AddressServiceTests {
     assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
     assertEquals(2, customer.getAddresses().getAddresses().size());
     assertEquals(address3, customer.getAddresses().getMailingAddress());
-    assertEquals(address, customer.getAddresses().getResidentialAddress());
+    assertEquals(address, customer.getAddresses().getPrimaryAddress());
   }
 
   @Test
@@ -105,7 +105,7 @@ public class AddressServiceTests {
     customer.setAddresses(AddressService.getAddresses(customer));
 
     // Assert
-    assertEquals(address2, customer.getAddresses().getResidentialAddress());
+    assertEquals(address2, customer.getAddresses().getPrimaryAddress());
   }
 
   @Test

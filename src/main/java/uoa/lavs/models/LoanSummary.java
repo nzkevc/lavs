@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.time.LocalDate;
 import uoa.lavs.mainframe.Frequency;
 
-public class LoanSummary {
+public class LoanSummary implements IModel {
   private String loanId;
   private String customerId;
   private String customerName;

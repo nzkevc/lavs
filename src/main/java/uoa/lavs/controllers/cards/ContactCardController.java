@@ -1,11 +1,9 @@
 package uoa.lavs.controllers.cards;
 
 import java.util.Set;
-
+import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javafx.fxml.FXML;
 import uoa.lavs.controllers.fragments.ScrollerController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;

@@ -6,11 +6,10 @@ import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Emails;
-import uoa.lavs.models.Employer;
+import uoa.lavs.models.Employers;
 import uoa.lavs.models.Loans;
 import uoa.lavs.models.Phones;
 import uoa.lavs.repository.CustomerRepository;
-import uoa.lavs.repository.EmployerRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
 public class CustomerService implements IService {
@@ -19,19 +18,13 @@ public class CustomerService implements IService {
 
   public static void createCustomer(Customer newCustomer)
       throws RuntimeException, ValidationException {
-    newCustomer.validate();
     String customerId = CustomerRepository.create(newCustomer).getId();
     newCustomer.setId(customerId);
-
-    Employer employer = newCustomer.getEmployer();
-    if (employer != null) {
-      employer.setCustomerId(newCustomer.getId());
-      EmployerRepository.create(employer);
-    }
 
     AddressService.createAddressesFromCustomer(newCustomer);
     PhoneService.createPhonesFromCustomer(newCustomer);
     EmailService.createEmailsFromCustomer(newCustomer);
+    EmployerService.createEmployersFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
   }
 
@@ -40,20 +33,14 @@ public class CustomerService implements IService {
     Addresses addresses = AddressService.getAddresses(customer);
     Phones phones = PhoneService.getPhones(customer);
     Emails emails = EmailService.getEmails(customer);
+    Employers employers = EmployerService.getEmployers(customer);
     String notes = NoteService.getNotes(customer);
     Loans loans = LoanService.getLoans(customer);
-
-    // may change in the future to support multiple employers
-    try {
-      Employer employer = EmployerRepository.get(id, 1);
-      customer.setEmployer(employer);
-    } catch (Exception e) {
-      logger.error("Failed to get employer for customer: " + e.getMessage());
-    }
 
     customer.setAddresses(addresses);
     customer.setPhones(phones);
     customer.setEmails(emails);
+    customer.setEmployers(employers);
     customer.setNotes(notes);
     customer.setLoans(loans);
 
@@ -61,18 +48,12 @@ public class CustomerService implements IService {
   }
 
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
-    newCustomer.validate();
     CustomerRepository.update(newCustomer);
-
-    Employer employer = newCustomer.getEmployer();
-    if (employer != null) {
-      employer.setCustomerId(newCustomer.getId());
-      EmployerRepository.update(employer);
-    }
 
     AddressService.updateAddressesFromCustomer(newCustomer);
     PhoneService.updatePhonesFromCustomer(newCustomer);
     EmailService.updateEmailsFromCustomer(newCustomer);
+    EmployerService.updateEmployersFromCustomer(newCustomer);
     NoteService.updateNotesFromCustomer(newCustomer);
   }
 

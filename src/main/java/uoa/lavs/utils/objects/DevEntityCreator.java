@@ -19,7 +19,7 @@ public class DevEntityCreator {
     customer.getAddresses().addAddress(createBasicPrimaryAddress(customer));
     customer.getPhones().addPhone(createBasicPrimaryPhone(customer));
     customer.getEmails().addEmail(createBasicEmail(customer));
-    customer.setEmployer(createBasicEmployer(customer));
+    customer.getEmployers().addEmployer(createBasicEmployer(customer));
     customer.getLoans().addLoan(createBasicLoan(customer));
     customer.setId(null);
     return customer;

@@ -7,14 +7,13 @@ import uoa.lavs.repository.EmailRepository;
 import uoa.lavs.repository.EmailsRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
-class EmailService {
+class EmailService implements IService {
   public static void createEmailsFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Emails emails = newCustomer.getEmails();
     emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
       email.setCustomerId(newCustomer.getId());
-      email.validate();
       EmailRepository.create(email);
     }
   }
@@ -24,7 +23,6 @@ class EmailService {
     Emails emails = newCustomer.getEmails();
     emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
-      email.validate();
       email.setCustomerId(newCustomer.getId());
       EmailRepository.update(email);
     }

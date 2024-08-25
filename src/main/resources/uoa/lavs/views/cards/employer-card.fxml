@@ -20,7 +20,7 @@
       <MFXTextField fx:id="phoneNumber" floatingText="Phone Number" layoutX="175.0" layoutY="302.0" prefHeight="48.0" prefWidth="271.0" />
       <MFXTextField fx:id="prefix" floatingText="Prefix" layoutX="60.0" layoutY="302.0" prefHeight="48.0" prefWidth="104.0" />
       <MFXCheckbox fx:id="isPhonePrimary" layoutX="545.0" layoutY="313.0" text="Primary" />
-      <MFXCheckbox fx:id="isSendText" layoutX="690.0" layoutY="313.0" text="Send Text" />
+      <MFXCheckbox fx:id="isPhoneSendText" layoutX="690.0" layoutY="313.0" text="Send Text" />
       <MFXTextField fx:id="emailAddress" floatingText="Email Address" layoutX="60.0" layoutY="376.0" prefHeight="48.0" prefWidth="290.0" />
       <MFXCheckbox fx:id="isEmailPrimary" layoutX="389.0" layoutY="387.0" text="Primary" />
       <MFXCheckbox fx:id="isOwner" layoutX="389.0" layoutY="33.0" text="Owner" />

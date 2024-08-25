@@ -1,12 +1,10 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import uoa.lavs.controllers.fragments.FieldController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Employer;
@@ -16,7 +14,6 @@ import uoa.lavs.utils.ControllerUtils;
 public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
-
 
   @FXML private MFXTextField employerName;
   @FXML private MFXCheckbox isOwner;
@@ -35,11 +32,10 @@ public class EmployerCardController extends ICard<Employer> {
   @FXML private MFXCheckbox isPhonePrimary;
   @FXML private MFXCheckbox isPhoneSendText;
 
-  @FXML private MFXTextField  emailAddress;
+  @FXML private MFXTextField emailAddress;
   @FXML private MFXCheckbox isEmailPrimary;
 
   @FXML private MFXTextField website;
-
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
@@ -47,30 +43,30 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public void render(Employer employer) {
-    employerName.setText(employer.getName());
+    ControllerUtils.renderIntoComponent(employerName, employer.getName());
     isOwner.setSelected(employer.isOwner());
 
     Address address = employer.getAddress();
-    addressLine1.setText(address.getLine1());
-    addressLine2.setText(address.getLine2());
-    suburb.setText(address.getSuburb());
-    city.setText(address.getCity());
-    postcode.setText(address.getPostCode());
-    country.setText(address.getCountry());
+    ControllerUtils.renderIntoComponent(addressLine1, address.getLine1());
+    ControllerUtils.renderIntoComponent(addressLine2, address.getLine2());
+    ControllerUtils.renderIntoComponent(suburb, address.getSuburb());
+    ControllerUtils.renderIntoComponent(city, address.getCity());
+    ControllerUtils.renderIntoComponent(postcode, address.getPostCode());
+    ControllerUtils.renderIntoComponent(country, address.getCountry());
     isPrimary.setSelected(address.getPrimary());
     isMailing.setSelected(address.getMailing());
 
     Phone phone = employer.getPhone();
-    prefix.setText(phone.getPrefix());
-    phoneNumber.setText(phone.getPhoneNumber());
+    ControllerUtils.renderIntoComponent(prefix, phone.getPrefix());
+    ControllerUtils.renderIntoComponent(phoneNumber, phone.getPhoneNumber());
     isPhonePrimary.setSelected(phone.getPrimary());
     isPhoneSendText.setSelected(phone.getCanSendTxt());
 
     Email email = employer.getEmail();
-    emailAddress.setText(email.getAddress());
+    ControllerUtils.renderIntoComponent(emailAddress, email.getAddress());
     isEmailPrimary.setSelected(email.getIsPrimary());
 
-    website.setText(employer.getWebsite());
+    ControllerUtils.renderIntoComponent(website, employer.getWebsite());
   }
 
   @Override
@@ -100,7 +96,7 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public Employer assemble() {
-   
+
     Employer employer = new Employer();
     employer.setName(employerName.getText());
     employer.setOwner(isOwner.isSelected());

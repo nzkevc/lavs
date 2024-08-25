@@ -2,8 +2,9 @@ package uoa.lavs.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import uoa.lavs.utils.objects.ValidationException;
 
-public class Phones {
+public class Phones implements IModel {
   private String customerId;
   private Set<Phone> phoneNumbers;
   private Phone primaryPhone;
@@ -75,6 +76,18 @@ public class Phones {
       if (!phone.getPrimary() && !phone.getCanSendTxt()) {
         phoneNumbers.add(phone);
       }
+    }
+  }
+
+  public static void validate(Phones phones) throws ValidationException {
+    if (phones.getPhoneNumbers().isEmpty()) {
+      return;
+    }
+    if (phones.getPhoneNumbers().stream().noneMatch(Phone::getPrimary)) {
+      throw new ValidationException("Primary phone must be set.");
+    }
+    if (phones.getPhoneNumbers().stream().filter(Phone::getPrimary).count() > 1) {
+      throw new ValidationException("Only one primary address is allowed.");
     }
   }
 }
