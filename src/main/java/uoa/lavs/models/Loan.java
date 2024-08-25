@@ -182,4 +182,22 @@ public class Loan implements IModel {
     }
     return Customer.validateCustomerId(customerId);
   }
+
+  public boolean validatePaymentFrequency(Frequency paymentFrequency) {
+    if (paymentFrequency == null) {
+      return false;
+    }
+    return paymentFrequency.equals(Frequency.Monthly)
+        || paymentFrequency.equals(Frequency.Fortnightly)
+        || paymentFrequency.equals(Frequency.Weekly);
+  }
+
+  public boolean validateCompoundingFrequency(Frequency compoundingFrequency) {
+    if (compoundingFrequency == null) {
+      return false;
+    }
+    return compoundingFrequency.equals(Frequency.Weekly)
+        || compoundingFrequency.equals(Frequency.Monthly)
+        || compoundingFrequency.equals(Frequency.Yearly);
+  }
 }
