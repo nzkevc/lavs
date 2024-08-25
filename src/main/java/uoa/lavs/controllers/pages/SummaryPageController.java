@@ -2,16 +2,13 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.math3.analysis.function.Add;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.AddressCardController;
@@ -30,9 +27,7 @@ import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
-import uoa.lavs.models.LoanSummary;
 import uoa.lavs.models.Loans;
-import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
@@ -132,8 +127,44 @@ public class SummaryPageController extends IPage {
   }
 
   @FXML
+  private void onContactAddressBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
+  private void onContactPhoneBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
+  private void onContactEmailBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
   private void onEmployerBtnClick() {
     switchCard(EmployerCardController.class);
+  }
+
+  @FXML
+  private void onEmployerAddressBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
+  private void onEmployerPhoneBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
+  private void onEmployerEmailBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 
   @FXML
@@ -144,6 +175,18 @@ public class SummaryPageController extends IPage {
   @FXML
   private void onLoansBtnClick() {
     switchCard(LoanCardController.class);
+  }
+
+  @FXML
+  private void onLoanSummaryBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @FXML
+  private void onLoanPaymentsBtnClicked() {
+    // TODO: implement
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -157,7 +200,7 @@ public class SummaryPageController extends IPage {
   private AddressCardController getAddressCard() {
     return (AddressCardController) cards.get(AddressCardController.class);
   }
-  
+
   private EmailCardController getEmailCard() {
     return (EmailCardController) cards.get(EmailCardController.class);
   }
