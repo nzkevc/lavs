@@ -3,7 +3,6 @@ package uoa.lavs.controllers.pages;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.math3.analysis.function.Add;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +29,7 @@ import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
 import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
-import uoa.lavs.models.LoanSummary;
 import uoa.lavs.models.Loans;
-import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
@@ -131,6 +128,18 @@ public class SummaryPageController extends IPage {
     switchCard(ContactCardController.class);
   }
 
+  @FXML void onContactAddressBtnClick() {
+    switchCard(AddressCardController.class);
+  }
+
+  @FXML void onContactEmailBtnClick() {
+    switchCard(EmailCardController.class);
+  }
+
+  @FXML void onContactPhoneBtnClick() {
+    switchCard(PhoneCardController.class);
+  }
+
   @FXML
   private void onEmployerBtnClick() {
     switchCard(EmployerCardController.class);
@@ -143,7 +152,12 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onLoansBtnClick() {
+    boolean isCreating = State.customerId.getValue().isEmpty();
+    if(isCreating) {
     switchCard(LoanCardController.class);
+    } else {
+      switchCard(LoanSummaryCardController.class);
+    }
   }
 
   private GeneralInfoCardController getGeneralInfoCard() {
@@ -151,6 +165,7 @@ public class SummaryPageController extends IPage {
   }
 
   private ContactCardController getContactCard() {
+
     return (ContactCardController) cards.get(ContactCardController.class);
   }
 
@@ -178,15 +193,13 @@ public class SummaryPageController extends IPage {
     return (ScrollerController<Loan>) cards.get(LoanCardController.class);
   }
 
-  private LoanSummaryCardController getLoanSummaryCard() {
-    return (LoanSummaryCardController) cards.get(LoanSummaryCardController.class);
+  private ScrollerController<Loan> getLoanSummaryCard() {
+    return (ScrollerController<Loan>) cards.get(LoanSummaryCardController.class);
   }
 
-  private LoanPaymentsCardController getLoanPaymentsCard() {
-    return (LoanPaymentsCardController) cards.get(LoanPaymentsCardController.class);
+  private ScrollerController<Loan> getLoanPaymentsCard() {
+    return (ScrollerController<Loan>) cards.get(LoanPaymentsCardController.class);
   }
-
-
 
   private void renderCustomer(Customer customer) {
     State.customerId.setValue(customer.getId() == null ? "" : customer.getId());

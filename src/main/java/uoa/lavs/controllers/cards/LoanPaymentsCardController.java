@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -12,11 +13,14 @@ import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.utils.others.observables.When;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import uoa.lavs.models.LoanPaymentRow;
 import uoa.lavs.models.LoanPayments;
 
 public class LoanPaymentsCardController extends ICard<LoanPayments>{
 
+    @FXML private Label loanIdLbl;
+    @FXML private MFXButton summaryBtn;
     @FXML private MFXPaginatedTableView<LoanPaymentRow> loanPaymentsTable;
 
     @Override

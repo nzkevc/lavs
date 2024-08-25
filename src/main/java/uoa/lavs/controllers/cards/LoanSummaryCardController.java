@@ -1,17 +1,14 @@
 package uoa.lavs.controllers.cards;
 
-import java.time.LocalDate;
-
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import uoa.lavs.mainframe.Frequency;
+import javafx.scene.control.Label;
 import uoa.lavs.models.LoanSummary;
-
 public class LoanSummaryCardController extends ICard<LoanSummary> {
 
-    @FXML private MFXTextField loanIdField;
-    @FXML private MFXTextField customerIdField;
-    @FXML private MFXTextField customerNameField;
+    @FXML private Label loanIdLabel;
+    @FXML private MFXButton paymentsBtn;
     @FXML private MFXTextField principleField;
     @FXML private MFXTextField rateValueField;
     @FXML private MFXTextField payoffDateField;
@@ -24,9 +21,7 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
     @Override
     public void render(LoanSummary data) {
 
-        loanIdField.setText(data.getLoanId());
-        customerIdField.setText(data.getCustomerId());
-        customerNameField.setText(data.getCustomerName());
+        loanIdLabel.setText("Loan ID: " + data.getLoanId());
         principleField.setText(data.getPriciple().toString());
         rateValueField.setText(data.getRateValue().toString());
         payoffDateField.setText(data.getPayoffDate().toString());
@@ -39,9 +34,7 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
 
     @Override
     public void clear() {
-        loanIdField.clear();
-        customerIdField.clear();
-        customerNameField.clear();
+        loanIdLabel.setText("Loan ID: ");
         principleField.clear();
         rateValueField.clear();
         payoffDateField.clear();
@@ -54,23 +47,7 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
 
     @Override
     public LoanSummary assemble() {
-        LoanSummary loanSummary = new LoanSummary();
-        loanSummary.setLoanId(loanIdField.getText());
-        loanSummary.setCustomerId(customerIdField.getText());
-        loanSummary.setCustomerName(customerNameField.getText());
-        loanSummary.setPriciple(Double.parseDouble(principleField.getText()));
-        loanSummary.setRateValue(Double.parseDouble(rateValueField.getText()));
-        loanSummary.setPayoffDate(LocalDate.parse(payoffDateField.getText()));
-        loanSummary.setTerm(Integer.parseInt(termField.getText()));
-        loanSummary.setTotalInterest(Double.parseDouble(totalInterestField.getText()));
-        loanSummary.setTotalLoanCost(Double.parseDouble(totalLoanCostField.getText()));
-        loanSummary.setPaymentAmount(Double.parseDouble(paymentAmountField.getText()));
-        loanSummary.setPaymentFrequency(Frequency.valueOf(paymentFrequencyField.getText()));
-        return loanSummary;
+       return null;
     }
-   
-
-
-
    
 }
