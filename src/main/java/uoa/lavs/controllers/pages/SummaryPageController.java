@@ -2,12 +2,15 @@ package uoa.lavs.controllers.pages;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.State;
 import uoa.lavs.controllers.cards.AddressCardController;
@@ -22,11 +25,14 @@ import uoa.lavs.controllers.cards.LoanSummaryCardController;
 import uoa.lavs.controllers.cards.NoteCardController;
 import uoa.lavs.controllers.cards.PhoneCardController;
 import uoa.lavs.controllers.fragments.ScrollerController;
+import uoa.lavs.models.Address;
 import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
+import uoa.lavs.models.Email;
 import uoa.lavs.models.Emails;
 import uoa.lavs.models.Loan;
 import uoa.lavs.models.Loans;
+import uoa.lavs.models.Phone;
 import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
@@ -40,6 +46,7 @@ public class SummaryPageController extends IPage {
   private static final Logger logger = LoggerFactory.getLogger(SummaryPageController.class);
 
   private final Map<Class<? extends ICard<?>>, Parent> cards = new HashMap<>();
+  private Class<? extends ICard<?>> currentCard;
 
   @FXML private Label errorLbl;
 
@@ -73,7 +80,13 @@ public class SummaryPageController extends IPage {
   private void setUpCards() {
     cards.put(GeneralInfoCardController.class, new GeneralInfoCardController());
     cards.put(EmployerCardController.class, new EmployerCardController());
-    cards.put(ContactCardController.class, new ContactCardController());
+    cards.put(
+        ContactCardController.class,
+        new ContactCardController()); // Not rendered but let's keep it for rendering and assembling
+    // Address, Phone, Email
+    cards.put(AddressCardController.class, new ScrollerController<>(AddressCardController.class));
+    cards.put(PhoneCardController.class, new ScrollerController<>(PhoneCardController.class));
+    cards.put(EmailCardController.class, new ScrollerController<>(EmailCardController.class));
     cards.put(NoteCardController.class, new NoteCardController());
     cards.put(LoanCardController.class, new ScrollerController<>(LoanCardController.class));
 
@@ -83,6 +96,7 @@ public class SummaryPageController extends IPage {
   private void switchCard(Class<? extends ICard<?>> card) {
     logger.debug("Switching to card: " + card.getSimpleName());
     ControllerUtils.swapComponent(infoCard, cards.get(card));
+    currentCard = card;
   }
 
   private void setUpBindings() {
@@ -114,25 +128,28 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onContactBtnClick() {
-    switchCard(ContactCardController.class);
+    if (currentCard == getPhoneCard().getClass() || currentCard == getEmailCard().getClass()) {
+      return;
+    }
+    switchCard(AddressCardController.class);
   }
 
   @FXML
-  private void onContactAddressBtnClicked() {
-    // TODO: implement
-    throw new UnsupportedOperationException("Not implemented yet");
+  private void onContactAddressBtnClicked(Event event) {
+    event.consume();
+    switchCard(AddressCardController.class);
   }
 
   @FXML
-  private void onContactPhoneBtnClicked() {
-    // TODO: implement
-    throw new UnsupportedOperationException("Not implemented yet");
+  private void onContactPhoneBtnClicked(Event event) {
+    event.consume();
+    switchCard(PhoneCardController.class);
   }
 
   @FXML
-  private void onContactEmailBtnClicked() {
-    // TODO: implement
-    throw new UnsupportedOperationException("Not implemented yet");
+  private void onContactEmailBtnClicked(Event event) {
+    event.consume();
+    switchCard(EmailCardController.class);
   }
 
   @FXML
@@ -188,16 +205,16 @@ public class SummaryPageController extends IPage {
     return (ContactCardController) cards.get(ContactCardController.class);
   }
 
-  private AddressCardController getAddressCard() {
-    return (AddressCardController) cards.get(AddressCardController.class);
+  private ScrollerController<Address> getAddressCard() {
+    return (ScrollerController<Address>) cards.get(AddressCardController.class);
   }
 
-  private EmailCardController getEmailCard() {
-    return (EmailCardController) cards.get(EmailCardController.class);
+  private ScrollerController<Email> getEmailCard() {
+    return (ScrollerController<Email>) cards.get(EmailCardController.class);
   }
 
-  private PhoneCardController getPhoneCard() {
-    return (PhoneCardController) cards.get(PhoneCardController.class);
+  private ScrollerController<Phone> getPhoneCard() {
+    return (ScrollerController<Phone>) cards.get(PhoneCardController.class);
   }
 
   private EmployerCardController getEmployerCard() {
