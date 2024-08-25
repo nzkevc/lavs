@@ -56,10 +56,10 @@ public class Email implements IModel {
   }
 
   public boolean validateCustomerId(String customerId) {
-    if (customerId == null) {
+    if (customerId == null || customerId.isEmpty()) {
       return false;
     }
-    return customerId.length() <= 10 && !customerId.isEmpty();
+    return Customer.validateCustomerId(customerId);
   }
 
   public boolean validateNumber(Integer number) {

@@ -88,11 +88,11 @@ public class Phone implements IModel {
     return false;
   }
 
-  public boolean validateCustomerId(String customerID) {
-    if (customerID == null) {
+  public boolean validateCustomerID(String customerID) {
+    if (customerID == null || customerID.isEmpty()) {
       return false;
     }
-    return customerID.length() <= 10 && !customerID.isEmpty();
+    return Customer.validateCustomerId(customerID);
   }
 
   public boolean validateType(String type) {

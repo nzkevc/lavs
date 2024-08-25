@@ -266,7 +266,7 @@ public class Customer implements IModel {
     return "%s: ID = %s".formatted(name, id);
   }
 
-  public boolean validateCustomerId(String id) {
+  public static boolean validateCustomerId(String id) {
     return id.length() <= 10 && !id.isEmpty();
   }
 

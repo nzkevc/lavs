@@ -172,5 +172,14 @@ public class Loan implements IModel {
     return false;
   }
 
-  // TODO: Validation
+  public boolean validateLoanId(String loanId) {
+    return loanId.length() <= 14 && !loanId.isEmpty();
+  }
+
+  public boolean validateCustomerId(String customerId) {
+    if (customerId == null || customerId.isEmpty()) {
+      return false;
+    }
+    return Customer.validateCustomerId(customerId);
+  }
 }

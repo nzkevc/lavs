@@ -167,10 +167,10 @@ public class Address implements IModel {
   }
 
   public boolean validateCustomerId(String customerId) {
-    if (customerId == null) {
+    if (customerId == null || customerId.isEmpty()) {
       return false;
     }
-    return customerId.length() <= 10 && !customerId.isEmpty();
+    return Customer.validateCustomerId(customerId);
   }
 
   public boolean validateType(String type) {
@@ -213,7 +213,7 @@ public class Address implements IModel {
     if (postcode == null) {
       return false;
     }
-    return postcode.length() <= 10 && !postcode.isEmpty();
+    return postcode.matches("^\\d+$") && postcode.length() <= 10 && !postcode.isEmpty();
   }
 
   public boolean validateCountry(String country) {
