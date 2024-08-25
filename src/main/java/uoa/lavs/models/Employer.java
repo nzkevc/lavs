@@ -1,7 +1,5 @@
 package uoa.lavs.models;
 
-import uoa.lavs.utils.objects.ValidationException;
-
 public class Employer implements IModel {
   private String customerId;
   private Integer number;
@@ -118,10 +116,31 @@ public class Employer implements IModel {
     return false;
   }
 
-  public boolean validateCustomerId(String customerId) throws ValidationException {
-    if (customerId == null || customerId.isEmpty()) {
-      throw new ValidationException("Customer ID is required.");
+  public boolean validateCustomerId(String customerId) {
+    if (customerId == null) {
+      return false;
     }
-    return true;
+    return customerId.length() <= 10 && !customerId.isEmpty();
+  }
+
+  public boolean validateName(String name) {
+    if (name == null) {
+      return false;
+    }
+    return name.length() <= 60 && !name.isEmpty();
+  }
+
+  public boolean validatePhone(String phone) {
+    if (phone == null) {
+      return false;
+    }
+    return phone.matches("^\\+?[0-9-]+$") && phone.length() <= 30 && !phone.isEmpty();
+  }
+
+  public boolean validateWebsite(String website) {
+    if (website == null) {
+      return false;
+    }
+    return website.length() <= 60 && !website.isEmpty();
   }
 }
