@@ -1,12 +1,10 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import uoa.lavs.controllers.fragments.FieldController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Employer;
@@ -16,7 +14,6 @@ import uoa.lavs.utils.ControllerUtils;
 public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
-
 
   @FXML private MFXTextField employerName;
   @FXML private MFXCheckbox isOwner;
@@ -35,11 +32,10 @@ public class EmployerCardController extends ICard<Employer> {
   @FXML private MFXCheckbox isPhonePrimary;
   @FXML private MFXCheckbox isPhoneSendText;
 
-  @FXML private MFXTextField  emailAddress;
+  @FXML private MFXTextField emailAddress;
   @FXML private MFXCheckbox isEmailPrimary;
 
   @FXML private MFXTextField website;
-
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
@@ -100,7 +96,7 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public Employer assemble() {
-   
+
     Employer employer = new Employer();
     employer.setName(employerName.getText());
     employer.setOwner(isOwner.isSelected());

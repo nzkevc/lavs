@@ -1,11 +1,10 @@
 package uoa.lavs.controllers.cards;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
@@ -21,8 +20,6 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML private MFXTextField visaType;
   @FXML private MFXTextField occupation;
   @FXML private MFXTextField status;
-  
- 
 
   public GeneralInfoCardController() {
     ControllerUtils.loadFxml(this, "cards/general-info-card.fxml");
@@ -31,7 +28,7 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML
   private void initialize() {
     name.textProperty().bindBidirectional(State.customerName);
-  } 
+  }
 
   @Override
   public void render(Customer customer) {

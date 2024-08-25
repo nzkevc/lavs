@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Phones {
+public class Phones implements IModel<Phones> {
   private String customerId;
   private Set<Phone> phoneNumbers;
   private Phone primaryPhone;
@@ -76,5 +76,11 @@ public class Phones {
         phoneNumbers.add(phone);
       }
     }
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

@@ -1,6 +1,6 @@
 package uoa.lavs.models;
 
-public class Employer {
+public class Employer implements IModel<Employer> {
   private String customerId;
   private Integer number;
   private String name;
@@ -104,15 +104,8 @@ public class Employer {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    if (o instanceof Employer) {
-      Employer employer = (Employer) o;
-      return name.equals(employer.getName())
-          && address.equals(employer.getAddress())
-          && email.equals(employer.getEmail())
-          && isOwner == employer.isOwner();
-    }
-    return false;
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

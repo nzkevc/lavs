@@ -78,7 +78,7 @@ public class LoanCardController extends ICard<Loan> {
     paymentAmount.setText(String.valueOf(loan.getPaymentAmountCents()));
     paymentFrequency.setValue(loan.getPaymentFrequency());
     interestOnly.setSelected(loan.isInterestOnly());
-    
+
 
     // LoanSummary loanSummary = loan.getLoanSummary();
     // if (loanSummary != null) {

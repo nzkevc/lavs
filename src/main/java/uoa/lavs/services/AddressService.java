@@ -7,7 +7,7 @@ import uoa.lavs.repository.AddressRepository;
 import uoa.lavs.repository.AddressesRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
-class AddressService {
+class AddressService implements IService {
   public static void createAddressesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Addresses addresses = newCustomer.getAddresses();

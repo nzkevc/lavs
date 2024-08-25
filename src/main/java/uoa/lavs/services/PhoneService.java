@@ -7,7 +7,7 @@ import uoa.lavs.repository.PhoneRepository;
 import uoa.lavs.repository.PhonesRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
-class PhoneService {
+class PhoneService implements IService {
   public static void createPhonesFromCustomer(Customer newCustomer)
       throws ValidationException, RuntimeException {
     Phones phones = newCustomer.getPhones();

@@ -1,7 +1,6 @@
 package uoa.lavs.utils.objects;
 
 import java.time.LocalDate;
-
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.RateType;
 import uoa.lavs.models.Address;
@@ -20,7 +19,7 @@ public class DevEntityCreator {
     customer.getAddresses().addAddress(createBasicPrimaryAddress(customer));
     customer.getPhones().addPhone(createBasicPrimaryPhone(customer));
     customer.getEmails().addEmail(createBasicEmail(customer));
-    customer.setEmployer(createBasicEmployer(customer));
+    customer.getEmployers().addEmployer(createBasicEmployer(customer));
     customer.getLoans().addLoan(createBasicLoan(customer));
     customer.setId(null);
     return customer;
@@ -28,9 +27,15 @@ public class DevEntityCreator {
 
   public static Customer createBasicCustomer() {
     LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
-    return new Customer.Builder(
-            "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
-        .build();
+    Customer customer = new Customer();
+    customer.setId("1");
+    customer.setTitle("Mr");
+    customer.setName("John Doe");
+    customer.setDateOfBirth(dateOfBirth);
+    customer.setOccupation("Consultant");
+    customer.setCitizenship("New Zealand");
+    customer.setVisa("N/A");
+    return customer;
   }
 
   public static Address createBasicAddress(Customer customer) {

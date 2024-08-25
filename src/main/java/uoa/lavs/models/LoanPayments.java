@@ -1,23 +1,24 @@
 package uoa.lavs.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanPayments {
+public class LoanPayments implements IModel<LoanPayments> {
   private String loanId;
-  private Integer number;
   private String customerId;
   private String customerName;
   private Integer pages;
   private Integer payments;
+  private List<LocalDate> paymentDates;
   private List<Double> paymentInterests;
   private List<Double> paymentPrincipals;
   private List<Double> paymentRemainings;
   private List<Integer> paymentNumbers;
 
-  public LoanPayments(String loanId, Integer number) {
+  public LoanPayments(String loanId) {
     this.loanId = loanId;
-    this.number = number;
+    paymentDates = new ArrayList<>();
     paymentInterests = new ArrayList<>();
     paymentPrincipals = new ArrayList<>();
     paymentRemainings = new ArrayList<>();
@@ -30,14 +31,6 @@ public class LoanPayments {
 
   public void setLoanId(String loanId) {
     this.loanId = loanId;
-  }
-
-  public Integer getNumber() {
-    return number;
-  }
-
-  public void setNumber(Integer number) {
-    this.number = number;
   }
 
   public String getCustomerId() {
@@ -70,6 +63,14 @@ public class LoanPayments {
 
   public void setPayments(Integer payments) {
     this.payments = payments;
+  }
+
+  public List<LocalDate> getPaymentDates() {
+    return paymentDates;
+  }
+
+  public void setPaymentDates(List<LocalDate> paymentDates) {
+    this.paymentDates = paymentDates;
   }
 
   public List<Double> getPaymentInterests() {
@@ -124,11 +125,19 @@ public class LoanPayments {
     this.payments = paymentNumbers.size();
   }
 
-  public void addPayment(Integer number, double interest, double principal, double remaining) {
+  public void addPayment(
+      LocalDate date, Integer number, double interest, double principal, double remaining) {
+    paymentDates.add(date);
     paymentNumbers.add(number);
     paymentInterests.add(interest);
     paymentPrincipals.add(principal);
     paymentRemainings.add(remaining);
     payments = paymentNumbers.size();
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }
