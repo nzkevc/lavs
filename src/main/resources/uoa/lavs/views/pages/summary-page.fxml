@@ -49,9 +49,9 @@
                      <graphic>
                         <AnchorPane prefHeight="269.0" prefWidth="344.0">
                            <children>
-                              <MFXButton fx:id="contactAddress" layoutX="61.0" layoutY="71.0" onAction="#onContactAddressBtnClicked" prefHeight="56.0" prefWidth="275.0" text="Address" />
-                              <MFXButton fx:id="contactEmail" layoutX="60.0" layoutY="136.0" onAction="#onContactEmailBtnClicked" prefHeight="56.0" prefWidth="277.0" text="Email" />
-                              <MFXButton fx:id="contactPhone" layoutX="60.0" layoutY="201.0" onAction="#onContactPhoneBtnClicked" prefHeight="56.0" prefWidth="277.0" text="Phone" />
+                              <MFXButton fx:id="contactAddress" layoutX="61.0" layoutY="71.0" onAction="#onContactAddressBtnClick" prefHeight="56.0" prefWidth="275.0" text="Address" />
+                              <MFXButton fx:id="contactEmail" layoutX="60.0" layoutY="136.0" onAction="#onContactEmailBtnClick" prefHeight="56.0" prefWidth="277.0" text="Email" />
+                              <MFXButton fx:id="contactPhone" layoutX="60.0" layoutY="201.0" onAction="#onContactPhoneBtnClick" prefHeight="56.0" prefWidth="277.0" text="Phone" />
                               <Label layoutX="117.0" layoutY="20.0" prefHeight="38.0" prefWidth="164.0" text="CONTACT" />
                            </children>
                         </AnchorPane>
