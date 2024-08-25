@@ -14,7 +14,6 @@ class EmployerService implements IService {
     employers.setCustomerId(newCustomer.getId());
     for (Employer employer : employers.getEmployers()) {
       employer.setCustomerId(newCustomer.getId());
-      employer.validate();
       EmployerRepository.create(employer);
     }
   }
@@ -24,7 +23,6 @@ class EmployerService implements IService {
     Employers employers = newCustomer.getEmployers();
     employers.setCustomerId(newCustomer.getId());
     for (Employer employer : employers.getEmployers()) {
-      employer.validate();
       employer.setCustomerId(newCustomer.getId());
       EmployerRepository.update(employer);
     }

@@ -12,10 +12,8 @@ class EmailService implements IService {
       throws ValidationException, RuntimeException {
     Emails emails = newCustomer.getEmails();
     emails.setCustomerId(newCustomer.getId());
-    emails.validate();
     for (Email email : emails.getEmails()) {
       email.setCustomerId(newCustomer.getId());
-      email.validate();
       EmailRepository.create(email);
     }
   }
@@ -24,9 +22,7 @@ class EmailService implements IService {
       throws ValidationException, RuntimeException {
     Emails emails = newCustomer.getEmails();
     emails.setCustomerId(newCustomer.getId());
-    emails.validate();
     for (Email email : emails.getEmails()) {
-      email.validate();
       email.setCustomerId(newCustomer.getId());
       EmailRepository.update(email);
     }

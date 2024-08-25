@@ -18,7 +18,6 @@ public class CustomerService implements IService {
 
   public static void createCustomer(Customer newCustomer)
       throws RuntimeException, ValidationException {
-    newCustomer.validate();
     String customerId = CustomerRepository.create(newCustomer).getId();
     newCustomer.setId(customerId);
 
@@ -49,7 +48,6 @@ public class CustomerService implements IService {
   }
 
   public static void updateCustomer(Customer newCustomer) throws RuntimeException {
-    newCustomer.validate();
     CustomerRepository.update(newCustomer);
 
     AddressService.updateAddressesFromCustomer(newCustomer);
