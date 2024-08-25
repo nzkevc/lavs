@@ -3,7 +3,7 @@ package uoa.lavs.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Employers {
+public class Employers implements IModel<Employers> {
   private String customerId;
   private Set<Employer> employers;
 
@@ -32,5 +32,11 @@ public class Employers {
 
   public Integer getEmployerCount() {
     return employers.size();
+  }
+
+  @Override
+  public boolean validate() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'validate'");
   }
 }

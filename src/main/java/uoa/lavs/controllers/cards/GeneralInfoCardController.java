@@ -32,13 +32,13 @@ public class GeneralInfoCardController extends ICard<Customer> {
 
   @Override
   public void render(Customer customer) {
-    title.setText(customer.getTitle());
-    name.setText(customer.getName());
-    dateOfBirth.setText(customer.getDateOfBirth().toString());
-    citizenship.setText(customer.getCitizenship());
-    visaType.setText(customer.getVisa());
-    occupation.setText(customer.getOccupation());
-    status.setText(customer.getStatus());
+    ControllerUtils.renderIntoComponent(title, customer.getTitle());
+    ControllerUtils.renderIntoComponent(name, customer.getName());
+    ControllerUtils.renderIntoComponent(dateOfBirth, customer.getDateOfBirth().toString());
+    ControllerUtils.renderIntoComponent(citizenship, customer.getCitizenship());
+    ControllerUtils.renderIntoComponent(visaType, customer.getVisa());
+    ControllerUtils.renderIntoComponent(occupation, customer.getOccupation());
+    ControllerUtils.renderIntoComponent(status, customer.getStatus());
   }
 
   @Override

@@ -3,6 +3,7 @@ package uoa.lavs.utils;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,5 +35,16 @@ public class ControllerUtils {
     } catch (IOException e) {
       logger.error("Error loading FXML", e);
     }
+  }
+
+  public static void renderIntoComponent(TextField field, String text) {
+    renderIntoComponent(field, text, null);
+  }
+
+  public static void renderIntoComponent(TextField field, String text, String fallBackIfNull) {
+    if (fallBackIfNull == null) {
+      fallBackIfNull = "";
+    }
+    field.setText(text == null ? fallBackIfNull : text);
   }
 }
