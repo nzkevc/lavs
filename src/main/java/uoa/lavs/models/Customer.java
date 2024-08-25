@@ -1,6 +1,8 @@
 package uoa.lavs.models;
 
 import java.time.LocalDate;
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Customer implements IModel {
 
@@ -143,63 +145,75 @@ public class Customer implements IModel {
     return "%s: ID = %s".formatted(name, id);
   }
 
-  public static boolean validateCustomerId(String id) {
-    return id.length() <= 10 && !id.isEmpty();
-  }
-
-  public boolean validateTitle(String title) {
-    if (title == null) {
-      return false;
+  /**
+   * Validates the customer ID. ONLY CALL WHEN UPDATING AN EXISTING CUSTOMER/CUSTOMER FIELD. If
+   * creating a new customer, customerId would be set to null.
+   *
+   * @param id
+   * @throws ValidationException
+   */
+  public static void validateCustomerId(String id) throws ValidationException {
+    if (id.length() > 10) {
+      throw new ValidationException("Must be between 1 and 10 characters.");
     }
-    return title.length() <= 10 && !title.isEmpty();
   }
 
-  public boolean validateName(String name) {
-    if (name == null) {
-      return false;
+  public static void validateTitle(String title) throws ValidationException {
+    ValidationUtils.validateFieldExists(title);
+    if (title.length() > 10) {
+      throw new ValidationException("Must be between 1 and 10 characters.");
     }
-    return name.length() <= 60 && !name.isEmpty();
   }
 
-  public boolean validateDateOfBirth(LocalDate dateOfBirth) {
-    return dateOfBirth != null && dateOfBirth.isBefore(LocalDate.now());
-  }
-
-  public boolean validateOccupation(String occupation) {
-    if (occupation == null) {
-      return false;
+  public static void validateName(String name) throws ValidationException {
+    ValidationUtils.validateFieldExists(name);
+    if (name.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
     }
-    return occupation.length() <= 40 && !occupation.isEmpty();
   }
 
-  public boolean validateCitizenship(String citizenship) {
-    if (citizenship == null) {
-      return false;
+  public static void validateDateOfBirth(LocalDate dateOfBirth) throws ValidationException {
+    if (dateOfBirth == null) {
+      throw new ValidationException("Date of Birth is required.");
+    } else if (dateOfBirth.isAfter(LocalDate.now())) {
+      throw new ValidationException("Date of Birth cannot be in the future.");
     }
-    return citizenship.length() <= 40 && !citizenship.isEmpty();
+  }
+
+  public static void validateOccupation(String occupation) throws ValidationException {
+    ValidationUtils.validateFieldExists(occupation);
+    if (occupation.length() > 40) {
+      throw new ValidationException("Must be between 1 and 40 characters.");
+    }
+  }
+
+  public static void validateCitizenship(String citizenship) throws ValidationException {
+    ValidationUtils.validateFieldExists(citizenship);
+    if (citizenship.length() > 40) {
+      throw new ValidationException("Must be between 1 and 40 characters.");
+    }
   }
 
   // visa is optional
-  public boolean validateVisa(String visa) {
-    if (visa == null) {
-      return true;
+  public static void validateVisa(String visa) throws ValidationException {
+    ValidationUtils.validateFieldExists(
+        visa, "Field requires a value - leave N/A if not applicable.");
+    if (visa.length() > 40) {
+      throw new ValidationException("Must be between 1 and 40 characters.");
     }
-    return visa.length() <= 40;
   }
 
-  public boolean validateNotes(String notes) {
-    if (notes == null || notes.isEmpty()) {
-      return true;
-    }
-    String[] lines = notes.split("\n");
-    if (lines.length > 19) {
-      return false;
-    }
-    for (String line : lines) {
-      if (line.length() > 70) {
-        return false;
+  public static void validateNotes(String notes) throws ValidationException {
+    if (notes != null && !notes.isEmpty()) {
+      String[] lines = notes.split("\n");
+      if (lines.length > 19) {
+        throw new ValidationException("Notes must be less than 20 lines.");
+      }
+      for (String line : lines) {
+        if (line.length() > 70) {
+          throw new ValidationException("Each line of notes must be less than 70 characters.");
+        }
       }
     }
-    return true;
   }
 }

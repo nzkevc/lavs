@@ -1,5 +1,8 @@
 package uoa.lavs.models;
 
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
+
 public class Address implements IModel {
   private String customerID;
   private Integer number;
@@ -166,60 +169,62 @@ public class Address implements IModel {
     return false;
   }
 
-  public boolean validateCustomerId(String customerId) {
-    if (customerId == null || customerId.isEmpty()) {
-      return false;
-    }
-    return Customer.validateCustomerId(customerId);
+  public void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
   }
 
-  public boolean validateType(String type) {
-    if (type == null) {
-      return false;
+  public static void validateType(String type) throws ValidationException {
+    ValidationUtils.validateFieldExists(type);
+    if (type.length() > 20) {
+      throw new ValidationException("Must be between 1 and 20 characters.");
     }
-    return type.length() <= 20 && !type.isEmpty();
   }
 
-  public boolean validateLine1(String line1) {
-    if (line1 == null) {
-      return false;
+  public static void validateLine1(String line1) throws ValidationException {
+    ValidationUtils.validateFieldExists(line1);
+    if (line1.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
     }
-    return line1.length() <= 60 && !line1.isEmpty();
   }
 
   // this means line2 is optional
-  public boolean validateLine2(String line2) {
-    if (line2 == null) {
-      return true;
+  public static void validateLine2(String line2) throws ValidationException {
+    ValidationUtils.validateFieldExists(
+        line2, "Field requires a value - leave N/A if not applicable.");
+    if (line2.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
     }
-    return line2.length() <= 60;
   }
 
-  public boolean validateSuburb(String suburb) {
-    if (suburb == null) {
-      return false;
+  public static void validateSuburb(String suburb) throws ValidationException {
+    ValidationUtils.validateFieldExists(suburb);
+    if (suburb.length() > 30) {
+      throw new ValidationException("Must be between 1 and 30 characters.");
     }
-    return suburb.length() <= 30 && !suburb.isEmpty();
   }
 
-  public boolean validateCity(String city) {
-    if (city == null) {
-      return false;
+  public static void validateCity(String city) throws ValidationException {
+    ValidationUtils.validateFieldExists(city);
+    if (city.length() > 30) {
+      throw new ValidationException("Must be between 1 and 30 characters.");
     }
-    return city.length() <= 30 && !city.isEmpty();
   }
 
-  public boolean validatePostcode(String postcode) {
-    if (postcode == null) {
-      return false;
+  public static void validatePostcode(String postcode) throws ValidationException {
+    ValidationUtils.validateFieldExists(postcode);
+    if (postcode.length() > 10) {
+      throw new ValidationException("Must be between 1 and 10 characters.");
     }
-    return postcode.matches("^\\d+$") && postcode.length() <= 10 && !postcode.isEmpty();
+    if (!postcode.matches("^\\d+$")) {
+      throw new ValidationException("Must be a number.");
+    }
   }
 
-  public boolean validateCountry(String country) {
-    if (country == null) {
-      return false;
+  public static void validateCountry(String country) throws ValidationException {
+    ValidationUtils.validateFieldExists(country);
+    if (country.length() > 30) {
+      throw new ValidationException("Must be between 1 and 30 characters.");
     }
-    return country.length() <= 30 && !country.isEmpty();
   }
 }

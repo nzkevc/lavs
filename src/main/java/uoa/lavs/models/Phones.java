@@ -75,11 +75,15 @@ public class Phones implements IModel {
     }
   }
 
-  public boolean validate() throws ValidationException {
-    if (phoneNumbers.isEmpty() || (primaryPhone != null && primaryPhone.getPrimary())) {
-      return true;
-    } else {
-      throw new ValidationException("Primary phone is not set");
+  public static void validate(Phones phones) throws ValidationException {
+    if (phones.getPhoneNumbers().isEmpty()) {
+      return;
+    }
+    if (phones.getPhoneNumbers().stream().noneMatch(Phone::getPrimary)) {
+      throw new ValidationException("Primary phone must be set.");
+    }
+    if (phones.getPhoneNumbers().stream().filter(Phone::getPrimary).count() > 1) {
+      throw new ValidationException("Only one primary address is allowed.");
     }
   }
 }

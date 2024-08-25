@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class Loan implements IModel {
 
@@ -172,32 +174,45 @@ public class Loan implements IModel {
     return false;
   }
 
-  public boolean validateLoanId(String loanId) {
-    return loanId.length() <= 14 && !loanId.isEmpty();
-  }
-
-  public boolean validateCustomerId(String customerId) {
-    if (customerId == null || customerId.isEmpty()) {
-      return false;
+  /**
+   * Validates the loanId. ONLY USE WHEN UPDATING A LOAN. DO NOT USE WHEN CREATING A NEW LOAN.
+   *
+   * @param loanId
+   * @throws ValidationException
+   */
+  public static void validateLoanId(String loanId) throws ValidationException {
+    ValidationUtils.validateFieldExists(loanId);
+    if (loanId.length() > 14) {
+      throw new ValidationException("Loan ID must be 14 characters or less.");
     }
-    return Customer.validateCustomerId(customerId);
   }
 
-  public boolean validatePaymentFrequency(Frequency paymentFrequency) {
+  public static void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
+  }
+
+  public static void validatePaymentFrequency(Frequency paymentFrequency)
+      throws ValidationException {
     if (paymentFrequency == null) {
-      return false;
+      throw new ValidationException("Payment frequency must be provided.");
     }
-    return paymentFrequency.equals(Frequency.Monthly)
-        || paymentFrequency.equals(Frequency.Fortnightly)
-        || paymentFrequency.equals(Frequency.Weekly);
+    if (!paymentFrequency.equals(Frequency.Monthly)
+        && !paymentFrequency.equals(Frequency.Fortnightly)
+        && !paymentFrequency.equals(Frequency.Weekly)) {
+      throw new ValidationException("Payment frequency must be Monthly, Fortnightly or Weekly.");
+    }
   }
 
-  public boolean validateCompoundingFrequency(Frequency compoundingFrequency) {
+  public static void validateCompoundingFrequency(Frequency compoundingFrequency)
+      throws ValidationException {
     if (compoundingFrequency == null) {
-      return false;
+      throw new ValidationException("Compounding frequency must be provided.");
     }
-    return compoundingFrequency.equals(Frequency.Weekly)
-        || compoundingFrequency.equals(Frequency.Monthly)
-        || compoundingFrequency.equals(Frequency.Yearly);
+    if (!compoundingFrequency.equals(Frequency.Weekly)
+        && !compoundingFrequency.equals(Frequency.Monthly)
+        && !compoundingFrequency.equals(Frequency.Yearly)) {
+      throw new ValidationException("Compounding frequency must be Weekly, Monthly or Yearly.");
+    }
   }
 }

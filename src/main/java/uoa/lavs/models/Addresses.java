@@ -75,11 +75,21 @@ public class Addresses implements IModel {
     }
   }
 
-  public boolean validate() throws ValidationException {
-    if (addresses.isEmpty() || (primaryAddress != null && primaryAddress.getPrimary())) {
-      return true;
-    } else {
-      throw new ValidationException("Primary address is required");
+  public static void validate(Addresses addresses) throws ValidationException {
+    if (addresses.getAddresses().isEmpty()) {
+      return;
+    }
+    if (addresses.getAddresses().stream().noneMatch(Address::getPrimary)) {
+      throw new ValidationException("Primary address must be set.");
+    }
+    if (addresses.getAddresses().stream().filter(Address::getPrimary).count() > 1) {
+      throw new ValidationException("Only one primary address is allowed.");
+    }
+    if (addresses.getAddresses().stream().noneMatch(Address::getMailing)) {
+      throw new ValidationException("Mailing address must be set.");
+    }
+    if (addresses.getAddresses().stream().filter(Address::getMailing).count() > 1) {
+      throw new ValidationException("Only one mailing address is allowed.");
     }
   }
 }

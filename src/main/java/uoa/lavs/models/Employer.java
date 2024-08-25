@@ -1,5 +1,8 @@
 package uoa.lavs.models;
 
+import uoa.lavs.utils.ValidationUtils;
+import uoa.lavs.utils.objects.ValidationException;
+
 public class Employer implements IModel {
   private String customerId;
   private Integer number;
@@ -117,31 +120,32 @@ public class Employer implements IModel {
     return false;
   }
 
-  public boolean validateCustomerId(String customerId) {
-    if (customerId == null || customerId.isEmpty()) {
-      return false;
-    }
-    return Customer.validateCustomerId(customerId);
+  public static void validateCustomerId(String customerId) throws ValidationException {
+    ValidationUtils.validateFieldExists(customerId);
+    Customer.validateCustomerId(customerId);
   }
 
-  public boolean validateName(String name) {
-    if (name == null) {
-      return false;
+  public static void validateName(String name) throws ValidationException {
+    ValidationUtils.validateFieldExists(name);
+    if (name.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
     }
-    return name.length() <= 60 && !name.isEmpty();
   }
 
-  public boolean validatePhone(String phone) {
-    if (phone == null) {
-      return false;
+  public static void validatePhone(String phone) throws ValidationException {
+    ValidationUtils.validateFieldExists(phone);
+    if (phone.length() > 30) {
+      throw new ValidationException("Must be between 1 and 30 characters.");
     }
-    return phone.matches("^\\+?[0-9-]+$") && phone.length() <= 30 && !phone.isEmpty();
+    if (!phone.matches("^\\+?[0-9-]+$")) {
+      throw new ValidationException("Must only contain numbers and hyphens, optional '+' prefix.");
+    }
   }
 
-  public boolean validateWebsite(String website) {
-    if (website == null) {
-      return false;
+  public static void validateWebsite(String website) throws ValidationException {
+    ValidationUtils.validateFieldExists(website);
+    if (website.length() > 60) {
+      throw new ValidationException("Must be between 1 and 60 characters.");
     }
-    return website.length() <= 60 && !website.isEmpty();
   }
 }

@@ -55,11 +55,15 @@ public class Emails implements IModel {
     }
   }
 
-  public boolean validate() throws ValidationException {
-    if (emails.isEmpty() || (primaryEmail != null && primaryEmail.getIsPrimary())) {
-      return true;
-    } else {
-      throw new ValidationException("Primary email is not set");
+  public static void validate(Emails emails) throws ValidationException {
+    if (emails.getEmails().isEmpty()) {
+      return;
+    }
+    if (emails.getEmails().stream().noneMatch(Email::getIsPrimary)) {
+      throw new ValidationException("Primary email must be set.");
+    }
+    if (emails.getEmails().stream().filter(Email::getIsPrimary).count() > 1) {
+      throw new ValidationException("Only one primary email is allowed.");
     }
   }
 }
