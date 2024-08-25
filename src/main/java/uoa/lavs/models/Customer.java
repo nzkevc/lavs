@@ -310,15 +310,19 @@ public class Customer implements IModel {
     return visa.length() <= 40;
   }
 
-  // TODO: check
-  // public boolean validateNotes(String notes) {
-  //   if (notes == null || notes.isEmpty()) {
-  //     return false;
-  //   }
-  //   if (notes.length() > 255) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
+  public boolean validateNotes(String notes) {
+    if (notes == null || notes.isEmpty()) {
+      return true;
+    }
+    String[] lines = notes.split("\n");
+    if (lines.length > 19) {
+      return false;
+    }
+    for (String line : lines) {
+      if (line.length() > 70) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
