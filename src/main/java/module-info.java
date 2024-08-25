@@ -17,8 +17,6 @@ open module uoa.lavs {
   requires okhttp3;
   requires MaterialFX;
 
-
-
   // Export App.java entrypoint
   exports uoa.lavs;
 }

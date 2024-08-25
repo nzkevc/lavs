@@ -96,5 +96,5 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
   @Override
   public LoanPayments assemble() {
     throw new UnsupportedOperationException("Do not assemble LoanSummary");
-    }
+  }
 }

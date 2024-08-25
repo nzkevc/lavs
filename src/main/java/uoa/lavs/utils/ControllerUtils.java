@@ -56,7 +56,9 @@ public class ControllerUtils {
   }
 
   public static <T> void renderCombo(MFXComboBox<T> combo, T value, T fallBackIfNull) {
-    combo.getSelectionModel().selectItem(ValidationUtils.isNullOrBlank(value) ? fallBackIfNull : value);
+    combo
+        .getSelectionModel()
+        .selectItem(ValidationUtils.isNullOrBlank(value) ? fallBackIfNull : value);
   }
 
   public static void renderDate(MFXDatePicker field, LocalDate date) {
