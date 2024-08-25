@@ -37,25 +37,26 @@ public class LoanCardController extends ICard<Loan> {
   @FXML
   private void initialize() {
     loanStatus.setEditable(false);
+    loanStatus.setItems(FXCollections.observableArrayList(LoanStatus.values()));
+    rateType.setItems(FXCollections.observableArrayList(RateType.values()));
+    compoundingFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
+    paymentFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
   }
 
   @Override
   public void render(Loan loan) {
     clear();
-    loanId = loan.getLoanId() == null ? "" : loan.getLoanId();
-    loanIdLbl.setText("Loan ID: " + loanId);
+    loanId = loan.getLoanId();
+    loanIdLbl.setText("Loan ID: " + loanId == null ? "" : loanId);
     if (loan.getStatus() == null) {
       loan.setStatus(LoanStatus.New);
     }
-    //ObservableList<LoanStatus> loanStatusList = FXCollections.observableArrayList(LoanStatus.values());
-    loanStatus.setItems(FXCollections.observableArrayList(LoanStatus.values()));
+
     principal.setText(String.valueOf(loan.getPrincipleCents()));
     startDate.setValue(loan.getStartDate());
     period.setText(String.valueOf(loan.getPeriodMonths()));
     term.setText(String.valueOf(loan.getTerm()));
     interestRate.setText(String.valueOf(loan.getInterestRate()));
-    rateType.setItems(FXCollections.observableArrayList(RateType.values()));
-    compoundingFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
     paymentAmount.setText(String.valueOf(loan.getPaymentAmountCents()));
     paymentFrequency.setValue(loan.getPaymentFrequency());
     interestOnly.setSelected(loan.isInterestOnly());
@@ -83,7 +84,7 @@ public class LoanCardController extends ICard<Loan> {
 
     // // Disable fields if loan is already persisted
     // if (loan.getLoanId() != null) {
-    //  
+    //
   }
 
   @Override
