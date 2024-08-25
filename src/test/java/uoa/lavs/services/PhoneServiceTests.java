@@ -33,7 +33,7 @@ public class PhoneServiceTests {
     customer.setPhones(PhonesRepository.get(customer));
 
     // Assert
-    assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
+    assertEquals(customer.getId(), customer.getPhones().getCustomerId());
     assertEquals(1, customer.getPhones().getPhoneCount());
     assertEquals(phone, customer.getPhones().getPrimaryPhone());
   }
@@ -57,7 +57,7 @@ public class PhoneServiceTests {
     customer.setPhones(PhonesRepository.get(customer));
 
     // Assert
-    assertEquals(customer.getId(), customer.getAddresses().getCustomerId());
+    assertEquals(customer.getId(), customer.getPhones().getCustomerId());
     assertEquals(3, customer.getPhones().getPhoneCount());
     assertEquals(phone2, customer.getPhones().getTextPhone());
   }

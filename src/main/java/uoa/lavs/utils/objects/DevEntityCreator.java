@@ -27,9 +27,15 @@ public class DevEntityCreator {
 
   public static Customer createBasicCustomer() {
     LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
-    return new Customer.Builder(
-            "1", "Mr", "John Doe", dateOfBirth, "Consultant", "New Zealand", "N/A")
-        .build();
+    Customer customer = new Customer();
+    customer.setId("1");
+    customer.setTitle("Mr");
+    customer.setName("John Doe");
+    customer.setDateOfBirth(dateOfBirth);
+    customer.setOccupation("Consultant");
+    customer.setCitizenship("New Zealand");
+    customer.setVisa("N/A");
+    return customer;
   }
 
   public static Address createBasicAddress(Customer customer) {
