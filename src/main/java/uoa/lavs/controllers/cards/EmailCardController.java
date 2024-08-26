@@ -44,7 +44,7 @@ public class EmailCardController extends ICard<Email> {
     try {
       Email.validateAddress(emailAddress.getText());
     } catch (ValidationException e) {
-      throw new ValidationException("Email " + emailAddress + ": " + e.getMessage(), e);
+      throw new ValidationException("Email " + emailAddress.getText() + ": " + e.getMessage(), e);
     }
   }
 

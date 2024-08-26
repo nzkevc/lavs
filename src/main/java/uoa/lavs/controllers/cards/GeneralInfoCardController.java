@@ -71,7 +71,7 @@ public class GeneralInfoCardController extends ICard<Customer> {
       Customer.validateVisa(visaType.getText());
       Customer.validateOccupation(occupation.getText());
     } catch (ValidationException e) {
-      throw new ValidationException("General Info: " + e.getMessage(), e);
+      throw new ValidationException("General: " + e.getMessage(), e);
     }
   }
 

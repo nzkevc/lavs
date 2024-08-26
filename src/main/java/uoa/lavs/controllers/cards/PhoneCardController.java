@@ -52,7 +52,7 @@ public class PhoneCardController extends ICard<Phone> {
       Phone.validatePrefix(prefix.getText());
       Phone.validatePhoneNumber(phoneNumber.getText());
     } catch (ValidationException e) {
-      throw new ValidationException("Phone " + phoneNumber + ": " + e.getMessage(), e);
+      throw new ValidationException("Phone " + phoneNumber.getText() + ": " + e.getMessage(), e);
     }
   }
 

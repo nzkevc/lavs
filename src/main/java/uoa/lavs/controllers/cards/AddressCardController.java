@@ -74,7 +74,7 @@ public class AddressCardController extends ICard<Address> {
       Address.validatePostcode(postcode.getText());
       Address.validateCountry(country.getText());
     } catch (ValidationException e) {
-      throw new ValidationException("Address " + addressLine1 + ": " + e.getMessage(), e);
+      throw new ValidationException("Address " + addressLine1.getText() + ": " + e.getMessage(), e);
     }
   }
 
