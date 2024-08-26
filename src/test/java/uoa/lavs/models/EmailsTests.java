@@ -2,7 +2,10 @@ package uoa.lavs.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class EmailsTests {
   @Test
@@ -32,6 +35,23 @@ public class EmailsTests {
 
     // Act
 
+    // Assert
+    assertEquals(primaryEmail, emails.getPrimaryEmail());
+  }
+
+  @Test
+  public void constructorSetTest() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1);
+    primaryEmail.setAddress("123@123.com");
+    primaryEmail.setIsPrimary(true);
+
+    Set<Email> emailsSet = new HashSet<>();
+    emailsSet.add(primaryEmail);
+
+    Emails emails = new Emails(emailsSet);
+
+    // Act
     // Assert
     assertEquals(primaryEmail, emails.getPrimaryEmail());
   }
@@ -129,5 +149,84 @@ public class EmailsTests {
 
     // Assert
     assertEquals(firstEmailCount + 2, emails.getEmailCount());
+  }
+
+  @Test
+  public void validatePrimaryEmail() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1);
+    primaryEmail.setIsPrimary(true);
+    primaryEmail.setAddress("something@example.com");
+
+    Emails emails = new Emails("123");
+    emails.addEmail(primaryEmail);
+  }
+
+  @Test
+  public void validateTwoPrimaryEmails() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1);
+    primaryEmail.setIsPrimary(true);
+    primaryEmail.setAddress("123@123.com");
+
+    Email primaryEmail2 = new Email("123", 2);
+    primaryEmail2.setIsPrimary(true);
+    primaryEmail2.setAddress("1232@123.com");
+
+    Emails emails = new Emails("123");
+    emails.addEmail(primaryEmail);
+    emails.addEmail(primaryEmail2);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Emails.validate(emails));
+  }
+
+  @Test
+  public void validateTwoPrimaryEmailsWithSetConstructor() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1);
+    primaryEmail.setIsPrimary(true);
+    primaryEmail.setAddress("123@123.com");
+
+    Email primaryEmail2 = new Email("123", 2);
+    primaryEmail2.setIsPrimary(true);
+    primaryEmail2.setAddress("1232@123.com");
+
+    Set<Email> emailSet = new HashSet<>();
+
+    emailSet.add(primaryEmail);
+    emailSet.add(primaryEmail2);
+
+    Emails emails = new Emails(emailSet);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Emails.validate(emails));
+  }
+
+  @Test
+  public void validateNoPrimaryEmail() {
+    // Arrange
+    Email primaryEmail = new Email("123", 1);
+    primaryEmail.setIsPrimary(false);
+    primaryEmail.setAddress("123@123.com");
+
+    Emails emails = new Emails("123");
+    emails.addEmail(primaryEmail);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Emails.validate(emails));
+  }
+
+  @Test
+  public void validateEmptyEmails() {
+    // Arrange
+    Emails emails = new Emails("123");
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Emails.validate(emails));
   }
 }

@@ -2,8 +2,11 @@ package uoa.lavs.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class AddressesTests {
   @Test
@@ -22,6 +25,26 @@ public class AddressesTests {
     // Assert
     assertEquals(primaryAddress, addresses1.getPrimaryAddress());
     assertEquals(mailingAddress, addresses1.getMailingAddress());
+  }
+
+  @Test
+  public void addressesConstructorTwoTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+
+    Set<Address> addressSet = new HashSet<>();
+    addressSet.add(primaryAddress);
+    addressSet.add(mailingAddress);
+
+    Addresses addresses = new Addresses(addressSet);
+
+    // Act
+
+    // Assert
+    assertEquals(primaryAddress, addresses.getPrimaryAddress());
+    assertEquals(mailingAddress, addresses.getMailingAddress());
   }
 
   @Test
@@ -122,5 +145,113 @@ public class AddressesTests {
 
     // Assert
     assertEquals(mailingAddress, addresses.getMailingAddress());
+  }
+
+  @Test
+  public void validatePrimaryAndMailingAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+    addresses.addAddress(mailingAddress);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateTwoPrimaryAddresses() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+    Address newPrimaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+    newPrimaryAddress.setType("Work");
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+    addresses.addAddress(mailingAddress);
+    addresses.setPrimaryAddress(newPrimaryAddress);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateTwoMailingAddresses() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+    Address newMailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+    newMailingAddress.setType("Work");
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+    addresses.addAddress(mailingAddress);
+    addresses.setMailingAddress(newMailingAddress);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateNoPrimaryAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address mailingAddress = TestEntityCreator.createBasicMailingAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(mailingAddress);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateNoMailingAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address primaryAddress = TestEntityCreator.createBasicPrimaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(primaryAddress);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateNoAddresses() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+
+    Addresses addresses = new Addresses(customer.getId());
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Addresses.validate(addresses));
+  }
+
+  @Test
+  public void validateNoPrimaryOrMailingAddress() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address secondaryAddress = TestEntityCreator.createBasicSecondaryAddress(customer);
+
+    Addresses addresses = new Addresses(customer.getId());
+    addresses.addAddress(secondaryAddress);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Addresses.validate(addresses));
   }
 }

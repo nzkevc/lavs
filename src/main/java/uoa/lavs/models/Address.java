@@ -169,7 +169,7 @@ public class Address implements IModel {
     return false;
   }
 
-  public void validateCustomerId(String customerId) throws ValidationException {
+  public static void validateCustomerId(String customerId) throws ValidationException {
     ValidationUtils.validateFieldExists(customerId);
     Customer.validateCustomerId(customerId);
   }
