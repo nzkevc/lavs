@@ -140,6 +140,7 @@ public class SummaryPageController extends IPage {
   @FXML
   private void onBackBtnClick() {
     clearAll();
+    State.clearMessage();
     App.getMainController().switchPage(SearchPageController.class);
   }
 
