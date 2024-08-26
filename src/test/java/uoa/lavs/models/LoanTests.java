@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.RateType;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class LoanTests {
   @Test
@@ -258,5 +259,97 @@ public class LoanTests {
 
     // Assert
     // assertTrue(isValid);
+  }
+
+  @Test
+  public void validateValidLoanTest() {
+    // Arrange
+    Loan loan = new Loan("123");
+    loan.setCustomerId("123");
+    loan.setLoanId("123");
+    loan.setRateType(RateType.Fixed);
+    loan.setCompoundingFrequency(Frequency.Monthly);
+    loan.setPaymentFrequency(Frequency.Monthly);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Loan.validateLoanId(loan.getLoanId()));
+    assertDoesNotThrow(() -> Loan.validateCustomerId(loan.getCustomerId()));
+    assertDoesNotThrow(() -> Loan.validateCompoundingFrequency(loan.getCompoundingFrequency()));
+    assertDoesNotThrow(() -> Loan.validatePaymentFrequency(loan.getPaymentFrequency()));
+  }
+
+  @Test
+  public void validateNullLoanTest() {
+    // Arrange
+    Loan loan = new Loan();
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Loan.validateLoanId(loan.getLoanId()));
+    assertThrows(ValidationException.class, () -> Loan.validateCustomerId(loan.getCustomerId()));
+    assertThrows(
+        ValidationException.class,
+        () -> Loan.validateCompoundingFrequency(loan.getCompoundingFrequency()));
+    assertThrows(
+        ValidationException.class, () -> Loan.validatePaymentFrequency(loan.getPaymentFrequency()));
+  }
+
+  @Test
+  public void validateEmptyLoanTest() {
+    // Arrange
+    Loan loan = new Loan();
+    loan.setLoanId("");
+    loan.setCustomerId("");
+    loan.setCompoundingFrequency(null);
+    loan.setPaymentFrequency(null);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Loan.validateLoanId(loan.getLoanId()));
+    assertThrows(ValidationException.class, () -> Loan.validateCustomerId(loan.getCustomerId()));
+    assertThrows(
+        ValidationException.class,
+        () -> Loan.validateCompoundingFrequency(loan.getCompoundingFrequency()));
+    assertThrows(
+        ValidationException.class, () -> Loan.validatePaymentFrequency(loan.getPaymentFrequency()));
+  }
+
+  @Test
+  public void validateOverLimitLoanFields() {
+    // Arrange
+    Loan loan = new Loan();
+    loan.setLoanId("1".repeat(20));
+    loan.setCustomerId("1".repeat(20));
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Loan.validateLoanId(loan.getLoanId()));
+    assertThrows(ValidationException.class, () -> Loan.validateCustomerId(loan.getCustomerId()));
+  }
+
+  @Test
+  public void validateInvalidCompoundingFrequency() {
+    // Arrange
+    Loan loan = new Loan();
+    loan.setCompoundingFrequency(Frequency.Unknown);
+
+    // Act
+    // Assert
+    assertThrows(
+        ValidationException.class,
+        () -> Loan.validateCompoundingFrequency(loan.getCompoundingFrequency()));
+  }
+
+  @Test
+  public void validateInvalidPaymentFrequency() {
+    // Arrange
+    Loan loan = new Loan();
+    loan.setPaymentFrequency(Frequency.Unknown);
+
+    // Act
+    // Assert
+    assertThrows(
+        ValidationException.class, () -> Loan.validatePaymentFrequency(loan.getPaymentFrequency()));
   }
 }

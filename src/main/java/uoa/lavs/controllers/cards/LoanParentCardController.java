@@ -2,6 +2,7 @@ package uoa.lavs.controllers.cards;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class LoanParentCardController extends ICard<Loan> {
       new LoanPaymentsCardController();
 
   @FXML private Label loanIdLbl;
-  @FXML private MFXButton SummaryBtn;
+  @FXML private Button swapBtn;
   @FXML private Pane switchPane;
 
   public LoanParentCardController() {
@@ -42,13 +43,13 @@ public class LoanParentCardController extends ICard<Loan> {
       loanIdLbl.setText("New Loan");
       loanCreationCardController.render(loan);
       ControllerUtils.swapComponent(switchPane, loanCreationCardController);
-      SummaryBtn.setVisible(false);
+      swapBtn.setVisible(false);
     } else {
       loanIdLbl.setText("Loan ID: " + loan.getLoanId());
       loanSummaryCardController.render(loan.getLoanSummary());
       loanPaymentsCardController.render(loan.getLoanPayments());
       ControllerUtils.swapComponent(switchPane, loanSummaryCardController);
-      SummaryBtn.setVisible(true);
+      swapBtn.setVisible(true);
     }
   }
 
@@ -68,7 +69,7 @@ public class LoanParentCardController extends ICard<Loan> {
   }
 
   @FXML
-  private void onSummaryBtnClick() {
+  private void onSwapBtnClick() {
     logger.debug("Summary button clicked");
     if (loanId == null) {
       return;
@@ -76,8 +77,10 @@ public class LoanParentCardController extends ICard<Loan> {
 
     if (switchPane.getChildren().contains(loanSummaryCardController)) {
       ControllerUtils.swapComponent(switchPane, loanPaymentsCardController);
+      swapBtn.setText("Summary");
     } else {
       ControllerUtils.swapComponent(switchPane, loanSummaryCardController);
+      swapBtn.setText("Payments");
     }
   }
 }

@@ -29,6 +29,7 @@ public class TestEntityCreator {
     address.setCustomerId(customer.getId());
     address.setType("Home");
     address.setLine1("123 Fake St");
+    address.setLine2("N/A");
     address.setSuburb("Fakeville");
     address.setCity("Faketown");
     address.setPostCode("1234");

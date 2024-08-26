@@ -1,0 +1,22 @@
+.loan-button {
+    -fx-background-color: #4c4c8e;
+    -fx-text-fill: #e8e8e8;
+    -fx-background-radius: 50;
+    -fx-border-color: transparent;
+    -fx-font-size: 15px; 
+    -fx-font-weight: 500;
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.3s ease, -fx-translate-y 0.2s ease, -fx-box-shadow 0.3s ease;
+}
+
+.loan-button:hover {
+    -fx-background-color: #343679;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 4);
+    -fx-translate-y: -2px;
+}
+
+.loan-button:pressed {
+    -fx-background-color: #2b2c64;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 4);
+    -fx-translate-y: 1px;
+}

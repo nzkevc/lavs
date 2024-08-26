@@ -15,7 +15,8 @@ public class Emails implements IModel {
   }
 
   public Emails(Set<Email> emails) {
-    this.emails = emails;
+    this.emails = new HashSet<>();
+    emails.forEach(this::addEmail);
   }
 
   public String getCustomerId() {
@@ -49,14 +50,12 @@ public class Emails implements IModel {
   }
 
   void setPrimaryEmail(Email email) {
-    if (email != null) {
-      if (primaryEmail != null) {
-        primaryEmail.setIsPrimary(false);
-      }
-      email.setIsPrimary(true);
-      primaryEmail = email;
-      emails.add(email);
+    if (primaryEmail != null) {
+      primaryEmail.setIsPrimary(false);
     }
+    email.setIsPrimary(true);
+    primaryEmail = email;
+    emails.add(email);
   }
 
   public static void validate(Emails emails) throws ValidationException {
@@ -65,9 +64,6 @@ public class Emails implements IModel {
     }
     if (emails.getEmails().stream().noneMatch(Email::getIsPrimary)) {
       throw new ValidationException("Primary email must be set.");
-    }
-    if (emails.getEmails().stream().filter(Email::getIsPrimary).count() > 1) {
-      throw new ValidationException("Only one primary email is allowed.");
     }
   }
 }
