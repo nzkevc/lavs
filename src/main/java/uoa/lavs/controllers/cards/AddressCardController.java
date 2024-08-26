@@ -64,6 +64,7 @@ public class AddressCardController extends ICard<Address> {
     isMailing.setSelected(false);
   }
 
+  @Override
   public void validate() throws ValidationException {
     try {
       Address.validateLine1(addressLine1.getText());
@@ -73,8 +74,7 @@ public class AddressCardController extends ICard<Address> {
       Address.validatePostcode(postcode.getText());
       Address.validateCountry(country.getText());
     } catch (ValidationException e) {
-      logger.debug("Address validation failed: {}", e.getMessage());
-      throw e;
+      throw new ValidationException("Address " + addressLine1 + ": " + e.getMessage(), e);
     }
   }
 

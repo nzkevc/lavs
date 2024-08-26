@@ -93,8 +93,7 @@ public class LoanCardController extends ICard<Loan> {
       Loan.validateCompoundingFrequency(compoundingFrequency.getSelectedItem());
       Loan.validatePaymentFrequency(paymentFrequency.getSelectedItem());
     } catch (ValidationException e) {
-      logger.error("Loan validation failed: {}", e.getMessage());
-      throw e;
+      throw new ValidationException("Loan " + loanId + ": " + e.getMessage(), e);
     }
   }
 

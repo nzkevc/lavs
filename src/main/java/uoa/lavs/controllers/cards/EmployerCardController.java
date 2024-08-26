@@ -116,8 +116,7 @@ public class EmployerCardController extends ICard<Employer> {
 
       Email.validateAddress(emailAddress.getText());
     } catch (ValidationException e) {
-      logger.error("Employer validation failed: {}", e.getMessage());
-      throw e;
+      throw new ValidationException("Employer " + employerName + ": " + e.getMessage(), e);
     }
   }
 

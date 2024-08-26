@@ -240,15 +240,17 @@ public class SummaryPageController extends IPage {
     getLoansCard().clear();
   }
 
-  private void validateCustomer() {
+  private boolean validateCustomer() {
     try {
       getGeneralInfoCard().validate();
       getContactCard().validate();
       getEmployerCard().validate();
       getNoteCard().validate();
       getLoansCard().validate();
+      return true; // Valid
     } catch (ValidationException e) {
-      errorLbl.setText(e.getMessage());
+      handleException(e);
+      return false; // Invalid
     }
   }
 
@@ -272,6 +274,10 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onSubmitBtnClick() {
+    if (!validateCustomer()) {
+      return;
+    }
+
     boolean isCreating = State.customerId.getValue().isEmpty();
     if (isCreating) {
       logger.debug("Creating new customer...");

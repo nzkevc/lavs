@@ -37,8 +37,7 @@ public class NoteCardController extends ICard<String> {
     try {
       Customer.validateNotes(noteField.getText());
     } catch (ValidationException e) {
-      logger.error("Note validation failed:", e.getMessage());
-      throw e;
+      throw new ValidationException("Notes: " + e.getMessage(), e);
     }
   }
 
