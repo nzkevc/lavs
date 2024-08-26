@@ -50,14 +50,14 @@ public class State {
     State.assembleCustomerFunction = assembleCustomerFunction;
   }
 
-  public static void saveState() {
-    logger.info("Saving state");
+  public static void cacheCustomer() {
     customerFromSearch.setValue(assembleCustomerFunction.get());
+    logger.info("Saving state for customer {}", customerId.getValue());
     CacheUtils.saveToCache(customerId.getValue(), customerFromSearch.getValue());
   }
 
-  public static void loadState() {
-    logger.info("Loading state");
+  public static void loadCachedCustomer() {
+    logger.info("Loading state for customer {}", customerId.getValue());
     try {
       Customer customer = CacheUtils.loadFromCache(customerId.getValue());
       customerFromSearch.setValue(customer);
@@ -68,6 +68,12 @@ public class State {
     }
   }
 
+  /** Doesn't clear fields */
+  public static void clearCachedCustomer() {
+    logger.info("Clearing cache for customer {}", customerId.getValue());
+    CacheUtils.saveToCache(customerId.getValue(), null);
+  }
+
   public static void setMessageSuccess(String msg) {
     logger.debug(msg);
     summaryMessage.setValue(msg);
@@ -75,7 +81,7 @@ public class State {
   }
 
   public static void setMessageError(String msg) {
-    logger.warn(msg);
+    logger.warn("Error label set to: {}", msg);
     summaryMessage.setValue(msg);
     summaryMessageIsError.setValue(true);
   }

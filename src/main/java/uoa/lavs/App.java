@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.controllers.MainController;
+import uoa.lavs.mainframe.Connection;
+import uoa.lavs.mainframe.simulator.IntermittentConnection;
 import uoa.lavs.mainframe.simulator.NitriteConnection;
+import uoa.lavs.mainframe.simulator.failures.NFailsPerMRequestsPolicy;
 import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ResourceUtils;
 import uoa.lavs.utils.objects.ConnectionInstance;
@@ -60,14 +63,20 @@ public class App extends Application {
         });
 
     // Set up application
+    // Connection alwaysNetworkFail =
+    //     new IntermittentConnection(
+    //         new NitriteConnection("data/nitrite.db"), new NFailsPerMRequestsPolicy(1, 1));
+    // ConnectionInstance.setConnection(alwaysNetworkFail);
     ConnectionInstance.setConnection(new NitriteConnection("data/nitrite.db"));
+
     stage.show();
   }
 
   @Override
-  public void stop() {
+  public void stop() throws IOException {
     logger.info("Stopping application");
     AsyncUtils.close();
+    ConnectionInstance.getConnection().close();
   }
 
   public static Stage getStage() {
