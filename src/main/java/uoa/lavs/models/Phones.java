@@ -16,7 +16,8 @@ public class Phones implements IModel {
   }
 
   public Phones(Set<Phone> phoneNumbers) {
-    this.phoneNumbers = phoneNumbers;
+    this.phoneNumbers = new HashSet<>();
+    phoneNumbers.forEach(this::addPhone);
   }
 
   public String getCustomerId() {
@@ -85,9 +86,6 @@ public class Phones implements IModel {
     }
     if (phones.getPhoneNumbers().stream().noneMatch(Phone::getPrimary)) {
       throw new ValidationException("Primary phone must be set.");
-    }
-    if (phones.getPhoneNumbers().stream().filter(Phone::getPrimary).count() > 1) {
-      throw new ValidationException("Only one primary address is allowed.");
     }
   }
 }

@@ -2,7 +2,10 @@ package uoa.lavs.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class PhonesTests {
   @Test
@@ -68,6 +71,35 @@ public class PhonesTests {
 
     // Act
 
+    // Assert
+    assertEquals(primaryPhone, phones.getPrimaryPhone());
+    assertEquals(textPhone, phones.getTextPhone());
+  }
+
+  @Test
+  public void setConstructorTest() {
+    // Arrange
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(false);
+
+    Phone textPhone = new Phone("123", 2);
+    textPhone.setType("Mobile");
+    textPhone.setPrefix("09");
+    textPhone.setPhoneNumber("987654321");
+    textPhone.setPrimary(false);
+    textPhone.setCanSendTxt(true);
+
+    Set<Phone> phoneSet = new HashSet<>();
+    phoneSet.add(primaryPhone);
+    phoneSet.add(textPhone);
+
+    Phones phones = new Phones(phoneSet);
+
+    // Act
     // Assert
     assertEquals(primaryPhone, phones.getPrimaryPhone());
     assertEquals(textPhone, phones.getTextPhone());
@@ -261,5 +293,105 @@ public class PhonesTests {
     assertEquals(2, phones.getPhoneNumbers().size());
     assertEquals(primaryPhone, phones.getPrimaryPhone());
     assertEquals(textPhone, phones.getTextPhone());
+  }
+
+  @Test
+  public void validatePrimaryPhone() {
+    // Arrange
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Phones.validate(phones));
+  }
+
+  @Test
+  public void validateTwoPrimaryPhones() {
+    // Arrange
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phone primaryPhone2 = new Phone("123", 2);
+    primaryPhone2.setType("Mobile");
+    primaryPhone2.setPrefix("09");
+    primaryPhone2.setPhoneNumber("987654321");
+    primaryPhone2.setPrimary(true);
+    primaryPhone2.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+    phones.addPhone(primaryPhone2);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Phones.validate(phones));
+  }
+
+  @Test
+  public void validateTwoPrimaryPhonesWithSet() {
+    // Arrange
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(true);
+    primaryPhone.setCanSendTxt(true);
+
+    Phone primaryPhone2 = new Phone("123", 2);
+    primaryPhone2.setType("Mobile");
+    primaryPhone2.setPrefix("09");
+    primaryPhone2.setPhoneNumber("987654321");
+    primaryPhone2.setPrimary(true);
+    primaryPhone2.setCanSendTxt(true);
+
+    Set<Phone> phoneSet = new HashSet<>();
+    phoneSet.add(primaryPhone);
+    phoneSet.add(primaryPhone2);
+
+    Phones phones = new Phones(phoneSet);
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Phones.validate(phones));
+  }
+
+  @Test
+  public void validateNoPrimaryPhones() {
+    // Arrange
+    Phone primaryPhone = new Phone("123", 1);
+    primaryPhone.setType("Mobile");
+    primaryPhone.setPrefix("09");
+    primaryPhone.setPhoneNumber("123456789");
+    primaryPhone.setPrimary(false);
+    primaryPhone.setCanSendTxt(true);
+
+    Phones phones = new Phones("123");
+    phones.addPhone(primaryPhone);
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Phones.validate(phones));
+  }
+
+  @Test
+  public void validateEmptyPhones() {
+    // Arrange
+    Phones phones = new Phones("123");
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Phones.validate(phones));
   }
 }
