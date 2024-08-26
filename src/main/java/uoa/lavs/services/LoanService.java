@@ -1,6 +1,13 @@
 package uoa.lavs.services;
 
-import uoa.lavs.models.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uoa.lavs.models.Customer;
+import uoa.lavs.models.Loan;
+import uoa.lavs.models.LoanPayments;
+import uoa.lavs.models.LoanSummary;
+import uoa.lavs.models.Loans;
 import uoa.lavs.repository.LoanPaymentsRepository;
 import uoa.lavs.repository.LoanRepository;
 import uoa.lavs.repository.LoanSummaryRepository;
@@ -8,6 +15,8 @@ import uoa.lavs.repository.LoansRepository;
 import uoa.lavs.utils.objects.ValidationException;
 
 public class LoanService implements IService {
+
+  private final static Logger logger = LoggerFactory.getLogger(LoanService.class);
 
   public static Loans getLoans(Customer customer) throws RuntimeException {
     try {
@@ -21,6 +30,7 @@ public class LoanService implements IService {
       }
       return loans;
     } catch (Exception e) {
+      logger.error("Error getting loans for customer: " + customer.getId(), e);
       return new Loans(customer.getId());
     }
   }
