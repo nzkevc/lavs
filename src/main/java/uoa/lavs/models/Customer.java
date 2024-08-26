@@ -154,21 +154,21 @@ public class Customer implements IModel {
    */
   public static void validateCustomerId(String id) throws ValidationException {
     if (id.length() > 10) {
-      throw new ValidationException("Must be between 1 and 10 characters.");
+      throw new ValidationException("Customer ID must be between 1 and 10 characters.");
     }
   }
 
   public static void validateTitle(String title) throws ValidationException {
     ValidationUtils.validateFieldExists(title);
     if (title.length() > 10) {
-      throw new ValidationException("Must be between 1 and 10 characters.");
+      throw new ValidationException("Title must be between 1 and 10 characters.");
     }
   }
 
   public static void validateName(String name) throws ValidationException {
     ValidationUtils.validateFieldExists(name);
     if (name.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Name must be between 1 and 60 characters.");
     }
   }
 
@@ -183,14 +183,14 @@ public class Customer implements IModel {
   public static void validateOccupation(String occupation) throws ValidationException {
     ValidationUtils.validateFieldExists(occupation);
     if (occupation.length() > 40) {
-      throw new ValidationException("Must be between 1 and 40 characters.");
+      throw new ValidationException("Occupation must be between 1 and 40 characters.");
     }
   }
 
   public static void validateCitizenship(String citizenship) throws ValidationException {
     ValidationUtils.validateFieldExists(citizenship);
     if (citizenship.length() > 40) {
-      throw new ValidationException("Must be between 1 and 40 characters.");
+      throw new ValidationException("Citizenship must be between 1 and 40 characters.");
     }
   }
 
@@ -199,7 +199,7 @@ public class Customer implements IModel {
     ValidationUtils.validateFieldExists(
         visa, "Field requires a value - leave N/A if not applicable.");
     if (visa.length() > 40) {
-      throw new ValidationException("Must be between 1 and 40 characters.");
+      throw new ValidationException("Visa must be between 1 and 40 characters.");
     }
   }
 

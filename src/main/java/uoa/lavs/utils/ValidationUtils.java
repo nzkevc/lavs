@@ -22,7 +22,7 @@ public class ValidationUtils {
 
   public static void validateFieldExists(String value) throws ValidationException {
     if (isNullOrBlank(value)) {
-      throw new ValidationException("Field is required.");
+      throw new ValidationException("Missing fields are required.");
     }
   }
 

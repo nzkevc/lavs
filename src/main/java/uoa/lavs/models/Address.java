@@ -177,54 +177,54 @@ public class Address implements IModel {
   public static void validateType(String type) throws ValidationException {
     ValidationUtils.validateFieldExists(type);
     if (type.length() > 20) {
-      throw new ValidationException("Must be between 1 and 20 characters.");
+      throw new ValidationException("Type must be between 1 and 20 characters.");
     }
   }
 
   public static void validateLine1(String line1) throws ValidationException {
     ValidationUtils.validateFieldExists(line1);
     if (line1.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Line 1 must be between 1 and 60 characters.");
     }
   }
 
   // this means line2 is optional
   public static void validateLine2(String line2) throws ValidationException {
     ValidationUtils.validateFieldExists(
-        line2, "Field requires a value - leave N/A if not applicable.");
+        line2, "Line 2 field requires a value - leave N/A if not applicable.");
     if (line2.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Line 2 must be between 1 and 60 characters.");
     }
   }
 
   public static void validateSuburb(String suburb) throws ValidationException {
     ValidationUtils.validateFieldExists(suburb);
     if (suburb.length() > 30) {
-      throw new ValidationException("Must be between 1 and 30 characters.");
+      throw new ValidationException("Suburb must be between 1 and 30 characters.");
     }
   }
 
   public static void validateCity(String city) throws ValidationException {
     ValidationUtils.validateFieldExists(city);
     if (city.length() > 30) {
-      throw new ValidationException("Must be between 1 and 30 characters.");
+      throw new ValidationException("City must be between 1 and 30 characters.");
     }
   }
 
   public static void validatePostcode(String postcode) throws ValidationException {
     ValidationUtils.validateFieldExists(postcode);
     if (postcode.length() > 10) {
-      throw new ValidationException("Must be between 1 and 10 characters.");
+      throw new ValidationException("Postcode must be between 1 and 10 characters.");
     }
     if (!postcode.matches("^\\d+$")) {
-      throw new ValidationException("Must be a number.");
+      throw new ValidationException("Postcode must be a number.");
     }
   }
 
   public static void validateCountry(String country) throws ValidationException {
     ValidationUtils.validateFieldExists(country);
     if (country.length() > 30) {
-      throw new ValidationException("Must be between 1 and 30 characters.");
+      throw new ValidationException("Country must be between 1 and 30 characters.");
     }
   }
 }
