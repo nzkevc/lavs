@@ -27,7 +27,7 @@
             <MFXTextField fx:id="interestRate" floatingText="Interest Rate" layoutX="554.0" layoutY="42.0" prefHeight="49.0" prefWidth="276.0" />
             <MFXComboBox fx:id="paymentFrequency" floatingText="Payment Frequency" layoutX="782.0" layoutY="99.0" prefHeight="49.0" prefWidth="195.0" />
             <MFXComboBox fx:id="compoundingFrequency" floatingText="Compounding Frequency" layoutX="554.0" layoutY="99.0" prefHeight="49.0" prefWidth="195.0" />
-            <MFXTextField fx:id="paymentAmount" allowEdit="false" floatingText="Payment Amount" layoutX="554.0" layoutY="159.0" prefHeight="49.0" prefWidth="276.0" />
+            <MFXTextField fx:id="paymentAmount" floatingText="Payment Amount" layoutX="554.0" layoutY="159.0" prefHeight="49.0" prefWidth="276.0" />
             <MFXCheckbox fx:id="interestOnly" layoutX="1000.0" layoutY="110.0" text="Interest Only" />
          </children>
       </AnchorPane>
