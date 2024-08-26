@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class AddressTests {
   @Test
@@ -333,13 +334,97 @@ public class AddressTests {
   }
 
   @Test
-  public void validateAddressTest() {
+  public void validateValidAddressTest() {
     // Arrange
-    Address address = TestEntityCreator.createBasicAddress(TestEntityCreator.createBasicCustomer());
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address address = TestEntityCreator.createBasicAddress(customer);
 
     // Act
 
     // Assert
-    // assertTrue(address.validate());
+    assertDoesNotThrow(() -> Address.validateCustomerId(address.getCustomerId()));
+    assertDoesNotThrow(() -> Address.validateCity(address.getCity()));
+    assertDoesNotThrow(() -> Address.validateCountry(address.getCountry()));
+    assertDoesNotThrow(() -> Address.validateLine1(address.getLine1()));
+    assertDoesNotThrow(() -> Address.validatePostcode(address.getPostCode()));
+    assertDoesNotThrow(() -> Address.validateSuburb(address.getSuburb()));
+    assertDoesNotThrow(() -> Address.validateType(address.getType()));
+    assertDoesNotThrow(() -> Address.validateLine2(address.getLine2()));
+  }
+
+  @Test
+  public void validateNullAddressTest() {
+    // Arrange
+    Address address = new Address();
+
+    // Act
+    // Assert
+    assertThrows(
+        ValidationException.class, () -> Address.validateCustomerId(address.getCustomerId()));
+    assertThrows(ValidationException.class, () -> Address.validateCity(address.getCity()));
+    assertThrows(ValidationException.class, () -> Address.validateCountry(address.getCountry()));
+    assertThrows(ValidationException.class, () -> Address.validateLine1(address.getLine1()));
+    assertThrows(ValidationException.class, () -> Address.validatePostcode(address.getPostCode()));
+    assertThrows(ValidationException.class, () -> Address.validateSuburb(address.getSuburb()));
+    assertThrows(ValidationException.class, () -> Address.validateType(address.getType()));
+    assertThrows(ValidationException.class, () -> Address.validateLine2(address.getLine2()));
+  }
+
+  @Test
+  public void validateEmptyAddressTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    address.setLine1("");
+    address.setCity("");
+    address.setCountry("");
+    address.setPostCode("");
+    address.setSuburb("");
+    address.setType("");
+    address.setLine2("");
+
+    // Act
+
+    // Assert
+    assertThrows(ValidationException.class, () -> Address.validateLine1(address.getLine1()));
+  }
+
+  @Test
+  public void validateOverLimitAddressTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    address.setLine1("1234 Main St1234 Main St1234 Main St1234 Main St1234 Main St1234 Main St");
+    address.setCity("SpringfieldSpringfieldSpringfieldSpringfieldSpringfieldSpringfield");
+    address.setCountry("United States of AmericaUnited States of AmericaUnited States of America");
+    address.setPostCode("627016270162701627016270162701");
+    address.setSuburb("SpringfieldSpringfieldSpringfieldSpringfieldSpringfieldSpringfield");
+    address.setType("HomeHomeHomeHomeHomeHome");
+    address.setLine2(
+        "Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101Apt 101");
+
+    // Act
+
+    // Assert
+    assertThrows(ValidationException.class, () -> Address.validateLine1(address.getLine1()));
+    assertThrows(ValidationException.class, () -> Address.validateCity(address.getCity()));
+    assertThrows(ValidationException.class, () -> Address.validateCountry(address.getCountry()));
+    assertThrows(ValidationException.class, () -> Address.validatePostcode(address.getPostCode()));
+    assertThrows(ValidationException.class, () -> Address.validateSuburb(address.getSuburb()));
+    assertThrows(ValidationException.class, () -> Address.validateType(address.getType()));
+    assertThrows(ValidationException.class, () -> Address.validateLine2(address.getLine2()));
+  }
+
+  @Test
+  public void validatePostcodeInvalidFormatTest() {
+    // Arrange
+    Customer customer = TestEntityCreator.createBasicCustomer();
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    address.setPostCode("asdf");
+
+    // Act
+
+    // Assert
+    assertThrows(ValidationException.class, () -> Address.validatePostcode(address.getPostCode()));
   }
 }
