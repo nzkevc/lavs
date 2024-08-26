@@ -27,7 +27,6 @@ public class LoanParentCardController extends ICard<Loan> {
 
   public LoanParentCardController() {
     ControllerUtils.loadFxml(this, "cards/loan-parent-card.fxml");
-    System.out.println("LoanParentCardController: " + this);
   }
 
   @FXML
@@ -37,7 +36,6 @@ public class LoanParentCardController extends ICard<Loan> {
 
   @Override
   public void render(Loan loan) {
-    logger.debug("Rendering loan parent card");
     loanId = loan.getLoanId();
 
     if (ValidationUtils.isNullOrBlank(loanId)) {

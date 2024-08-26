@@ -268,18 +268,20 @@ public class SummaryPageController extends IPage {
     AsyncUtils.promise(
         () -> {
           Customer customer = assembleCustomer();
+          Loans returnedLoans;
           if (isCreating) {
             customer.setId(null);
             CustomerService.createCustomer(customer);
-            LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
+            returnedLoans = LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
           } else {
             CustomerService.updateCustomer(customer);
             Loans newLoans = new Loans();
             customer.getLoans().getLoans().stream()
                 .filter(loan -> loan.getLoanId() == null || loan.getLoanId().isEmpty())
                 .forEach((loan) -> newLoans.addLoan(loan));
-            LoanService.createLoansByCustomerId(customer.getId(), newLoans);
+            returnedLoans = LoanService.createLoansByCustomerId(customer.getId(), newLoans);
           }
+          customer.setLoans(returnedLoans);
           return customer;
         },
         (customer) -> {
