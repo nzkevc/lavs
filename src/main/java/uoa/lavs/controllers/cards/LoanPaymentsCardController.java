@@ -98,6 +98,11 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
   }
 
   @Override
+  public void validate() {
+    throw new UnsupportedOperationException("Do not validate LoanSummary");
+  }
+
+  @Override
   public void clear() {
     loanTableView.getItems().clear();
   }

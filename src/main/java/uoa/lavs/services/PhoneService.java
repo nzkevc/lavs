@@ -24,7 +24,11 @@ class PhoneService implements IService {
     phones.setCustomerId(newCustomer.getId());
     for (Phone phone : phones.getPhoneNumbers()) {
       phone.setCustomerID(newCustomer.getId());
-      PhoneRepository.update(phone);
+      if (phone.getNumber() == null || phone.getNumber() == 0) {
+        PhoneRepository.create(phone);
+      } else {
+        PhoneRepository.update(phone);
+      }
     }
   }
 

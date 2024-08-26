@@ -27,6 +27,8 @@ public class LoanPaymentsTests {
     loanPayments.setCustomerId("123");
     loanPayments.setCustomerName("John Doe");
     loanPayments.setPayments(0);
+    loanPayments.setPages(20);
+    loanPayments.setPaymentDates(new ArrayList<>());
     loanPayments.setPaymentInterests(new ArrayList<>());
     loanPayments.setPaymentPrincipals(new ArrayList<>());
     loanPayments.setPaymentRemainings(new ArrayList<>());
@@ -38,6 +40,8 @@ public class LoanPaymentsTests {
             && loanPayments.getCustomerId().equals("123")
             && loanPayments.getCustomerName().equals("John Doe")
             && loanPayments.getPayments().equals(0)
+            && loanPayments.getPages().equals(20)
+            && loanPayments.getPaymentDates().size() == 0
             && loanPayments.getPaymentInterests().size() == 0
             && loanPayments.getPaymentPrincipals().size() == 0
             && loanPayments.getPaymentRemainings().size() == 0

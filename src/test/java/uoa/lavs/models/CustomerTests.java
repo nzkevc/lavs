@@ -185,4 +185,38 @@ public class CustomerTests {
     assertThrows(
         ValidationException.class, () -> Customer.validateDateOfBirth(customer.getDateOfBirth()));
   }
+
+  @Test
+  public void validateValidNotes() {
+    // Arrange
+    Customer customer = new Customer("1");
+    customer.setNotes("This is a note.");
+
+    // Act
+    // Assert
+    assertDoesNotThrow(() -> Customer.validateNotes(customer.getNotes()));
+  }
+
+  @Test
+  public void validateLineTooLongNote() {
+    // Arrange
+    Customer customer = new Customer("1");
+    customer.setNotes(
+        "This is a note. This is a note. This is a note. This is a note. This is a note.");
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Customer.validateNotes(customer.getNotes()));
+  }
+
+  @Test
+  public void validateTooManyLinesNotes() {
+    // Arrange
+    Customer customer = new Customer("1");
+    customer.setNotes("This is a note.\n".repeat(20));
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Customer.validateNotes(customer.getNotes()));
+  }
 }

@@ -3,6 +3,7 @@ package uoa.lavs.controllers.cards;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
+import org.dizitart.no2.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Phone;
@@ -22,6 +23,12 @@ public class PhoneCardController extends ICard<Phone> {
     ControllerUtils.loadFxml(this, "cards/phone-card.fxml");
   }
 
+  @FXML
+  private void initialize() {
+    prefix.setTextLimit(10);
+    phoneNumber.setTextLimit(20);
+  }
+
   @Override
   public void render(Phone phone) {
     number = phone.getNumber();
@@ -38,6 +45,15 @@ public class PhoneCardController extends ICard<Phone> {
     phoneNumber.clear();
     isPrimary.setSelected(false);
     isSendText.setSelected(false);
+  }
+
+  public void validate() throws ValidationException {
+    try {
+      Phone.validatePrefix(prefix.getText());
+      Phone.validatePhoneNumber(phoneNumber.getText());
+    } catch (ValidationException e) {
+      throw new ValidationException("Phone " + phoneNumber.getText() + ": " + e.getMessage(), e);
+    }
   }
 
   @Override

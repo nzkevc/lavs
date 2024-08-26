@@ -24,7 +24,11 @@ class EmailService implements IService {
     emails.setCustomerId(newCustomer.getId());
     for (Email email : emails.getEmails()) {
       email.setCustomerId(newCustomer.getId());
-      EmailRepository.update(email);
+      if (email.getNumber() == null || email.getNumber() == 0) {
+        EmailRepository.create(email);
+      } else {
+        EmailRepository.update(email);
+      }
     }
   }
 

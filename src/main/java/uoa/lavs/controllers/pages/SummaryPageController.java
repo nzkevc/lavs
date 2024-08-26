@@ -39,6 +39,7 @@ import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.ContactInfo;
 import uoa.lavs.utils.objects.DevEntityCreator;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class SummaryPageController extends IPage {
 
@@ -245,6 +246,20 @@ public class SummaryPageController extends IPage {
     getLoansCard().clear();
   }
 
+  private boolean validateCustomer() {
+    try {
+      getGeneralInfoCard().validate();
+      getContactCard().validate();
+      getEmployerCard().validate();
+      getNoteCard().validate();
+      getLoansCard().validate();
+      return true; // Valid
+    } catch (ValidationException e) {
+      handleException(e);
+      return false; // Invalid
+    }
+  }
+
   private Customer assembleCustomer() {
     logger.debug("Assembling customer...");
     Customer customer = getGeneralInfoCard().assemble();
@@ -265,6 +280,10 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onSubmitBtnClick() {
+    if (!validateCustomer()) {
+      return;
+    }
+
     boolean isCreating = State.customerId.getValue().isEmpty();
     if (isCreating) {
       logger.debug("Creating new customer...");
@@ -274,18 +293,20 @@ public class SummaryPageController extends IPage {
     AsyncUtils.promise(
         () -> {
           Customer customer = assembleCustomer();
+          Loans returnedLoans;
           if (isCreating) {
             customer.setId(null);
             CustomerService.createCustomer(customer);
-            LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
+            returnedLoans = LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
           } else {
             CustomerService.updateCustomer(customer);
             Loans newLoans = new Loans();
             customer.getLoans().getLoans().stream()
                 .filter(loan -> loan.getLoanId() == null || loan.getLoanId().isEmpty())
                 .forEach((loan) -> newLoans.addLoan(loan));
-            LoanService.createLoansByCustomerId(customer.getId(), newLoans);
+            returnedLoans = LoanService.createLoansByCustomerId(customer.getId(), newLoans);
           }
+          customer.setLoans(returnedLoans);
           return customer;
         },
         (customer) -> {

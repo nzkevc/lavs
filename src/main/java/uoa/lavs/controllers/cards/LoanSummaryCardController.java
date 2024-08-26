@@ -47,6 +47,11 @@ public class LoanSummaryCardController extends ICard<LoanSummary> {
   }
 
   @Override
+  public void validate() {
+    throw new UnsupportedOperationException("Do not validate LoanSummary");
+  }
+
+  @Override
   public LoanSummary assemble() {
     throw new UnsupportedOperationException("Do not assemble LoanSummary");
   }
