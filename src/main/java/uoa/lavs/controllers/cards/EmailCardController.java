@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Email;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class EmailCardController extends ICard<Email> {
 
@@ -15,6 +16,11 @@ public class EmailCardController extends ICard<Email> {
   private Integer number;
   @FXML private MFXTextField emailAddress;
   @FXML private MFXCheckbox isPrimary;
+
+  @FXML
+  private void initialize() {
+    emailAddress.setTextLimit(60);
+  }
 
   public EmailCardController() {
     ControllerUtils.loadFxml(this, "cards/email-card.fxml");
@@ -32,6 +38,15 @@ public class EmailCardController extends ICard<Email> {
     number = 0;
     emailAddress.clear();
     isPrimary.setSelected(false);
+  }
+
+  public void validate() throws ValidationException {
+    try {
+      Email.validateAddress(emailAddress.getText());
+    } catch (ValidationException e) {
+      logger.error("Email validation failed: {}", e.getMessage());
+      throw e;
+    }
   }
 
   @Override

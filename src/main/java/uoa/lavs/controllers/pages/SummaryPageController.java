@@ -38,6 +38,7 @@ import uoa.lavs.utils.AsyncUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.ContactInfo;
 import uoa.lavs.utils.objects.DevEntityCreator;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class SummaryPageController extends IPage {
 
@@ -237,6 +238,18 @@ public class SummaryPageController extends IPage {
     State.customerId.setValue("");
     State.customerName.setValue("");
     getLoansCard().clear();
+  }
+
+  private void validateCustomer() {
+    try {
+      getGeneralInfoCard().validate();
+      getContactCard().validate();
+      getEmployerCard().validate();
+      getNoteCard().validate();
+      getLoansCard().validate();
+    } catch (ValidationException e) {
+      errorLbl.setText(e.getMessage());
+    }
   }
 
   private Customer assembleCustomer() {

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import uoa.lavs.State;
 import uoa.lavs.models.Customer;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class GeneralInfoCardController extends ICard<Customer> {
 
@@ -19,6 +20,7 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML private MFXTextField citizenship;
   @FXML private MFXTextField visaType;
   @FXML private MFXTextField occupation;
+  // TODO: remove status field?
   @FXML private MFXTextField status;
 
   public GeneralInfoCardController() {
@@ -28,6 +30,14 @@ public class GeneralInfoCardController extends ICard<Customer> {
   @FXML
   private void initialize() {
     name.textProperty().bindBidirectional(State.customerName);
+
+    // Set input limits
+    title.setTextLimit(10);
+    name.setTextLimit(60);
+    citizenship.setTextLimit(40);
+    occupation.setTextLimit(40);
+    visaType.setTextLimit(40);
+    status.setEditable(false);
   }
 
   @Override
@@ -52,6 +62,20 @@ public class GeneralInfoCardController extends ICard<Customer> {
     status.clear();
   }
 
+  public void validate() throws ValidationException {
+    try {
+      Customer.validateTitle(title.getText());
+      Customer.validateName(name.getText());
+      Customer.validateDateOfBirth(dateOfBirth.getValue());
+      Customer.validateCitizenship(citizenship.getText());
+      Customer.validateVisa(visaType.getText());
+      Customer.validateOccupation(occupation.getText());
+    } catch (ValidationException e) {
+      logger.debug("Customer general info validation failed: {}", e.getMessage());
+      throw e;
+    }
+  }
+
   @Override
   public Customer assemble() {
     Customer customer = new Customer();
@@ -61,7 +85,6 @@ public class GeneralInfoCardController extends ICard<Customer> {
     customer.setCitizenship(citizenship.getText());
     customer.setVisa(visaType.getText());
     customer.setOccupation(occupation.getText());
-    customer.setStatus(status.getText());
     return customer;
   }
 }

@@ -54,6 +54,13 @@ public class ContactCardController extends ICard<ContactInfo> {
   }
 
   @Override
+  public void validate() {
+    addressCards.validate();
+    phoneCards.validate();
+    emailCards.validate();
+  }
+
+  @Override
   public ContactInfo assemble() {
     Addresses addresses = new Addresses(addressCards.assemble());
     Phones phones = new Phones(phoneCards.assemble());

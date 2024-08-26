@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.models.Address;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class AddressCardController extends ICard<Address> {
 
@@ -24,6 +25,17 @@ public class AddressCardController extends ICard<Address> {
 
   public AddressCardController() {
     ControllerUtils.loadFxml(this, "cards/address-card.fxml");
+  }
+
+  @FXML
+  private void initialize() {
+    addressLine1.setTextLimit(60);
+    addressLine2.setTextLimit(60);
+    suburb.setTextLimit(30);
+    city.setTextLimit(30);
+    postcode.setTextLimit(10);
+    // TODO: set postcode to only numbers
+    country.setTextLimit(30);
   }
 
   @Override
@@ -50,6 +62,20 @@ public class AddressCardController extends ICard<Address> {
     country.clear();
     isPrimary.setSelected(false);
     isMailing.setSelected(false);
+  }
+
+  public void validate() throws ValidationException {
+    try {
+      Address.validateLine1(addressLine1.getText());
+      Address.validateLine2(addressLine2.getText());
+      Address.validateSuburb(suburb.getText());
+      Address.validateCity(city.getText());
+      Address.validatePostcode(postcode.getText());
+      Address.validateCountry(country.getText());
+    } catch (ValidationException e) {
+      logger.debug("Address validation failed: {}", e.getMessage());
+      throw e;
+    }
   }
 
   @Override
