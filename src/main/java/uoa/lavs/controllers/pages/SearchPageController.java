@@ -135,6 +135,9 @@ public class SearchPageController extends IPage {
     logger.debug("Adding new customer");
     customerIdInput.setText("");
     State.customerFromSearch.setValue(null);
+    State.customerFromSearch.setValue(new Customer());
+    State.customerFromSearch.setValue(null);
+
     App.getMainController().switchPage(SummaryPageController.class);
   }
 
