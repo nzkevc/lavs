@@ -177,4 +177,36 @@ public class EmployerTests {
     assertThrows(ValidationException.class, () -> Employer.validatePhone(phone.getFullNumber()));
     assertThrows(ValidationException.class, () -> Employer.validateWebsite(employer.getWebsite()));
   }
+
+  @Test
+  public void validateEmployerPhoneNumberTest() {
+    // Arrange
+    Employer employer = new Employer();
+    Phone phone = new Phone("123", 1);
+    phone.setPrefix("+64");
+    phone.setPhoneNumber("adfhajhksdf");
+    employer.setPhone(phone);
+
+    // Act
+    // Assert
+    assertThrows(
+        ValidationException.class,
+        () -> Employer.validatePhone(employer.getPhone().getFullNumber()));
+  }
+
+  @Test
+  public void validateEmployerPhonePrefixTest() {
+    // Arrange
+    Employer employer = new Employer();
+    Phone phone = new Phone("123", 1);
+    phone.setPrefix("adfhajhksdf");
+    phone.setPhoneNumber("123456789");
+    employer.setPhone(phone);
+
+    // Act
+    // Assert
+    assertThrows(
+        ValidationException.class,
+        () -> Employer.validatePhone(employer.getPhone().getFullNumber()));
+  }
 }
