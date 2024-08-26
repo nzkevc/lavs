@@ -2,6 +2,8 @@ package uoa.lavs.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
 
@@ -36,6 +38,23 @@ public class LoansTests {
     // Assert
     assertTrue(isCorrect);
     assertEquals("123", loans.getCustomerId());
+  }
+
+  @Test
+  public void loanSetConstructorTest() {
+    // Arrange
+    Loan loan1 = new Loan("123");
+    loan1.setCustomerId("123");
+    loan1.setLoanId("123");
+
+    Set<Loan> loanSet = new HashSet<>();
+    loanSet.add(loan1);
+
+    Loans loans = new Loans(loanSet);
+
+    // Act
+    // Assert
+    assertTrue(loans.getLoans().contains(loan1));
   }
 
   @Test

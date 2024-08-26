@@ -106,7 +106,6 @@ public class Employer implements IModel {
     isOwner = owner;
   }
 
-  // TODO: actually implement in a "robust" manner perhaps
   @Override
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) return false;
