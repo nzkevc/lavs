@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
@@ -55,6 +57,9 @@ public class SummaryPageController extends IPage {
   @FXML private AnchorPane infoCard;
   @FXML private Button submitBtn;
 
+  @FXML private Button contactBtn;
+  @FXML private Pane contactPane;
+
   public SummaryPageController() {
     ControllerUtils.loadFxml(this, "pages/summary-page.fxml");
   }
@@ -64,6 +69,8 @@ public class SummaryPageController extends IPage {
     setUpCards();
     setUpBindings();
     State.setAssembleCustomerFunction(this::assembleCustomer);
+
+    contactDisplayDisable();
 
     // Rerender customer when customerFromSearch changes
     State.customerFromSearch.addListener(
@@ -144,11 +151,13 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onGeneralBtnClick() {
+    contactDisplayDisable();
     switchCard(GeneralInfoCardController.class);
   }
 
   @FXML
   private void onContactBtnClick() {
+    contactDisplayEnable();
     if (cards.get(currentCard) == getPhoneCard() || cards.get(currentCard) == getEmailCard()) {
       return;
     }
@@ -173,18 +182,41 @@ public class SummaryPageController extends IPage {
     switchCard(EmailCardController.class);
   }
 
+  private void contactDisplayDisable(){
+    if (contactPane.isVisible()) {
+      contactPane.setVisible(false);
+      contactPane.setManaged(false);
+      contactBtn.setPrefWidth(379);
+      contactBtn.setPrefHeight(101);
+      contactBtn.setText("CONTACT");
+    }
+  }
+
+  private void contactDisplayEnable(){
+    if (!contactPane.isVisible()) {
+      contactPane.setVisible(true);
+      contactPane.setManaged(true);
+      contactBtn.setPrefWidth(USE_COMPUTED_SIZE);
+      contactBtn.setPrefHeight(USE_COMPUTED_SIZE);
+      contactBtn.setText("");
+    }
+  }
+
   @FXML
   private void onEmployerBtnClick() {
+    contactDisplayDisable();
     switchCard(EmployerCardController.class);
   }
 
   @FXML
   private void onNotesBtnClick() {
+    contactDisplayDisable();
     switchCard(NoteCardController.class);
   }
 
   @FXML
   private void onLoansBtnClick() {
+    contactDisplayDisable();
     switchCard(LoanParentCardController.class);
   }
 

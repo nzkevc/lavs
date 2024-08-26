@@ -1,0 +1,8 @@
+.contactfield-button {
+    -fx-background-color: #F5F5F5; 
+    -fx-border-width: 5px; 
+    -fx-shape: "M 0 0 L 0 100 L 100 100 L 100 0 Z"; 
+    -fx-font-size: 14px; 
+    -fx-padding: 10px; 
+    -fx-text-fill: #333333; 
+}
