@@ -6,7 +6,7 @@ import uoa.lavs.utils.objects.ValidationException;
 public class Address implements IModel {
   private String customerID;
   private Integer number;
-  private String type;
+  private String type = "Unknown";
   private String line1;
   private String line2;
   private String suburb;
