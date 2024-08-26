@@ -36,11 +36,16 @@ public class LoanCardController extends ICard<Loan> {
 
   @FXML
   private void initialize() {
+    Frequency[] compounding =
+        new Frequency[] {Frequency.Weekly, Frequency.Monthly, Frequency.Yearly};
+    Frequency[] payment =
+        new Frequency[] {Frequency.Weekly, Frequency.Fortnightly, Frequency.Monthly};
+
     loanStatus.setDisable(true);
     loanStatus.setItems(FXCollections.observableArrayList(LoanStatus.values()));
     rateType.setItems(FXCollections.observableArrayList(RateType.values()));
-    compoundingFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
-    paymentFrequency.setItems(FXCollections.observableArrayList(Frequency.values()));
+    compoundingFrequency.setItems(FXCollections.observableArrayList(compounding));
+    paymentFrequency.setItems(FXCollections.observableArrayList(payment));
   }
 
   @Override
@@ -57,9 +62,9 @@ public class LoanCardController extends ICard<Loan> {
     ControllerUtils.renderText(interestRate, loan.getInterestRate());
     ControllerUtils.renderCombo(rateType, loan.getRateType(), RateType.Unknown);
     ControllerUtils.renderCombo(
-        compoundingFrequency, loan.getCompoundingFrequency(), Frequency.Unknown);
+        compoundingFrequency, loan.getCompoundingFrequency(), Frequency.Weekly);
     ControllerUtils.renderText(paymentAmount, loan.getPaymentAmountCents());
-    ControllerUtils.renderCombo(paymentFrequency, loan.getPaymentFrequency(), Frequency.Unknown);
+    ControllerUtils.renderCombo(paymentFrequency, loan.getPaymentFrequency(), Frequency.Weekly);
     interestOnly.setSelected(loan.isInterestOnly());
   }
 
@@ -76,9 +81,9 @@ public class LoanCardController extends ICard<Loan> {
 
     interestRate.clear();
     ControllerUtils.renderCombo(rateType, RateType.Unknown);
-    ControllerUtils.renderCombo(compoundingFrequency, Frequency.Unknown);
+    ControllerUtils.renderCombo(compoundingFrequency, Frequency.Weekly);
     paymentAmount.clear();
-    ControllerUtils.renderCombo(paymentFrequency, Frequency.Unknown);
+    ControllerUtils.renderCombo(paymentFrequency, Frequency.Weekly);
     interestOnly.setSelected(false);
   }
 
