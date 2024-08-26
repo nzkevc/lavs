@@ -3,6 +3,7 @@ package uoa.lavs.models;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class PhoneTests {
   @Test
@@ -246,13 +247,83 @@ public class PhoneTests {
   }
 
   @Test
-  public void validateTest() {
+  public void validateValidPhoneTest() {
     // Arrange
     Phone phone = new Phone("123", 1);
+    phone.setType("Mobile");
+    phone.setPrefix("09");
+    phone.setPhoneNumber("123456789");
+    phone.setPrimary(true);
+    phone.setCanSendTxt(true);
 
     // Act
-
     // Assert
-    // assertTrue(phone.validate());
+    assertDoesNotThrow(() -> Phone.validateCustomerID(phone.getCustomerId()));
+    assertDoesNotThrow(() -> Phone.validateType(phone.getType()));
+    assertDoesNotThrow(() -> Phone.validatePrefix(phone.getPrefix()));
+    assertDoesNotThrow(() -> Phone.validatePhoneNumber(phone.getPhoneNumber()));
+  }
+
+  @Test
+  public void validateNullPhoneTest() {
+    // Arrange
+    Phone phone = new Phone();
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Phone.validateCustomerID(phone.getCustomerId()));
+    assertThrows(ValidationException.class, () -> Phone.validateType(phone.getType()));
+    assertThrows(ValidationException.class, () -> Phone.validatePrefix(phone.getPrefix()));
+    assertThrows(
+        ValidationException.class, () -> Phone.validatePhoneNumber(phone.getPhoneNumber()));
+  }
+
+  @Test
+  public void validateEmptyPhoneTest() {
+    // Arrange
+    Phone phone = new Phone("", 1);
+    phone.setType("");
+    phone.setPrefix("");
+    phone.setPhoneNumber("");
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Phone.validateCustomerID(phone.getCustomerId()));
+    assertThrows(ValidationException.class, () -> Phone.validateType(phone.getType()));
+    assertThrows(ValidationException.class, () -> Phone.validatePrefix(phone.getPrefix()));
+    assertThrows(
+        ValidationException.class, () -> Phone.validatePhoneNumber(phone.getPhoneNumber()));
+  }
+
+  @Test
+  public void validateOverLimitPhoneTest() {
+    // Arrange
+    Phone phone = new Phone("123", 1);
+    phone.setCustomerID("123".repeat(20));
+    phone.setType("Mobile".repeat(20));
+    phone.setPrefix("09".repeat(20));
+    phone.setPhoneNumber("123456789012345678901234567890123456789012345678901234567890");
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Phone.validateCustomerID(phone.getCustomerId()));
+    assertThrows(
+        ValidationException.class, () -> Phone.validatePhoneNumber(phone.getPhoneNumber()));
+    assertThrows(ValidationException.class, () -> Phone.validatePrefix(phone.getPrefix()));
+    assertThrows(ValidationException.class, () -> Phone.validateType(phone.getType()));
+  }
+
+  @Test
+  public void validatePrefixAndNumberFormat() {
+    // Arrange
+    Phone phone = new Phone("123", 1);
+    phone.setPrefix("asdfa");
+    phone.setPhoneNumber("adfhjlkasd");
+
+    // Act
+    // Assert
+    assertThrows(ValidationException.class, () -> Phone.validatePrefix(phone.getPrefix()));
+    assertThrows(
+        ValidationException.class, () -> Phone.validatePhoneNumber(phone.getPhoneNumber()));
   }
 }
