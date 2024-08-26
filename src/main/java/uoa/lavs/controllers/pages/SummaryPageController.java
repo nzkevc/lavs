@@ -5,6 +5,7 @@ import java.util.Map;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
@@ -52,6 +53,7 @@ public class SummaryPageController extends IPage {
   @FXML private Label customerID;
 
   @FXML private AnchorPane infoCard;
+  @FXML private Button submitBtn;
 
   public SummaryPageController() {
     ControllerUtils.loadFxml(this, "pages/summary-page.fxml");
@@ -128,6 +130,10 @@ public class SummaryPageController extends IPage {
         .bind(
             State.summaryMessageIsError.map(
                 isError -> isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;"));
+
+    // Create/Update button
+    submitBtn.textProperty().bind(State.customerId.map(id -> (id.isEmpty() ? "CREATE" : "UPDATE")));
+    State.customerId.setValue("");
   }
 
   @FXML
