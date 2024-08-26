@@ -13,7 +13,8 @@ public class Employers implements IModel {
   }
 
   public Employers(Set<Employer> employers) {
-    this.employers = employers;
+    this.employers = new HashSet<>();
+    employers.forEach(this::addEmployer);
   }
 
   public String getCustomerId() {
