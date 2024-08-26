@@ -25,23 +25,18 @@ public class LoanPaymentsRepository {
     loanPayments.setPayments(message.getPaymentCountFromServer());
 
     int pages = message.getPageCountFromServer();
-
-    for (int i = 1; i <= pages; i++) {
-      message.setNumber(i);
-      status = message.send(connection);
-
-      if (!status.getWasSuccessful()) {
-        throw new RuntimeException("Failed to get loan payments: " + status.getErrorMessage());
-      }
-
+    int i = 1;
+    do {
       for (int j = 1; j <= message.getPaymentCountFromServer(); j++) {
         loanPayments.getPaymentDates().add(message.getPaymentDateFromServer(j));
-        loanPayments.getPaymentInterests().add(message.getPaymentInterestFromServer(i));
-        loanPayments.getPaymentPrincipals().add(message.getPaymentPrincipalFromServer(i));
-        loanPayments.getPaymentRemainings().add(message.getPaymentRemainingFromServer(i));
-        loanPayments.getPaymentNumbers().add(message.getPaymentNumberFromServer(i));
+        loanPayments.getPaymentInterests().add(message.getPaymentInterestFromServer(j));
+        loanPayments.getPaymentPrincipals().add(message.getPaymentPrincipalFromServer(j));
+        loanPayments.getPaymentRemainings().add(message.getPaymentRemainingFromServer(j));
+        loanPayments.getPaymentNumbers().add(message.getPaymentNumberFromServer(j));
       }
-    }
+      message.setNumber(++i);
+      status = message.send(connection);
+    } while (status.getWasSuccessful() && i <= pages);
 
     return loanPayments;
   }

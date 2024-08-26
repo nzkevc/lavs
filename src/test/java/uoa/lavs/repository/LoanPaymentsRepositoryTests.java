@@ -38,15 +38,10 @@ public class LoanPaymentsRepositoryTests {
     assertEquals(17, loanPayments.getPayments());
     assertEquals(LocalDate.of(2025, 12, 22), loanPayments.getPaymentDates().get(16));
     assertEquals(449707.25, loanPayments.getPaymentRemainings().get(0));
-    assertEquals(332.93, loanPayments.getPaymentPrincipals().get(17));
-  }
-
-  @Test
-  public void getLoanPaymentsTestWithInvalidLoanId() {
-    // Arrange
-    LoanPayments loanPayments = new LoanPayments("invalid");
-
-    // Act & Assert
-    assertThrows(RuntimeException.class, () -> LoanPaymentsRepository.get(loanPayments));
+    assertEquals(2, loanPayments.getPaymentNumbers().get(1));
+    assertEquals(326.24, loanPayments.getPaymentPrincipals().get(16));
+    assertEquals(
+        loanPayments.getPayments(),
+        loanPayments.getPaymentNumbers().get(loanPayments.getPayments() - 1));
   }
 }

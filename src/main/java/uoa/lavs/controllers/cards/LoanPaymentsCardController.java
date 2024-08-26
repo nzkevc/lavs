@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.DoubleFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.utils.others.observables.When;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -43,6 +44,7 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
     List<Double> paymentPrincipals = loanPayments.getPaymentPrincipals();
     List<Double> paymentRemainings = loanPayments.getPaymentRemainings();
     List<Integer> paymentNumbers = loanPayments.getPaymentNumbers();
+    List<LocalDate> paymentDates = loanPayments.getPaymentDates();
 
     List<LoanPaymentRow> tableRows = new ArrayList<>();
     for (int i = 0; i < paymentNumbers.size(); i++) {
@@ -51,8 +53,10 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
               paymentInterests.get(i),
               paymentPrincipals.get(i),
               paymentRemainings.get(i),
-              paymentNumbers.get(i)));
+              paymentNumbers.get(i),
+              paymentDates.get(i)));
     }
+
     MFXTableColumn<LoanPaymentRow> interestColumn =
         new MFXTableColumn<>(
             "Interest", false, Comparator.comparing(LoanPaymentRow::getPaymentInterest));
@@ -65,6 +69,9 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
     MFXTableColumn<LoanPaymentRow> numberColumn =
         new MFXTableColumn<>(
             "Number", false, Comparator.comparing(LoanPaymentRow::getPaymentNumber));
+    MFXTableColumn<LoanPaymentRow> dateColumn =
+        new MFXTableColumn<>(
+            "Date", false, Comparator.comparing(LoanPaymentRow::getPaymentDate));
 
     interestColumn.setRowCellFactory(
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentInterest));
@@ -74,10 +81,12 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentRemaining));
     numberColumn.setRowCellFactory(
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentNumber));
+    dateColumn.setRowCellFactory(
+        payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentDate));
 
     loanTableView
         .getTableColumns()
-        .addAll(interestColumn, principalColumn, remainingColumn, numberColumn);
+        .addAll(interestColumn, principalColumn, remainingColumn, numberColumn, dateColumn);
     loanTableView
         .getFilters()
         .addAll(
