@@ -10,7 +10,7 @@
    <children>
       <MFXTextField fx:id="title" floatingText="Title" layoutX="118.0" layoutY="60.0" prefHeight="48.0" prefWidth="9.0" />
       <MFXTextField fx:id="name" floatingText="Name" layoutX="224.0" layoutY="60.0" prefHeight="48.0" prefWidth="364.0" />
-      <MFXDatePicker fx:id="dateOfBirth" floatingText="Date of Birth" layoutX="118.0" layoutY="132.0" prefHeight="48.0" prefWidth="263.0" />
+      <MFXDatePicker fx:id="dateOfBirth" floatingText="Date of Birth" layoutX="118.0" layoutY="132.0" prefHeight="48.0" prefWidth="263.0" promptText="Date Of Birth" />
       <MFXTextField fx:id="citizenship" floatingText="Citizenship" layoutX="118.0" layoutY="208.0" prefHeight="48.0" prefWidth="222.0" />
       <MFXTextField fx:id="visaType" floatingText="Visa Type" layoutX="364.0" layoutY="208.0" prefHeight="48.0" prefWidth="222.0" />
       <MFXTextField fx:id="occupation" floatingText="Occupation" layoutX="118.0" layoutY="290.0" prefHeight="48.0" prefWidth="339.0" />
