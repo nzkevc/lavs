@@ -37,21 +37,21 @@
          <children>
             <VBox layoutX="7.0" layoutY="10.0" prefHeight="610.0" prefWidth="387.0" spacing="20.0">
                <children>
-                  <Button fx:id="generalBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="305.0" prefWidth="387.0" styleClass="button" text="GENERAL" textAlignment="CENTER">
+                  <Button fx:id="generalBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onGeneralBtnClick" prefHeight="101.0" prefWidth="379.0" styleClass="button" text="GENERAL" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                   </Button>
-                  <Button fx:id="contactBtn" mnemonicParsing="false" onAction="#onContactBtnClick" prefHeight="305.0" prefWidth="381.0">
+                  <Button fx:id="contactBtn" mnemonicParsing="false" onAction="#onContactBtnClick">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
                      <graphic>
-                        <AnchorPane prefHeight="269.0" prefWidth="344.0">
+                        <AnchorPane fx:id="contactPane" prefHeight="269.0" prefWidth="344.0">
                            <children>
-                              <MFXButton fx:id="contactAddress" layoutX="61.0" layoutY="71.0" onAction="#onContactAddressBtnClick" prefHeight="56.0" prefWidth="275.0" text="Address" />
-                              <MFXButton fx:id="contactEmail" layoutX="60.0" layoutY="136.0" onAction="#onContactEmailBtnClick" prefHeight="56.0" prefWidth="277.0" text="Email" />
-                              <MFXButton fx:id="contactPhone" layoutX="60.0" layoutY="201.0" onAction="#onContactPhoneBtnClick" prefHeight="56.0" prefWidth="277.0" text="Phone" />
+                              <MFXButton fx:id="contactAddress" layoutX="4.0" layoutY="71.0" onAction="#onContactAddressBtnClick" prefHeight="56.0" prefWidth="332.0" styleClass="contactfield-button" stylesheets="@../../css/fragments/buttons/contactfield-button.css" text="Address" />
+                              <MFXButton fx:id="contactEmail" layoutX="3.0" layoutY="130.0" onAction="#onContactEmailBtnClick" prefHeight="56.0" prefWidth="333.0" styleClass="contactfield-button" stylesheets="@../../css/fragments/buttons/contactfield-button.css" text="Email" />
+                              <MFXButton fx:id="contactPhone" layoutX="3.0" layoutY="189.0" onAction="#onContactPhoneBtnClick" prefHeight="56.0" prefWidth="334.0" styleClass="contactfield-button" stylesheets="@../../css/fragments/buttons/contactfield-button.css" text="Phone" />
                               <Label layoutX="117.0" layoutY="20.0" prefHeight="38.0" prefWidth="164.0" text="CONTACT" />
                            </children>
                         </AnchorPane>
