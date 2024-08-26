@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import uoa.lavs.models.LoanPaymentRow;
 import uoa.lavs.models.LoanPayments;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.LocalDateFilter;
 
 public class LoanPaymentsCardController extends ICard<LoanPayments> {
 

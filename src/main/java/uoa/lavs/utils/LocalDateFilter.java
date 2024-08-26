@@ -1,4 +1,4 @@
-package uoa.lavs.controllers.cards;
+package uoa.lavs.utils;
 
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
