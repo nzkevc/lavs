@@ -36,6 +36,7 @@ import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
+import uoa.lavs.utils.CacheUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.ContactInfo;
 import uoa.lavs.utils.objects.DevEntityCreator;
@@ -312,10 +313,11 @@ public class SummaryPageController extends IPage {
         },
         (customer) -> {
           renderCustomer(customer);
-          State.clearCachedCustomer();
           if (isCreating) {
+            CacheUtils.saveToCache("", null);
             State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
           } else {
+            State.clearCachedCustomer();
             State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
           }
         },
@@ -363,7 +365,7 @@ public class SummaryPageController extends IPage {
   private void handleNetworkOutage() {
     State.setMessageError(
         "Could not connect to the server. Please try again later. Your data has been saved locally"
-            + " and will be loaded next time you open the app.");
+            + " and can be retrived by ID.");
     State.cacheCustomer();
   }
 }

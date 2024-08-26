@@ -23,7 +23,7 @@ import uoa.lavs.utils.ControllerUtils;
 public class SearchPageController extends IPage {
   private static final Logger logger = LoggerFactory.getLogger(SearchPageController.class);
   private static final int SEARCH_DELAY_SECONDS = 1;
-  private static final List<String> SearchTypes = List.of("By Name", "By ID");
+  private static final List<String> SearchTypes = List.of("By ID", "By Name");
 
   @FXML private Button addButton;
   @FXML private Button goButton;
