@@ -16,7 +16,8 @@ public class Addresses implements IModel {
   }
 
   public Addresses(Set<Address> addresses) {
-    this.addresses = addresses;
+    this.addresses = new HashSet<>();
+    addresses.forEach(this::addAddress);
   }
 
   public String getCustomerId() {
@@ -86,14 +87,8 @@ public class Addresses implements IModel {
     if (addresses.getAddresses().stream().noneMatch(Address::getPrimary)) {
       throw new ValidationException("Primary address must be set.");
     }
-    if (addresses.getAddresses().stream().filter(Address::getPrimary).count() > 1) {
-      throw new ValidationException("Only one primary address is allowed.");
-    }
     if (addresses.getAddresses().stream().noneMatch(Address::getMailing)) {
       throw new ValidationException("Mailing address must be set.");
-    }
-    if (addresses.getAddresses().stream().filter(Address::getMailing).count() > 1) {
-      throw new ValidationException("Only one mailing address is allowed.");
     }
   }
 }
