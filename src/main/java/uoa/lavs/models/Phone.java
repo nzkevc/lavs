@@ -99,27 +99,27 @@ public class Phone implements IModel {
   public static void validateType(String type) throws ValidationException {
     ValidationUtils.validateFieldExists(type);
     if (type.length() > 10) {
-      throw new ValidationException("Must be between 1 and 10 characters.");
+      throw new ValidationException("Type must be between 1 and 10 characters.");
     }
   }
 
   public static void validatePrefix(String prefix) throws ValidationException {
     ValidationUtils.validateFieldExists(prefix);
     if (prefix.length() > 10) {
-      throw new ValidationException("Must be between 1 and 10 characters.");
+      throw new ValidationException("Prefix must be between 1 and 10 characters.");
     }
     if (!prefix.matches("[0-9\\+]+")) {
-      throw new ValidationException("Must comprise only numbers and '+'.");
+      throw new ValidationException("Prefix must comprise only numbers and '+'.");
     }
   }
 
   public static void validatePhoneNumber(String phoneNumber) throws ValidationException {
     ValidationUtils.validateFieldExists(phoneNumber);
     if (phoneNumber.length() > 20) {
-      throw new ValidationException("Must be between 1 and 20 characters.");
+      throw new ValidationException("Phone must be between 1 and 20 characters.");
     }
     if (!phoneNumber.matches("[0-9\\-]+")) {
-      throw new ValidationException("Must comprise only numbers and '-'.");
+      throw new ValidationException("Phone must comprise only numbers and '-'.");
     }
   }
 }

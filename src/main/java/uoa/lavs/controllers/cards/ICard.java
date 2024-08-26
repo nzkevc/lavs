@@ -8,5 +8,7 @@ public abstract class ICard<T> extends IController {
 
   public abstract void clear(); // Clear the screen
 
+  public abstract void validate(); // Validate the fields
+
   public abstract T assemble(); // Screen --T-> Service
 }

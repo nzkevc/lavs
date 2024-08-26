@@ -7,13 +7,18 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uoa.lavs.mainframe.Frequency;
 import uoa.lavs.mainframe.LoanStatus;
 import uoa.lavs.mainframe.RateType;
 import uoa.lavs.models.Loan;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class LoanCardController extends ICard<Loan> {
+
+  private static final Logger logger = LoggerFactory.getLogger(LoanCardController.class);
 
   @FXML private Label loanIdLbl;
   private String loanId;
@@ -85,6 +90,16 @@ public class LoanCardController extends ICard<Loan> {
     paymentAmount.clear();
     ControllerUtils.renderCombo(paymentFrequency, Frequency.Weekly);
     interestOnly.setSelected(false);
+  }
+
+  @Override
+  public void validate() throws ValidationException {
+    try {
+      Loan.validateCompoundingFrequency(compoundingFrequency.getSelectedItem());
+      Loan.validatePaymentFrequency(paymentFrequency.getSelectedItem());
+    } catch (ValidationException e) {
+      throw new ValidationException("Loan " + loanId + ": " + e.getMessage(), e);
+    }
   }
 
   @Override

@@ -24,7 +24,11 @@ class AddressService implements IService {
     addresses.setCustomerId(newCustomer.getId());
     for (Address address : addresses.getAddresses()) {
       address.setCustomerId(newCustomer.getId());
-      AddressRepository.update(address);
+      if (address.getNumber() == null || address.getNumber() == 0) {
+        AddressRepository.create(address);
+      } else {
+        AddressRepository.update(address);
+      }
     }
   }
 

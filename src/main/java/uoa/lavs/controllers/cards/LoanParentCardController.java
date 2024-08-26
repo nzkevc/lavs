@@ -64,6 +64,11 @@ public class LoanParentCardController extends ICard<Loan> {
   }
 
   @Override
+  public void validate() {
+    loanCreationCardController.validate();
+  }
+
+  @Override
   public Loan assemble() {
     return loanCreationCardController.assemble();
   }

@@ -10,6 +10,7 @@ import uoa.lavs.models.Email;
 import uoa.lavs.models.Employer;
 import uoa.lavs.models.Phone;
 import uoa.lavs.utils.ControllerUtils;
+import uoa.lavs.utils.objects.ValidationException;
 
 public class EmployerCardController extends ICard<Employer> {
 
@@ -36,6 +37,24 @@ public class EmployerCardController extends ICard<Employer> {
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
+  }
+
+  @FXML
+  private void initialize() {
+    employerName.setTextLimit(60);
+    // TODO: see if you can limit phone number to specific regex
+    prefix.setTextLimit(10);
+    phoneNumber.setTextLimit(20);
+    website.setTextLimit(60);
+
+    addressLine1.setTextLimit(60);
+    addressLine2.setTextLimit(60);
+    suburb.setTextLimit(30);
+    city.setTextLimit(30);
+    postcode.setTextLimit(10);
+    // TODO: set postcode to only numbers hopefully
+    country.setTextLimit(30);
+    emailAddress.setTextLimit(60);
   }
 
   @Override
@@ -81,6 +100,24 @@ public class EmployerCardController extends ICard<Employer> {
     emailAddress.clear();
 
     website.clear();
+  }
+
+  public void validate() throws ValidationException {
+    try {
+      Address.validateLine1(addressLine1.getText());
+      Address.validateLine2(addressLine2.getText());
+      Address.validateSuburb(suburb.getText());
+      Address.validateCity(city.getText());
+      Address.validatePostcode(postcode.getText());
+      Address.validateCountry(country.getText());
+
+      Phone.validatePrefix(prefix.getText());
+      Phone.validatePhoneNumber(phoneNumber.getText());
+
+      Email.validateAddress(emailAddress.getText());
+    } catch (ValidationException e) {
+      throw new ValidationException("Employer " + employerName.getText() + ": " + e.getMessage(), e);
+    }
   }
 
   @Override

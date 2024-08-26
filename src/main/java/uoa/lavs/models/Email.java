@@ -66,7 +66,7 @@ public class Email implements IModel {
   public static void validateAddress(String address) throws ValidationException {
     ValidationUtils.validateFieldExists(address);
     if (address.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Address must be between 1 and 60 characters.");
     }
   }
 }
