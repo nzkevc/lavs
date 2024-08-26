@@ -1,6 +1,13 @@
 # Countrywide Banking Corperation Loan Management System
 
-### SOFTENG 306 Project 01 Team 18
+## SOFTENG 306 Project 01 Team 18
+
+Team members and respective GitHub usernames:
+
+- Adam Bodicoat - adxmb
+- Kevin Cheung - nzkevc
+- Hayley Smith - hayley9080
+- Nate Williamson - oculux314
 
 ## Running the Applicatoin
 
