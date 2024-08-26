@@ -69,6 +69,9 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
     MFXTableColumn<LoanPaymentRow> numberColumn =
         new MFXTableColumn<>(
             "Number", false, Comparator.comparing(LoanPaymentRow::getPaymentNumber));
+    MFXTableColumn<LoanPaymentRow> dateColumn =
+        new MFXTableColumn<>(
+            "Date", false, Comparator.comparing(LoanPaymentRow::getPaymentDate));
 
     interestColumn.setRowCellFactory(
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentInterest));
@@ -78,10 +81,12 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentRemaining));
     numberColumn.setRowCellFactory(
         payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentNumber));
+    dateColumn.setRowCellFactory(
+        payment -> new MFXTableRowCell<>(LoanPaymentRow::getPaymentDate));
 
     loanTableView
         .getTableColumns()
-        .addAll(interestColumn, principalColumn, remainingColumn, numberColumn);
+        .addAll(interestColumn, principalColumn, remainingColumn, numberColumn, dateColumn);
     loanTableView
         .getFilters()
         .addAll(
@@ -89,6 +94,7 @@ public class LoanPaymentsCardController extends ICard<LoanPayments> {
             new DoubleFilter<>("Principal", LoanPaymentRow::getPaymentPrincipal),
             new DoubleFilter<>("Remaining", LoanPaymentRow::getPaymentRemaining),
             new IntegerFilter<>("Number", LoanPaymentRow::getPaymentNumber));
+            new LocalDateFilter<>("Date", LoanPaymentRow::getPaymentDate);
     loanTableView.setItems(FXCollections.observableArrayList(tableRows));
   }
 
