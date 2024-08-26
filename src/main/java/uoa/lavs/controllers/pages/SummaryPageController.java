@@ -38,6 +38,7 @@ import uoa.lavs.models.Phones;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.services.LoanService;
 import uoa.lavs.utils.AsyncUtils;
+import uoa.lavs.utils.CacheUtils;
 import uoa.lavs.utils.ControllerUtils;
 import uoa.lavs.utils.objects.ContactInfo;
 import uoa.lavs.utils.objects.DevEntityCreator;
@@ -330,7 +331,8 @@ public class SummaryPageController extends IPage {
           if (isCreating) {
             customer.setId(null);
             CustomerService.createCustomer(customer);
-            returnedLoans = LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
+            returnedLoans =
+                LoanService.createLoansByCustomerId(customer.getId(), customer.getLoans());
           } else {
             CustomerService.updateCustomer(customer);
             Loans newLoans = new Loans();
@@ -345,8 +347,10 @@ public class SummaryPageController extends IPage {
         (customer) -> {
           renderCustomer(customer);
           if (isCreating) {
+            CacheUtils.saveToCache("", null);
             State.setMessageSuccess("Customer created successfully with id: " + customer.getId());
           } else {
+            State.clearCachedCustomer();
             State.setMessageSuccess("Customer updated successfully with id: " + customer.getId());
           }
         },
@@ -369,16 +373,32 @@ public class SummaryPageController extends IPage {
 
   @FXML
   private void onTestSaveBtnClick() {
-    State.saveState();
+    State.cacheCustomer();
   }
 
   @FXML
   private void onTestLoadBtnClick() {
-    State.loadState();
+    State.loadCachedCustomer();
   }
 
   private void handleException(Throwable e) {
+    if (e == null) {
+      return;
+    }
+
+    String networkErrorMessage = "The remote host has responded that it is currently unavailable";
+    if (e.getMessage().contains(networkErrorMessage)) {
+      handleNetworkOutage();
+      return;
+    }
+
     State.setMessageError(e.getMessage());
-    e.printStackTrace();
+  }
+
+  private void handleNetworkOutage() {
+    State.setMessageError(
+        "Could not connect to the server. Please try again later. Your data has been saved locally"
+            + " and can be retrived by ID.");
+    State.cacheCustomer();
   }
 }

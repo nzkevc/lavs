@@ -1,5 +1,6 @@
 package uoa.lavs.controllers.pages;
 
+import java.io.IOException;
 import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -16,12 +17,13 @@ import uoa.lavs.State;
 import uoa.lavs.models.Customer;
 import uoa.lavs.services.CustomerService;
 import uoa.lavs.utils.AsyncUtils;
+import uoa.lavs.utils.CacheUtils;
 import uoa.lavs.utils.ControllerUtils;
 
 public class SearchPageController extends IPage {
   private static final Logger logger = LoggerFactory.getLogger(SearchPageController.class);
   private static final int SEARCH_DELAY_SECONDS = 1;
-  private static final List<String> SearchTypes = List.of("By Name", "By ID");
+  private static final List<String> SearchTypes = List.of("By ID", "By Name");
 
   @FXML private Button addButton;
   @FXML private Button goButton;
@@ -103,7 +105,7 @@ public class SearchPageController extends IPage {
   private void searchCustomerById(String inputString) {
     logger.debug("Searching for customer with id: " + inputString);
     AsyncUtils.promise(
-        () -> CustomerService.getCustomer(inputString),
+        () -> searchById(inputString),
         (customer) -> {
           displayFoundById(customer);
           State.customerFromSearch.setValue(customer);
@@ -117,7 +119,7 @@ public class SearchPageController extends IPage {
 
   private void goToCustomerPage(Customer partialCustomer) {
     AsyncUtils.promise(
-        () -> CustomerService.getCustomer(partialCustomer.getId()),
+        () -> searchById(partialCustomer.getId()),
         (customer) -> {
           State.customerFromSearch.setValue(customer);
           logger.debug("Going to customer page");
@@ -131,13 +133,24 @@ public class SearchPageController extends IPage {
         });
   }
 
+  private Customer searchById(String id) {
+    try {
+      return CacheUtils.loadFromCache(id);
+    } catch (IOException e) {
+      return CustomerService.getCustomer(id);
+    }
+  }
+
   private void addCustomer() {
     logger.debug("Adding new customer");
     customerIdInput.setText("");
-    State.customerFromSearch.setValue(null);
-    State.customerFromSearch.setValue(new Customer());
-    State.customerFromSearch.setValue(null);
-
+    Customer customer;
+    try {
+      customer = CacheUtils.loadFromCache("");
+    } catch (IOException e) {
+      customer = null;
+    }
+    State.customerFromSearch.setValue(customer);
     App.getMainController().switchPage(SummaryPageController.class);
   }
 
