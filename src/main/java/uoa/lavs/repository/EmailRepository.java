@@ -13,7 +13,6 @@ public class EmailRepository {
     UpdateCustomerEmail message = new UpdateCustomerEmail();
 
     message.setCustomerId(email.getCustomerId());
-    message.setNumber(email.getNumber());
     message.setAddress(email.getAddress());
     message.setIsPrimary(email.getIsPrimary());
 
