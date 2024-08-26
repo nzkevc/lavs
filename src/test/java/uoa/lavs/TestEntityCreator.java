@@ -183,11 +183,11 @@ public class TestEntityCreator {
     loan.setCustomerId(customer.getId());
     loan.setLoanId(null);
     loan.setCustomerName(customer.getName());
-    loan.setPrincipleCents(2000.00);
+    loan.setPrincipleCents(20000.00);
     loan.setStartDate(startDate);
     loan.setPeriodMonths(20);
-    loan.setTerm(10);
-    loan.setInterestRate(0.10);
+    loan.setTerm(30);
+    loan.setInterestRate(10);
     loan.setRateType(RateType.Fixed);
     loan.setCompoundingFrequency(Frequency.Monthly);
     loan.setPaymentAmountCents(200.00);
