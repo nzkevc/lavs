@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uoa.lavs.App;
 import uoa.lavs.controllers.pages.IPage;
-import uoa.lavs.controllers.pages.LandingPageController;
 import uoa.lavs.controllers.pages.SearchPageController;
 import uoa.lavs.controllers.pages.SummaryPageController;
 import uoa.lavs.utils.ControllerUtils;
@@ -39,7 +38,6 @@ public class MainController extends IController {
   }
 
   private void setUpPages() {
-    pages.put(LandingPageController.class, new LandingPageController());
     pages.put(SummaryPageController.class, new SummaryPageController());
     pages.put(SearchPageController.class, new SearchPageController());
     switchPage(SearchPageController.class);
