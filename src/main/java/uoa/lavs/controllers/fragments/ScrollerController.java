@@ -51,6 +51,13 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   }
 
   @Override
+  public void validate() {
+    for (Node node : displayVbox.getChildren()) {
+      (cardControllerClass.cast(node)).validate();
+    }
+  }
+
+  @Override
   public Set<T> assemble() {
     Set<T> models = new HashSet<>();
     for (Node node : displayVbox.getChildren()) {

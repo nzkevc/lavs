@@ -127,24 +127,25 @@ public class Employer implements IModel {
   public static void validateName(String name) throws ValidationException {
     ValidationUtils.validateFieldExists(name);
     if (name.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Name must be between 1 and 60 characters.");
     }
   }
 
   public static void validatePhone(String phone) throws ValidationException {
     ValidationUtils.validateFieldExists(phone);
     if (phone.length() > 30) {
-      throw new ValidationException("Must be between 1 and 30 characters.");
+      throw new ValidationException("Phone must be between 1 and 30 characters.");
     }
     if (!phone.matches("^\\+?[0-9-]+$")) {
-      throw new ValidationException("Must only contain numbers and hyphens, optional '+' prefix.");
+      throw new ValidationException(
+          "Phone must only contain numbers and hyphens, optional '+' prefix.");
     }
   }
 
   public static void validateWebsite(String website) throws ValidationException {
     ValidationUtils.validateFieldExists(website);
     if (website.length() > 60) {
-      throw new ValidationException("Must be between 1 and 60 characters.");
+      throw new ValidationException("Website must be between 1 and 60 characters.");
     }
   }
 }
