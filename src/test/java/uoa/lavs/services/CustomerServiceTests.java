@@ -1,12 +1,20 @@
 package uoa.lavs.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uoa.lavs.TestEntityCreator;
+import uoa.lavs.models.Address;
+import uoa.lavs.models.Addresses;
 import uoa.lavs.models.Customer;
+import uoa.lavs.models.Email;
+import uoa.lavs.models.Emails;
+import uoa.lavs.models.Phone;
+import uoa.lavs.models.Phones;
 import uoa.lavs.utils.objects.ConnectionInstance;
 
 public class CustomerServiceTests {
@@ -20,6 +28,22 @@ public class CustomerServiceTests {
     // Arrange
     CustomerService customerService = new CustomerService();
     Customer customer = TestEntityCreator.createBasicCustomer();
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
+
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    Email email = TestEntityCreator.createBasicEmail(customer);
+    Phone phone = TestEntityCreator.createBasicPhone(customer);
+
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
+
+    customer.getEmails().addEmail(email);
+
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
 
     // Act
     CustomerService.createCustomer(customer);
@@ -67,6 +91,23 @@ public class CustomerServiceTests {
   public void getCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
+
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    Email email = TestEntityCreator.createBasicEmail(customer);
+    Phone phone = TestEntityCreator.createBasicPhone(customer);
+
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
+
+    customer.getEmails().addEmail(email);
+
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
+
     CustomerService.createCustomer(customer);
 
     // Act
@@ -116,6 +157,26 @@ public class CustomerServiceTests {
   public void updateCustomerTest() {
     // Arrange
     Customer customer = TestEntityCreator.createBasicCustomer();
+    String customerId = null;
+    customer.setAddresses(new Addresses(customerId));
+    customer.setEmails(new Emails(customerId));
+    customer.setPhones(new Phones(customerId));
+
+    // Can add more here as appropriate
+    Address address = TestEntityCreator.createBasicAddress(customer);
+    Email email = TestEntityCreator.createBasicEmail(customer);
+    Phone phone = TestEntityCreator.createBasicPhone(customer);
+
+    // Can be different addresses, emails, phones, but MUST set the key ones here
+    customer.getAddresses().addAddress(address);
+    customer.getAddresses().addAddress(address);
+
+    customer.getEmails().addEmail(email);
+
+    customer.getPhones().addPhone(phone);
+    customer.getPhones().addPhone(phone);
+
+    // Creating the customer
     CustomerService.createCustomer(customer);
 
     // Act

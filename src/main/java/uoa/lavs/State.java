@@ -38,10 +38,15 @@ public class State {
     summaryMessage.setValue("");
     summaryMessageIsError.setValue(false);
     customerFromSearch.setValue(null);
-    assembleCustomerFunction = () -> new Customer();
+    assembleCustomerFunction =
+        () -> {
+          logger.warn("Called assembleCustomerFunction before it was set");
+          return new Customer();
+        };
   }
 
   public static void setAssembleCustomerFunction(Supplier<Customer> assembleCustomerFunction) {
+    logger.debug("assembleCustomerFunction set");
     State.assembleCustomerFunction = assembleCustomerFunction;
   }
 

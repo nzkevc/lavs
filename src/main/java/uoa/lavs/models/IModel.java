@@ -1,9 +1,11 @@
 package uoa.lavs.models;
 
+import java.io.Serializable;
+
 /**
  * Models should have a several validateField methods for each field in the model.
  *
  * <p>These validate methods should return a boolean indicating whether the field is valid or not,
  * and shall be called in the controller level.
  */
-public interface IModel {}
+public interface IModel extends Serializable {}

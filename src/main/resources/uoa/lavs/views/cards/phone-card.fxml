@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.layout.Pane?>
+
+<!-- <?import uoa.lavs.controllers.fragments.FieldController?> -->
+
+<fx:root minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="800.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MFXTextField fx:id="phoneNumber" floatingText="Phone Number" layoutX="129.0" layoutY="6.0" prefHeight="48.0" prefWidth="271.0" />
+      <MFXTextField fx:id="prefix" floatingText="Prefix" layoutX="14.0" layoutY="6.0" prefHeight="48.0" prefWidth="104.0" />
+      <MFXCheckbox fx:id="isPrimary" layoutX="499.0" layoutY="17.0" text="Primary" />
+      <MFXCheckbox fx:id="isSendText" layoutX="644.0" layoutY="17.0" text="Send Text" />
+   </children>
+</fx:root>

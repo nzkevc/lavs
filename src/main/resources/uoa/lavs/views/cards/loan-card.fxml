@@ -1,56 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import uoa.lavs.controllers.fragments.FieldController?>
 
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1260.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="1152.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="225.0" prefWidth="1151.0">
          <children>
-            <Label fx:id="loanIdLbl" layoutX="19.0" layoutY="16.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
+            <Label fx:id="loanIdLbl" layoutX="25.0" layoutY="10.0" prefHeight="27.0" prefWidth="149.0" text="Loan ID:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox layoutX="20.0" layoutY="40.0" prefHeight="234.0" prefWidth="980.0">
-               <children>
-                  <VBox prefHeight="148.0" prefWidth="278.0">
-                     <children>
-                        <FieldController fx:id="status" key="Status" />
-                        <FieldController fx:id="principleCents" key="Principle Cents" />
-                        <FieldController fx:id="startDate" key="Start Date" />
-                        <FieldController fx:id="periodMonths" key="Period Months" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="148.0" prefWidth="278.0">
-                     <children>
-                        <FieldController fx:id="term" key="Term" />
-                        <FieldController fx:id="interestRate" key="Interest Rate" />
-                        <FieldController fx:id="rateType" key="Rate Type" />
-                        <FieldController fx:id="compoundingFrequency" key="Frequency" />
-                        <FieldController fx:id="paymentAmountCents" key="Amount" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="148.0" prefWidth="278.0">
-                     <children>
-                        <FieldController fx:id="paymentFrequency" key="Payment Frequency" />
-                        <FieldController fx:id="interestOnly" key="Interest Only" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
+            <MFXComboBox fx:id="loanStatus" floatingText="Status" layoutX="25.0" layoutY="43.0" prefHeight="49.0" prefWidth="195.0" />
+            <MFXTextField fx:id="principal" floatingText="Principal" layoutX="243.0" layoutY="43.0" prefHeight="49.0" prefWidth="276.0" />
+            <MFXDatePicker fx:id="startDate" floatingText="Start Date" layoutX="25.0" layoutY="100.0" prefHeight="49.0" prefWidth="227.0" promptText="Start Date" />
+            <MFXTextField fx:id="period" floatingText="Period" layoutX="273.0" layoutY="100.0" prefHeight="49.0" prefWidth="168.0" />
+            <MFXTextField fx:id="term" floatingText="Term" layoutX="27.0" layoutY="160.0" prefHeight="49.0" prefWidth="168.0" />
+            <MFXComboBox fx:id="rateType" floatingText="Rate Type" layoutX="859.0" layoutY="42.0" prefHeight="49.0" prefWidth="195.0" />
+            <MFXTextField fx:id="interestRate" floatingText="Interest Rate" layoutX="554.0" layoutY="42.0" prefHeight="49.0" prefWidth="276.0" />
+            <MFXComboBox fx:id="paymentFrequency" floatingText="Payment Frequency" layoutX="782.0" layoutY="99.0" prefHeight="49.0" prefWidth="195.0" />
+            <MFXComboBox fx:id="compoundingFrequency" floatingText="Compounding Frequency" layoutX="554.0" layoutY="99.0" prefHeight="49.0" prefWidth="195.0" />
+            <MFXTextField fx:id="paymentAmount" allowEdit="false" floatingText="Payment Amount" layoutX="554.0" layoutY="159.0" prefHeight="49.0" prefWidth="276.0" />
+            <MFXCheckbox fx:id="interestOnly" layoutX="1000.0" layoutY="110.0" text="Interest Only" />
          </children>
       </AnchorPane>
-      <Accordion prefWidth="980.0">
+      <!-- <Accordion prefWidth="980.0">
          <panes>
             <TitledPane animated="false" prefWidth="980.0" text="Loan Summary">
                <content>
@@ -95,9 +76,9 @@
                                  <FieldController fx:id="paymentInterests" key="Payment Interests" />
                               </VBox>
                               <VBox prefWidth="277.0">
-                                 <!-- <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />
+                                 <FieldController fx:id="paymentPrincipals" key="PaymentPrincipals" />
                                  <FieldController fx:id="paymentRemainings" key="PaymentRemainings" />
-                                 <FieldController fx:id="paymentNumbers" key="PaymentNumbers" /> -->
+                                 <FieldController fx:id="paymentNumbers" key="PaymentNumbers" />
                               </VBox>
                               <VBox prefWidth="277.0" />
                            </children>
@@ -107,6 +88,6 @@
                </content>
             </TitledPane>
          </panes>
-      </Accordion>
+      </Accordion> -->
    </children>
 </fx:root>

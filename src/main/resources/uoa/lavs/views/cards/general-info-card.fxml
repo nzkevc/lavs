@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.RadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import uoa.lavs.controllers.fragments.FieldController?>
 
-<fx:root type="javafx.scene.layout.Pane" prefHeight="607.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<!-- <?import uoa.lavs.controllers.fragments.FieldController?> -->
+
+<fx:root prefHeight="607.0" prefWidth="1291.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="321.0" prefWidth="989.0">
-         <children>
-            <VBox prefHeight="321.0" prefWidth="289.0" styleClass="vbox-card">
-               <FieldController fx:id="title" key="Title" />
-               <FieldController fx:id="name" key="Name" />
-               <FieldController fx:id="dateOfBirth" key="Date of Birth" />
-               <FieldController fx:id="citizenship" key="Citizenship" />
-               <FieldController fx:id="visaType" key="Visa Type" />
-               <FieldController fx:id="occupation" key="Occupation" />
-               <FieldController fx:id="status" key="Status" />
-            </VBox>
-         </children>
-      </HBox>
+      <MFXTextField fx:id="title" floatingText="Title" layoutX="118.0" layoutY="60.0" prefHeight="48.0" prefWidth="9.0" />
+      <MFXTextField fx:id="name" floatingText="Name" layoutX="224.0" layoutY="60.0" prefHeight="48.0" prefWidth="364.0" />
+      <MFXDatePicker fx:id="dateOfBirth" floatingText="Date of Birth" layoutX="118.0" layoutY="132.0" prefHeight="48.0" prefWidth="263.0" />
+      <MFXTextField fx:id="citizenship" floatingText="Citizenship" layoutX="118.0" layoutY="208.0" prefHeight="48.0" prefWidth="222.0" />
+      <MFXTextField fx:id="visaType" floatingText="Visa Type" layoutX="364.0" layoutY="208.0" prefHeight="48.0" prefWidth="222.0" />
+      <MFXTextField fx:id="occupation" floatingText="Occupation" layoutX="118.0" layoutY="290.0" prefHeight="48.0" prefWidth="339.0" />
+      <MFXTextField fx:id="status" floatingText="Status" layoutX="118.0" layoutY="370.0" prefHeight="48.0" prefWidth="140.0" />
    </children>
 </fx:root>

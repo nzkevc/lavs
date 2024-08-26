@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.layout.Pane?>
+
+<fx:root type="javafx.scene.layout.Pane" prefHeight="305.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MFXTextField fx:id="principleField" editable="false" floatingText="Principal" prefHeight="48.0" prefWidth="234.0" />
+      <MFXTextField fx:id="rateValueField" editable="false" floatingText="Rate Value" layoutX="257.0" prefHeight="48.0" prefWidth="251.0" />
+      <MFXTextField fx:id="payoffDateField" editable="false" floatingText="Pay Off Date" layoutY="59.0" prefHeight="48.0" prefWidth="202.0" />
+      <MFXTextField fx:id="termField" editable="false" floatingText="Term" layoutX="223.0" layoutY="59.0" prefHeight="48.0" prefWidth="242.0" />
+      <MFXTextField fx:id="totalInterestField" editable="false" floatingText="Total Interest" layoutY="242.0" prefHeight="48.0" prefWidth="228.0" />
+      <MFXTextField fx:id="totalLoanCostField" editable="false" floatingText="Total Loan Cost" layoutY="178.0" prefHeight="48.0" prefWidth="228.0" />
+      <MFXTextField fx:id="paymentAmountField" editable="false" floatingText="Payment Amount" layoutY="117.0" prefHeight="48.0" prefWidth="228.0" />
+      <MFXTextField fx:id="paymentFrequencyField" editable="false" floatingText="Payment Frequency" layoutX="253.0" layoutY="117.0" prefHeight="48.0" prefWidth="209.0" />
+   </children>
+</fx:root>

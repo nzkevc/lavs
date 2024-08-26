@@ -15,6 +15,7 @@ open module uoa.lavs {
   requires org.slf4j;
   requires com.google.common;
   requires okhttp3;
+  requires MaterialFX;
 
   // Export App.java entrypoint
   exports uoa.lavs;

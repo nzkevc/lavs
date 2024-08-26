@@ -14,6 +14,10 @@ public class Emails implements IModel {
     this.emails = new HashSet<>();
   }
 
+  public Emails(Set<Email> emails) {
+    this.emails = emails;
+  }
+
   public String getCustomerId() {
     return customerId;
   }

@@ -15,6 +15,10 @@ public class Phones implements IModel {
     this.phoneNumbers = new HashSet<>();
   }
 
+  public Phones(Set<Phone> phoneNumbers) {
+    this.phoneNumbers = phoneNumbers;
+  }
+
   public String getCustomerId() {
     return customerId;
   }

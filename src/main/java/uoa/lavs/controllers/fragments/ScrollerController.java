@@ -30,8 +30,9 @@ public class ScrollerController<T> extends ICard<Set<T>> {
     this.cardControllerClass = cardControllerClass;
   }
 
-  public void setCardController(Class<? extends ICard<T>> cardControllerClass) {
-    this.cardControllerClass = cardControllerClass;
+  public ScrollerController(Class<? extends ICard<T>> cardControllerClass, String modelName) {
+    this(cardControllerClass);
+    addBtn.setText("Add " + modelName);
   }
 
   @Override
@@ -42,7 +43,6 @@ public class ScrollerController<T> extends ICard<Set<T>> {
       cardController.render(model);
       displayVbox.getChildren().add(cardController);
     }
-    displayVbox.getChildren().add(addBtn);
   }
 
   @Override
@@ -53,8 +53,7 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   @Override
   public Set<T> assemble() {
     Set<T> models = new HashSet<>();
-    for (Node node :
-        displayVbox.getChildren().filtered(child -> cardControllerClass.isInstance(child))) {
+    for (Node node : displayVbox.getChildren()) {
       T model = (cardControllerClass.cast(node)).assemble();
       models.add(model);
     }
@@ -65,8 +64,6 @@ public class ScrollerController<T> extends ICard<Set<T>> {
   private void onAddClick() {
     ICard<T> cardController = ReflectionUtils.instantiate(cardControllerClass);
     cardController.clear();
-    displayVbox.getChildren().remove(addBtn);
     displayVbox.getChildren().add(cardController);
-    displayVbox.getChildren().add(addBtn);
   }
 }

@@ -1,9 +1,10 @@
 package uoa.lavs.controllers.cards;
 
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uoa.lavs.controllers.fragments.FieldController;
 import uoa.lavs.models.Address;
 import uoa.lavs.models.Email;
 import uoa.lavs.models.Employer;
@@ -14,17 +15,24 @@ public class EmployerCardController extends ICard<Employer> {
 
   private static final Logger logger = LoggerFactory.getLogger(EmployerCardController.class);
 
-  @FXML private FieldController employerName;
-  @FXML private FieldController addressLine1;
-  @FXML private FieldController addressLine2;
-  @FXML private FieldController suburb;
-  @FXML private FieldController city;
-  @FXML private FieldController postcode;
-  @FXML private FieldController country;
+  private Integer number;
 
-  @FXML private FieldController phone;
-  @FXML private FieldController emailAddress;
-  @FXML private FieldController website;
+  @FXML private MFXTextField employerName;
+  @FXML private MFXCheckbox isOwner;
+
+  @FXML private MFXTextField addressLine1;
+  @FXML private MFXTextField addressLine2;
+  @FXML private MFXTextField suburb;
+  @FXML private MFXTextField city;
+  @FXML private MFXTextField postcode;
+  @FXML private MFXTextField country;
+
+  @FXML private MFXTextField prefix;
+  @FXML private MFXTextField phoneNumber;
+
+  @FXML private MFXTextField emailAddress;
+
+  @FXML private MFXTextField website;
 
   public EmployerCardController() {
     ControllerUtils.loadFxml(this, "cards/employer-card.fxml");
@@ -32,62 +40,76 @@ public class EmployerCardController extends ICard<Employer> {
 
   @Override
   public void render(Employer employer) {
-    employerName.setValue(employer.getName());
+    ControllerUtils.renderText(employerName, employer.getName());
+    isOwner.setSelected(employer.isOwner());
+    number = employer.getNumber();
 
-    Address employerAddress = employer.getAddress();
-    addressLine1.setValue(employerAddress.getLine1());
-    addressLine2.setValue(employerAddress.getLine2());
-    suburb.setValue(employerAddress.getSuburb());
-    city.setValue(employerAddress.getCity());
-    postcode.setValue(employerAddress.getPostCode());
-    country.setValue(employerAddress.getCountry());
+    Address address = employer.getAddress();
+    ControllerUtils.renderText(addressLine1, address.getLine1());
+    ControllerUtils.renderText(addressLine2, address.getLine2());
+    ControllerUtils.renderText(suburb, address.getSuburb());
+    ControllerUtils.renderText(city, address.getCity());
+    ControllerUtils.renderText(postcode, address.getPostCode());
+    ControllerUtils.renderText(country, address.getCountry());
 
-    Phone employerPhone = employer.getPhone();
-    phone.setValue(employerPhone.getFullNumber()); // Check
+    Phone phone = employer.getPhone();
+    ControllerUtils.renderText(prefix, phone.getPrefix());
+    ControllerUtils.renderText(phoneNumber, phone.getPhoneNumber());
 
-    Email employerEmail = employer.getEmail();
-    emailAddress.setValue(employerEmail.getAddress());
+    Email email = employer.getEmail();
+    ControllerUtils.renderText(emailAddress, email.getAddress());
 
-    website.setValue(employer.getWebsite());
+    ControllerUtils.renderText(website, employer.getWebsite());
   }
 
   @Override
   public void clear() {
-    employerName.clearValue();
-    addressLine1.clearValue();
-    addressLine2.clearValue();
-    suburb.clearValue();
-    city.clearValue();
-    postcode.clearValue();
-    country.clearValue();
-    phone.clearValue();
-    emailAddress.clearValue();
-    website.clearValue();
+    number = 0;
+    employerName.clear();
+    isOwner.setSelected(false);
+
+    addressLine1.clear();
+    addressLine2.clear();
+    suburb.clear();
+    city.clear();
+    postcode.clear();
+    country.clear();
+
+    prefix.clear();
+    phoneNumber.clear();
+
+    emailAddress.clear();
+
+    website.clear();
   }
 
   @Override
   public Employer assemble() {
     Employer employer = new Employer();
-    employer.setName(employerName.getValue());
+    employer.setNumber(number);
+    employer.setName(employerName.getText());
+    employer.setOwner(isOwner.isSelected());
 
-    Address employerAddress = new Address();
-    employerAddress.setLine1(addressLine1.getValue());
-    employerAddress.setLine2(addressLine2.getValue());
-    employerAddress.setSuburb(suburb.getValue());
-    employerAddress.setCity(city.getValue());
-    employerAddress.setPostCode(postcode.getValue());
-    employerAddress.setCountry(country.getValue());
-    employer.setAddress(employerAddress);
+    Address address = new Address();
+    address.setLine1(addressLine1.getText());
+    address.setLine2(addressLine2.getText());
+    address.setSuburb(suburb.getText());
+    address.setCity(city.getText());
+    address.setPostCode(postcode.getText());
+    address.setCountry(country.getText());
+    employer.setAddress(address);
 
-    Phone employerPhone = new Phone();
-    employerPhone.setPhoneNumber(phone.getValue());
-    employer.setPhone(employerPhone);
+    Phone phone = new Phone();
+    phone.setPrefix(prefix.getText());
+    phone.setPhoneNumber(phoneNumber.getText());
+    employer.setPhone(phone);
 
-    Email employerEmail = new Email();
-    employerEmail.setAddress(emailAddress.getValue());
-    employer.setEmail(employerEmail);
+    Email email = new Email();
+    email.setAddress(emailAddress.getText());
+    employer.setEmail(email);
 
-    employer.setWebsite(website.getValue());
+    employer.setWebsite(website.getText());
+
     return employer;
   }
 }
