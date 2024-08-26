@@ -62,6 +62,6 @@ public class ControllerUtils {
   }
 
   public static void renderDate(MFXDatePicker field, LocalDate date) {
-    field.setValue(ValidationUtils.isNullOrBlank(date) ? LocalDate.EPOCH : date);
+    field.setValue(ValidationUtils.isNullOrBlank(date) ? null : date);
   }
 }
